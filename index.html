@@ -392,14 +392,14 @@
         <div class="content-main">
             <!-- Navigation Bar -->
             <nav class="nav-bar">
-                <div class="nav-brand" onclick="app.navigate('home')" style="cursor: pointer;">🧘 Mindfulness Therapy</div>
+                <div class="nav-brand" onclick="window.location.href='index.html'" style="cursor: pointer;">🧘 Mindfulness Therapy</div>
                 <button class="mobile-menu-btn" onclick="app.toggleMobileMenu()">
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="nav-links" id="navLinks">
                     <button class="nav-btn" onclick="window.location.href='index-zh.html'">中文</button>
                     <button class="nav-btn" onclick="window.location.href='index-ru.html'">Русский</button>
-                    <button class="nav-btn active" data-tab="home">Home</button>
+                    <button class="nav-btn active" onclick="window.location.href='index.html'">Home</button>
                     <button class="nav-btn" onclick="window.location.href='cycle.html'">Cycle</button>
                     <button class="nav-btn" onclick="window.location.href='assessment.html'">AI Chat</button>
                     
@@ -431,7 +431,7 @@
                         <h1 id="greeting">Good morning,</h1>
                         <p>Ready to understand and balance your emotional state?</p>
                         <div class="hero-actions">
-                            <button class="btn-primary" onclick="app.navigate('assessment')">
+                            <button class="btn-primary" onclick="window.location.href='assessment.html'">
                                 <i class="fas fa-robot"></i> Start AI Assessment
                             </button>
                             <button class="btn-secondary" onclick="window.location.href='emotion-balance.html'">
@@ -499,21 +499,21 @@
                     <h2 class="section-title">🧠 Deep Work</h2>
                     <p class="section-subtitle">Comprehensive tools for deeper understanding</p>
                     <div class="feature-grid">
-                        <div class="feature-card" onclick="app.navigate('assessment')">
+                        <div class="feature-card" onclick="window.location.href='assessment.html'">
                             <div class="feature-icon ai-icon">
                                 <i class="fas fa-brain"></i>
                             </div>
                             <h3>AI Assessment</h3>
                             <p>94% accurate emotion detection with multimodal analysis</p>
                         </div>
-                        <div class="feature-card" onclick="app.navigate('cycle')">
+                        <div class="feature-card" onclick="window.location.href='cycle.html'">
                             <div class="feature-icon cycle-icon">
                                 <i class="fas fa-sync-alt"></i>
                             </div>
                             <h3>Power-Possession Cycle</h3>
                             <p>Interactive visualization of your emotional journey</p>
                         </div>
-                        <div class="feature-card" onclick="app.navigate('salad')">
+                        <div class="feature-card" onclick="window.location.href='salad-check.html'">
                             <div class="feature-icon salad-icon">
                                 <i class="fas fa-leaf"></i>
                             </div>
@@ -527,7 +527,7 @@
                 <div class="tools-section emergency-section">
                     <h2 class="section-title">🆘 Need Relief Now?</h2>
                     <div class="emergency-grid">
-                        <div class="emergency-card" onclick="app.navigate('interventions')">
+                        <div class="emergency-card" onclick="window.location.href='interventions.html'">
                             <i class="fas fa-toolbox"></i>
                             <span>Micro-Interventions</span>
                             <small>60-second techniques</small>
@@ -1294,7 +1294,7 @@
         <div class="footer-content">
             <p>&copy; 2026 Mindfulness Therapy. All rights reserved.</p>
             <p class="footer-links">
-                <a href="#" onclick="app.navigate('home')">Home</a> |
+                <a href="index.html">Home</a> |
                 <a href="emotion-explorer.html">🎨 Emotion Explorer</a> |
                 <a href="emotion-balance.html">⚡ Emotion Balance</a> |
                 <a href="salad-compass.html">🥗 Salad Compass</a> |
