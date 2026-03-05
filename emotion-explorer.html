@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Ribbon Explorer - Mindfulness Therapy</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Updated color scheme */
+            --power-color: #FF0000;      /* Red */
+            --possession-color: #FF8C00; /* Orange */
+            --loss-color: #800080;       /* Purple */
+            --emptiness-color: #000080;  /* Deep Blue */
+            --crave-color: #FF1493;      /* Pink */
+            --empathy-color: #008000;    /* Green */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #fafaf9 0%, #f5f2ed 100%);
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .explorer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .explorer-header {
+            text-align: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .explorer-header h1 {
+            font-size: 1.25rem;
+            margin-bottom: 0.15rem;
+            background: linear-gradient(135deg, #8B0000, #FF6B35, #191970, #2E8B57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .explorer-header p {
+            color: #64748b;
+            font-size: 0.8rem;
+        }
+
+        .ribbon-display-section {
+            background: white;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+        }
+
+        .ribbon-container-wrapper {
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #emotionRibbonDisplay {
+            width: 100%;
+            height: 100px;
+            background-color: #f0f0f0;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+        }
+
+        .selected-words-display {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 0.75rem;
+            min-height: 60px;
+        }
+
+        .selected-words-display h4 {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+
+        #selectedWordsList {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .selected-word-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .selected-word-tag:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        .selected-word-tag .remove {
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        .clear-all-btn {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: #f1f5f9;
+            border: none;
+            border-radius: 0.5rem;
+            color: #64748b;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .clear-all-btn:hover {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 1024px) {
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+        }
+
+        .category-card.active {
+            border-color: currentColor;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid currentColor;
+        }
+
+        .category-emoji {
+            font-size: 2rem;
+        }
+
+        .category-title {
+            flex: 1;
+        }
+
+        .category-title h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .category-title p {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: 0.25rem;
+        }
+
+        .category-count {
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            background: currentColor;
+            color: white;
+        }
+
+        .words-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        .words-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .words-grid::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 3px;
+        }
+
+        .words-grid::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+
+        .word-chip {
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+            background: #f8fafc;
+            color: #1e293b;
+        }
+
+        .word-chip:hover {
+            transform: scale(1.05);
+            border-color: currentColor;
+        }
+
+        .word-chip.selected {
+            background: currentColor;
+            color: white;
+            border-color: currentColor;
+        }
+
+        /* Category-specific colors */
+        .category-power { color: var(--power-color); }
+        .category-power .word-chip:hover,
+        .category-power .word-chip.selected {
+            background: var(--power-color);
+            border-color: var(--power-color);
+        }
+
+        .category-possession { color: var(--possession-color); }
+        .category-possession .word-chip:hover,
+        .category-possession .word-chip.selected {
+            background: var(--possession-color);
+            border-color: var(--possession-color);
+        }
+
+        .category-loss { color: var(--loss-color); }
+        .category-loss .word-chip:hover,
+        .category-loss .word-chip.selected {
+            background: var(--loss-color);
+            border-color: var(--loss-color);
+        }
+
+        .category-emptiness { color: var(--emptiness-color); }
+        .category-emptiness .word-chip:hover,
+        .category-emptiness .word-chip.selected {
+            background: var(--emptiness-color);
+            border-color: var(--emptiness-color);
+        }
+
+        .category-crave { color: var(--crave-color); }
+        .category-crave .word-chip:hover,
+        .category-crave .word-chip.selected {
+            background: var(--crave-color);
+            border-color: var(--crave-color);
+        }
+
+        .category-empathy { color: var(--empathy-color); }
+        .category-empathy .word-chip:hover,
+        .category-empathy .word-chip.selected {
+            background: var(--empathy-color);
+            border-color: var(--empathy-color);
+        }
+
+        .back-nav {
+            margin-bottom: 1.5rem;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            background: #f8fafc;
+            color: #1e293b;
+            border-color: #cbd5e1;
+        }
+
+        .empty-ribbon {
+            text-align: center;
+            color: #94a3b8;
+            padding: 2rem;
+        }
+
+        .empty-ribbon i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-ribbon p {
+            font-size: 1rem;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            overflow-x: visible;
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: #64748b;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 9999px;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #1e293b;
+        }
+
+        .nav-btn.active {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        /* Tools Dropdown */
+        .tools-dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tools-dropdown-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: #64748b;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 9999px;
+            font-family: inherit;
+        }
+
+        .tools-dropdown-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #1e293b;
+        }
+
+        .tools-dropdown-btn.active {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .tools-dropdown-menu {
+            display: none;
+            position: fixed;
+            top: auto;
+            left: auto;
+            margin-top: 0.5rem;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            min-width: 220px;
+            padding: 0.5rem;
+            z-index: 9999;
+        }
+
+        .tools-dropdown-menu.open {
+            display: block;
+        }
+
+        .tools-dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #1e293b;
+            text-decoration: none;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .tools-dropdown-menu a:hover {
+            background: rgba(20, 184, 166, 0.1);
+            color: #14b8a6;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            color: #64748b;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+                gap: 0.5rem;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .nav-btn {
+                width: 100%;
+                text-align: left;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        /* Categories Tabs Styles */
+        .categories-tabs-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .tabs-container {
+            display: flex;
+            gap: 0.4rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .category-tab {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.6rem 1rem;
+            border: 2px solid transparent;
+            border-radius: 0.75rem;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            min-width: 70px;
+        }
+
+        .category-tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        }
+
+        .category-tab.active {
+            border-color: #1e293b;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .tab-emoji {
+            font-size: 1.25rem;
+        }
+
+        .tab-name {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #1e293b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tab-color-indicator {
+            width: 20px;
+            height: 3px;
+            border-radius: 2px;
+            margin-top: 0.2rem;
+        }
+
+        .words-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        .words-display-area {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            max-height: calc(100vh - 350px);
+            overflow-y: auto;
+        }
+
+        .selected-words-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-height: calc(100vh - 350px);
+        }
+
+        .selected-words-display {
+            background: white;
+            border-radius: 1rem;
+            padding: 1rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            flex: 1;
+            overflow-y: auto;
+            min-height: 0;
+        }
+
+        .selected-words-display h4 {
+            font-size: 0.875rem;
+            color: #1e293b;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        #selectedWordsList {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .selected-word-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.3rem 0.6rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-around;
+            background: white;
+            border-radius: 1rem;
+            padding: 0.75rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.1rem;
+        }
+
+        .clear-all-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+        }
+
+        .clear-all-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+        }
+
+        .words-category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .words-category-emoji {
+            font-size: 2rem;
+        }
+
+        .words-category-info h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .words-category-info p {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin: 0.25rem 0 0 0;
+        }
+
+        .words-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+
+        .word-bubble {
+            padding: 0.75rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+            background: #f8fafc;
+            color: #1e293b;
+        }
+
+        .word-bubble:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .word-bubble.selected {
+            background: #1e293b;
+            color: white;
+            border-color: #1e293b;
+            transform: scale(1.08);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .words-layout {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            
+            .selected-words-panel {
+                order: -1;
+                max-height: none;
+            }
+            
+            .words-display-area {
+                max-height: none;
+                padding: 1rem;
+            }
+            
+            .selected-words-display {
+                max-height: 150px;
+            }
+            
+            .tabs-container {
+                gap: 0.35rem;
+            }
+            
+            .category-tab {
+                padding: 0.5rem 0.75rem;
+                min-width: 55px;
+            }
+            
+            .tab-emoji {
+                font-size: 1.1rem;
+            }
+            
+            .tab-name {
+                font-size: 0.6rem;
+            }
+            
+            .word-bubble {
+                padding: 0.4rem 0.75rem;
+                font-size: 0.8rem;
+            }
+            
+            .stats-bar {
+                padding: 0.5rem;
+            }
+            
+            .stat-value {
+                font-size: 1rem;
+            }
+            
+            .stat-label {
+                font-size: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Full Navigation Bar -->
+    <nav class="nav-bar">
+        <div class="nav-brand" onclick="window.location.href='index.html'">🧘 Mindfulness Therapy</div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-links" id="navLinks">
+            <button class="nav-btn" onclick="window.location.href='index-zh.html'">中文</button>
+            <button class="nav-btn" onclick="window.location.href='index-ru.html'">Русский</button>
+            <button class="nav-btn" onclick="window.location.href='index.html'">Home</button>
+            <button class="nav-btn" onclick="window.location.href='index.html?tab=cycle'">Cycle</button>
+            <button class="nav-btn" onclick="window.location.href='index.html?tab=assessment'">AI Chat</button>
+
+            <!-- Tools Dropdown -->
+            <div class="tools-dropdown-container" id="toolsContainer">
+                <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
+                    Tools <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
+                </button>
+                <div class="tools-dropdown-menu" id="toolsMenu">
+                    <a href="emotion-explorer.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🎨 Emotion Explorer</a>
+                    <a href="emotion-balance.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">⚡ Emotion Balance</a>
+                    <a href="salad-compass.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥗 Salad Compass</a>
+                    <a href="index.html?tab=salad" onclick="closeToolsDropdown();" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥬 Full Salad Check</a>
+                    <a href="index.html?tab=interventions" onclick="closeToolsDropdown();" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🧰 Interventions</a>
+                </div>
+            </div>
+
+            <button class="nav-btn" onclick="window.location.href='index.html?tab=journal'">Journal</button>
+            <button class="nav-btn" onclick="window.location.href='index.html?tab=progress'">Progress</button>
+        </div>
+    </nav>
+
+    <div class="explorer-container" style="padding-top: 80px;">
+        <!-- Back Navigation -->
+        <nav class="back-nav">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Therapy App
+            </a>
+        </nav>
+
+        <!-- Header -->
+        <header class="explorer-header">
+            <h1>🎨 Emotion Ribbon Explorer</h1>
+            <p>Click on words to build your emotion ribbon. Discover how different emotions combine.</p>
+        </header>
+
+        <!-- Ribbon Display -->
+        <section class="ribbon-display-section">
+            <div class="ribbon-container-wrapper">
+                <div id="emotionRibbonDisplay">
+                    <div id="rainbowSvgContainer" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;">
+                        <svg id="emotionRainbowSvg" viewBox="0 0 1200 120" style="width: 100%; height: 100%;">
+                            <!-- Three overlapping bands for complementary pairs - equal thickness throughout -->
+                            <!-- Band 1: Power (Red) ↔ Empathy (Cyan) - Top -->
+                            <path id="rainbow-pair-1" d="M 0,120 A 600,35 0 0 1 1200,120 L 1200,95 A 600,35 0 0 0 0,95 Z" fill="transparent" stroke="none"></path>
+                            <!-- Band 2: Possession (Magenta) ↔ Emptiness (Green) - Middle -->
+                            <path id="rainbow-pair-2" d="M 0,100 A 600,25 0 0 1 1200,100 L 1200,75 A 600,25 0 0 0 0,75 Z" fill="transparent" stroke="none"></path>
+                            <!-- Band 3: Crave (Yellow) ↔ Loss (Blue) - Bottom -->
+                            <path id="rainbow-pair-3" d="M 0,80 A 600,15 0 0 1 1200,80 L 1200,55 A 600,15 0 0 0 0,55 Z" fill="transparent" stroke="none"></path>
+                        </svg>
+                    </div>
+                </div>
+
+        <!-- Categories Tabs -->
+        <section class="categories-tabs-section">
+            <div class="tabs-container">
+                <button class="category-tab active" data-category="POWER" onclick="switchTab('POWER')">
+                    <span class="tab-emoji">💪</span>
+                    <span class="tab-name">Power</span>
+                    <span class="tab-color-indicator" style="background: #FF0000;"></span>
+                </button>
+                <button class="category-tab" data-category="POSSESSION" onclick="switchTab('POSSESSION')">
+                    <span class="tab-emoji">🏠</span>
+                    <span class="tab-name">Possession</span>
+                    <span class="tab-color-indicator" style="background: #00FF00;"></span>
+                </button>
+                <button class="category-tab" data-category="LOSS" onclick="switchTab('LOSS')">
+                    <span class="tab-emoji">💔</span>
+                    <span class="tab-name">Loss</span>
+                    <span class="tab-color-indicator" style="background: #FF00FF;"></span>
+                </button>
+                <button class="category-tab" data-category="EMPTINESS" onclick="switchTab('EMPTINESS')">
+                    <span class="tab-emoji">⭕</span>
+                    <span class="tab-name">Emptiness</span>
+                    <span class="tab-color-indicator" style="background: #FFFF00;"></span>
+                </button>
+                <button class="category-tab" data-category="CRAVE" onclick="switchTab('CRAVE')">
+                    <span class="tab-emoji">🔥</span>
+                    <span class="tab-name">Crave</span>
+                    <span class="tab-color-indicator" style="background: #0000FF;"></span>
+                </button>
+                <button class="category-tab" data-category="EMPATHY" onclick="switchTab('EMPATHY')">
+                    <span class="tab-emoji">🤝</span>
+                    <span class="tab-name">Empathy</span>
+                    <span class="tab-color-indicator" style="background: #00FFFF;"></span>
+                </button>
+            </div>
+            
+            <!-- Two column layout: Words selection + Selected words -->
+            <div class="words-layout">
+                <div class="words-display-area" id="wordsDisplayArea">
+                    <!-- Words will be populated by JavaScript -->
+                </div>
+                
+                <div class="selected-words-panel">
+                    <div class="selected-words-display">
+                        <h4><i class="fas fa-check-circle"></i> Selected Words</h4>
+                        <div id="selectedWordsList">
+                            <span style="color: #94a3b8; font-size: 0.875rem;">No words selected yet...</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-bar">
+                        <div class="stat-item">
+                            <div class="stat-value" id="totalSelected">0</div>
+                            <div class="stat-label">Words</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="categoriesActive">0</div>
+                            <div class="stat-label">Categories</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="dominantCategory">-</div>
+                            <div class="stat-label">Dominant</div>
+                        </div>
+                    </div>
+                    
+                    <button class="clear-all-btn" onclick="clearAllWords()">
+                        <i class="fas fa-trash-alt"></i> Clear All
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Inline EmotionRibbon lexicon to ensure it loads
+        const EmotionRibbon = {
+            lexicon: {
+                POWER: ['powerful','mighty','strength','dominant','authority','control','master','leader','confident','capable','triumph','victory','success','courage','brave','energy','vigor','accomplish','achievement','agency','ambition','excellence','hero','champion','conquer','prevail','supreme','almighty','potent','robust','excel','competent','expert','accomplished','skilled','superior','bold','determined','resolute','backbone','command','dominance','empower','force','influence','mastery','strong','win','winning','excited','happy','optimistic','light','forward','possible'],
+                POSSESSION: ['possess','own','acquire','obtain','gain','seize','claim','desire','want','covet','greed','hoard','wealth','treasure','have','hold','keep','mine','property','belongings','assets','collection','accumulation','retention','custody','capture','grasp','attain','accumulate','amass','cling','fortune','satisfied','full','occupied','complete','held','enough'],
+                LOSS: ['loss','lose','grief','mourn','sorrow','anguish','pain','separation','abandonment','deprived','bereft','missing','forfeit','surrender','death','divorce','disaster','devastation','distress','lament','weep','cry','heartbreak','mourning','widow','lost','ache','parting','departure','bereavement','denied','hurt','forsaken','orphan','sad','sadness','unhappy','depressed','melancholy','gloomy','down','blue','tearful','crying','upset','disappointed','frustrated','powerless','deflated','stuck','helpless'],
+                EMPTINESS: ['empty','void','hollow','numb','dead','lifeless','meaningless','pointless','isolated','lonely','despair','disconnected','alienated','vacant','blank','drained','exhausted','depleted','barren','desolate','abandoned','forsaken','worthless','absence','apathetic','futile','depression','detached','useless','lack','deficiency','unrestful','panicked','mindless','restless','numb-scattered'],
+                CRAVE: ['crave','long','yearn','desire','hunger','thirst','urge','obsession','passion','lust','desperate','urgent','burning','addicted','impatient','aching','pining','starving','ravenous','insatiable','voracious','appetency','covetous','intense','eager','frantic','fierce','ardent','anxious','compulsion','dependent','pine','fixation','hooked','withdrawal','itch','eating','hungry','need-to-consume','fill','consume'],
+                EMPATHY: ['empathy','compassion','sympathy','understand','care','kind','gentle','tender','love','connect','bond','support','comfort','nurture','share','listen','concern','affection','warmth','solace','mercy','kindness','tenderness','intimate','heal','console','attach','relate','identify','feel','hear','soothe','unite','join','link','close','sensitive']
+            }
+        };
+        window.EmotionRibbon = EmotionRibbon;
+    </script>
+    <script>
+        // Selected words state
+        let selectedWords = [];
+
+        // Category data with all words
+        const categories = {
+            POWER: { name: 'Power', emoji: '💪', color: '#8B0000' },
+            POSSESSION: { name: 'Possession', emoji: '🏠', color: '#FF6B35' },
+            LOSS: { name: 'Loss', emoji: '💔', color: '#191970' },
+            EMPTINESS: { name: 'Emptiness', emoji: '⭕', color: '#36454F' },
+            CRAVE: { name: 'Crave', emoji: '🔥', color: '#DC143C' },
+            EMPATHY: { name: 'Empathy', emoji: '🤝', color: '#2E8B57' }
+        };
+
+        // Rainbow color mapping - TRUE complementary pairs that cancel to white in RGB
+        // Red (255,0,0) + Cyan (0,255,255) = White
+        // Green (0,255,0) + Magenta (255,0,255) = White
+        // Blue (0,0,255) + Yellow (255,255,0) = White
+        const rainbowColors = {
+            POWER: '#FF0000',      // Red
+            EMPATHY: '#00FFFF',    // Cyan (true complement of Red)
+            POSSESSION: '#00FF00', // Green
+            LOSS: '#FF00FF',       // Magenta (true complement of Green)
+            CRAVE: '#0000FF',      // Blue
+            EMPTINESS: '#FFFF00'   // Yellow (true complement of Blue)
+        };
+
+        // Map categories to their pair bands
+        const categoryToBand = {
+            POWER: 'pair-1',
+            EMPATHY: 'pair-1',
+            POSSESSION: 'pair-2',
+            LOSS: 'pair-2',
+            CRAVE: 'pair-3',
+            EMPTINESS: 'pair-3'
+        };
+
+        // Complementary color pairs
+        const complementaryPairs = {
+            POWER: 'EMPATHY',
+            EMPATHY: 'POWER',
+            POSSESSION: 'LOSS',
+            LOSS: 'POSSESSION',
+            CRAVE: 'EMPTINESS',
+            EMPTINESS: 'CRAVE'
+        };
+
+        // Initialize the explorer
+        // Current active tab
+        let currentTab = 'POWER';
+
+        function init() {
+            console.log('Initializing emotion explorer...');
+            console.log('EmotionRibbon available:', !!window.EmotionRibbon);
+            console.log('EmotionRibbon.lexicon:', window.EmotionRibbon ? Object.keys(window.EmotionRibbon.lexicon || {}) : 'N/A');
+            
+            // Wait a bit to ensure script is loaded
+            setTimeout(() => {
+                switchTab('POWER');
+                updateUI();
+            }, 100);
+        }
+
+        // Switch between category tabs
+        function switchTab(category) {
+            currentTab = category;
+            
+            // Update tab buttons
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.dataset.category === category) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            // Display words for selected category
+            displayWordsForCategory(category);
+        }
+
+        // Display words for a specific category
+        function displayWordsForCategory(categoryKey) {
+            const displayArea = document.getElementById('wordsDisplayArea');
+            const category = categories[categoryKey];
+            
+            // Check if EmotionRibbon is loaded
+            if (!window.EmotionRibbon || !window.EmotionRibbon.lexicon) {
+                displayArea.innerHTML = '<p style="text-align: center; color: #94a3b8; padding: 2rem;">Loading words...</p>';
+                return;
+            }
+            
+            const words = window.EmotionRibbon.lexicon[categoryKey] || [];
+            
+            if (words.length === 0) {
+                displayArea.innerHTML = '<p style="text-align: center; color: #94a3b8; padding: 2rem;">No words found for this category.</p>';
+                return;
+            }
+            
+            displayArea.innerHTML = `
+                <div class="words-category-header">
+                    <div class="words-category-emoji">${category.emoji}</div>
+                    <div class="words-category-info">
+                        <h3>${category.name}</h3>
+                        <p>${words.length} words • Click to select</p>
+                    </div>
+                </div>
+                <div class="words-cloud">
+                    ${words.map(word => {
+                        const isSelected = selectedWords.some(w => w.word === word && w.category === categoryKey);
+                        return `
+                            <button class="word-bubble ${isSelected ? 'selected' : ''}" 
+                                    onclick="toggleWord('${word}', '${categoryKey}')"
+                                    data-word="${word}" 
+                                    data-category="${categoryKey}">
+                                ${word}
+                            </button>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+        }
+
+        // Render all categories (deprecated, kept for compatibility)
+        function renderCategories() {
+            // This function is no longer needed with tab interface
+            // But we call displayWordsForCategory to show initial tab
+            displayWordsForCategory(currentTab);
+        }
+
+        // Toggle word selection
+        function toggleWord(word, category) {
+            const existingIndex = selectedWords.findIndex(w => w.word === word && w.category === category);
+
+            if (existingIndex >= 0) {
+                // Remove word
+                selectedWords.splice(existingIndex, 1);
+            } else {
+                // Add word
+                selectedWords.push({ word, category });
+            }
+
+            updateUI();
+        }
+
+        // Update all UI elements
+        function updateUI() {
+            // Refresh current tab's word display
+            displayWordsForCategory(currentTab);
+            updateSelectedWordsList();
+            updateRibbon();
+        }
+
+        // Update word bubbles visual state
+        function updateWordBubbles() {
+            document.querySelectorAll('.word-bubble').forEach(bubble => {
+                const word = bubble.dataset.word;
+                const category = bubble.dataset.category;
+                const isSelected = selectedWords.some(w => w.word === word && w.category === category);
+
+                if (isSelected) {
+                    bubble.classList.add('selected');
+                } else {
+                    bubble.classList.remove('selected');
+                }
+            });
+        }
+
+        // Update selected words list
+        function updateSelectedWordsList() {
+            const list = document.getElementById('selectedWordsList');
+
+            if (selectedWords.length === 0) {
+                list.innerHTML = '<span style="color: #94a3b8; font-size: 0.875rem;">No words selected yet...</span>';
+                return;
+            }
+
+            list.innerHTML = selectedWords.map(word => {
+                const category = categories[word.category];
+                const colorVar = getComputedStyle(document.documentElement).getPropertyValue(`--${word.category.toLowerCase()}-color`);
+                return `
+                    <span class="selected-word-tag" style="background: ${colorVar};" onclick="toggleWord('${word.word}', '${word.category}')">
+                        ${category.emoji} ${word.word}
+                        <i class="fas fa-times remove"></i>
+                    </span>
+                `;
+            }).join('');
+        }
+
+        // Update ribbon visualization
+        function updateRibbon() {
+            // Reset all rainbow bands to transparent
+            const rainbowBands = document.querySelectorAll('#emotionRainbowSvg path');
+            rainbowBands.forEach(band => {
+                band.setAttribute('fill', 'transparent');
+            });
+
+            if (selectedWords.length === 0) {
+                document.getElementById('totalSelected').textContent = '0';
+                document.getElementById('categoriesActive').textContent = '0';
+                document.getElementById('dominantCategory').textContent = '-';
+                return;
+            }
+
+            // Determine active categories and their counts
+            const activeCategories = new Set();
+            const categoryCounts = {};
+            selectedWords.forEach(w => {
+                activeCategories.add(w.category);
+                categoryCounts[w.category] = (categoryCounts[w.category] || 0) + 1;
+            });
+
+            // Process each of the 3 bands
+            const bandPairs = [
+                { band: 'pair-1', cat1: 'POWER', cat2: 'EMPATHY' },
+                { band: 'pair-2', cat1: 'POSSESSION', cat2: 'LOSS' },
+                { band: 'pair-3', cat1: 'CRAVE', cat2: 'EMPTINESS' }
+            ];
+
+            bandPairs.forEach(pair => {
+                const bandId = `rainbow-${pair.band}`;
+                const band = document.getElementById(bandId);
+                if (!band) return;
+
+                const cat1Active = activeCategories.has(pair.cat1);
+                const cat2Active = activeCategories.has(pair.cat2);
+                const count1 = categoryCounts[pair.cat1] || 0;
+                const count2 = categoryCounts[pair.cat2] || 0;
+
+                if (!cat1Active && !cat2Active) {
+                    // Neither category active - keep transparent
+                    band.setAttribute('fill', 'transparent');
+                } else if (cat1Active && !cat2Active) {
+                    // Only first category active - intensity based on word count (1 word = 33%)
+                    const intensity = Math.min(count1 / 3, 1);
+                    const color = rainbowColors[pair.cat1];
+                    // Parse RGB and apply intensity
+                    const r = Math.floor(parseInt(color.substring(1, 3), 16) * intensity);
+                    const g = Math.floor(parseInt(color.substring(3, 5), 16) * intensity);
+                    const b = Math.floor(parseInt(color.substring(5, 7), 16) * intensity);
+                    const finalColor = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+                    band.setAttribute('fill', finalColor);
+                    band.setAttribute('fill-opacity', 1);
+                } else if (!cat1Active && cat2Active) {
+                    // Only second category active - intensity based on word count (1 word = 33%)
+                    const intensity = Math.min(count2 / 3, 1);
+                    const color = rainbowColors[pair.cat2];
+                    // Parse RGB and apply intensity
+                    const r = Math.floor(parseInt(color.substring(1, 3), 16) * intensity);
+                    const g = Math.floor(parseInt(color.substring(3, 5), 16) * intensity);
+                    const b = Math.floor(parseInt(color.substring(5, 7), 16) * intensity);
+                    const finalColor = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+                    band.setAttribute('fill', finalColor);
+                    band.setAttribute('fill-opacity', 1);
+                } else {
+                    // Both categories active - blend toward white based on total intensity
+                    const intensity1 = Math.min(count1 / 3, 1);
+                    const intensity2 = Math.min(count2 / 3, 1);
+                    
+                    const color1 = rainbowColors[pair.cat1];
+                    const color2 = rainbowColors[pair.cat2];
+
+                    // Parse RGB with intensity
+                    const r1 = Math.floor(parseInt(color1.substring(1, 3), 16) * intensity1);
+                    const g1 = Math.floor(parseInt(color1.substring(3, 5), 16) * intensity1);
+                    const b1 = Math.floor(parseInt(color1.substring(5, 7), 16) * intensity1);
+
+                    const r2 = Math.floor(parseInt(color2.substring(1, 3), 16) * intensity2);
+                    const g2 = Math.floor(parseInt(color2.substring(3, 5), 16) * intensity2);
+                    const b2 = Math.floor(parseInt(color2.substring(5, 7), 16) * intensity2);
+
+                    // Additive mixing
+                    const r = Math.min(255, r1 + r2);
+                    const g = Math.min(255, g1 + g2);
+                    const b = Math.min(255, b1 + b2);
+
+                    const blendedColor = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+
+                    band.setAttribute('fill', blendedColor);
+                    band.setAttribute('fill-opacity', 1);
+                }
+            });
+
+            // Determine the dominant category for display
+            let dominantCategory = '-';
+            if (selectedWords.length > 0) {
+                const sortedCategories = Object.entries(categoryCounts).sort((a, b) => b[1] - a[1]);
+                dominantCategory = sortedCategories[0][0];
+            }
+
+            // Update stats bar
+            document.getElementById('totalSelected').textContent = selectedWords.length;
+            document.getElementById('categoriesActive').textContent = activeCategories.size;
+            document.getElementById('dominantCategory').textContent = dominantCategory;
+        }
+
+        // Helper function to blend two colors toward white (additive mixing)
+        function blendTowardWhite(color1, color2, ratio) {
+            // Remove # if present
+            color1 = color1.replace('#', '');
+            color2 = color2.replace('#', '');
+
+            // Parse RGB for both colors
+            let r1 = parseInt(color1.substring(0, 2), 16);
+            let g1 = parseInt(color1.substring(2, 4), 16);
+            let b1 = parseInt(color1.substring(4, 6), 16);
+
+            let r2 = parseInt(color2.substring(0, 2), 16);
+            let g2 = parseInt(color2.substring(2, 4), 16);
+            let b2 = parseInt(color2.substring(4, 6), 16);
+
+            // Additive mixing: add the RGB values
+            // When complementary colors are added, they create white
+            let r = Math.min(255, r1 + r2);
+            let g = Math.min(255, g1 + g2);
+            let b = Math.min(255, b1 + b2);
+
+            // Blend toward the mixed color based on ratio
+            // ratio 0 = original color, ratio 1 = fully mixed (toward white)
+            r = Math.floor(r1 + (r - r1) * ratio);
+            g = Math.floor(g1 + (g - g1) * ratio);
+            b = Math.floor(b1 + (b - b1) * ratio);
+
+            // Convert back to hex
+            return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+        }
+
+        // Helper function to darken a hex color
+        function darkenColor(hex, percent) {
+            // Remove # if present
+            hex = hex.replace('#', '');
+
+            // Parse RGB
+            let r = parseInt(hex.substring(0, 2), 16);
+            let g = parseInt(hex.substring(2, 4), 16);
+            let b = parseInt(hex.substring(4, 6), 16);
+
+            // Darken by reducing each component
+            r = Math.floor(r * (1 - percent / 100));
+            g = Math.floor(g * (1 - percent / 100));
+            b = Math.floor(b * (1 - percent / 100));
+
+            // Clamp to 0-255
+            r = Math.max(0, Math.min(255, r));
+            g = Math.max(0, Math.min(255, g));
+            b = Math.max(0, Math.min(255, b));
+
+            // Convert back to hex
+            return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+        }
+
+        // Clear all words
+        function clearAllWords() {
+            selectedWords = [];
+            updateUI();
+        }
+
+        // Tools dropdown functions
+        function toggleToolsMenu() {
+            const menu = document.getElementById('toolsMenu');
+            const btn = document.getElementById('toolsBtn');
+
+            if (menu.classList.contains('open')) {
+                menu.classList.remove('open');
+                btn.classList.remove('active');
+            } else {
+                menu.classList.add('open');
+                btn.classList.add('active');
+
+                // Position the menu relative to the button
+                const btnRect = btn.getBoundingClientRect();
+                menu.style.top = (btnRect.bottom + 8) + 'px';
+                menu.style.left = btnRect.left + 'px';
+            }
+        }
+
+        function closeToolsDropdown() {
+            document.getElementById('toolsMenu').classList.remove('open');
+            document.getElementById('toolsBtn').classList.remove('active');
+        }
+
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('show');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const container = document.getElementById('toolsContainer');
+            const menu = document.getElementById('toolsMenu');
+            const btn = document.getElementById('toolsBtn');
+
+            if (!container.contains(event.target)) {
+                menu.classList.remove('open');
+                btn.classList.remove('active');
+            }
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

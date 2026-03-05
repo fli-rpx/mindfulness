@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="copyright" content="© 2026 正念疗法. 保留所有权利.">
+    <meta name="author" content="正念疗法">
+    <title>正念疗法 - 情绪平衡</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        h1, h2, h3 {
+            font-family: 'Noto Serif SC', serif;
+        }
+
+        /* Tools Dropdown Styles */
+        .tools-dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tools-dropdown-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: #64748b;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 9999px;
+            font-family: inherit;
+        }
+
+        .tools-dropdown-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #1e293b;
+        }
+
+        .tools-dropdown-btn.active {
+            background: #14b8a6;
+            color: white;
+        }
+
+        .tools-dropdown-menu {
+            display: none;
+            position: fixed;
+            top: auto;
+            left: auto;
+            margin-top: 0.5rem;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            min-width: 220px;
+            padding: 0.5rem;
+            z-index: 9999;
+        }
+
+        .tools-dropdown-menu.open {
+            display: block;
+        }
+
+        .tools-dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #1e293b;
+            text-decoration: none;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .tools-dropdown-menu a:hover {
+            background: rgba(20, 184, 166, 0.1);
+            color: #14b8a6;
+        }
+
+        /* Learn Tab Styles */
+        .learn-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 1rem;
+            color: white;
+        }
+
+        .learn-header h2 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.75rem;
+        }
+
+        .learn-subtitle {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .learn-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .learn-section {
+            background: white;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .learn-section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .learn-section-header:hover {
+            background: #f8fafc;
+        }
+
+        .learn-section-header.active {
+            border-bottom-color: #e2e8f0;
+        }
+
+        .learn-icon {
+            font-size: 1.5rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            border-radius: 0.75rem;
+        }
+
+        .learn-section-header h3 {
+            flex: 1;
+            margin: 0;
+            font-size: 1.1rem;
+            color: #1e293b;
+        }
+
+        .learn-toggle {
+            color: #64748b;
+            transition: transform 0.3s;
+        }
+
+        .learn-section-header.active .learn-toggle {
+            transform: rotate(180deg);
+        }
+
+        .learn-section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .learn-section-header.active + .learn-section-content {
+            max-height: 2000px;
+        }
+
+        .learn-summary {
+            padding: 1rem 1.5rem;
+            margin: 0;
+            color: #64748b;
+            font-style: italic;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .learn-detail {
+            padding: 1.5rem;
+        }
+
+        .learn-detail p {
+            margin: 0 0 1rem 0;
+            line-height: 1.6;
+            color: #334155;
+        }
+
+        .learn-key-point {
+            display: flex;
+            gap: 1rem;
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .key-icon {
+            font-size: 1.25rem;
+        }
+
+        .learn-key-point p {
+            margin: 0;
+            flex: 1;
+        }
+
+        .learn-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .learn-comparison-item {
+            padding: 1rem;
+            border-radius: 0.75rem;
+        }
+
+        .learn-comparison-item.negative {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+        }
+
+        .learn-comparison-item.positive {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+        }
+
+        .learn-comparison-item h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+        }
+
+        .learn-comparison-item p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .learn-exercises {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .learn-exercise {
+            background: #f8fafc;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .learn-exercise h4 {
+            margin: 0 0 0.75rem 0;
+            color: #1e293b;
+        }
+
+        .learn-exercise p {
+            margin: 0 0 0.5rem 0;
+        }
+
+        .learn-exercise ul {
+            margin: 0.5rem 0 0 0;
+            padding-left: 1.5rem;
+        }
+
+        .learn-exercise li {
+            margin-bottom: 0.5rem;
+        }
+
+        .learn-summary-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-top: 2rem;
+        }
+
+        .learn-summary-card h3 {
+            margin: 0 0 1rem 0;
+        }
+
+        .learn-summary-card p {
+            margin: 0 0 1rem 0;
+            line-height: 1.6;
+        }
+
+        .learn-summary-card ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .learn-summary-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        .learn-final {
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 1.5rem !important;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .learn-subsection {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .learn-subsection:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .learn-subsection h4 {
+            margin: 0 0 0.75rem 0;
+            color: #1e293b;
+            font-size: 1.05rem;
+        }
+
+        .learn-parts-list {
+            margin: 0.75rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .learn-parts-list li {
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .learn-transformation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 1rem;
+        }
+
+        .learn-from, .learn-to {
+            text-align: center;
+            flex: 1;
+        }
+
+        .learn-from h5, .learn-to h5 {
+            margin: 0 0 0.75rem 0;
+            font-size: 1rem;
+        }
+
+        .learn-from ul, .learn-to ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .learn-from li, .learn-to li {
+            margin-bottom: 0.25rem;
+            color: #64748b;
+        }
+
+        .learn-arrow {
+            font-size: 2rem;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .learn-comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .learn-transformation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .learn-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+
+
+        <!-- Main Content -->
+        <div class="content-main">
+            <!-- Navigation Bar -->
+            <nav class="nav-bar">
+                <div class="nav-brand" onclick="app.navigate('home')" style="cursor: pointer;">🧘 正念疗法</div>
+                <button class="mobile-menu-btn" onclick="app.toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="nav-links" id="navLinks">
+                    <button class="nav-btn" onclick="window.location.href='index.html'">English</button>
+                    <button class="nav-btn" onclick="window.location.href='index-ru.html'">Русский</button>
+                    <button class="nav-btn active" data-tab="home">首页</button>
+                    <button class="nav-btn" data-tab="cycle">循环</button>
+                    <button class="nav-btn" data-tab="assessment">AI聊天</button>
+                    
+                    <!-- Tools Dropdown -->
+                    <div class="tools-dropdown-container" id="toolsContainer">
+                        <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
+                            工具 <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
+                        </button>
+                        <div class="tools-dropdown-menu" id="toolsMenu">
+                            <a href="emotion-explorer-zh.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🎨 情绪探索器</a>
+                            <a href="emotion-balance-zh.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">⚡ 情绪平衡</a>
+                            <a href="salad-compass-zh.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥗 沙拉指南针</a>
+                            <a href="#" onclick="app.navigate('salad'); closeToolsDropdown();" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥬 完整沙拉检测</a>
+                            <a href="#" onclick="app.navigate('interventions'); closeToolsDropdown();" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🧰 干预工具</a>
+                        </div>
+                    </div>
+                    
+                    <button class="nav-btn" data-tab="journal">日记</button>
+                    <button class="nav-btn" data-tab="progress">进度</button>
+                    <button class="nav-btn" data-tab="learn">学习</button>
+                </div>
+            </nav>
+
+            <!-- Home Tab -->
+            <div id="home" class="tab active">
+                <div class="hero-section">
+                    <div class="hero-content">
+                        <h1 id="greeting">早上好,</h1>
+                        <p>准备好理解和平衡你的情绪状态了吗？</p>
+                        <div class="hero-actions">
+                            <button class="btn-primary" onclick="app.navigate('assessment')">
+                                <i class="fas fa-robot"></i> 开始AI评估
+                            </button>
+                            <button class="btn-secondary" onclick="app.navigate('cycle')">
+                                <i class="fas fa-sync-alt"></i> 查看循环
+                            </button>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="mini-cycle" id="miniCycle"></div>
+                    </div>
+                </div>
+
+                <div class="quick-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">🔥</div>
+                        <div class="stat-value" id="streakValue">0</div>
+                        <div class="stat-label">天连续</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🧘</div>
+                        <div class="stat-value" id="sessionValue">0</div>
+                        <div class="stat-label">次练习</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⏱️</div>
+                        <div class="stat-value" id="minuteValue">0</div>
+                        <div class="stat-label">分钟</div>
+                    </div>
+                </div>
+
+                <!-- 快速工具 -->
+                <div class="tools-section">
+                    <h2 class="section-title">⚡ 快速工具</h2>
+                    <p class="section-subtitle">快速检测，立即获得清晰</p>
+                    <div class="feature-grid quick-tools">
+                        <div class="feature-card featured" onclick="window.location.href='emotion-balance-zh.html'">
+                            <div class="feature-icon balance-icon">
+                                <i class="fas fa-balance-scale"></i>
+                            </div>
+                            <h3>情绪平衡</h3>
+                            <p>4个滑块，即时评分，个性化行动</p>
+                            <span class="card-badge">30秒</span>
+                        </div>
+                        <div class="feature-card featured" onclick="window.location.href='salad-compass-zh.html'">
+                            <div class="feature-icon compass-icon">
+                                <i class="fas fa-compass"></i>
+                            </div>
+                            <h3>沙拉指南针</h3>
+                            <p>识别你的状态，找到缺失的蔬菜</p>
+                            <span class="card-badge">1分钟</span>
+                        </div>
+                        <div class="feature-card" onclick="window.location.href='emotion-explorer-zh.html'">
+                            <div class="feature-icon explorer-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <h3>情绪探索器</h3>
+                            <p>构建你的情绪丝带可视化</p>
+                            <span class="card-badge">2分钟</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-grid">
+                    <div class="feature-card" onclick="app.navigate('assessment')">
+                        <div class="feature-icon ai-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>AI评估</h3>
+                        <p>94%准确度的情绪检测，多模态分析</p>
+                    </div>
+                    <div class="feature-card" onclick="app.navigate('cycle')">
+                        <div class="feature-icon cycle-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h3>权力-占有循环</h3>
+                        <p>情绪旅程的互动可视化</p>
+                    </div>
+                    <div class="feature-card" onclick="app.navigate('interventions')">
+                        <div class="feature-icon tools-icon">
+                            <i class="fas fa-toolbox"></i>
+                        </div>
+                        <h3>微干预</h3>
+                        <p>60秒快速情绪调节技巧</p>
+                    </div>
+                    <div class="feature-card" onclick="app.navigate('salad')">
+                        <div class="feature-icon salad-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3>情绪沙拉</h3>
+                        <p>20题诊断，个性化方案</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Power-Possession Cycle Tab -->
+            <div id="cycle" class="tab">
+                <h2>权力-占有循环</h2>
+                <p class="section-description">
+                    一个自我强化的情绪模式：获得外部权力 → 不可避免的失去 → 
+                    陷入空虚 → 迫切渴望替代满足 → 回到寻求权力。
+                </p>
+                
+                <div class="cycle-container">
+                    <div class="cycle-visualization" id="cycleVisualization">
+                        <!-- SVG cycle will be rendered here -->
+                    </div>
+                    
+                    <div class="cycle-info" id="cycleInfo">
+                        <div class="state-detail">
+                            <h3>点击状态了解更多</h3>
+                            <p>探索情绪循环的每个阶段，发现个性化策略。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cycle-legend">
+                    <div class="legend-item">
+                        <span class="legend-color power"></span>
+                        <span>权力 - 外部认可</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color possession"></span>
+                        <span>占有 - 拥有阶段</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color loss"></span>
+                        <span>失去 - 不可避免</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color emptiness"></span>
+                        <span>空虚 - 崩溃</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color craving"></span>
+                        <span>渴望 - 强迫性</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color return"></span>
+                        <span>回归 - 寻求权力</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Assessment Tab -->
+            <div id="assessment" class="tab">
+                <h2>AI情绪评估</h2>
+                <p class="section-description">
+                    多模态情绪检测，94%准确度。自然聊天或使用结构化评估。
+                </p>
+
+                <div class="assessment-container">
+                    <div class="chat-interface">
+                        <div class="chat-header">
+                            <div class="ai-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="ai-info">
+                                <h3>情绪AI</h3>
+                                <span class="status">在线</span>
+                            </div>
+                            <div class="accuracy-badge">94% 准确度</div>
+                        </div>
+                        
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="message ai-message">
+                                <p>你好！我在这里帮助你了解当前的情绪状态。你现在感觉怎么样？</p>
+                            </div>
+                        </div>
+
+                        <div class="chat-input-area">
+                            <div class="input-modes">
+                                <button class="mode-btn active" data-mode="text">
+                                    <i class="fas fa-keyboard"></i> 文字
+                                </button>
+                                <button class="mode-btn" data-mode="voice" onclick="app.toggleVoiceInput()">
+                                    <i class="fas fa-microphone"></i> 语音
+                                </button>
+                                <button class="mode-btn" data-mode="quiz" onclick="app.startStructuredAssessment()">
+                                    <i class="fas fa-clipboard-check"></i> 问卷
+                                </button>
+                            </div>
+                            <div class="input-container">
+                                <textarea id="chatInput" placeholder="描述你的感受..."></textarea>
+                                <button class="send-btn" onclick="app.sendMessage()">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="assessment-sidebar">
+                        <div class="detected-state" id="detectedState">
+                            <h4>检测到的状态</h4>
+                            <div class="state-placeholder">开始聊天以检测你的情绪状态</div>
+                        </div>
+                        
+                        <div class="confidence-score" id="confidenceScore">
+                            <h4>置信度</h4>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 0%"></div>
+                            </div>
+                            <span class="score-value">--</span>
+                        </div>
+
+                        <div class="suggested-actions" id="suggestedActions">
+                            <h4>建议行动</h4>
+                            <div class="actions-placeholder">行动将显示在这里</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Salad Check Tab -->
+            <div id="salad" class="tab">
+                <h2>情绪沙拉检测</h2>
+                <p class="section-description">
+                    识别你的 🔥 辛辣（压倒性）、🧈 油腻（强迫性）和 🥗 蔬菜（滋养性）元素。
+                </p>
+
+                <div class="salad-container">
+                    <div class="progress-section">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="saladProgress"></div>
+                        </div>
+                        <span class="progress-text" id="saladProgressText">问题 1 / 21</span>
+                    </div>
+
+                    <div id="saladQuestions">
+                        <!-- Questions rendered by JS -->
+                    </div>
+
+                    <div id="saladResults" class="hidden">
+                        <div class="results-plate">
+                            <h3>你的情绪沙拉</h3>
+                            <div id="plateContent"></div>
+                        </div>
+                        
+                        <div class="protocol-section">
+                            <h3>7步平衡方案</h3>
+                            <div id="protocolSteps"></div>
+                        </div>
+
+                        <button class="btn-primary" onclick="app.resetSalad()">开始新检测</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interventions Tab -->
+            <div id="interventions" class="tab">
+                <h2>微干预</h2>
+                <p class="section-description">
+                    60秒快速情绪调节技巧。根据状态匹配的即时缓解干预。
+                </p>
+
+                <div class="interventions-grid">
+                    <div class="intervention-category">
+                        <h3><i class="fas fa-fire"></i> 权力状态</h3>
+                        <div class="intervention-list">
+                            <div class="intervention-card" onclick="app.startIntervention('grounding')">
+                                <span class="duration">60秒</span>
+                                <h4>价值观扎根</h4>
+                                <p>重新连接内在价值 vs 外部认可</p>
+                            </div>
+                            <div class="intervention-card" onclick="app.startIntervention('powerbreathing')">
+                                <span class="duration">2分钟</span>
+                                <h4>权力呼吸</h4>
+                                <p>通过控制呼吸引导能量</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="intervention-category">
+                        <h3><i class="fas fa-heart-broken"></i> 失去 & 空虚</h3>
+                        <div class="intervention-list">
+                            <div class="intervention-card" onclick="app.startIntervention('somatic')">
+                                <span class="duration">3分钟</span>
+                                <h4>身体锚定</h4>
+                                <p>通过身体意识扎根</p>
+                            </div>
+                            <div class="intervention-card" onclick="app.startIntervention('reframe')">
+                                <span class="duration">2分钟</span>
+                                <h4>认知重构</h4>
+                                <p>转换对失去的视角</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="intervention-category">
+                        <h3><i class="fas fa-fire-alt"></i> 渴望阶段</h3>
+                        <div class="intervention-list">
+                            <div class="intervention-card" onclick="app.startIntervention('urgesurfing')">
+                                <span class="duration">5分钟</span>
+                                <h4>渴望冲浪</h4>
+                                <p>像波浪一样观察渴望，不行动</p>
+                            </div>
+                            <div class="intervention-card" onclick="app.startIntervention('patternbreak')">
+                                <span class="duration">60秒</span>
+                                <h4>模式中断</h4>
+                                <p>快速检查清单打破循环</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="intervention-category">
+                        <h3><i class="fas fa-bolt"></i> 通用工具</h3>
+                        <div class="intervention-list">
+                            <div class="intervention-card" onclick="app.startIntervention('sigh')">
+                                <span class="duration">60秒</span>
+                                <h4>生理叹息</h4>
+                                <p>两次吸气，延长呼气</p>
+                            </div>
+                            <div class="intervention-card" onclick="app.startIntervention('54321')">
+                                <span class="duration">60秒</span>
+                                <h4>5-4-3-2-1 扎根</h4>
+                                <p>感官定位技巧</p>
+                            </div>
+                            <div class="intervention-card" onclick="app.startIntervention('compassion')">
+                                <span class="duration">60秒</span>
+                                <h4>自我慈悲暂停</h4>
+                                <p>以善意承认痛苦</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Journal Tab -->
+            <div id="journal" class="tab">
+                <h2>日记</h2>
+                
+                <div class="journal-section">
+                    <div class="mood-tracker-card">
+                        <h3>你感觉怎么样？</h3>
+                        <div class="mood-scale">
+                            <button class="mood-btn" data-mood="1" onclick="app.logMood(1)">
+                                <span class="mood-emoji">😢</span>
+                                <span class="mood-label">难过</span>
+                            </button>
+                            <button class="mood-btn" data-mood="2" onclick="app.logMood(2)">
+                                <span class="mood-emoji">😕</span>
+                                <span class="mood-label">低落</span>
+                            </button>
+                            <button class="mood-btn" data-mood="3" onclick="app.logMood(3)">
+                                <span class="mood-emoji">😐</span>
+                                <span class="mood-label">一般</span>
+                            </button>
+                            <button class="mood-btn" data-mood="4" onclick="app.logMood(4)">
+                                <span class="mood-emoji">🙂</span>
+                                <span class="mood-label">不错</span>
+                            </button>
+                            <button class="mood-btn" data-mood="5" onclick="app.logMood(5)">
+                                <span class="mood-emoji">😊</span>
+                                <span class="mood-label">很好</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="quick-entry-card">
+                        <h3>快速记录</h3>
+                        <p class="prompt" id="journalPrompt">今天你有什么感恩的事？</p>
+                        <textarea id="journalText" placeholder="写下你的想法..."></textarea>
+                        <div class="entry-actions">
+                            <button class="btn-secondary" onclick="app.newJournalPrompt()">新提示</button>
+                            <button class="btn-primary" onclick="app.saveJournalEntry()">保存记录</button>
+                        </div>
+                    </div>
+
+                    <div id="journalEntries"></div>
+                </div>
+            </div>
+
+            <!-- Progress Tab -->
+            <div id="progress" class="tab">
+                <h2>进度</h2>
+                
+                <div class="progress-dashboard">
+                    <div class="stats-row">
+                        <div class="stat-box">
+                            <div class="stat-icon-large">🔥</div>
+                            <div class="stat-number" id="progressStreak">0</div>
+                            <div class="stat-label">天连续</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-icon-large">✅</div>
+                            <div class="stat-number" id="progressSessions">0</div>
+                            <div class="stat-label">次练习</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-icon-large">⏱️</div>
+                            <div class="stat-number" id="progressMinutes">0</div>
+                            <div class="stat-label">分钟</div>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <h3>每周活动</h3>
+                        <canvas id="weeklyChart"></canvas>
+                    </div>
+
+                    <div class="achievements-card">
+                        <h3>成就</h3>
+                        <div id="achievementsList"></div>
+                    </div>
+
+                    <div class="insights-card">
+                        <h3>洞察</h3>
+                        <div id="insightsList"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learn Tab -->
+            <div id="learn" class="tab">
+                <div class="learn-header">
+                    <h2>📚 学习与理解</h2>
+                    <p class="learn-subtitle">了解为什么我们会被吸引——以及如何重获你的力量</p>
+                </div>
+
+                <div class="learn-content">
+                    <!-- Section 1: Visual Hook -->
+                    <div class="learn-section">
+                        <div class="learn-section-header" onclick="app.toggleLearnSection(this)">
+                            <span class="learn-icon">👁️</span>
+                            <h3>为什么大脑喜欢某些颜色和外观</h3>
+                            <i class="fas fa-chevron-down learn-toggle"></i>
+                        </div>
+                        <div class="learn-section-content">
+                            <p class="learn-summary">你的眼睛消耗大脑44%的能量。因为视觉处理很昂贵，大脑会用多巴胺和内啡肽奖励"简单"的视觉。</p>
+                            <div class="learn-detail">
+                                <p><strong>科学原理：</strong>你的大脑是个节能主义者。当你看到视觉"流畅"的东西（对称、清晰、吸引人），大脑会说"啊，真轻松！"并给你愉悦奖励。</p>
+                                <div class="learn-key-point">
+                                    <span class="key-icon">⚠️</span>
+                                    <p><strong>注意：</strong>看起来感觉好的东西不一定对你有好处。这可能是你眼睛的"空热量"。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Stroop Effect -->
+                    <div class="learn-section">
+                        <div class="learn-section-header" onclick="app.toggleLearnSection(this)">
+                            <span class="learn-icon">🧠</span>
+                            <h3>斯特鲁普效应：颜色可以劫持你的大脑</h3>
+                            <i class="fas fa-chevron-down learn-toggle"></i>
+                        </div>
+                        <div class="learn-section-content">
+                            <p class="learn-summary">视觉信息和概念信息在大脑中竞争——有时视觉会自动获胜。</p>
+                            <div class="learn-detail">
+                                <p><strong>实验：</strong>给某人看用蓝色墨水写的"红"字。他们的大脑会慢下来，因为它必须在文字和颜色之间斗争。</p>
+                                <div class="learn-key-point">
+                                    <span class="key-icon">💡</span>
+                                    <p><strong>这意味着：</strong>颜色和外观对你的注意力有控制力，无论你是否愿意。你的大脑在你决定之前自动处理它们。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Aesthetic Arrest -->
+                    <div class="learn-section">
+                        <div class="learn-section-header" onclick="app.toggleLearnSection(this)">
+                            <span class="learn-icon">✨</span>
+                            <h3>审美停滞：当美让你呆住</h3>
+                            <i class="fas fa-chevron-down learn-toggle"></i>
+                        </div>
+                        <div class="learn-section-content">
+                            <p class="learn-summary">那种被某物美丽"惊得呆住"的感觉——暂时逃离欲望和挣扎。</p>
+                            <div class="learn-detail">
+                                <p>哲学家叔本华称这为成为"纯粹的、无意志的、无痛苦的知识主体"。那一刻，你忘记了问题和渴望。</p>
+                                <div class="learn-key-point">
+                                    <span class="key-icon">⚠️</span>
+                                    <p><strong>问题：</strong>在审美停滞期间，你并不在控制中。那个东西控制了你。你是旁观者，不是行动者。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: Locus of Control -->
+                    <div class="learn-section">
+                        <div class="learn-section-header" onclick="app.toggleLearnSection(this)">
+                            <span class="learn-icon">🎯</span>
+                            <h3>控制点：你把力量放在哪里？</h3>
+                            <i class="fas fa-chevron-down learn-toggle"></i>
+                        </div>
+                        <div class="learn-section-content">
+                            <p class="learn-summary">内在 vs 外在：你相信行动塑造生活，还是运气/命运/他人控制发生的一切？</p>
+                            <div class="learn-detail">
+                                <p><strong>外在控制点：</strong>你相信力量来自外部——他人的关注、拥有的东西、外表。你不断寻找钩子，因为需要它们作为燃料。</p>
+                                <p><strong>内在控制点：</strong>你相信力量来自内部——你的选择、价值观、回应方式。钩子失去控制，因为你不需要它们。</p>
+                                <div class="learn-key-point">
+                                    <span class="key-icon">🔗</span>
+                                    <p><strong>与创伤的联系：</strong>在不可预测的环境中成长教会你放弃控制——这让你活了下来。但作为成年人，这让你容易受到每个闪亮事物的影响。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 5: Triggers vs Glimmers -->
+                    <div class="learn-section">
+                        <div class="learn-section-header" onclick="app.toggleLearnSection(this)">
+                            <span class="learn-icon">⚡</span>
+                            <h3>触发器与微光：神经系统寻找什么</h3>
+                            <i class="fas fa-chevron-down learn-toggle"></i>
+                        </div>
+                        <div class="learn-section-content">
+                            <p class="learn-summary">你的身体扫描危险（触发器）和安全（微光）。两者都能"钩住"你——但一个导致伤害，另一个带来治愈。</p>
+                            <div class="learn-detail">
+                                <div class="learn-comparison">
+                                    <div class="learn-comparison-item negative">
+                                        <h4>🔴 触发器</h4>
+                                        <p>激活生存模式的感官提示——战斗、逃跑或冻结。基于储存在你身体里的过去危险。</p>
+                                    </div>
+                                    <div class="learn-comparison-item positive">
+                                        <h4>🟢 微光</h4>
+                                        <p>告诉神经系统"你安全了"的小提示。温暖的颜色、鸟鸣、阳光。激活迷走神经（平静和连接）。</p>
+                                    </div>
+                                </div>
+                                <div class="learn-key-point">
+                                    <span class="key-icon">💡</span>
+                                    <p><strong>练习：</strong>你可以训练自己注意微光。你注意到越多的安全时刻，神经系统就越明白世界不全是危险。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 6: Somatic Exercises -->
+                    <div class="learn-section">
+                        <div class="learn-section-header" onclick="app.toggleLearnSection(this)">
+                            <span class="learn-icon">🧘</span>
+                            <h3>身体练习：重获代理权的实用工具</h3>
+                            <i class="fas fa-chevron-down learn-toggle"></i>
+                        </div>
+                        <div class="learn-section-content">
+                            <p class="learn-summary">建立不依赖外部钩子的内在力量的具体练习。</p>
+                            <div class="learn-exercises">
+                                <div class="learn-exercise">
+                                    <h4>🤲 容器练习（自我拥抱）</h4>
+                                    <p><strong>方法：</strong>一只手放在额头，一只手放在心口。感受温暖。想象你的身体是一个可以容纳任何感觉而不会破碎的容器。</p>
+                                    <p><strong>为什么：</strong>创造身体边界。告诉神经系统："我能承受这个。我仍在控制中。"</p>
+                                </div>
+                                <div class="learn-exercise">
+                                    <h4>📢 Voo声音</h4>
+                                    <p><strong>方法：</strong>深吸一口气，发出低沉的"voooo"声音，像雾号一样。感受它在胸腔的振动。</p>
+                                    <p><strong>为什么：</strong>振动刺激迷走神经，平静神经系统。适合当你感到冻结时。</p>
+                                </div>
+                                <div class="learn-exercise">
+                                    <h4>🔄 摆动</h4>
+                                    <p><strong>方法：</strong>在痛苦和安全之间轻轻移动注意力。注意紧绷感...然后是你脚下的地板...然后回到紧绷感...然后是你的呼吸。</p>
+                                    <p><strong>为什么：</strong>教会神经系统它可以在不适中进出而不会被摧毁。</p>
+                                </div>
+                                <div class="learn-exercise">
+                                    <h4>🦶 接地练习</h4>
+                                    <ul>
+                                        <li><strong>脚跟下落：</strong>抬起脚跟，砰地落下。感受冲击。"占据空间是安全的。"</li>
+                                        <li><strong>身体扫描：</strong>慢慢注意身体每个部位，只是观察。</li>
+                                        <li><strong>盒式呼吸：</strong>吸气4秒，屏息4秒，呼气4秒，屏息4秒。提示放松。</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 7: Emotional Transformation -->
+                    <div class="learn-section">
+                        <div class="learn-section-header" onclick="app.toggleLearnSection(this)">
+                            <span class="learn-icon">🦋</span>
+                            <h3>情绪转变：从外在力量到内在力量</h3>
+                            <i class="fas fa-chevron-down learn-toggle"></i>
+                        </div>
+                        <div class="learn-section-content">
+                            <p class="learn-summary">理解你的情绪模式，以及从通过占有获取力量到在内心找到力量的旅程。</p>
+                            <div class="learn-detail">
+                                <div class="learn-subsection">
+                                    <h4>🥗 情绪盘子隐喻（你的沙拉）</h4>
+                                    <p>你已经有一种聪明的方式来思考你的感受。你知道当一种感觉占据主导（太"辣"）时，你会寻找平衡——即使有时你选择错误的东西（"油腻"的东西）。</p>
+                                </div>
+
+                                <div class="learn-subsection">
+                                    <h4>🌶️ "辛辣和油腻"循环（补偿控制）</h4>
+                                    <p>人类需要感觉生活是有秩序的。当某事动摇这种感觉（失去力量）时，会产生焦虑——"辣"的感觉。为了应对，你伸手去抓能恢复控制的东西。"油腻"的选择提供快速缓解但之后造成问题。</p>
+                                </div>
+
+                                <div class="learn-subsection">
+                                    <h4>👥 你的"部分"（内部家庭系统）</h4>
+                                    <p>你的心理有不同的"部分"，有不同的工作：</p>
+                                    <ul class="learn-parts-list">
+                                        <li><strong>被放逐者：</strong>承载无力感和空虚感的痛苦。</li>
+                                        <li><strong>管理者：</strong>试图通过成就获得力量来保护你免受痛苦。</li>
+                                        <li><strong>消防员：</strong>当管理者失败，痛苦突破时，这部分恐慌并抓取快速修复。</li>
+                                        <li><strong>真我：</strong>观察这一切并知道它是错的"你"。那平静的部分是你真正的自己。</li>
+                                    </ul>
+                                </div>
+
+                                <div class="learn-subsection">
+                                    <h4>🌫️ 为什么你现在感到迷失（中性区）</h4>
+                                    <p>你在"中性区"——身份之间的时期。你已经放弃了旧的方式（通过占有抓取力量），但新的方式（在内心找到力量）还没有完全形成。这个阶段感觉像困惑、空虚，不知道做什么。</p>
+                                    <div class="learn-key-point">
+                                        <span class="key-icon">✨</span>
+                                        <p><strong>希望：</strong>这是正常和必要的。就像在两个房间之间的走廊。你离开了一个房间但还没进入下一个。困惑意味着你正好在需要的地方——成长中。</p>
+                                    </div>
+                                </div>
+
+                                <div class="learn-subsection">
+                                    <h4>💪 内在力量实际是什么（斯多葛主义）</h4>
+                                    <p>真正的力量来自区分你能控制什么和不能控制什么。你无法控制人们是否留下、项目是否成功、你是否失去地位。但你能控制你的判断、意图，以及如何应对渴望。</p>
+                                    <div class="learn-key-point">
+                                        <span class="key-icon">💡</span>
+                                        <p><strong>真相：</strong>真正的力量不是关于控制他人或抓住东西。真正的力量是能够与不适共处，选择如何回应，并在不需要外部证明的情况下知道你的价值。它是安静的。不需要观众。没人能夺走它。</p>
+                                    </div>
+                                </div>
+
+                                <div class="learn-subsection">
+                                    <h4>🎯 底线：这对你意味着什么</h4>
+                                    <p>你正处于深刻转变的中间。你已经从：</p>
+                                    <div class="learn-transformation">
+                                        <div class="learn-from">
+                                            <h5>外在力量</h5>
+                                            <ul>
+                                                <li>抓取</li>
+                                                <li>占有</li>
+                                                <li>控制</li>
+                                            </ul>
+                                        </div>
+                                        <div class="learn-arrow">→</div>
+                                        <div class="learn-to">
+                                            <h5>内在力量</h5>
+                                            <ul>
+                                                <li>存在</li>
+                                                <li>连接</li>
+                                                <li>选择</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <p>困惑和空虚不是失败的迹象。它们是旧模式正在消亡、新东西正在诞生的迹象。占有的冲动从来不是关于目标——它是试图填补早期创伤和失去力量留下的空虚。</p>
+                                    <div class="learn-key-point">
+                                        <span class="key-icon">🔥</span>
+                                        <p><strong>力量一直在你里面。</strong>你只是现在才学习如何感受它。继续与问题共处。继续注意钩子何时拉动。继续选择暂停而不是抓取。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Summary -->
+                    <div class="learn-summary-card">
+                        <h3>🎯 这一切意味着什么</h3>
+                        <p>当你被颜色、面孔、外观钩住时——这不是软弱。这是你的大脑在做大脑该做的事。</p>
+                        <p><strong>问题不是钩子。问题是当钩子成为感受活着的唯一方式。</strong></p>
+                        <p>解决方案是建立比任何外部钩子都强大的内在东西：</p>
+                        <ul>
+                            <li>注意何时被钩住</li>
+                            <li>感受身体里正在发生什么</li>
+                            <li>选择不同的回应——即使只是一瞬间</li>
+                            <li>在自己内心找到安全和力量</li>
+                        </ul>
+                        <p class="learn-final">钩子永远会在那里。但你不必再受它摆布。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Intervention Modal -->
+        <div id="interventionModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="intervention-player">
+                    <h2 id="interventionTitle">干预</h2>
+                    <div class="timer-container">
+                        <svg viewBox="0 0 100 100" class="timer-svg">
+                            <circle class="timer-bg" cx="50" cy="50" r="45"/>
+                            <circle class="timer-progress" id="interventionProgress" cx="50" cy="50" r="45"/>
+                        </svg>
+                        <div class="timer-display" id="interventionTimer">60</div>
+                    </div>
+                    <div class="intervention-instructions" id="interventionInstructions">
+                        跟随引导练习
+                    </div>
+                    <div class="timer-controls">
+                        <button class="control-btn" id="playPauseBtn" onclick="app.toggleIntervention()">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button class="control-btn" onclick="app.stopIntervention()">
+                            <i class="fas fa-stop"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer with Copyright -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2026 正念疗法. 保留所有权利.</p>
+            <p class="footer-links">
+                <a href="#" onclick="app.navigate('home')">首页</a> |
+                <a href="emotion-explorer-zh.html">🎨 情绪探索器</a> |
+                <a href="emotion-balance-zh.html">⚡ 情绪平衡</a> |
+                <a href="salad-compass-zh.html">🥗 沙拉指南针</a> |
+                <a href="#" onclick="app.showPrivacyPolicy()">隐私政策</a> |
+                <a href="#" onclick="app.showTerms()">使用条款</a> |
+                <a href="index.html">English</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="app-zh.js"></script>
+</body>
+</html>

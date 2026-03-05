@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="copyright" content="© 2026 Mindfulness Therapy. All rights reserved.">
+    <title>Salad Plate Compass - Mindfulness Therapy</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Tools Dropdown Styles */
+        .tools-dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tools-dropdown-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: #64748b;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 9999px;
+            font-family: inherit;
+        }
+
+        .tools-dropdown-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #1e293b;
+        }
+
+        .tools-dropdown-btn.active {
+            background: #14b8a6;
+            color: white;
+        }
+
+        .tools-dropdown-menu {
+            display: none;
+            position: fixed;
+            top: auto;
+            left: auto;
+            margin-top: 0.5rem;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            min-width: 220px;
+            padding: 0.5rem;
+            z-index: 9999;
+        }
+
+        .tools-dropdown-menu.open {
+            display: block;
+        }
+
+        .tools-dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #1e293b;
+            text-decoration: none;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .tools-dropdown-menu a:hover {
+            background: rgba(20, 184, 166, 0.1);
+            color: #14b8a6;
+        }
+
+        .compass-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .compass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        .compass-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .compass-header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #50c8b8, #4a90d9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .compass-header .subtitle {
+            color: #b0b0b8;
+            font-size: 1.1rem;
+        }
+        
+        .how-to-use {
+            background: rgba(80, 200, 184, 0.1);
+            border: 1px solid rgba(80, 200, 184, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .how-to-use h2 {
+            color: #50c8b8;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .how-to-use ol {
+            padding-left: 25px;
+            color: #d0d0d8;
+            line-height: 1.8;
+        }
+        
+        .how-to-use li {
+            margin-bottom: 8px;
+        }
+        
+        .compass-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+        }
+        
+        .compass-table th {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 12px;
+            text-align: left;
+            color: #50c8b8;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-bottom: 2px solid rgba(80, 200, 184, 0.3);
+        }
+        
+        .compass-table td {
+            padding: 20px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            vertical-align: top;
+            color: #d0d0d8;
+            line-height: 1.6;
+        }
+        
+        .compass-table tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+        
+        .state-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .state-power {
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .state-possession {
+            background: rgba(255, 107, 53, 0.15);
+            color: #ff6b35;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+        }
+        
+        .state-loss {
+            background: rgba(100, 100, 100, 0.2);
+            color: #a0a0a0;
+            border: 1px solid rgba(100, 100, 100, 0.4);
+        }
+        
+        .state-emptiness {
+            background: rgba(150, 150, 150, 0.1);
+            color: #c0c0c0;
+            border: 1px solid rgba(150, 150, 150, 0.3);
+        }
+        
+        .state-crave {
+            background: rgba(220, 20, 60, 0.15);
+            color: #dc143c;
+            border: 1px solid rgba(220, 20, 60, 0.3);
+        }
+        
+        .self-check {
+            font-style: italic;
+            color: #888;
+        }
+        
+        .missing-veg {
+            color: #50c8b8;
+            font-weight: 500;
+        }
+        
+        .action-cell {
+            background: rgba(80, 200, 184, 0.05);
+            border-left: 3px solid #50c8b8;
+            padding-left: 15px;
+        }
+        
+        .color-key {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .color-key h3 {
+            color: #4a90d9;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        
+        .color-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        
+        .color-power { background: #ffd700; box-shadow: 0 0 10px rgba(255, 215, 0, 0.4); }
+        .color-possession { background: #ff6b35; box-shadow: 0 0 10px rgba(255, 107, 53, 0.4); }
+        .color-loss { background: #646464; box-shadow: 0 0 10px rgba(100, 100, 100, 0.4); }
+        .color-emptiness { background: #b0c4de; box-shadow: 0 0 10px rgba(176, 196, 222, 0.4); }
+        .color-crave { background: #dc143c; box-shadow: 0 0 10px rgba(220, 20, 60, 0.4); }
+        
+        .why-works {
+            background: rgba(74, 144, 217, 0.1);
+            border: 1px solid rgba(74, 144, 217, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+        }
+        
+        .why-works h3 {
+            color: #4a90d9;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .why-works ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .why-works li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #d0d0d8;
+            line-height: 1.6;
+        }
+        
+        .why-works li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4a90d9;
+            font-weight: bold;
+        }
+        
+        .quick-access {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .quick-access-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #50c8b8, #4a90d9);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(80, 200, 184, 0.3);
+            text-decoration: none;
+        }
+        
+        .quick-access-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(80, 200, 184, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .compass-table {
+                font-size: 0.85rem;
+            }
+            
+            .compass-table th,
+            .compass-table td {
+                padding: 12px 8px;
+            }
+            
+            .compass-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #888;
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: color 0.2s;
+        }
+        
+        .back-link:hover {
+            color: #50c8b8;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+
+
+        <!-- Main Content -->
+        <div class="content-main">
+            <!-- Navigation Bar -->
+            <nav class="nav-bar">
+                <div class="nav-brand" onclick="window.location.href='index.html'" style="cursor: pointer;">🧘 Mindfulness Therapy</div>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="nav-links" id="navLinks">
+                    <button class="nav-btn" onclick="window.location.href='index-zh.html'">中文</button>
+                    <button class="nav-btn" onclick="window.location.href='index.html'">Home</button>
+                    <button class="nav-btn" onclick="window.location.href='index.html?tab=cycle'">Cycle</button>
+                    <button class="nav-btn" onclick="window.location.href='index.html?tab=assessment'">AI Chat</button>
+
+                    <!-- Tools Dropdown -->
+                    <div class="tools-dropdown-container" id="toolsContainer">
+                        <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
+                            Tools <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
+                        </button>
+                        <div class="tools-dropdown-menu" id="toolsMenu">
+                            <a href="emotion-explorer.html">🎨 Emotion Explorer</a>
+                            <a href="emotion-balance.html">⚡ Emotion Balance</a>
+                            <a href="salad-compass.html">🥗 Salad Compass</a>
+                            <a href="index.html?tab=salad" onclick="closeToolsDropdown();">🥬 Full Salad Check</a>
+                            <a href="index.html?tab=interventions" onclick="closeToolsDropdown();">🧰 Interventions</a>
+                        </div>
+                    </div>
+
+                    <button class="nav-btn" onclick="window.location.href='index.html?tab=journal'">Journal</button>
+                    <button class="nav-btn" onclick="window.location.href='index.html?tab=progress'">Progress</button>
+                </div>
+            </nav>
+
+            <!-- Salad Compass Content -->
+            <div class="compass-container">
+                <a href="index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Mindfulness Home
+                </a>
+                
+                <div class="compass-card">
+                    <div class="compass-header">
+                        <h1>🥗 Salad Plate Compass</h1>
+                        <p class="subtitle">Your personal emotional navigation tool</p>
+                    </div>
+                    
+                    <!-- How to Use -->
+                    <div class="how-to-use">
+                        <h2><i class="fas fa-compass"></i> How to Use This</h2>
+                        <ol>
+                            <li><strong>Print it, save it, or keep it on your phone.</strong> Make it immediately accessible.</li>
+                            <li>When you feel off-balance, quickly scan the "How It Feels" column and find the closest match.</li>
+                            <li>Ask yourself the <em>Quick Self-Check</em> question to confirm.</li>
+                            <li>Look at the <em>One Action</em> and do it—it takes less than 5 minutes.</li>
+                            <li>After the action, notice: <em>Is the plate more balanced now?</em></li>
+                        </ol>
+                    </div>
+                    
+                    <!-- The Compass Table -->
+                    <table class="compass-table">
+                        <thead>
+                            <tr>
+                                <th>Your State</th>
+                                <th>How It Feels</th>
+                                <th>Quick Self-Check</th>
+                                <th>The Missing Vegetable</th>
+                                <th>One Action to Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span class="state-badge state-power">
+                                        <i class="fas fa-bolt"></i> Power
+                                    </span>
+                                </td>
+                                <td>Excited, happy, optimistic</td>
+                                <td class="self-check">"Am I riding high?"</td>
+                                <td class="missing-veg">Connection</td>
+                                <td class="action-cell">Share your excitement with someone you trust—without needing anything back.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="state-badge state-possession">
+                                        <i class="fas fa-hand-holding"></i> Possession
+                                    </span>
+                                </td>
+                                <td>Satisfied, full, occupied</td>
+                                <td class="self-check">"Am I holding onto something too tightly?"</td>
+                                <td class="missing-veg">Release</td>
+                                <td class="action-cell">Let go of one small thing—a plan, an opinion, a need to control. Notice how it feels.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="state-badge state-loss">
+                                        <i class="fas fa-heart-broken"></i> Loss
+                                    </span>
+                                </td>
+                                <td>Disappointed, frustrated, powerless</td>
+                                <td class="self-check">"Did something slip away?"</td>
+                                <td class="missing-veg">Grieve</td>
+                                <td class="action-cell">Sit for 3 minutes and just name what you lost. No fixing. Just naming.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="state-badge state-emptiness">
+                                        <i class="fas fa-circle"></i> Emptiness
+                                    </span>
+                                </td>
+                                <td>Unrestful, slightly panicked, mindless</td>
+                                <td class="self-check">"Is there a hollow feeling?"</td>
+                                <td class="missing-veg">Ground</td>
+                                <td class="action-cell"><strong>5-4-3-2-1 grounding:</strong> 5 things you see, 4 you touch, 3 you hear, 2 you smell, 1 you taste.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="state-badge state-crave">
+                                        <i class="fas fa-fire"></i> Crave
+                                    </span>
+                                </td>
+                                <td>Like eating something—urgent, hungry</td>
+                                <td class="self-check">"What am I hungry for right now?"</td>
+                                <td class="missing-veg">Pause</td>
+                                <td class="action-cell">Wait 10 minutes before acting. Notice the urge in your body. Don't feed it—just watch it.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <!-- Color Key -->
+                    <div class="color-key">
+                        <h3><i class="fas fa-palette"></i> Color Quick Reference</h3>
+                        <p style="color: #888; margin-bottom: 20px;">Assign colors to make recognition even faster. When you feel "a lot of red"—you know you need the pause.</p>
+                        
+                        <div class="color-grid">
+                            <div class="color-item">
+                                <div class="color-dot color-power"></div>
+                                <div>
+                                    <strong style="color: #ffd700;">Power</strong>
+                                    <div style="font-size: 0.85rem; color: #888;">Gold / Yellow</div>
+                                </div>
+                            </div>
+                            <div class="color-item">
+                                <div class="color-dot color-possession"></div>
+                                <div>
+                                    <strong style="color: #ff6b35;">Possession</strong>
+                                    <div style="font-size: 0.85rem; color: #888;">Deep Orange</div>
+                                </div>
+                            </div>
+                            <div class="color-item">
+                                <div class="color-dot color-loss"></div>
+                                <div>
+                                    <strong style="color: #a0a0a0;">Loss</strong>
+                                    <div style="font-size: 0.85rem; color: #888;">Dark Gray</div>
+                                </div>
+                            </div>
+                            <div class="color-item">
+                                <div class="color-dot color-emptiness"></div>
+                                <div>
+                                    <strong style="color: #c0c0c0;">Emptiness</strong>
+                                    <div style="font-size: 0.85rem; color: #888;">Light Gray / Pale Blue</div>
+                                </div>
+                            </div>
+                            <div class="color-item">
+                                <div class="color-dot color-crave"></div>
+                                <div>
+                                    <strong style="color: #dc143c;">Crave</strong>
+                                    <div style="font-size: 0.85rem; color: #888;">Deep Red</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Why This Works -->
+                    <div class="why-works">
+                        <h3><i class="fas fa-lightbulb"></i> Why This Works</h3>
+                        <ul>
+                            <li>It uses <strong>your words</strong>, not clinical terms.</li>
+                            <li>It's <strong>fast</strong>—one glance, one action.</li>
+                            <li>It's built on <strong>your own salad plate metaphor</strong> (spicy emotions, missing vegetables, balancing actions).</li>
+                            <li>It gives you <strong>agency</strong>—you're not just reacting; you're choosing a different vegetable.</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Quick Access Buttons -->
+                    <div class="quick-access">
+                        <a href="index.html#salad" class="quick-access-btn">
+                            <i class="fas fa-clipboard-check"></i> Take the Full Salad Check
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Mindfulness Therapy. All rights reserved.</p>
+            <p class="footer-links">
+                <a href="index.html">Home</a> |
+                <a href="emotion-explorer.html">🎨 Emotion Explorer</a> |
+                <a href="emotion-balance.html">⚡ Emotion Balance</a> |
+                <a href="salad-compass.html">🥗 Salad Compass</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('show');
+        }
+
+        // Tools dropdown functions
+        function toggleToolsMenu() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (!menu || !btn) return;
+
+            if (menu.style.display === 'block') {
+                menu.style.display = 'none';
+                menu.classList.remove('open');
+                btn.classList.remove('active');
+            } else {
+                // Calculate position relative to button
+                var btnRect = btn.getBoundingClientRect();
+                menu.style.top = (btnRect.bottom + 8) + 'px';
+                menu.style.left = btnRect.left + 'px';
+                menu.style.display = 'block';
+                menu.classList.add('open');
+                btn.classList.add('active');
+            }
+        }
+
+        function closeToolsDropdown() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (menu) {
+                menu.style.display = 'none';
+                menu.classList.remove('open');
+                menu.style.top = 'auto';
+                menu.style.left = 'auto';
+            }
+            if (btn) btn.classList.remove('active');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            var btn = document.getElementById('toolsBtn');
+            var menu = document.getElementById('toolsMenu');
+            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
+                closeToolsDropdown();
+            }
+        });
+    </script>
+</body>
+</html>

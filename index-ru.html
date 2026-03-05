@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Терапия Осознанности - Эмоциональный Баланс</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --power-color: #FF0000;
+            --empathy-color: #00FFFF;
+            --possession-color: #00FF00;
+            --loss-color: #FF00FF;
+            --crave-color: #0000FF;
+            --emptiness-color: #FFFF00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #fafaf9 0%, #f5f2ed 100%);
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .nav-brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #14b8a6;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: #64748b;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 9999px;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: rgba(20, 184, 166, 0.1);
+            color: #14b8a6;
+        }
+
+        .nav-btn.active {
+            background: #14b8a6;
+            color: white;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            color: #64748b;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 1.5rem 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .tool-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-card p {
+            font-size: 0.875rem;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        .tools-dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tools-dropdown-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: #64748b;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 9999px;
+            font-family: inherit;
+        }
+
+        .tools-dropdown-btn:hover {
+            background: rgba(20, 184, 166, 0.1);
+            color: #14b8a6;
+        }
+
+        .tools-dropdown-btn.active {
+            background: #14b8a6;
+            color: white;
+        }
+
+        .tools-dropdown-menu {
+            display: none;
+            position: fixed;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            min-width: 220px;
+            padding: 0.5rem;
+            z-index: 9999;
+        }
+
+        .tools-dropdown-menu.open {
+            display: block;
+        }
+
+        .tools-dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #1e293b;
+            text-decoration: none;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .tools-dropdown-menu a:hover {
+            background: rgba(20, 184, 166, 0.1);
+            color: #14b8a6;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                border-bottom: 1px solid #e2e8f0;
+                gap: 0.5rem;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .nav-btn {
+                width: 100%;
+                text-align: left;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-brand" onclick="switchTab('home')">🧘 Терапия Осознанности</div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-links" id="navLinks">
+            <button class="nav-btn" onclick="window.location.href='index.html'">English</button>
+            <button class="nav-btn" onclick="window.location.href='index-zh.html'">中文</button>
+            <button class="nav-btn active" onclick="switchTab('home')">Главная</button>
+            <button class="nav-btn" onclick="switchTab('learn')">Узнать</button>
+            <div class="tools-dropdown-container" id="toolsContainer">
+                <button class="tools-dropdown-btn" id="toolsBtn" onclick="toggleToolsMenu()">
+                    Инструменты <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="tools-dropdown-menu" id="toolsMenu">
+                    <a href="emotion-explorer-ru.html">🎨 Исследователь Эмоций</a>
+                    <a href="emotion-balance-ru.html">⚖️ Баланс Эмоций</a>
+                    <a href="salad-compass-ru.html">🥗 Компас Салатов</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Home Tab -->
+        <div id="home" class="tab-content active">
+            <div class="hero">
+                <h1>Найдите Свой Эмоциональный Баланс</h1>
+                <p>Исследуйте свои эмоции через осознанность и самопознание. Наши инструменты помогут вам понять и сбалансировать свое эмоциональное состояние.</p>
+            </div>
+
+            <div class="tools-grid">
+                <a href="emotion-explorer-ru.html" class="tool-card">
+                    <div class="tool-icon" style="background: linear-gradient(135deg, #FF6B6B, #4ECDC4); color: white;">🎨</div>
+                    <h3>Исследователь Эмоций</h3>
+                    <p>Исследуйте и визуализируйте свои эмоции через интерактивную цветовую систему. Выбирайте слова, которые резонируют с вами.</p>
+                </a>
+
+                <a href="emotion-balance-ru.html" class="tool-card">
+                    <div class="tool-icon" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">⚖️</div>
+                    <h3>Баланс Эмоций</h3>
+                    <p>Оцените свое эмоциональное состояние и получите персонализированные рекомендации по достижению баланса.</p>
+                </a>
+
+                <a href="salad-compass-ru.html" class="tool-card">
+                    <div class="tool-icon" style="background: linear-gradient(135deg, #11998e, #38ef7d); color: white;">🥗</div>
+                    <h3>Компас Салатов</h3>
+                    <p>Найдите идеальный салат на основе вашего текущего эмоционального состояния и пищевых потребностей.</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- Learn Tab -->
+        <div id="learn" class="tab-content">
+            <div class="hero">
+                <h1>Узнать об Осознанности</h1>
+                <p>Осознанность — это практика настоящего момента. Узнайте, как она может помочь вам управлять эмоциями и стрессом.</p>
+            </div>
+
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">🧘</div>
+                    <h3>Что такое Осознанность?</h3>
+                    <p>Осознанность — это состояние активного, открытого внимания к настоящему моменту. Это означает осознанное наблюдение своих мыслей и чувств без осуждения.</p>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon" style="background: linear-gradient(135deg, #f093fb, #f5576c); color: white;">🌬️</div>
+                    <h3>Дыхательные Упражнения</h3>
+                    <p>Простые техники дыхания могут помочь успокоить ум и снизить тревогу. Попробуйте глубокое дыхание животом или технику 4-7-8.</p>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon" style="background: linear-gradient(135deg, #4facfe, #00f2fe); color: white;">🎯</div>
+                    <h3>Медитация Внимательности</h3>
+                    <p>Регулярная практика медитации может улучшить фокус, снизить стресс и повысить эмоциональную устойчивость.</p>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon" style="background: linear-gradient(135deg, #fa709a, #fee140); color: white;">💭</div>
+                    <h3>Осознанность Мыслей</h3>
+                    <p>Учитесь наблюдать свои мысли как облака, проплывающие по небу — без привязанности и осуждения.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Update nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Find and activate the clicked button
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => {
+                if (btn.getAttribute('onclick').includes(tabName)) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Close mobile menu
+            document.getElementById('navLinks').classList.remove('show');
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            document.getElementById('navLinks').classList.toggle('show');
+        }
+
+        // Tools dropdown
+        function toggleToolsMenu() {
+            const menu = document.getElementById('toolsMenu');
+            const btn = document.getElementById('toolsBtn');
+            menu.classList.toggle('open');
+            btn.classList.toggle('active');
+            
+            if (menu.classList.contains('open')) {
+                const btnRect = btn.getBoundingClientRect();
+                menu.style.top = (btnRect.bottom + 8) + 'px';
+                menu.style.left = btnRect.left + 'px';
+            }
+        }
+
+        function closeToolsDropdown() {
+            document.getElementById('toolsMenu').classList.remove('open');
+            document.getElementById('toolsBtn').classList.remove('active');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const container = document.getElementById('toolsContainer');
+            if (!container.contains(event.target)) {
+                closeToolsDropdown();
+            }
+        });
+
+        // Check URL for tab parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const tabParam = urlParams.get('tab');
+        if (tabParam) {
+            switchTab(tabParam);
+        }
+    </script>
+</body>
+</html>

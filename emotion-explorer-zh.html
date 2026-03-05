@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>情绪探索器 - Emotion Explorer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --power-color: #FF0000;
+            --possession-color: #00FF00;
+            --loss-color: #FF00FF;
+            --emptiness-color: #FFFF00;
+            --crave-color: #0000FF;
+            --empathy-color: #00FFFF;
+        }
+
+        .explorer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .explorer-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1rem 0;
+        }
+
+        .explorer-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+
+        .explorer-header p {
+            color: #64748b;
+            font-size: 1rem;
+        }
+
+        #emotionRibbonDisplay {
+            background-color: #f0f0f0;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #emotionRainbowSvg {
+            width: 100%;
+            height: 120px;
+            margin: 0 auto;
+        }
+
+        .categories-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .category-tab {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .category-tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .category-tab.active {
+            border-color: var(--power-color);
+            background: var(--power-color);
+            color: white;
+        }
+
+        .category-tab[data-category="POWER"] { border-color: var(--power-color); }
+        .category-tab[data-category="POWER"].active { background: var(--power-color); }
+        
+        .category-tab[data-category="POSSESSION"] { border-color: var(--possession-color); color: #333; }
+        .category-tab[data-category="POSSESSION"].active { background: var(--possession-color); }
+        
+        .category-tab[data-category="LOSS"] { border-color: var(--loss-color); }
+        .category-tab[data-category="LOSS"].active { background: var(--loss-color); }
+        
+        .category-tab[data-category="EMPTINESS"] { border-color: var(--emptiness-color); }
+        .category-tab[data-category="EMPTINESS"].active { background: var(--emptiness-color); }
+        
+        .category-tab[data-category="CRAVE"] { border-color: var(--crave-color); }
+        .category-tab[data-category="CRAVE"].active { background: var(--crave-color); }
+        
+        .category-tab[data-category="EMPATHY"] { border-color: var(--empathy-color); }
+        .category-tab[data-category="EMPATHY"].active { background: var(--empathy-color); }
+
+        .words-display-area {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            min-height: 200px;
+        }
+
+        .words-category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .words-category-emoji {
+            font-size: 2rem;
+        }
+
+        .words-category-info h3 {
+            margin: 0;
+            color: #1e293b;
+            font-size: 1.25rem;
+        }
+
+        .words-category-info p {
+            margin: 0;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .words-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .word-bubble {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .word-bubble:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .word-bubble.selected {
+            border-color: var(--power-color);
+            background: var(--power-color);
+            color: white;
+        }
+
+        .selected-words-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .selected-words-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .selected-words-header h3 {
+            margin: 0;
+            color: #1e293b;
+            font-size: 1.1rem;
+        }
+
+        .clear-all-btn {
+            padding: 0.5rem 1rem;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background 0.3s ease;
+        }
+
+        .clear-all-btn:hover {
+            background: #dc2626;
+        }
+
+        .selected-words-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            min-height: 2rem;
+        }
+
+        .selected-word-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .selected-word-tag:hover {
+            opacity: 0.8;
+        }
+
+        .selected-word-tag .remove {
+            font-size: 0.7rem;
+            opacity: 0.7;
+        }
+
+        .stats-bar {
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1e293b;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 0.25rem;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            overflow-x: visible;
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: #64748b;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-btn:hover {
+            background: rgba(20, 184, 166, 0.1);
+            color: #14b8a6;
+        }
+
+        .tools-dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tools-dropdown-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: #64748b;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .tools-dropdown-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #1e293b;
+        }
+
+        .tools-dropdown-btn.active {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .tools-dropdown-menu {
+            display: none;
+            position: fixed;
+            top: auto;
+            left: auto;
+            margin-top: 0.5rem;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            min-width: 220px;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+
+        .tools-dropdown-menu.open {
+            display: block;
+        }
+
+        .tools-dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #1e293b;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .tools-dropdown-menu a:hover {
+            background: rgba(20, 184, 166, 0.1);
+            color: #14b8a6;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            color: #64748b;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(20, 184, 166, 0.1);
+            color: #14b8a6;
+        }
+
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+                z-index: 999;
+                gap: 0.5rem;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .nav-bar {
+                position: relative;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Full Navigation Bar -->
+    <nav class="nav-bar">
+        <div class="nav-brand" onclick="window.location.href='index.html'">🧘 正念疗法</div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-links" id="navLinks">
+            <button class="nav-btn" onclick="window.location.href='emotion-explorer.html'">English</button>
+            <button class="nav-btn" onclick="window.location.href='emotion-explorer-ru.html'">Русский</button>
+            <button class="nav-btn" onclick="window.location.href='index.html'">首页</button>
+            <button class="nav-btn" onclick="window.location.href='emotion-balance.html'">情绪平衡</button>
+
+            <!-- Tools Dropdown -->
+            <div class="tools-dropdown-container" id="toolsContainer">
+                <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
+                    工具 <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
+                </button>
+                <div class="tools-dropdown-menu" id="toolsMenu">
+                    <a href="breathing.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🫁 呼吸练习</a>
+                    <a href="meditation.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🧘 冥想指导</a>
+                    <a href="journal.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">📖 情绪日记</a>
+                    <a href="cognitive-reframe.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🔄 认知重构</a>
+                    <a href="emotional-salad.html" onclick="closeToolsDropdown();" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥗 情绪沙拉</a>
+                </div>
+            </div>
+
+            <button class="nav-btn" onclick="window.location.href='../index.html'">返回治疗应用</button>
+        </div>
+    </nav>
+
+    <div class="explorer-container">
+        <div class="explorer-header">
+            <h1>情绪探索器</h1>
+            <p>选择情绪词语，观察彩虹的变化</p>
+        </div>
+
+        <!-- Emotion Ribbon Display -->
+        <div id="emotionRibbonDisplay">
+            <svg id="emotionRainbowSvg" viewBox="0 0 1200 120">
+                <!-- Rainbow bands for complementary pairs -->
+                <path id="rainbow-pair-1" d="M 0,120 A 600,100 0 0 1 1200,120" fill="transparent" stroke="none"/>
+                <path id="rainbow-pair-2" d="M 50,120 A 550,90 0 0 1 1150,120" fill="transparent" stroke="none"/>
+                <path id="rainbow-pair-3" d="M 100,120 A 500,80 0 0 1 1100,120" fill="transparent" stroke="none"/>
+            </svg>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="categories-tabs">
+            <button class="category-tab active" data-category="POWER" onclick="switchTab('POWER')">💪 权力</button>
+            <button class="category-tab" data-category="POSSESSION" onclick="switchTab('POSSESSION')">🏠 占有</button>
+            <button class="category-tab" data-category="LOSS" onclick="switchTab('LOSS')">💔 失去</button>
+            <button class="category-tab" data-category="EMPTINESS" onclick="switchTab('EMPTINESS')">⭕ 空虚</button>
+            <button class="category-tab" data-category="CRAVE" onclick="switchTab('CRAVE')">🔥 渴望</button>
+            <button class="category-tab" data-category="EMPATHY" onclick="switchTab('EMPATHY')">🤝 共情</button>
+        </div>
+
+        <!-- Words Display Area -->
+        <div class="words-display-area" id="wordsDisplayArea">
+            <p style="text-align: center; color: #94a3b8; padding: 2rem;">正在加载词语...</p>
+        </div>
+
+        <!-- Selected Words Section -->
+        <div class="selected-words-section">
+            <div class="selected-words-header">
+                <h3>已选择的词语</h3>
+                <button class="clear-all-btn" onclick="clearAllWords()">清除全部</button>
+            </div>
+            <div class="selected-words-list" id="selectedWordsList">
+                <span style="color: #94a3b8; font-size: 0.875rem;">尚未选择词语...</span>
+            </div>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-value" id="totalSelected">0</div>
+                <div class="stat-label">已选择</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="categoriesActive">0</div>
+                <div class="stat-label">活跃类别</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="dominantCategory">-</div>
+                <div class="stat-label">主导类别</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Inline EmotionRibbon lexicon to ensure it loads
+        const EmotionRibbon = {
+            lexicon: {
+                POWER: ['强大', '有力', '力量', '主导', '权威', '控制', '掌控', '领导', '自信', '能力', '胜利', '成功', '勇气', '勇敢', '能量', '活力', '成就', '雄心', '卓越', '英雄', '冠军', '征服', '优势', '坚定', '果断', '影响力', '掌控力', '实力', '强势', '威武', '激动', '开心', '乐观', '前进', '可能'],
+                POSSESSION: ['拥有', '占有', '获得', '得到', '收藏', '积累', '财富', '财产', '资产', '资源', '归属', '我的', '持有', '保留', '守护', '珍惜', '重视', '看重', '在意', '依恋', '依赖', '依靠', '寄托', '安心', '稳定', '安全', '满足', '充实', '丰富', '充裕'],
+                LOSS: ['失去', '失落', '丧失', '离别', '分离', '告别', '结束', '终止', '消失', '逝去', '遗憾', '后悔', '惋惜', '悲伤', '哀痛', '痛苦', '心碎', '受伤', '创伤', '打击', '挫折', '失败', '跌倒', '沉沦', '沮丧', '绝望', '无助', '孤独', '空虚', '迷茫'],
+                EMPTINESS: ['空虚', '空洞', '空白', '缺失', '缺乏', '不足', '贫乏', '匮乏', '饥饿', '渴望', '需要', '想要', '追求', '寻找', '探索', '迷茫', '困惑', '迷失', '漂泊', '流浪', '无根', '浮动', '不确定', '不安', '焦虑', '紧张', '担心', '忧虑', '烦躁', '躁动'],
+                CRAVE: ['渴望', '欲望', '渴求', '向往', '憧憬', '期待', '盼望', '希望', '梦想', '幻想', '迷恋', '痴迷', '着迷', '热衷', '热爱', '喜爱', '喜欢', '欣赏', '赞美', '羡慕', '嫉妒', '竞争', '争强', '好胜', '野心', '抱负', '志向', '理想', '目标', '追求'],
+                EMPATHY: ['共情', '同理', '理解', '体谅', '包容', '接纳', '宽恕', '原谅', '慈悲', '善良', '温暖', '关怀', '关心', '照顾', '呵护', '支持', '鼓励', '安慰', '陪伴', '倾听', '连接', '亲密', '信任', '真诚', '诚实', '敞开', '脆弱', '真实', '自然', '平和']
+            }
+        };
+        window.EmotionRibbon = EmotionRibbon;
+    </script>
+    <script>
+        // Selected words state
+        let selectedWords = [];
+        let currentTab = 'POWER';
+
+        // Category data
+        const categories = {
+            POWER: { name: '权力', emoji: '💪', color: '#FF0000' },
+            POSSESSION: { name: '占有', emoji: '🏠', color: '#00FF00' },
+            LOSS: { name: '失去', emoji: '💔', color: '#FF00FF' },
+            EMPTINESS: { name: '空虚', emoji: '⭕', color: '#FFFF00' },
+            CRAVE: { name: '渴望', emoji: '🔥', color: '#0000FF' },
+            EMPATHY: { name: '共情', emoji: '🤝', color: '#00FFFF' }
+        };
+
+        // Rainbow color mapping - 互补色对
+        // 红色 (255,0,0) + 青色 (0,255,255) = 白色
+        // 绿色 (0,255,0) + 品红色 (255,0,255) = 白色
+        // 蓝色 (0,0,255) + 黄色 (255,255,0) = 白色
+        const rainbowColors = {
+            POWER: '#FF0000',      // 红色
+            EMPATHY: '#00FFFF',    // 青色 (红色的互补色)
+            POSSESSION: '#00FF00', // 绿色
+            LOSS: '#FF00FF',       // 品红色 (绿色的互补色)
+            CRAVE: '#0000FF',      // 蓝色
+            EMPTINESS: '#FFFF00'   // 黄色 (蓝色的互补色)
+        };
+
+        // 类别配对
+        const categoryToBand = {
+            POWER: 'pair-1',
+            EMPATHY: 'pair-1',
+            POSSESSION: 'pair-2',
+            LOSS: 'pair-2',
+            CRAVE: 'pair-3',
+            EMPTINESS: 'pair-3'
+        };
+
+        // Initialize
+        function init() {
+            console.log('Initializing...');
+            console.log('EmotionRibbon available:', !!window.EmotionRibbon);
+            console.log('Lexicon available:', !!window.EmotionRibbon?.lexicon);
+            
+            if (window.EmotionRibbon && window.EmotionRibbon.lexicon) {
+                console.log('Categories:', Object.keys(window.EmotionRibbon.lexicon));
+                switchTab('POWER');
+                updateUI();
+            } else {
+                console.log('EmotionRibbon not loaded');
+                document.getElementById('wordsDisplayArea').innerHTML = '<p style="text-align: center; color: #94a3b8; padding: 2rem;">加载失败，请刷新页面</p>';
+            }
+        }
+
+        // Switch tab
+        function switchTab(category) {
+            currentTab = category;
+            
+            // Update active tab
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`[data-category="${category}"]`).classList.add('active');
+            
+            displayWordsForCategory(category);
+        }
+
+        // Display words for category
+        function displayWordsForCategory(categoryKey) {
+            const displayArea = document.getElementById('wordsDisplayArea');
+            const category = categories[categoryKey];
+            
+            if (!window.EmotionRibbon || !window.EmotionRibbon.lexicon) {
+                displayArea.innerHTML = '<p style="text-align: center; color: #94a3b8; padding: 2rem;">词语库未加载</p>';
+                return;
+            }
+            
+            const words = window.EmotionRibbon.lexicon[categoryKey] || [];
+            
+            if (words.length === 0) {
+                displayArea.innerHTML = '<p style="text-align: center; color: #94a3b8; padding: 2rem;">此类别暂无词语</p>';
+                return;
+            }
+            
+            displayArea.innerHTML = `
+                <div class="words-category-header">
+                    <div class="words-category-emoji">${category.emoji}</div>
+                    <div class="words-category-info">
+                        <h3>${category.name}</h3>
+                        <p>${words.length} 个词语 • 点击选择</p>
+                    </div>
+                </div>
+                <div class="words-cloud">
+                    ${words.map(word => {
+                        const isSelected = selectedWords.some(w => w.word === word && w.category === categoryKey);
+                        return `<button class="word-bubble ${isSelected ? 'selected' : ''}" onclick="toggleWord('${word}', '${categoryKey}')">${word}</button>`;
+                    }).join('')}
+                </div>
+            `;
+        }
+
+        // Toggle word selection
+        function toggleWord(word, category) {
+            const existingIndex = selectedWords.findIndex(w => w.word === word && w.category === category);
+            
+            if (existingIndex >= 0) {
+                selectedWords.splice(existingIndex, 1);
+            } else {
+                selectedWords.push({ word, category });
+            }
+            
+            updateUI();
+        }
+
+        // Update UI
+        function updateUI() {
+            displayWordsForCategory(currentTab);
+            updateSelectedWordsList();
+            updateRibbon();
+            updateStats();
+        }
+
+        // Update selected words list
+        function updateSelectedWordsList() {
+            const list = document.getElementById('selectedWordsList');
+            
+            if (selectedWords.length === 0) {
+                list.innerHTML = '<span style="color: #94a3b8; font-size: 0.875rem;">尚未选择词语...</span>';
+                return;
+            }
+            
+            list.innerHTML = selectedWords.map(word => {
+                const color = rainbowColors[word.category];
+                return `<span class="selected-word-tag" style="background: ${color};" onclick="toggleWord('${word.word}', '${word.category}')">${word.word} <i class="fas fa-times remove"></i></span>`;
+            }).join('');
+        }
+
+        // Update ribbon
+        function updateRibbon() {
+            const rainbowBands = document.querySelectorAll('#emotionRainbowSvg path');
+            rainbowBands.forEach(band => band.setAttribute('fill', 'transparent'));
+            
+            if (selectedWords.length === 0) return;
+            
+            const activeCategories = new Set(selectedWords.map(w => w.category));
+            const categoryCounts = {};
+            selectedWords.forEach(w => {
+                categoryCounts[w.category] = (categoryCounts[w.category] || 0) + 1;
+            });
+            
+            const bandPairs = [
+                { band: 'pair-1', categories: ['POWER', 'EMPATHY'] },
+                { band: 'pair-2', categories: ['POSSESSION', 'LOSS'] },
+                { band: 'pair-3', categories: ['CRAVE', 'EMPTINESS'] }
+            ];
+            
+            bandPairs.forEach(pair => {
+                const band = document.getElementById(`rainbow-${pair.band}`);
+                if (!band) return;
+                
+                const activeInPair = pair.categories.filter(cat => activeCategories.has(cat));
+                
+                if (activeInPair.length === 1) {
+                    const color = rainbowColors[activeInPair[0]];
+                    const count = categoryCounts[activeInPair[0]] || 0;
+                    const opacity = Math.min(count / 5, 1);
+                    band.setAttribute('fill', color);
+                    band.setAttribute('fill-opacity', opacity);
+                } else if (activeInPair.length === 2) {
+                    const color1 = rainbowColors[activeInPair[0]];
+                    const color2 = rainbowColors[activeInPair[1]];
+                    const count1 = categoryCounts[activeInPair[0]] || 0;
+                    const count2 = categoryCounts[activeInPair[1]] || 0;
+                    const totalIntensity = Math.min((count1 + count2) / 10, 1);
+                    
+                    band.setAttribute('fill', '#FFFFFF');
+                    band.setAttribute('fill-opacity', totalIntensity);
+                }
+            });
+        }
+
+        // Update stats
+        function updateStats() {
+            document.getElementById('totalSelected').textContent = selectedWords.length;
+            
+            const activeCategories = new Set(selectedWords.map(w => w.category));
+            document.getElementById('categoriesActive').textContent = activeCategories.size;
+            
+            if (selectedWords.length > 0) {
+                const categoryCounts = {};
+                selectedWords.forEach(w => {
+                    categoryCounts[w.category] = (categoryCounts[w.category] || 0) + 1;
+                });
+                const dominant = Object.entries(categoryCounts).sort((a, b) => b[1] - a[1])[0][0];
+                document.getElementById('dominantCategory').textContent = categories[dominant].name;
+            } else {
+                document.getElementById('dominantCategory').textContent = '-';
+            }
+        }
+
+        // Clear all words
+        function clearAllWords() {
+            selectedWords = [];
+            updateUI();
+        }
+
+        // Tools dropdown functions
+        function toggleToolsMenu() {
+            const menu = document.getElementById('toolsMenu');
+            const btn = document.getElementById('toolsBtn');
+            
+            if (menu.classList.contains('open')) {
+                menu.classList.remove('open');
+                btn.classList.remove('active');
+            } else {
+                menu.classList.add('open');
+                btn.classList.add('active');
+                
+                const btnRect = btn.getBoundingClientRect();
+                menu.style.top = (btnRect.bottom + 8) + 'px';
+                menu.style.left = btnRect.left + 'px';
+            }
+        }
+
+        function closeToolsDropdown() {
+            document.getElementById('toolsMenu').classList.remove('open');
+            document.getElementById('toolsBtn').classList.remove('active');
+        }
+
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('show');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const container = document.getElementById('toolsContainer');
+            const menu = document.getElementById('toolsMenu');
+            const btn = document.getElementById('toolsBtn');
+            
+            if (!container.contains(event.target)) {
+                menu.classList.remove('open');
+                btn.classList.remove('active');
+            }
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

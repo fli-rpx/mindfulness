@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="copyright" content="© 2026 正念疗法. 保留所有权利.">
+    <title>情绪平衡工具 - 正念疗法</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Tools Dropdown Styles */
+        .tools-dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tools-dropdown-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: #64748b;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 9999px;
+            font-family: inherit;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Noto Serif SC', serif;
+        }
+
+        .tools-dropdown-btn:hover {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .tools-dropdown-btn.active {
+            background: linear-gradient(135deg, #50c8b8, #4a90d9);
+            color: white;
+        }
+
+        .tools-dropdown-menu {
+            display: none;
+            position: fixed;
+            top: auto;
+            left: auto;
+            margin-top: 0.5rem;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            min-width: 220px;
+            padding: 0.5rem;
+            z-index: 9999;
+        }
+
+        .tools-dropdown-menu.open {
+            display: block;
+        }
+
+        .tools-dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #1e293b;
+            text-decoration: none;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .tools-dropdown-menu a:hover {
+            background: rgba(20, 184, 166, 0.1);
+            color: #14b8a6;
+        }
+
+        /* Navigation Bar Styles */
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 2rem;
+            height: 60px;
+        }
+
+        .nav-brand {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            overflow-x: visible; /* Override the overflow from styles.css */
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            background: transparent;
+            color: #64748b;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #50c8b8, #4a90d9);
+            color: white;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            color: #64748b;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+                gap: 0.5rem;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .nav-btn {
+                width: 100%;
+                text-align: left;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        .emotion-balance-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .balance-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        .balance-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .balance-header h1 {
+            font-size: 2rem;
+            background: linear-gradient(90deg, #50c8b8, #4a90d9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .balance-header .subtitle {
+            color: #b0b0b8;
+            font-size: 0.95rem;
+        }
+        
+        .slider-question {
+            margin-bottom: 30px;
+        }
+        
+        .slider-question label {
+            display: block;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            color: #e0e0e8;
+            font-weight: 500;
+        }
+        
+        .slider-container {
+            position: relative;
+        }
+        
+        .slider-track {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .slider-track::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #50c8b8, #4a90d9);
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(80, 200, 184, 0.4);
+            transition: transform 0.2s;
+        }
+        
+        .slider-track::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+        
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 0.8rem;
+            color: #888;
+        }
+        
+        .slider-value {
+            text-align: center;
+            margin-top: 8px;
+            font-size: 1.2rem;
+            color: #50c8b8;
+            font-weight: 600;
+        }
+        
+        .analyze-btn {
+            width: 100%;
+            padding: 16px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #50c8b8, #4a90d9);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(80, 200, 184, 0.3);
+        }
+        
+        .analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(80, 200, 184, 0.4);
+        }
+        
+        .result-section {
+            display: none;
+            margin-top: 30px;
+            padding: 30px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .result-section.show {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .score-display {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            position: relative;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: conic-gradient(var(--score-color) var(--score-deg), rgba(255,255,255,0.1) 0);
+            z-index: -1;
+        }
+        
+        .state-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--score-color);
+        }
+        
+        .state-description {
+            color: #b0b0b8;
+            line-height: 1.6;
+        }
+        
+        .advice-section {
+            margin-top: 25px;
+        }
+        
+        .advice-section h3 {
+            color: #50c8b8;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .advice-list {
+            list-style: none;
+        }
+        
+        .advice-list li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #d0d0d8;
+            line-height: 1.6;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .advice-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .advice-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #50c8b8;
+            font-weight: bold;
+        }
+        
+        .quick-actions-section {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .quick-actions-section h3 {
+            color: #4a90d9;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        
+        .action-btn {
+            padding: 14px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e0e0e8;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .action-btn:hover {
+            background: rgba(80, 200, 184, 0.2);
+            border-color: #50c8b8;
+            transform: translateY(-1px);
+        }
+        
+        .breathing-exercise {
+            display: none;
+            margin-top: 25px;
+            padding: 30px;
+            text-align: center;
+            background: rgba(80, 200, 184, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(80, 200, 184, 0.2);
+        }
+        
+        .breathing-exercise.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .breathing-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #50c8b8, #4a90d9);
+            margin: 20px auto;
+            animation: breathe 4s ease-in-out infinite;
+        }
+        
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.3); opacity: 1; }
+        }
+        
+        .reset-btn {
+            margin-top: 20px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: none;
+            color: #b0b0b8;
+        }
+        
+        .reset-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #888;
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: color 0.2s;
+        }
+        
+        .back-link:hover {
+            color: #50c8b8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Full Navigation Bar -->
+    <nav class="nav-bar" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #e2e8f0;">
+        <div class="nav-brand" onclick="window.location.href='index.html'" style="cursor: pointer;">🧘 Mindfulness Therapy</div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-links" id="navLinks">
+            <button class="nav-btn" onclick="window.location.href='index-zh.html'">中文</button>
+            <button class="nav-btn" onclick="window.location.href='index.html'">Home</button>
+            <button class="nav-btn" onclick="window.location.href='index.html?tab=cycle'">Cycle</button>
+            <button class="nav-btn" onclick="window.location.href='index.html?tab=assessment'">AI Chat</button>
+
+            <!-- Tools Dropdown -->
+            <div class="tools-dropdown-container" id="toolsContainer">
+                <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
+                    Tools <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
+                </button>
+                <div class="tools-dropdown-menu" id="toolsMenu">
+                    <a href="emotion-explorer.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🎨 Emotion Explorer</a>
+                    <a href="emotion-balance.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">⚡ Emotion Balance</a>
+                    <a href="salad-compass.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥗 Salad Compass</a>
+                    <a href="index.html?tab=salad" onclick="closeToolsDropdown();" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥬 Full Salad Check</a>
+                    <a href="index.html?tab=interventions" onclick="closeToolsDropdown();" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🧰 Interventions</a>
+                </div>
+            </div>
+
+            <button class="nav-btn" onclick="window.location.href='index.html?tab=journal'">Journal</button>
+            <button class="nav-btn" onclick="window.location.href='index.html?tab=progress'">Progress</button>
+        </div>
+    </nav>
+
+    <div id="app" style="padding-top: 60px;">
+
+
+        <!-- Main Content -->
+        <div class="content-main">
+
+            <!-- Emotion Balance Tool -->
+            <div class="emotion-balance-container">
+                <a href="index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Mindfulness Home
+                </a>
+                
+                <div class="balance-card">
+                    <div class="balance-header">
+                        <h1>⚡ Emotion Balance Tool</h1>
+                        <p class="subtitle">Check in. Get balanced. Move forward.</p>
+                    </div>
+                    
+                    <div id="quiz-section">
+                        <div class="slider-question">
+                            <label>1. Energy Level</label>
+                            <div class="slider-container">
+                                <input type="range" id="energy" class="slider-track" min="1" max="10" value="5" oninput="updateValue('energy', this.value)">
+                                <div class="slider-labels">
+                                    <span>Drained</span>
+                                    <span>Balanced</span>
+                                    <span>Hyper</span>
+                                </div>
+                                <div class="slider-value" id="energy-val">5</div>
+                            </div>
+                        </div>
+                        
+                        <div class="slider-question">
+                            <label>2. Mental Clarity</label>
+                            <div class="slider-container">
+                                <input type="range" id="clarity" class="slider-track" min="1" max="10" value="5" oninput="updateValue('clarity', this.value)">
+                                <div class="slider-labels">
+                                    <span>Foggy</span>
+                                    <span>Clear</span>
+                                    <span>Sharp</span>
+                                </div>
+                                <div class="slider-value" id="clarity-val">5</div>
+                            </div>
+                        </div>
+                        
+                        <div class="slider-question">
+                            <label>3. Emotional Stability</label>
+                            <div class="slider-container">
+                                <input type="range" id="stability" class="slider-track" min="1" max="10" value="5" oninput="updateValue('stability', this.value)">
+                                <div class="slider-labels">
+                                    <span>Volatile</span>
+                                    <span>Steady</span>
+                                    <span>Centered</span>
+                                </div>
+                                <div class="slider-value" id="stability-val">5</div>
+                            </div>
+                        </div>
+                        
+                        <div class="slider-question">
+                            <label>4. Stress Level</label>
+                            <div class="slider-container">
+                                <input type="range" id="stress" class="slider-track" min="1" max="10" value="5" oninput="updateValue('stress', this.value)">
+                                <div class="slider-labels">
+                                    <span>Calm</span>
+                                    <span>Manageable</span>
+                                    <span>Overwhelmed</span>
+                                </div>
+                                <div class="slider-value" id="stress-val">5</div>
+                            </div>
+                        </div>
+                        
+                        <button class="analyze-btn" onclick="calculateState()">
+                            <i class="fas fa-chart-line"></i> Analyze My State
+                        </button>
+                    </div>
+                    
+                    <div id="result-section" class="result-section">
+                        <div class="score-display">
+                            <div class="score-circle" id="score-circle">--</div>
+                            <h2 class="state-title" id="state-title">--</h2>
+                            <p class="state-description" id="state-desc"></p>
+                        </div>
+                        
+                        <div class="advice-section">
+                            <h3><i class="fas fa-bullseye"></i> Quick Rebalance Actions</h3>
+                            <ul class="advice-list" id="advice-list"></ul>
+                        </div>
+                        
+                        <div class="quick-actions-section">
+                            <h3><i class="fas fa-bolt"></i> Instant Tools</h3>
+                            <div class="action-grid">
+                                <button class="action-btn" onclick="showBreathing()">
+                                    <i class="fas fa-lungs"></i> Breathing
+                                </button>
+                                <button class="action-btn" onclick="groundingExercise()">
+                                    <i class="fas fa-globe"></i> Grounding
+                                </button>
+                                <button class="action-btn" onclick="resetTool()">
+                                    <i class="fas fa-redo"></i> Reset
+                                </button>
+                                <button class="action-btn" onclick="window.open('https://www.youtube.com/results?search_query=lofi+beats', '_blank')">
+                                    <i class="fas fa-music"></i> Lofi
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div id="breathing-section" class="breathing-exercise">
+                            <p style="color: #50c8b8; font-weight: 500;">Breathe with the circle...</p>
+                            <div class="breathing-circle"></div>
+                            <p style="color: #888; font-size: 0.9rem;">Inhale as it expands, exhale as it contracts</p>
+                            <button class="action-btn reset-btn" onclick="hideBreathing()" style="margin-top: 15px;">
+                                <i class="fas fa-stop"></i> Stop
+                            </button>
+                        </div>
+                        
+                        <button class="action-btn reset-btn" onclick="resetAll()" style="width: 100%; margin-top: 20px;">
+                            <i class="fas fa-redo"></i> Check Again
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Mindfulness Therapy. All rights reserved.</p>
+            <p class="footer-links">
+                <a href="index.html">Home</a> |
+                <a href="emotion-explorer.html">🎨 Emotion Explorer</a> |
+                <a href="emotion-balance.html">⚡ Balance Tool</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('show');
+        }
+        
+        function toggleDropdown(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            const toggle = this;
+            
+            document.querySelectorAll('.dropdown-menu').forEach(d => {
+                if (d.id !== dropdownId) d.classList.remove('show');
+            });
+            document.querySelectorAll('.dropdown-toggle').forEach(t => {
+                if (t !== toggle) t.classList.remove('active');
+            });
+            
+            dropdown.classList.toggle('show');
+            toggle.classList.toggle('active');
+            
+            return false;
+        }
+        
+        // Close when clicking outside
+        document.addEventListener('click', function(e) {
+            var container = document.getElementById('toolsContainer');
+            if (container && !container.contains(e.target)) {
+                closeToolsDropdown();
+            }
+        });
+        
+        function updateValue(id, value) {
+            document.getElementById(id + '-val').textContent = value;
+        }
+        
+        function calculateState() {
+            const energy = parseInt(document.getElementById('energy').value);
+            const clarity = parseInt(document.getElementById('clarity').value);
+            const stability = parseInt(document.getElementById('stability').value);
+            const stress = parseInt(document.getElementById('stress').value);
+            
+            // Calculate balance score (stress is inverted)
+            const balanceScore = Math.round((energy + clarity + stability + (11 - stress)) / 4 * 10);
+            
+            // Determine state
+            let state, color, desc, advice;
+            
+            if (balanceScore >= 80) {
+                state = "⚡ Peak State";
+                color = "#50c8b8";
+                desc = "You're in a strong position. Channel this energy into meaningful work.";
+                advice = [
+                    "Tackle your most important task now — you're sharp",
+                    "Document what's working so you can replicate it",
+                    "Help someone else — your clarity is contagious",
+                    "Set a boundary: protect this state from interruptions"
+                ];
+            } else if (balanceScore >= 60) {
+                state = "🌊 Balanced Flow";
+                color = "#4a90d9";
+                desc = "Good equilibrium. Small adjustments will optimize your day.";
+                advice = [
+                    "Take a 5-minute walk to maintain momentum",
+                    "Drink water — hydration affects clarity more than you think",
+                    "Do one thing that moves your main goal forward",
+                    "Check in with yourself again in 2 hours"
+                ];
+            } else if (balanceScore >= 40) {
+                state = "🌫️ Drift Mode";
+                color = "#f5a623";
+                desc = "You're functional but not firing on all cylinders. Time to recalibrate.";
+                advice = [
+                    "Close all tabs except the one you need right now",
+                    "Do a 2-minute body scan — where are you holding tension?",
+                    "Eat something with protein if you haven't recently",
+                    "Lower the bar: what's the smallest next step you can take?"
+                ];
+            } else {
+                state = "⛈️ Storm Mode";
+                color = "#e74c3c";
+                desc = "Your system needs care before productivity. Recovery first.";
+                advice = [
+                    "Step away from the screen for 10 minutes minimum",
+                    "Name three things you can see, hear, and feel (grounding)",
+                    "Text someone you trust: 'Having a rough moment'",
+                    "Ask: what's the kindest thing I could do for myself right now?",
+                    "Consider postponing non-urgent tasks until tomorrow"
+                ];
+            }
+            
+            // Display results
+            const resultDiv = document.getElementById('result-section');
+            const scoreCircle = document.getElementById('score-circle');
+            const stateTitle = document.getElementById('state-title');
+            
+            scoreCircle.textContent = balanceScore;
+            scoreCircle.style.setProperty('--score-color', color);
+            scoreCircle.style.setProperty('--score-deg', (balanceScore * 3.6) + 'deg');
+            
+            stateTitle.textContent = state;
+            stateTitle.style.setProperty('--score-color', color);
+            
+            document.getElementById('state-desc').textContent = desc;
+            
+            const adviceList = document.getElementById('advice-list');
+            adviceList.innerHTML = advice.map(a => `<li>${a}</li>`).join('');
+            
+            document.getElementById('quiz-section').style.display = 'none';
+            resultDiv.classList.add('show');
+            
+            // Scroll to results
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        function showBreathing() {
+            document.getElementById('breathing-section').classList.add('show');
+        }
+        
+        function hideBreathing() {
+            document.getElementById('breathing-section').classList.remove('show');
+        }
+        
+        function groundingExercise() {
+            alert(`5-4-3-2-1 Grounding Exercise:
+
+👁️ 5 things you can SEE
+👂 4 things you can HEAR
+✋ 3 things you can TOUCH
+👃 2 things you can SMELL
+👅 1 thing you can TASTE
+
+Take your time. Come back to now.`);
+        }
+        
+        function resetTool() {
+            document.getElementById('energy').value = 5;
+            document.getElementById('clarity').value = 5;
+            document.getElementById('stability').value = 5;
+            document.getElementById('stress').value = 5;
+            
+            ['energy', 'clarity', 'stability', 'stress'].forEach(id => {
+                document.getElementById(id + '-val').textContent = '5';
+            });
+        }
+        
+        function resetAll() {
+            document.getElementById('result-section').classList.remove('show');
+            document.getElementById('quiz-section').style.display = 'block';
+            hideBreathing();
+            resetTool();
+            
+            // Scroll back to top
+            document.querySelector('.balance-card').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Tools dropdown functions
+        function toggleToolsMenu() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (!menu || !btn) return;
+
+            if (menu.style.display === 'block') {
+                menu.style.display = 'none';
+                menu.classList.remove('open');
+                btn.classList.remove('active');
+            } else {
+                var btnRect = btn.getBoundingClientRect();
+                menu.style.top = (btnRect.bottom + 8) + 'px';
+                menu.style.left = btnRect.left + 'px';
+                menu.style.display = 'block';
+                menu.classList.add('open');
+                btn.classList.add('active');
+            }
+        }
+
+        function closeToolsDropdown() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (menu) {
+                menu.style.display = 'none';
+                menu.classList.remove('open');
+                menu.style.top = 'auto';
+                menu.style.left = 'auto';
+            }
+            if (btn) btn.classList.remove('active');
+        }
+
+        document.addEventListener('click', function(e) {
+            var btn = document.getElementById('toolsBtn');
+            var menu = document.getElementById('toolsMenu');
+            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
+                closeToolsDropdown();
+            }
+        });
+    </script>
+</body>
+</html>

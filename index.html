@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="copyright" content="© 2026 Mindfulness Therapy. All rights reserved.">
+    <meta name="author" content="Mindfulness Therapy">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindfulness Therapy - Emotional Balancing</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="emotion-ribbon.js"></script>
+    <script src="emotion-ribbon-visualizer.js"></script>
+    <style>
+        /* Tools Dropdown Styles */
+        .tools-dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tools-dropdown-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: #64748b;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 9999px;
+            font-family: inherit;
+        }
+        
+        .tools-dropdown-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #1e293b;
+        }
+        
+        .tools-dropdown-btn.active {
+            background: #14b8a6;
+            color: white;
+        }
+        
+        .tools-dropdown-menu {
+            display: none;
+            position: fixed;
+            top: auto;
+            left: auto;
+            margin-top: 0.5rem;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            min-width: 220px;
+            padding: 0.5rem;
+            z-index: 9999;
+        }
+        
+        .tools-dropdown-menu.open {
+            display: block;
+        }
+        
+        .tools-dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #1e293b;
+            text-decoration: none;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        
+        .tools-dropdown-menu a:hover {
+            background: rgba(20, 184, 166, 0.1);
+            color: #14b8a6;
+        }
+
+        /* Learn Tab Styles */
+        .learn-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 1rem;
+            color: white;
+        }
+
+        .learn-header h2 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.75rem;
+        }
+
+        .learn-subtitle {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .learn-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .learn-section {
+            background: white;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .learn-section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .learn-section-header:hover {
+            background: #f8fafc;
+        }
+
+        .learn-section-header.active {
+            border-bottom-color: #e2e8f0;
+        }
+
+        .learn-icon {
+            font-size: 1.5rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            border-radius: 0.75rem;
+        }
+
+        .learn-section-header h3 {
+            flex: 1;
+            margin: 0;
+            font-size: 1.1rem;
+            color: #1e293b;
+        }
+
+        .learn-toggle {
+            color: #64748b;
+            transition: transform 0.3s;
+        }
+
+        .learn-section-header.active .learn-toggle {
+            transform: rotate(180deg);
+        }
+
+        .learn-section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .learn-section-header.active + .learn-section-content {
+            max-height: 2000px;
+        }
+
+        .learn-summary {
+            padding: 1rem 1.5rem;
+            margin: 0;
+            color: #64748b;
+            font-style: italic;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .learn-detail {
+            padding: 1.5rem;
+        }
+
+        .learn-detail p {
+            margin: 0 0 1rem 0;
+            line-height: 1.6;
+            color: #334155;
+        }
+
+        .learn-key-point {
+            display: flex;
+            gap: 1rem;
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .key-icon {
+            font-size: 1.25rem;
+        }
+
+        .learn-key-point p {
+            margin: 0;
+            flex: 1;
+        }
+
+        .learn-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .learn-comparison-item {
+            padding: 1rem;
+            border-radius: 0.75rem;
+        }
+
+        .learn-comparison-item.negative {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+        }
+
+        .learn-comparison-item.positive {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+        }
+
+        .learn-comparison-item h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+        }
+
+        .learn-comparison-item p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .learn-exercises {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .learn-exercise {
+            background: #f8fafc;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .learn-exercise h4 {
+            margin: 0 0 0.75rem 0;
+            color: #1e293b;
+        }
+
+        .learn-exercise p {
+            margin: 0 0 0.5rem 0;
+        }
+
+        .learn-exercise ul {
+            margin: 0.5rem 0 0 0;
+            padding-left: 1.5rem;
+        }
+
+        .learn-exercise li {
+            margin-bottom: 0.5rem;
+        }
+
+        .learn-summary-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-top: 2rem;
+        }
+
+        .learn-summary-card h3 {
+            margin: 0 0 1rem 0;
+        }
+
+        .learn-summary-card p {
+            margin: 0 0 1rem 0;
+            line-height: 1.6;
+        }
+
+        .learn-summary-card ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .learn-summary-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        .learn-final {
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 1.5rem !important;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .learn-subsection {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .learn-subsection:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .learn-subsection h4 {
+            margin: 0 0 0.75rem 0;
+            color: #1e293b;
+            font-size: 1.05rem;
+        }
+
+        .learn-parts-list {
+            margin: 0.75rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .learn-parts-list li {
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .learn-transformation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 1rem;
+        }
+
+        .learn-from, .learn-to {
+            text-align: center;
+            flex: 1;
+        }
+
+        .learn-from h5, .learn-to h5 {
+            margin: 0 0 0.75rem 0;
+            font-size: 1rem;
+        }
+
+        .learn-from ul, .learn-to ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .learn-from li, .learn-to li {
+            margin-bottom: 0.25rem;
+            color: #64748b;
+        }
+
+        .learn-arrow {
+            font-size: 2rem;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .learn-comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            .learn-transformation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .learn-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+
+
+        <!-- Main Content -->
+        <div class="content-main">
+            <!-- Navigation Bar -->
+            <nav class="nav-bar">
+                <div class="nav-brand" onclick="app.navigate('home')" style="cursor: pointer;">🧘 Mindfulness Therapy</div>
+                <button class="mobile-menu-btn" onclick="app.toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="nav-links" id="navLinks">
+                    <button class="nav-btn" onclick="window.location.href='index-zh.html'">中文</button>
+                    <button class="nav-btn" onclick="window.location.href='index-ru.html'">Русский</button>
+                    <button class="nav-btn active" data-tab="home">Home</button>
+                    <button class="nav-btn" data-tab="cycle">Cycle</button>
+                    <button class="nav-btn" data-tab="assessment">AI Chat</button>
+                    
+                    <!-- Tools Dropdown -->
+                    <div class="tools-dropdown-container" id="toolsContainer">
+                        <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
+                            Tools <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
+                        </button>
+                        <div class="tools-dropdown-menu" id="toolsMenu">
+                            <a href="emotion-explorer.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🎨 Emotion Explorer</a>
+                            <a href="emotion-balance.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">⚡ Emotion Balance</a>
+                            <a href="salad-compass.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥗 Salad Compass</a>
+                            <a href="#" onclick="app.navigate('salad'); closeToolsDropdown();" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥬 Full Salad Check</a>
+                            <a href="#" onclick="app.navigate('interventions'); closeToolsDropdown();" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🧰 Interventions</a>
+                        </div>
+                    </div>
+                    
+                    <button class="nav-btn" data-tab="journal">Journal</button>
+                    <button class="nav-btn" data-tab="progress">Progress</button>
+                    <button class="nav-btn" data-tab="learn">Learn</button>
+                </div>
+            </nav>
+
+            <!-- Home Tab -->
+            <div id="home" class="tab active">
+                <div class="hero-section">
+                    <div class="hero-content">
+                        <h1 id="greeting">Good morning,</h1>
+                        <p>Ready to understand and balance your emotional state?</p>
+                        <div class="hero-actions">
+                            <button class="btn-primary" onclick="app.navigate('assessment')">
+                                <i class="fas fa-robot"></i> Start AI Assessment
+                            </button>
+                            <button class="btn-secondary" onclick="window.location.href='emotion-balance.html'">
+                                <i class="fas fa-bolt"></i> Quick Check-In
+                            </button>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="mini-cycle" id="miniCycle"></div>
+                    </div>
+                </div>
+
+                <div class="quick-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">🔥</div>
+                        <div class="stat-value" id="streakValue">0</div>
+                        <div class="stat-label">Day Streak</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🧘</div>
+                        <div class="stat-value" id="sessionValue">0</div>
+                        <div class="stat-label">Sessions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⏱️</div>
+                        <div class="stat-value" id="minuteValue">0</div>
+                        <div class="stat-label">Minutes</div>
+                    </div>
+                </div>
+
+                <!-- Quick Tools Section -->
+                <div class="tools-section">
+                    <h2 class="section-title">⚡ Quick Tools</h2>
+                    <p class="section-subtitle">Fast check-ins for immediate clarity</p>
+                    <div class="feature-grid quick-tools">
+                        <div class="feature-card featured" onclick="window.location.href='emotion-balance.html'">
+                            <div class="feature-icon balance-icon">
+                                <i class="fas fa-balance-scale"></i>
+                            </div>
+                            <h3>Emotion Balance</h3>
+                            <p>4 sliders, instant score, personalized actions</p>
+                            <span class="card-badge">30 seconds</span>
+                        </div>
+                        <div class="feature-card featured" onclick="window.location.href='salad-compass.html'">
+                            <div class="feature-icon compass-icon">
+                                <i class="fas fa-compass"></i>
+                            </div>
+                            <h3>Salad Compass</h3>
+                            <p>Identify your state, find the missing vegetable</p>
+                            <span class="card-badge">1 minute</span>
+                        </div>
+                        <div class="feature-card" onclick="window.location.href='emotion-explorer.html'">
+                            <div class="feature-icon explorer-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <h3>Emotion Explorer</h3>
+                            <p>Build your emotion ribbon visualization</p>
+                            <span class="card-badge">Visual</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deep Work Section -->
+                <div class="tools-section">
+                    <h2 class="section-title">🧠 Deep Work</h2>
+                    <p class="section-subtitle">Comprehensive tools for deeper understanding</p>
+                    <div class="feature-grid">
+                        <div class="feature-card" onclick="app.navigate('assessment')">
+                            <div class="feature-icon ai-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h3>AI Assessment</h3>
+                            <p>94% accurate emotion detection with multimodal analysis</p>
+                        </div>
+                        <div class="feature-card" onclick="app.navigate('cycle')">
+                            <div class="feature-icon cycle-icon">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <h3>Power-Possession Cycle</h3>
+                            <p>Interactive visualization of your emotional journey</p>
+                        </div>
+                        <div class="feature-card" onclick="app.navigate('salad')">
+                            <div class="feature-icon salad-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <h3>Emotional Salad Check</h3>
+                            <p>21-question diagnostic with personalized protocol</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emergency Section -->
+                <div class="tools-section emergency-section">
+                    <h2 class="section-title">🆘 Need Relief Now?</h2>
+                    <div class="emergency-grid">
+                        <div class="emergency-card" onclick="app.navigate('interventions')">
+                            <i class="fas fa-toolbox"></i>
+                            <span>Micro-Interventions</span>
+                            <small>60-second techniques</small>
+                        </div>
+                        <div class="emergency-card" onclick="app.startIntervention('sigh')">
+                            <i class="fas fa-wind"></i>
+                            <span>Physiological Sigh</span>
+                            <small>Instant calm</small>
+                        </div>
+                        <div class="emergency-card" onclick="app.startIntervention('54321')">
+                            <i class="fas fa-eye"></i>
+                            <span>5-4-3-2-1 Grounding</span>
+                            <small>Come back to now</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Power-Possession Cycle Tab -->
+            <div id="cycle" class="tab">
+                <h2>Power-Possession Cycle</h2>
+                <p class="section-description">
+                    A self-reinforcing emotional pattern: acquisition of external power → inevitable loss → 
+                    collapse into emptiness → urgent craving → return to power-seeking.
+                </p>
+                
+                <div class="cycle-container">
+                    <div class="cycle-visualization" id="cycleVisualization">
+                        <!-- SVG cycle will be rendered here -->
+                    </div>
+                    
+                    <div class="cycle-info" id="cycleInfo">
+                        <div class="state-detail">
+                            <h3>Click on a state to learn more</h3>
+                            <p>Explore each phase of the emotional cycle and discover personalized strategies.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cycle-legend">
+                    <div class="legend-item">
+                        <span class="legend-color power"></span>
+                        <span>Power - External validation</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color possession"></span>
+                        <span>Possession - Owning phase</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color loss"></span>
+                        <span>Loss - Inevitability</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color emptiness"></span>
+                        <span>Emptiness - Collapse</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color craving"></span>
+                        <span>Craving - Compulsive</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color return"></span>
+                        <span>Return - Power-seeking</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Assessment Tab -->
+            <div id="assessment" class="tab">
+                <h2>AI Emotional Assessment</h2>
+                <p class="section-description">
+                    Multimodal emotion detection with 94% accuracy. Chat naturally or use structured assessment.
+                </p>
+
+                <div class="assessment-container">
+                    <div class="chat-interface">
+                        <div class="chat-header">
+                            <div class="ai-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="ai-info">
+                                <h3>Emotion AI</h3>
+                                <span class="status">Online</span>
+                            </div>
+                            <div class="accuracy-badge">94% accuracy</div>
+                        </div>
+                        
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="message ai-message">
+                                <p>Hello! I'm here to help you understand your current emotional state. What's happening for you right now?</p>
+                            </div>
+                        </div>
+
+                        <div class="chat-input-area">
+                            <div class="input-modes">
+                                <button class="mode-btn active" data-mode="text">
+                                    <i class="fas fa-keyboard"></i> Text
+                                </button>
+                                <button class="mode-btn" data-mode="voice" onclick="app.toggleVoiceInput()">
+                                    <i class="fas fa-microphone"></i> Voice
+                                </button>
+                                <button class="mode-btn" data-mode="quiz" onclick="app.startStructuredAssessment()">
+                                    <i class="fas fa-clipboard-check"></i> Quiz
+                                </button>
+                                <button class="mode-btn" data-mode="journey" onclick="app.showEmotionJourney()">
+                                    <i class="fas fa-chart-line"></i> Journey
+                                </button>
+                            </div>
+                            <div class="input-container">
+                                <textarea id="chatInput" placeholder="Describe how you're feeling..."></textarea>
+                                <button class="send-btn" onclick="app.sendMessage()">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="assessment-sidebar">
+                        <div class="detected-state" id="detectedState">
+                            <h4>Detected State</h4>
+                            <div class="state-placeholder">Start chatting to detect your emotional state</div>
+                        </div>
+                        
+                        <div class="confidence-score" id="confidenceScore">
+                            <h4>Confidence</h4>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 0%"></div>
+                            </div>
+                            <span class="score-value">--</span>
+                        </div>
+
+                        <div class="suggested-actions" id="suggestedActions">
+                            <h4>Suggested Actions</h4>
+                            <div class="actions-placeholder">Actions will appear here</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Salad Check Tab -->
+            <div id="salad" class="tab">
+                <h2>Emotional Salad Check</h2>
+                <p class="section-description">
+                    Identify your 🔥 Spicy (overwhelming), 🧈 Greasy (compulsive), and 🥗 Vegetable (nourishing) elements.
+                </p>
+
+                <!-- Quick Access to Salad Compass -->
+                <div style="background: rgba(80, 200, 184, 0.1); border: 1px solid rgba(80, 200, 184, 0.2); border-radius: 12px; padding: 20px; margin-bottom: 30px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
+                    <div>
+                        <div style="font-weight: 600; color: #50c8b8; margin-bottom: 5px;"><i class="fas fa-compass"></i> Need a quick check-in?</div>
+                        <div style="color: #b0b0b8; font-size: 0.95rem;">Use the Salad Plate Compass for instant emotional navigation.</div>
+                    </div>
+                    <button class="btn-secondary" onclick="window.location.href='salad-compass.html'" style="white-space: nowrap;">
+                        <i class="fas fa-compass"></i> Open Compass
+                    </button>
+                </div>
+
+                <div class="salad-container">
+                    <div class="progress-section">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="saladProgress"></div>
+                        </div>
+                        <span class="progress-text" id="saladProgressText">Question 1 of 21</span>
+                    </div>
+
+                    <div id="saladQuestions">
+                        <!-- Questions rendered by JS -->
+                    </div>
+
+                    <div id="saladResults" class="hidden">
+                        <div class="results-plate">
+                            <h3>Your Emotional Salad</h3>
+                            <div id="plateContent"></div>
+                        </div>
+                        
+                        <div class="protocol-section">
+                            <h3>7-Step Balancing Protocol</h3>
+                            <div id="protocolSteps"></div>
+                        </div>
+
+                        <button class="btn-primary" onclick="app.resetSalad()">Start New Check</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interventions Tab -->
+            <div id="interventions" class="tab">
+                <h2>Micro-Interventions</h2>
+                <p class="section-description">
+                    60-second techniques for rapid emotional regulation. State-matched interventions for immediate relief.
+                </p>
+
+                <div class="interventions-grid">
+                    <div class="intervention-category">
+                        <h3><i class="fas fa-fire"></i> Power State</h3>
+                        <div class="intervention-list">
+                            <div class="intervention-card" onclick="app.startIntervention('grounding')">
+                                <span class="duration">60s</span>
+                                <h4>Values Grounding</h4>
+                                <p>Reconnect with internal values vs external validation</p>
+                            </div>
+                            <div class="intervention-card" onclick="app.startIntervention('powerbreathing')">
+                                <span class="duration">2min</span>
+                                <h4>Power Breathing</h4>
+                                <p>Channel energy through controlled breath</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="intervention-category">
+                        <h3><i class="fas fa-heart-broken"></i> Loss & Emptiness</h3>
+                        <div class="intervention-list">
+                            <div class="intervention-card" onclick="app.startIntervention('somatic')">
+                                <span class="duration">3min</span>
+                                <h4>Somatic Anchoring</h4>
+                                <p>Ground through body awareness</p>
+                            </div>
+                            <div class="intervention-card" onclick="app.startIntervention('reframe')">
+                                <span class="duration">2min</span>
+                                <h4>Cognitive Reframe</h4>
+                                <p>Shift perspective on the loss</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="intervention-category">
+                        <h3><i class="fas fa-fire-alt"></i> Craving Phase</h3>
+                        <div class="intervention-list">
+                            <div class="intervention-card" onclick="app.startIntervention('urgesurfing')">
+                                <span class="duration">5min</span>
+                                <h4>Urge Surfing</h4>
+                                <p>Ride the wave of craving without acting</p>
+                            </div>
+                            <div class="intervention-card" onclick="app.startIntervention('patternbreak')">
+                                <span class="duration">60s</span>
+                                <h4>Pattern Interrupt</h4>
+                                <p>Quick-action checklist to break the cycle</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="intervention-category">
+                        <h3><i class="fas fa-bolt"></i> Universal Tools</h3>
+                        <div class="intervention-list">
+                            <div class="intervention-card" onclick="app.startIntervention('sigh')">
+                                <span class="duration">60s</span>
+                                <h4>Physiological Sigh</h4>
+                                <p>Two inhales, extended exhale</p>
+                            </div>
+                            <div class="intervention-card" onclick="app.startIntervention('54321')">
+                                <span class="duration">60s</span>
+                                <h4>5-4-3-2-1 Grounding</h4>
+                                <p>Sensory orientation technique</p>
+                            </div>
+                            <div class="intervention-card" onclick="app.startIntervention('compassion')">
+                                <span class="duration">60s</span>
+                                <h4>Self-Compassion Break</h4>
+                                <p>Acknowledge suffering with kindness</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Journal Tab -->
+            <div id="journal" class="tab">
+                <h2>Journal</h2>
+                
+                <div class="journal-section">
+                    <div class="mood-tracker-card">
+                        <h3>How are you feeling?</h3>
+                        <div class="mood-scale">
+                            <button class="mood-btn" data-mood="1" onclick="app.logMood(1)">
+                                <span class="mood-emoji">😢</span>
+                                <span class="mood-label">Sad</span>
+                            </button>
+                            <button class="mood-btn" data-mood="2" onclick="app.logMood(2)">
+                                <span class="mood-emoji">😕</span>
+                                <span class="mood-label">Down</span>
+                            </button>
+                            <button class="mood-btn" data-mood="3" onclick="app.logMood(3)">
+                                <span class="mood-emoji">😐</span>
+                                <span class="mood-label">Okay</span>
+                            </button>
+                            <button class="mood-btn" data-mood="4" onclick="app.logMood(4)">
+                                <span class="mood-emoji">🙂</span>
+                                <span class="mood-label">Good</span>
+                            </button>
+                            <button class="mood-btn" data-mood="5" onclick="app.logMood(5)">
+                                <span class="mood-emoji">😊</span>
+                                <span class="mood-label">Great</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="quick-entry-card">
+                        <h3>Quick Entry</h3>
+                        <p class="prompt" id="journalPrompt">What are you grateful for today?</p>
+                        <textarea id="journalText" placeholder="Write your thoughts..."></textarea>
+                        <div class="entry-actions">
+                            <button class="btn-secondary" onclick="app.newJournalPrompt()">New Prompt</button>
+                            <button class="btn-primary" onclick="app.saveJournalEntry()">Save Entry</button>
+                        </div>
+                    </div>
+
+                    <div id="journalEntries"></div>
+                </div>
+            </div>
+
+            <!-- Progress Tab -->
+            <div id="progress" class="tab">
+                <h2>Progress</h2>
+                
+                <div class="progress-dashboard">
+                    <div class="stats-row">
+                        <div class="stat-box">
+                            <div class="stat-icon-large">🔥</div>
+                            <div class="stat-number" id="progressStreak">0</div>
+                            <div class="stat-label">Day Streak</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-icon-large">✅</div>
+                            <div class="stat-number" id="progressSessions">0</div>
+                            <div class="stat-label">Sessions</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-icon-large">⏱️</div>
+                            <div class="stat-number" id="progressMinutes">0</div>
+                            <div class="stat-label">Minutes</div>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <h3>Weekly Activity</h3>
+                        <canvas id="weeklyChart"></canvas>
+                    </div>
+
+                    <div class="achievements-card">
+                        <h3>Achievements</h3>
+                        <div id="achievementsList"></div>
+                    </div>
+
+                    <div class="insights-card">
+                        <h3>Emotion Journey</h3>
+                        <div id="insightsList"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learn Tab -->
+            <div id="learn" class="tab">
+                <div class="learn-header">
+                    <h2>📚 Insights & Understanding</h2>
+                    <p class="learn-subtitle">The psychology behind why we get hooked—and how to reclaim your power</p>
+                </div>
+
+                <div class="learn-content">
+                    <!-- Section 1: Visual Hook -->
+                    <div class="learn-section">
+                        <div class="learn-section-header" onclick="app.toggleLearnSection(this)">
+                            <span class="learn-icon">👁️</span>
+                            <h3>Why Your Brain Loves Certain Colors and Looks</h3>
+                            <i class="fas fa-chevron-down learn-toggle"></i>
+                        </div>
+                        <div class="learn-section-content">
+                            <p class="learn-summary">Your eyes use 44% of your brain's energy. Because seeing is expensive, your brain rewards "easy" visuals with dopamine and endorphins.</p>
+                            <div class="learn-detail">
+                                <p><strong>The Science:</strong> Your brain is an energy miser. When you see something visually "fluent" (symmetrical, clear, appealing), your brain goes "Ah, that was easy!" and gives you a pleasure reward.</p>
+                                <div class="learn-key-point">
+                                    <span class="key-icon">⚠️</span>
+                                    <p><strong>The Catch:</strong> Just because something feels good to look at doesn't mean it's good for you. It can be empty calories for your eyes.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Stroop Effect -->
+                    <div class="learn-section">
+                        <div class="learn-section-header" onclick="app.toggleLearnSection(this)">
+                            <span class="learn-icon">🧠</span>
+                            <h3>The Stroop Effect: Colors Can Hijack Your Brain</h3>
+                            <i class="fas fa-chevron-down learn-toggle"></i>
+                        </div>
+                        <div class="learn-section-content">
+                            <p class="learn-summary">Visual information competes with conceptual information in your brain—and sometimes visuals win automatically.</p>
+                            <div class="learn-detail">
+                                <p><strong>The Experiment:</strong> Show someone the word "RED" written in blue ink. Their brain slows down because it has to fight between the word and the color.</p>
+                                <div class="learn-key-point">
+                                    <span class="key-icon">💡</span>
+                                    <p><strong>What This Means:</strong> Colors and appearances have power over your attention whether you want them to or not. Your brain processes them automatically before you can decide.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Aesthetic Arrest -->
+                    <div class="learn-section">
+                        <div class="learn-section-header" onclick="app.toggleLearnSection(this)">
+                            <span class="learn-icon">✨</span>
+                            <h3>Aesthetic Arrest: When Beauty Stops You Cold</h3>
+                            <i class="fas fa-chevron-down learn-toggle"></i>
+                        </div>
+                        <div class="learn-section-content">
+                            <p class="learn-summary">That feeling when you're "stopped dead in your tracks" by something beautiful—a temporary escape from desire and struggle.</p>
+                            <div class="learn-detail">
+                                <p>Philosopher Schopenhauer called this becoming a "pure, will-less, painless subject of knowledge." For a moment, you forget your problems and cravings.</p>
+                                <div class="learn-key-point">
+                                    <span class="key-icon">⚠️</span>
+                                    <p><strong>The Problem:</strong> You're not in control during aesthetic arrest. The thing controls you. You're a spectator, not an agent.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: Animism -->
+                    <div class="learn-section">
+                        <div class="learn-section-header" onclick="app.toggleLearnSection(this)">
+                            <span class="learn-icon">🎭</span>
+                            <h3>Animism: Why Objects Feel Alive</h3>
+                            <i class="fas fa-chevron-down learn-toggle"></i>
+                        </div>
+                        <div class="learn-section-content">
+                            <p class="learn-summary">Humans naturally project life and intention onto inanimate things—judging them by Evaluation, Potency, and Activity.</p>
+                            <div class="learn-detail">
+                                <p>Your brain is wired to treat certain things as if they have power or intention. That's why a color can feel "strong" or a face can feel "magnetic."</p>
+                                <div class="learn-key-point">
+                                    <span class="key-icon">💡</span>
+                                    <p><strong>The Insight:</strong> Your brain evolved to pay attention to things that might be important—but sometimes it overdoes it, and you get hooked by something empty.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 5: Locus of Control -->
+                    <div class="learn-section">
+                        <div class="learn-section-header" onclick="app.toggleLearnSection(this)">
+                            <span class="learn-icon">🎯</span>
+                            <h3>Locus of Control: Where Do You Put Your Power?</h3>
+                            <i class="fas fa-chevron-down learn-toggle"></i>
+                        </div>
+                        <div class="learn-section-content">
+                            <p class="learn-summary">Internal vs External: Do you believe your actions shape your life, or that luck/fate/others control what happens?</p>
+                            <div class="learn-detail">
+                                <p><strong>External Locus:</strong> You believe power comes from outside—other people's attention, owning things, how you look. You're constantly scanning for hooks because you need them as fuel.</p>
+                                <p><strong>Internal Locus:</strong> You believe power comes from inside—your choices, your values, how you respond. Hooks lose their grip because you don't need them.</p>
+                                <div class="learn-key-point">
+                                    <span class="key-icon">🔗</span>
+                                    <p><strong>Connection to Trauma:</strong> Growing up in an unpredictable environment teaches you to surrender control—it kept you alive. But as an adult, this leaves you vulnerable to every shiny thing.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 6: Triggers vs Glimmers -->
+                    <div class="learn-section">
+                        <div class="learn-section-header" onclick="app.toggleLearnSection(this)">
+                            <span class="learn-icon">⚡</span>
+                            <h3>Triggers vs. Glimmers: What Your Nervous System Seeks</h3>
+                            <i class="fas fa-chevron-down learn-toggle"></i>
+                        </div>
+                        <div class="learn-section-content">
+                            <p class="learn-summary">Your body scans for danger (triggers) and safety (glimmers). Both can "hook" you—but one leads to harm, the other to healing.</p>
+                            <div class="learn-detail">
+                                <div class="learn-comparison">
+                                    <div class="learn-comparison-item negative">
+                                        <h4>🔴 Triggers</h4>
+                                        <p>Sensory cues that activate survival mode—fight, flight, or freeze. Based on past danger stored in your body.</p>
+                                    </div>
+                                    <div class="learn-comparison-item positive">
+                                        <h4>🟢 Glimmers</h4>
+                                        <p>Tiny cues that tell your nervous system "you're safe." A warm color, a bird singing, a sunbeam. Activates your ventral vagus nerve (calm and connection).</p>
+                                    </div>
+                                </div>
+                                <div class="learn-key-point">
+                                    <span class="key-icon">💡</span>
+                                    <p><strong>The Practice:</strong> You can train yourself to notice glimmers. The more you notice moments of safety, the more your nervous system learns the world isn't all danger.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 7: Gendlin's Focusing -->
+                    <div class="learn-section">
+                        <div class="learn-section-header" onclick="app.toggleLearnSection(this)">
+                            <span class="learn-icon">🔍</span>
+                            <h3>Gendlin's Focusing: Listen to Your Body's Wisdom</h3>
+                            <i class="fas fa-chevron-down learn-toggle"></i>
+                        </div>
+                        <div class="learn-section-content">
+                            <p class="learn-summary">Your body knows things your brain hasn't figured out yet. Learn to tune into your "felt sense"—a bodily intuition not yet in words.</p>
+                            <div class="learn-detail">
+                                <p><strong>The Felt Sense:</strong> A heaviness in your chest, a knot in your stomach, a fluttering sensation. By gently paying attention and asking it questions, you unlock a "felt shift"—physical release bringing new understanding.</p>
+                                <div class="learn-key-point">
+                                    <span class="key-icon">💡</span>
+                                    <p><strong>When Hooked:</strong> Instead of chasing what caught your eye, turn inward: "What is this feeling in my body?" Stay with it gently, without trying to fix it. The shift is your body releasing something.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 8: Somatic Exercises -->
+                    <div class="learn-section">
+                        <div class="learn-section-header" onclick="app.toggleLearnSection(this)">
+                            <span class="learn-icon">🧘</span>
+                            <h3>Somatic Exercises: Practical Tools for Reclaiming Agency</h3>
+                            <i class="fas fa-chevron-down learn-toggle"></i>
+                        </div>
+                        <div class="learn-section-content">
+                            <p class="learn-summary">Specific practices to build inner power that doesn't depend on outside hooks.</p>
+                            <div class="learn-exercises">
+                                <div class="learn-exercise">
+                                    <h4>🤲 The Container Exercise (Self-Holding)</h4>
+                                    <p><strong>How:</strong> Put one hand on your forehead, one on your heart. Feel the warmth. Imagine your body as a container that can hold any feeling without breaking.</p>
+                                    <p><strong>Why:</strong> Creates physical boundaries. Tells your nervous system: "I can hold this. I'm still in control."</p>
+                                </div>
+                                <div class="learn-exercise">
+                                    <h4>📢 The Voo Sound</h4>
+                                    <p><strong>How:</strong> Take a deep breath and make a low "voooo" sound like a foghorn. Feel it vibrate in your chest.</p>
+                                    <p><strong>Why:</strong> The vibration stimulates your vagus nerve, calming your nervous system. Good for when you feel frozen.</p>
+                                </div>
+                                <div class="learn-exercise">
+                                    <h4>🔄 Pendulation</h4>
+                                    <p><strong>How:</strong> Gently move attention between distress and safety. Notice the tightness... then your feet on the floor... then back to tightness... then your breath.</p>
+                                    <p><strong>Why:</strong> Teaches your nervous system it can move in and out of discomfort without being destroyed.</p>
+                                </div>
+                                <div class="learn-exercise">
+                                    <h4>🦶 Grounding Exercises</h4>
+                                    <ul>
+                                        <li><strong>Heel drops:</strong> Lift heels, drop with a thud. Feel the impact. "It's safe to take up space."</li>
+                                        <li><strong>Body scan:</strong> Slowly notice each body part from head to toe, just observing.</li>
+                                        <li><strong>Box breathing:</strong> Inhale 4s, hold 4s, exhale 4s, hold 4s. Cues relaxation.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 9: Emotional Transformation -->
+                    <div class="learn-section">
+                        <div class="learn-section-header" onclick="app.toggleLearnSection(this)">
+                            <span class="learn-icon">🦋</span>
+                            <h3>Emotional Transformation: From External to Inner Power</h3>
+                            <i class="fas fa-chevron-down learn-toggle"></i>
+                        </div>
+                        <div class="learn-section-content">
+                            <p class="learn-summary">Understanding your emotional patterns and the journey from grasping power through possession to finding power within yourself.</p>
+                            <div class="learn-detail">
+                                <!-- 1. Emotional Plate Metaphor -->
+                                <div class="learn-subsection">
+                                    <h4>🥗 The Emotional Plate Metaphor (Your Salad)</h4>
+                                    <p>You already have a smart way of thinking about your feelings. You know that when one feeling takes over (too "spicy"), you look for something to balance it—even if you sometimes pick the wrong thing (something "greasy").</p>
+                                    <div class="learn-key-point">
+                                        <span class="key-icon">💡</span>
+                                        <p><strong>The Insight:</strong> You're naturally good at noticing your own emotional patterns. The Salad metaphor helps you see when one emotion dominates and what you reach for to compensate.</p>
+                                    </div>
+                                </div>
+
+                                <!-- 2. Shifting Values -->
+                                <div class="learn-subsection">
+                                    <h4>🔄 Why Your Values Shift Depending on How You Feel</h4>
+                                    <p>Your internal state acts like a filter that changes which values feel important. When you feel powerful, "owning" matters most. When you feel weak, you want safety. When you feel clear, you want real connection.</p>
+                                    <div class="learn-key-point">
+                                        <span class="key-icon">💡</span>
+                                        <p><strong>The Insight:</strong> You're not broken or inconsistent. Your values shift because your emotional state literally changes what your brain cares about at that moment. It's like wanting different foods depending on whether you're starving or just a little hungry.</p>
+                                    </div>
+                                </div>
+
+                                <!-- 3. Spicy and Greasy Cycle -->
+                                <div class="learn-subsection">
+                                    <h4>🌶️ The "Spicy and Greasy" Cycle (Compensatory Control)</h4>
+                                    <p>Humans need to feel like life is orderly. When something shakes that feeling (losing power), it creates anxiety—the "spicy" feeling. To cope, you reach for something that restores control. The "greasy" choice gives quick relief but causes problems later.</p>
+                                    <div class="learn-key-point">
+                                        <span class="key-icon">⚠️</span>
+                                        <p><strong>The Pattern:</strong> When life feels chaotic and you lose power, your brain panics and grabs for anything that makes you feel in control again—even if it's unhealthy. Like fast food for your emotions: satisfying now, worse later.</p>
+                                    </div>
+                                </div>
+
+                                <!-- 4. Objectification -->
+                                <div class="learn-subsection">
+                                    <h4>🎯 Why You Want to "Own" (Objectification Theory)</h4>
+                                    <p>When people feel powerful, they tend to see others as tools to achieve goals. The desire to "own" comes from a need to impose order on chaos. By reducing a complex person to a "target," you feel false mastery. But this backfires—it denies their humanity and damages your own sense of self.</p>
+                                    <div class="learn-key-point">
+                                        <span class="key-icon">🔗</span>
+                                        <p><strong>The Truth:</strong> When you lose power, you look for something to control to feel better. But treating a person like an object doesn't fix the emptiness—it creates more problems and guilt afterward.</p>
+                                    </div>
+                                </div>
+
+                                <!-- 5. Internal Family Systems -->
+                                <div class="learn-subsection">
+                                    <h4>👥 The "Parts" of You (Internal Family Systems)</h4>
+                                    <p>Your psyche has different "parts" with different jobs:</p>
+                                    <ul class="learn-parts-list">
+                                        <li><strong>The Exile:</strong> Carries the pain of powerlessness and emptiness.</li>
+                                        <li><strong>The Manager:</strong> Tries to get power through achievements to protect you from feeling the pain.</li>
+                                        <li><strong>The Firefighter:</strong> When the Manager fails and pain breaks through, this part panics and grabs for quick fixes.</li>
+                                        <li><strong>The Self:</strong> The "you" that watches all this and knows it's wrong. That calm part is your real self.</li>
+                                    </ul>
+                                    <div class="learn-key-point">
+                                        <span class="key-icon">💡</span>
+                                        <p><strong>The Insight:</strong> Your mind is like a team. One part holds old wounds. Another tries to prevent pain by chasing success. When that fails, a third part freaks out and reaches for anything to make the pain stop. And there's a calm part watching it all—that's your real self.</p>
+                                    </div>
+                                </div>
+
+                                <!-- 6. The Neutral Zone -->
+                                <div class="learn-subsection">
+                                    <h4>🌫️ Why You Feel Lost Right Now (The Neutral Zone)</h4>
+                                    <p>You're in the "Neutral Zone"—a period between identities. You've let go of the old way (grabbing power through possession), but the new way (finding power within) isn't fully formed yet. This stage feels like confusion, emptiness, and not knowing what to do.</p>
+                                    <div class="learn-key-point">
+                                        <span class="key-icon">✨</span>
+                                        <p><strong>The Hope:</strong> This is normal and necessary. It's like being in a hallway between two rooms. You've left one room but haven't entered the next. The confusion means you're exactly where you need to be—growing.</p>
+                                    </div>
+                                </div>
+
+                                <!-- 7. What Inner Power Actually Is -->
+                                <div class="learn-subsection">
+                                    <h4>💪 What Inner Power Actually Is (Stoicism)</h4>
+                                    <p>Real power comes from distinguishing what you can control from what you can't. You can't control whether people stay, whether projects succeed, or whether you lose status. But you can control your judgments, intentions, and how you respond to cravings.</p>
+                                    <div class="learn-key-point">
+                                        <span class="key-icon">💡</span>
+                                        <p><strong>The Truth:</strong> True power isn't about controlling others or holding onto things. Real power is being able to sit with discomfort, choose how you respond, and know your worth without needing proof from the outside. It's quiet. It doesn't need an audience. And no one can take it from you.</p>
+                                    </div>
+                                </div>
+
+                                <!-- 8. The Bottom Line -->
+                                <div class="learn-subsection">
+                                    <h4>🎯 The Bottom Line: What This Means for You</h4>
+                                    <p>You're in the middle of a profound transformation. You've moved from:</p>
+                                    <div class="learn-transformation">
+                                        <div class="learn-from">
+                                            <h5>External Power</h5>
+                                            <ul>
+                                                <li>Grabbing</li>
+                                                <li>Owning</li>
+                                                <li>Controlling</li>
+                                            </ul>
+                                        </div>
+                                        <div class="learn-arrow">→</div>
+                                        <div class="learn-to">
+                                            <h5>Inner Power</h5>
+                                            <ul>
+                                                <li>Being</li>
+                                                <li>Connecting</li>
+                                                <li>Choosing</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <p>The confusion and emptiness aren't signs of failure. They're signs that the old patterns are dying and something new is being born. The urge to own was never really about the target—it was a misguided attempt to fill a void left by early wounds and lost power.</p>
+                                    <p><strong>The fact that you're asking "what now?" and "what is inner power?" proves you're already on the right path.</strong> You're not reaching for the quick fix anymore. You're sitting in the silence, waiting to see what you actually hunger for.</p>
+                                    <div class="learn-key-point">
+                                        <span class="key-icon">🔥</span>
+                                        <p><strong>The Power Was Always in You.</strong> You're just learning how to feel it now. Keep sitting with the questions. Keep noticing when the hook pulls. Keep choosing the pause instead of the grab.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Summary -->
+                    <div class="learn-summary-card">
+                        <h3>🎯 What This All Means</h3>
+                        <p>When you get hooked by a color, a face, an appearance—it's not weakness. It's your brain doing what brains do.</p>
+                        <p><strong>The problem isn't the hook. The problem is when the hook becomes the only way you feel alive.</strong></p>
+                        <p>The solution is to build something inside that's stronger than any outside hook:</p>
+                        <ul>
+                            <li>Notice when you're hooked</li>
+                            <li>Feel what's happening in your body</li>
+                            <li>Choose a different response—even for a moment</li>
+                            <li>Find safety and power inside yourself</li>
+                        </ul>
+                        <p class="learn-final">The hook will always be there. But you don't have to be at its mercy anymore.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Intervention Modal -->
+        <div id="interventionModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="intervention-player">
+                    <h2 id="interventionTitle">Intervention</h2>
+                    <div class="timer-container">
+                        <svg viewBox="0 0 100 100" class="timer-svg">
+                            <circle class="timer-bg" cx="50" cy="50" r="45"/>
+                            <circle class="timer-progress" id="interventionProgress" cx="50" cy="50" r="45"/>
+                        </svg>
+                        <div class="timer-display" id="interventionTimer">60</div>
+                    </div>
+                    <div class="intervention-instructions" id="interventionInstructions">
+                        Follow the guided practice
+                    </div>
+                    <div class="timer-controls">
+                        <button class="control-btn" id="playPauseBtn" onclick="app.toggleIntervention()">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button class="control-btn" onclick="app.stopIntervention()">
+                            <i class="fas fa-stop"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer with Copyright -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Mindfulness Therapy. All rights reserved.</p>
+            <p class="footer-links">
+                <a href="#" onclick="app.navigate('home')">Home</a> |
+                <a href="emotion-explorer.html">🎨 Emotion Explorer</a> |
+                <a href="emotion-balance.html">⚡ Emotion Balance</a> |
+                <a href="salad-compass.html">🥗 Salad Compass</a> |
+                <a href="#" onclick="app.showPrivacyPolicy()">Privacy Policy</a> |
+                <a href="#" onclick="app.showTerms()">Terms of Use</a> |
+                <a href="index-zh.html">中文</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        // Tools dropdown functions
+        function toggleToolsMenu() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (!menu || !btn) return;
+            
+            if (menu.style.display === 'block') {
+                menu.style.display = 'none';
+                menu.classList.remove('open');
+                btn.classList.remove('active');
+            } else {
+                // Calculate position relative to button
+                var btnRect = btn.getBoundingClientRect();
+                menu.style.top = (btnRect.bottom + 8) + 'px';
+                menu.style.left = btnRect.left + 'px';
+                menu.style.display = 'block';
+                menu.classList.add('open');
+                btn.classList.add('active');
+            }
+        }
+        
+        function closeToolsDropdown() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (menu) {
+                menu.style.display = 'none';
+                menu.classList.remove('open');
+                menu.style.top = 'auto';
+                menu.style.left = 'auto';
+            }
+            if (btn) btn.classList.remove('active');
+        }
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            var btn = document.getElementById('toolsBtn');
+            var menu = document.getElementById('toolsMenu');
+            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
+                closeToolsDropdown();
+            }
+        });
+    </script>
+</body>
+</html>
