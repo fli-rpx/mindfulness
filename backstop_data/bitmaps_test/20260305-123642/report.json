@@ -1,0 +1,363 @@
+{
+  "testSuite": "BackstopJS",
+  "tests": [
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_backstop_Homepage_0_document_0_desktop.png",
+        "test": "../bitmaps_test/20260305-123642/mindfulness_backstop_Homepage_0_document_0_desktop.png",
+        "selector": "document",
+        "fileName": "mindfulness_backstop_Homepage_0_document_0_desktop.png",
+        "label": "Homepage",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "https://fli-rpx.github.io/mindfulness/index.html",
+        "expect": 0,
+        "viewportLabel": "desktop",
+        "diff": {
+          "isSameDimensions": true,
+          "dimensionDifference": {
+            "width": 0,
+            "height": 0
+          },
+          "rawMisMatchPercentage": 3.978505538897218,
+          "misMatchPercentage": "3.98",
+          "analysisTime": 254
+        },
+        "diffImage": "../bitmaps_test/20260305-123642/failed_diff_mindfulness_backstop_Homepage_0_document_0_desktop.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_backstop_Homepage_0_document_1_tablet.png",
+        "test": "../bitmaps_test/20260305-123642/mindfulness_backstop_Homepage_0_document_1_tablet.png",
+        "selector": "document",
+        "fileName": "mindfulness_backstop_Homepage_0_document_1_tablet.png",
+        "label": "Homepage",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "https://fli-rpx.github.io/mindfulness/index.html",
+        "expect": 0,
+        "viewportLabel": "tablet",
+        "diff": {
+          "isSameDimensions": true,
+          "dimensionDifference": {
+            "width": 0,
+            "height": 0
+          },
+          "rawMisMatchPercentage": 7.078742032027363,
+          "misMatchPercentage": "7.08",
+          "analysisTime": 235
+        },
+        "diffImage": "../bitmaps_test/20260305-123642/failed_diff_mindfulness_backstop_Homepage_0_document_1_tablet.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_backstop_Homepage_0_document_2_mobile.png",
+        "test": "../bitmaps_test/20260305-123642/mindfulness_backstop_Homepage_0_document_2_mobile.png",
+        "selector": "document",
+        "fileName": "mindfulness_backstop_Homepage_0_document_2_mobile.png",
+        "label": "Homepage",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "https://fli-rpx.github.io/mindfulness/index.html",
+        "expect": 0,
+        "viewportLabel": "mobile",
+        "diff": {
+          "isSameDimensions": true,
+          "dimensionDifference": {
+            "width": 0,
+            "height": 0
+          },
+          "misMatchPercentage": "0.00"
+        }
+      },
+      "status": "pass"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_backstop_Emotion_Balance_0_document_0_desktop.png",
+        "test": "../bitmaps_test/20260305-123642/mindfulness_backstop_Emotion_Balance_0_document_0_desktop.png",
+        "selector": "document",
+        "fileName": "mindfulness_backstop_Emotion_Balance_0_document_0_desktop.png",
+        "label": "Emotion Balance",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "https://fli-rpx.github.io/mindfulness/emotion-balance.html",
+        "expect": 0,
+        "viewportLabel": "desktop",
+        "diff": {
+          "isSameDimensions": true,
+          "dimensionDifference": {
+            "width": 0,
+            "height": 0
+          },
+          "misMatchPercentage": "0.00"
+        }
+      },
+      "status": "pass"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_backstop_Emotion_Balance_0_document_1_tablet.png",
+        "test": "../bitmaps_test/20260305-123642/mindfulness_backstop_Emotion_Balance_0_document_1_tablet.png",
+        "selector": "document",
+        "fileName": "mindfulness_backstop_Emotion_Balance_0_document_1_tablet.png",
+        "label": "Emotion Balance",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "https://fli-rpx.github.io/mindfulness/emotion-balance.html",
+        "expect": 0,
+        "viewportLabel": "tablet",
+        "diff": {
+          "isSameDimensions": true,
+          "dimensionDifference": {
+            "width": 0,
+            "height": 0
+          },
+          "misMatchPercentage": "0.00"
+        }
+      },
+      "status": "pass"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_backstop_Emotion_Balance_0_document_2_mobile.png",
+        "test": "../bitmaps_test/20260305-123642/mindfulness_backstop_Emotion_Balance_0_document_2_mobile.png",
+        "selector": "document",
+        "fileName": "mindfulness_backstop_Emotion_Balance_0_document_2_mobile.png",
+        "label": "Emotion Balance",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "https://fli-rpx.github.io/mindfulness/emotion-balance.html",
+        "expect": 0,
+        "viewportLabel": "mobile",
+        "diff": {
+          "isSameDimensions": true,
+          "dimensionDifference": {
+            "width": 0,
+            "height": 0
+          },
+          "misMatchPercentage": "0.00"
+        }
+      },
+      "status": "pass"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_backstop_Hypnosis_0_document_0_desktop.png",
+        "test": "../bitmaps_test/20260305-123642/mindfulness_backstop_Hypnosis_0_document_0_desktop.png",
+        "selector": "document",
+        "fileName": "mindfulness_backstop_Hypnosis_0_document_0_desktop.png",
+        "label": "Hypnosis",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "https://fli-rpx.github.io/mindfulness/hypnosis.html",
+        "expect": 0,
+        "viewportLabel": "desktop",
+        "diff": {
+          "isSameDimensions": true,
+          "dimensionDifference": {
+            "width": 0,
+            "height": 0
+          },
+          "misMatchPercentage": "0.00"
+        }
+      },
+      "status": "pass"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_backstop_Hypnosis_0_document_1_tablet.png",
+        "test": "../bitmaps_test/20260305-123642/mindfulness_backstop_Hypnosis_0_document_1_tablet.png",
+        "selector": "document",
+        "fileName": "mindfulness_backstop_Hypnosis_0_document_1_tablet.png",
+        "label": "Hypnosis",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "https://fli-rpx.github.io/mindfulness/hypnosis.html",
+        "expect": 0,
+        "viewportLabel": "tablet",
+        "diff": {
+          "isSameDimensions": true,
+          "dimensionDifference": {
+            "width": 0,
+            "height": 0
+          },
+          "misMatchPercentage": "0.00"
+        }
+      },
+      "status": "pass"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_backstop_Hypnosis_0_document_2_mobile.png",
+        "test": "../bitmaps_test/20260305-123642/mindfulness_backstop_Hypnosis_0_document_2_mobile.png",
+        "selector": "document",
+        "fileName": "mindfulness_backstop_Hypnosis_0_document_2_mobile.png",
+        "label": "Hypnosis",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "https://fli-rpx.github.io/mindfulness/hypnosis.html",
+        "expect": 0,
+        "viewportLabel": "mobile",
+        "diff": {
+          "isSameDimensions": true,
+          "dimensionDifference": {
+            "width": 0,
+            "height": 0
+          },
+          "misMatchPercentage": "0.00"
+        }
+      },
+      "status": "pass"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_backstop_Emotion_Explorer_0_document_0_desktop.png",
+        "test": "../bitmaps_test/20260305-123642/mindfulness_backstop_Emotion_Explorer_0_document_0_desktop.png",
+        "selector": "document",
+        "fileName": "mindfulness_backstop_Emotion_Explorer_0_document_0_desktop.png",
+        "label": "Emotion Explorer",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "https://fli-rpx.github.io/mindfulness/emotion-explorer.html",
+        "expect": 0,
+        "viewportLabel": "desktop",
+        "diff": {
+          "isSameDimensions": true,
+          "dimensionDifference": {
+            "width": 0,
+            "height": 0
+          },
+          "rawMisMatchPercentage": 6.153628117913832,
+          "misMatchPercentage": "6.15",
+          "analysisTime": 279
+        },
+        "diffImage": "../bitmaps_test/20260305-123642/failed_diff_mindfulness_backstop_Emotion_Explorer_0_document_0_desktop.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_backstop_Emotion_Explorer_0_document_1_tablet.png",
+        "test": "../bitmaps_test/20260305-123642/mindfulness_backstop_Emotion_Explorer_0_document_1_tablet.png",
+        "selector": "document",
+        "fileName": "mindfulness_backstop_Emotion_Explorer_0_document_1_tablet.png",
+        "label": "Emotion Explorer",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "https://fli-rpx.github.io/mindfulness/emotion-explorer.html",
+        "expect": 0,
+        "viewportLabel": "tablet",
+        "diff": {
+          "isSameDimensions": true,
+          "dimensionDifference": {
+            "width": 0,
+            "height": 0
+          },
+          "rawMisMatchPercentage": 2.573821504237288,
+          "misMatchPercentage": "2.57",
+          "analysisTime": 136
+        },
+        "diffImage": "../bitmaps_test/20260305-123642/failed_diff_mindfulness_backstop_Emotion_Explorer_0_document_1_tablet.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_backstop_Emotion_Explorer_0_document_2_mobile.png",
+        "test": "../bitmaps_test/20260305-123642/mindfulness_backstop_Emotion_Explorer_0_document_2_mobile.png",
+        "selector": "document",
+        "fileName": "mindfulness_backstop_Emotion_Explorer_0_document_2_mobile.png",
+        "label": "Emotion Explorer",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "https://fli-rpx.github.io/mindfulness/emotion-explorer.html",
+        "expect": 0,
+        "viewportLabel": "mobile",
+        "diff": {
+          "isSameDimensions": true,
+          "dimensionDifference": {
+            "width": 0,
+            "height": 0
+          },
+          "misMatchPercentage": "0.00"
+        }
+      },
+      "status": "pass"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_backstop_Salad_Compass_0_document_0_desktop.png",
+        "test": "../bitmaps_test/20260305-123642/mindfulness_backstop_Salad_Compass_0_document_0_desktop.png",
+        "selector": "document",
+        "fileName": "mindfulness_backstop_Salad_Compass_0_document_0_desktop.png",
+        "label": "Salad Compass",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "https://fli-rpx.github.io/mindfulness/salad-compass.html",
+        "expect": 0,
+        "viewportLabel": "desktop",
+        "diff": {
+          "isSameDimensions": true,
+          "dimensionDifference": {
+            "width": 0,
+            "height": 0
+          },
+          "misMatchPercentage": "0.00"
+        }
+      },
+      "status": "pass"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_backstop_Salad_Compass_0_document_1_tablet.png",
+        "test": "../bitmaps_test/20260305-123642/mindfulness_backstop_Salad_Compass_0_document_1_tablet.png",
+        "selector": "document",
+        "fileName": "mindfulness_backstop_Salad_Compass_0_document_1_tablet.png",
+        "label": "Salad Compass",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "https://fli-rpx.github.io/mindfulness/salad-compass.html",
+        "expect": 0,
+        "viewportLabel": "tablet",
+        "diff": {
+          "isSameDimensions": true,
+          "dimensionDifference": {
+            "width": 0,
+            "height": 0
+          },
+          "misMatchPercentage": "0.00"
+        }
+      },
+      "status": "pass"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_backstop_Salad_Compass_0_document_2_mobile.png",
+        "test": "../bitmaps_test/20260305-123642/mindfulness_backstop_Salad_Compass_0_document_2_mobile.png",
+        "selector": "document",
+        "fileName": "mindfulness_backstop_Salad_Compass_0_document_2_mobile.png",
+        "label": "Salad Compass",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "https://fli-rpx.github.io/mindfulness/salad-compass.html",
+        "expect": 0,
+        "viewportLabel": "mobile",
+        "diff": {
+          "isSameDimensions": true,
+          "dimensionDifference": {
+            "width": 0,
+            "height": 0
+          },
+          "misMatchPercentage": "0.00"
+        }
+      },
+      "status": "pass"
+    }
+  ],
+  "id": "mindfulness_backstop"
+}

@@ -1,0 +1,75 @@
+{
+  "id": "mindfulness_backstop",
+  "viewports": [
+    {
+      "label": "desktop",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "label": "tablet",
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "label": "mobile",
+      "width": 375,
+      "height": 667
+    }
+  ],
+  "scenarios": [
+    {
+      "label": "Homepage",
+      "url": "https://fli-rpx.github.io/mindfulness/index.html",
+      "delay": 3000,
+      "hideSelectors": ["#greeting", ".mini-cycle"],
+      "misMatchThreshold": 5.0,
+      "requireSameDimensions": true
+    },
+    {
+      "label": "Emotion Balance",
+      "url": "https://fli-rpx.github.io/mindfulness/emotion-balance.html",
+      "delay": 2000,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": true
+    },
+    {
+      "label": "Hypnosis",
+      "url": "https://fli-rpx.github.io/mindfulness/hypnosis.html",
+      "delay": 2000,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": true
+    },
+    {
+      "label": "Emotion Explorer",
+      "url": "https://fli-rpx.github.io/mindfulness/emotion-explorer.html",
+      "delay": 5000,
+      "hideSelectors": ["#ribbonCanvas"],
+      "misMatchThreshold": 8.0,
+      "requireSameDimensions": true
+    },
+    {
+      "label": "Salad Compass",
+      "url": "https://fli-rpx.github.io/mindfulness/salad-compass.html",
+      "delay": 2000,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": true
+    }
+  ],
+  "paths": {
+    "bitmaps_reference": "backstop_data/bitmaps_reference",
+    "bitmaps_test": "backstop_data/bitmaps_test",
+    "engine_scripts": "backstop_data/engine_scripts",
+    "html_report": "backstop_data/html_report",
+    "ci_report": "backstop_data/ci_report"
+  },
+  "report": ["browser"],
+  "engine": "puppeteer",
+  "engineOptions": {
+    "args": ["--no-sandbox"]
+  },
+  "asyncCaptureLimit": 5,
+  "asyncCompareLimit": 50,
+  "debug": false,
+  "debugWindow": false
+}
