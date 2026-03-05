@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="copyright" content="© 2026 Mindfulness Therapy. All rights reserved.">
+    <meta name="author" content="Mindfulness Therapy">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://cdn.jsdelivr.net;">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    
+    <title>Hypnosis for Emotional Balance - Mindfulness Therapy</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        /* Critical CSS */
+        .nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(255,255,255,0.95); border-bottom: 1px solid #e5e7eb; }
+        .nav-brand { font-size: 1.25rem; font-weight: 600; cursor: pointer; }
+        .nav-links { display: flex; align-items: center; gap: 0.5rem; }
+        .mobile-menu-btn { display: none; }
+        @media (max-width: 768px) { .nav-links { display: none; } .mobile-menu-btn { display: block; } }
+        .content-main { margin-left: 320px; max-width: calc(100vw - 360px); min-height: 100vh; }
+        @media (max-width: 1280px) { .content-main { margin-left: 0; max-width: 100%; } }
+        
+        .hero-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        @media (max-width: 768px) { .hero-section { grid-template-columns: 1fr; } }
+        
+        .hero-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 1rem;
+            color: white;
+        }
+        
+        .hero-content h1 {
+            margin: 0 0 1rem 0;
+            font-size: 2rem;
+        }
+        
+        .hero-content p {
+            margin: 0 0 1.5rem 0;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: #0d9488;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0f766e;
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            margin-left: 0.5rem;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        /* Hypnosis Page Specific Styles */
+        .hypnosis-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .hypnosis-section {
+            background: white;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        
+        .hypnosis-section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .hypnosis-section-header:hover {
+            opacity: 0.95;
+        }
+        
+        .hypnosis-section-header.active {
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .hypnosis-icon {
+            font-size: 1.5rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.2);
+            border-radius: 0.75rem;
+        }
+        
+        .hypnosis-section-header h3 {
+            flex: 1;
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        
+        .hypnosis-toggle {
+            transition: transform 0.3s;
+        }
+        
+        .hypnosis-section-header.active .hypnosis-toggle {
+            transform: rotate(180deg);
+        }
+        
+        .hypnosis-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        
+        .hypnosis-section-header.active + .hypnosis-content {
+            max-height: 5000px;
+        }
+        
+        .hypnosis-inner {
+            padding: 2rem;
+        }
+        
+        .hypnosis-inner h4 {
+            color: #1e293b;
+            margin: 1.5rem 0 0.75rem 0;
+            font-size: 1.1rem;
+        }
+        
+        .hypnosis-inner h4:first-child {
+            margin-top: 0;
+        }
+        
+        .hypnosis-inner p {
+            color: #334155;
+            line-height: 1.7;
+            margin: 0 0 1rem 0;
+        }
+        
+        .hypnosis-inner ul {
+            margin: 0.5rem 0 1rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .hypnosis-inner li {
+            margin-bottom: 0.5rem;
+            color: #334155;
+            line-height: 1.6;
+        }
+        
+        .technique-card {
+            background: #f8fafc;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid #667eea;
+        }
+        
+        .technique-card h5 {
+            margin: 0 0 0.75rem 0;
+            color: #1e293b;
+            font-size: 1rem;
+        }
+        
+        .technique-card p {
+            margin: 0 0 0.5rem 0;
+        }
+        
+        .technique-card ol, .technique-card ul {
+            margin: 0.5rem 0 0 0;
+            padding-left: 1.25rem;
+        }
+        
+        .technique-card li {
+            margin-bottom: 0.4rem;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin: 1.5rem 0;
+        }
+        
+        .highlight-box h5 {
+            margin: 0 0 0.75rem 0;
+        }
+        
+        .highlight-box p {
+            margin: 0;
+            color: rgba(255,255,255,0.95);
+        }
+        
+        .network-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .network-table th,
+        .network-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .network-table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        
+        .network-table tr:hover {
+            background: #f8fafc;
+        }
+        
+        .jsa-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .jsa-result-card {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .jsa-result-card h6 {
+            margin: 0 0 0.5rem 0;
+            color: #166534;
+            font-size: 0.85rem;
+        }
+        
+        .jsa-result-card .value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #15803d;
+        }
+        
+        .warning-note {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            color: #92400e;
+        }
+        
+        .warning-note strong {
+            color: #78350f;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .cta-section h3 {
+            margin: 0 0 1rem 0;
+            font-size: 1.5rem;
+        }
+        
+        .cta-section p {
+            margin: 0 0 1.5rem 0;
+            opacity: 0.9;
+        }
+        
+        @media (max-width: 768px) {
+            .hypnosis-container {
+                padding: 1rem;
+            }
+            
+            .hypnosis-inner {
+                padding: 1.5rem;
+            }
+            
+            .jsa-results {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Fixed Table of Contents -->
+        <nav class="toc-fixed">
+            <h3>Contents</h3>
+            <ul>
+                <li><a href="index.html">← Back to Home</a></li>
+                <li><a href="#what-is">What is Hypnosis?</a></li>
+                <li><a href="#neuroscience">The Neuroscience</a></li>
+                <li><a href="#jsa">Jena Safety Anchor</a></li>
+                <li><a href="#techniques">Self-Hypnosis Techniques</a></li>
+                <li><a href="#emotions">Finding Your Emotions</a></li>
+                <li><a href="#balance">Emotional Balance</a></li>
+                <li><a href="#clinical">Clinical Applications</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="content-main">
+            <!-- Navigation Bar -->
+            <nav class="nav-bar">
+                <div class="nav-brand" onclick="window.location.href='index.html'" style="cursor: pointer;">🧘 Mindfulness Therapy</div>
+                <button class="mobile-menu-btn" onclick="app.toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="nav-links" id="navLinks">
+                    <button class="nav-btn" onclick="window.location.href='index.html'">Home</button>
+                    <button class="nav-btn active" onclick="window.location.href='hypnosis.html'">Hypnosis</button>
+                    <button class="nav-btn" onclick="window.location.href='index.html#learn'">Learn</button>
+                </div>
+            </nav>
+
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1>🌀 Hypnosis for Emotional Balance</h1>
+                    <p>Discover how clinical hypnosis can help you access, understand, and balance your emotions through the power of focused attention and neuroplasticity.</p>
+                    <div class="hero-actions">
+                        <a href="#what-is" class="btn btn-primary">
+                            <i class="fas fa-play-circle"></i> Start Learning
+                        </a>
+                        <a href="#techniques" class="btn btn-secondary">
+                            <i class="fas fa-hand-sparkles"></i> Try Techniques
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual" style="text-align: center; font-size: 8rem;">
+                    🧠
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="hypnosis-container">
+                
+                <!-- Section 1: What is Hypnosis? -->
+                <div class="hypnosis-section" id="what-is">
+                    <div class="hypnosis-section-header active" onclick="toggleHypnosisSection(this)">
+                        <span class="hypnosis-icon">🌀</span>
+                        <h3>What is Clinical Hypnosis?</h3>
+                        <i class="fas fa-chevron-down hypnosis-toggle"></i>
+                    </div>
+                    <div class="hypnosis-content">
+                        <div class="hypnosis-inner">
+                            <h4>Not Sleep, But Focused Awareness</h4>
+                            <p>Contrary to popular myths, hypnosis is not sleep or unconsciousness. It's a <strong>collaborative state of highly focused attention and increased responsiveness to suggestion</strong>. You remain aware and in control throughout the entire process.</p>
+                            
+                            <p>Modern clinical hypnosis is understood as a fundamental mechanism of <strong>top-down neural modulation</strong>—a way your brain can reorganize its own networks to facilitate emotional balance, stress resilience, and self-integration.</p>
+                            
+                            <div class="highlight-box">
+                                <h5><i class="fas fa-lightbulb"></i> The Key Insight</h5>
+                                <p>Hypnosis creates "experiential plasticity"—a temporary window where your brain is more open to learning new emotional responses and breaking old patterns.</p>
+                            </div>
+                            
+                            <h4>The Four Pillars of Hypnotic State</h4>
+                            
+                            <div class="technique-card">
+                                <h5>1. Absorption</h5>
+                                <p>The capacity to become deeply involved in internal experiences or sensory imagery. Your attention narrows, filtering out external distractions and ruminative thoughts that maintain emotional dysregulation.</p>
+                            </div>
+                            
+                            <div class="technique-card">
+                                <h5>2. Dissociation</h5>
+                                <p>The decoupling of mental processes from standard bodily awareness. This allows you to "step back" from intense emotions, observing them objectively rather than being swept away by them.</p>
+                            </div>
+                            
+                            <div class="technique-card">
+                                <h5>3. Suggestibility</h5>
+                                <p>Increased responsiveness to therapeutic instructions intended to alter perception, mood, or behavior. This is not weakness—it's the ability to use imagery to modulate physiological systems.</p>
+                            </div>
+                            
+                            <div class="technique-card">
+                                <h5>4. Automaticity</h5>
+                                <p>The experience of responses feeling natural and non-voluntary. The goal is to make feelings of calm or resilience "automatic" in the face of stress, bypassing the need for conscious effort.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: The Neuroscience -->
+                <div class="hypnosis-section" id="neuroscience">
+                    <div class="hypnosis-section-header" onclick="toggleHypnosisSection(this)">
+                        <span class="hypnosis-icon">🧠</span>
+                        <h3>The Neuroscience of Hypnotic Emotion Regulation</h3>
+                        <i class="fas fa-chevron-down hypnosis-toggle"></i>
+                    </div>
+                    <div class="hypnosis-content">
+                        <div class="hypnosis-inner">
+                            <h4>The Triple Network Model</h4>
+                            <p>Recent neuroimaging research has identified how hypnosis affects the brain's three core networks: the <strong>Default Mode Network (DMN)</strong>, <strong>Executive Control Network (ECN)</strong>, and <strong>Salience Network (SN)</strong>.</p>
+                            
+                            <table class="network-table">
+                                <thead>
+                                    <tr>
+                                        <th>Brain Network</th>
+                                        <th>Key Areas</th>
+                                        <th>Hypnotic Effect</th>
+                                        <th>Outcome</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Salience Network</strong></td>
+                                        <td>Anterior Insula, dACC</td>
+                                        <td>Reduced dACC activity</td>
+                                        <td>Decreased vigilance & external monitoring</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Default Mode Network</strong></td>
+                                        <td>PCC, mPFC, Precuneus</td>
+                                        <td>Reduced connectivity with ECN</td>
+                                        <td>Less self-referential rumination</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Executive Control</strong></td>
+                                        <td>DLPFC, Posterior Parietal</td>
+                                        <td>Increased insula connectivity</td>
+                                        <td>Enhanced top-down emotional control</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <h4>The Decoupling Effect</h4>
+                            <p>A critical finding is the <strong>reduction in functional connectivity between the Executive Control Network and the Default Mode Network</strong>. This "neural compartmentalization" explains how you can experience profound emotional changes without them being immediately filtered through your habitual self-identity.</p>
+                            
+                            <div class="highlight-box">
+                                <h5><i class="fas fa-brain"></i> Why This Matters</h5>
+                                <p>This decoupling creates a window of "experiential plasticity" where new emotional responses can be installed without being constrained by your history of anxiety or trauma.</p>
+                            </div>
+                            
+                            <h4>The Three Stages of Hypnotic Reconfiguration</h4>
+                            
+                            <div class="technique-card">
+                                <h5>Stage 1: Induction & Absorption (0–10 min)</h5>
+                                <p>External threat monitoring decreases. Attention shifts inward. The dorsal anterior cingulate cortex (dACC) deactivates, reducing the "will to persevere" in monitoring threats.</p>
+                            </div>
+                            
+                            <div class="technique-card">
+                                <h5>Stage 2: Network Reconfiguration (10–20 min)</h5>
+                                <p>The anticorrelation between DMN and ECN weakens. This increases access to implicit emotions and creates the plasticity needed for change.</p>
+                            </div>
+                            
+                            <div class="technique-card">
+                                <h5>Stage 3: Therapeutic Modulation (20+ min)</h5>
+                                <p>The DLPFC modulates limbic and DMN activity based on therapeutic suggestions—installing self-compassion, safety, or new emotional responses.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Jena Safety Anchor -->
+                <div class="hypnosis-section" id="jsa">
+                    <div class="hypnosis-section-header" onclick="toggleHypnosisSection(this)">
+                        <span class="hypnosis-icon">⚓</span>
+                        <h3>The Jena Safety Anchor: Rapid Stress Resilience</h3>
+                        <i class="fas fa-chevron-down hypnosis-toggle"></i>
+                    </div>
+                    <div class="hypnosis-content">
+                        <div class="hypnosis-inner">
+                            <h4>A Breakthrough in Single-Session Intervention</h4>
+                            <p>Developed by researchers at Jena University, the <strong>Jena Safety Anchor (JSA)</strong> represents a breakthrough in using post-hypnotic suggestions for long-term emotional regulation after just one session.</p>
+                            
+                            <h4>How It Works</h4>
+                            <ol>
+                                <li><strong>Safe Place Visualization:</strong> During hypnosis, you vividly imagine a "safe place"—a mental sanctuary where you feel entirely secure and accepted.</li>
+                                <li><strong>Anchor Creation:</strong> While in this state of heightened safety, a post-hypnotic anchor is established (e.g., touching a specific object or making a gesture).</li>
+                                <li><strong>Suggestion Installation:</strong> The suggestion is made that simply activating this anchor outside of hypnosis will instantly reactivate the profound feeling of safety.</li>
+                            </ol>
+                            
+                            <h4>Research Results</h4>
+                            <p>Tested using the Trier Social Stress Test (TSST), participants using the JSA showed:</p>
+                            
+                            <div class="jsa-results">
+                                <div class="jsa-result-card">
+                                    <h6>Stress Reduction</h6>
+                                    <div class="value">~50%</div>
+                                </div>
+                                <div class="jsa-result-card">
+                                    <h6>Negative Affect</h6>
+                                    <div class="value">Significant ↓</div>
+                                </div>
+                                <div class="jsa-result-card">
+                                    <h6>Cortisol Response</h6>
+                                    <div class="value">Reduced</div>
+                                </div>
+                                <div class="jsa-result-card">
+                                    <h6>Morning Heart Rate</h6>
+                                    <div class="value">Lower</div>
+                                </div>
+                            </div>
+                            
+                            <div class="warning-note">
+                                <strong><i class="fas fa-info-circle"></i> Important:</strong> The JSA works regardless of hypnotic suggestibility scores. This makes it a robust intervention that can benefit most individuals.
+                            </div>
+                            
+                            <h4>HPA Axis Reset</h4>
+                            <p>The JSA appears to "reset" the body's anticipatory stress response by reducing the <strong>Cortisol Awakening Response (CAR)</strong>—a biomarker of chronic stress. This provides a physiological foundation for improved emotional stability throughout the day.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4: Self-Hypnosis Techniques -->
+                <div class="hypnosis-section" id="techniques">
+                    <div class="hypnosis-section-header" onclick="toggleHypnosisSection(this)">
+                        <span class="hypnosis-icon">✋</span>
+                        <h3>Self-Hypnosis Techniques You Can Use Today</h3>
+                        <i class="fas fa-chevron-down hypnosis-toggle"></i>
+                    </div>
+                    <div class="hypnosis-content">
+                        <div class="hypnosis-inner">
+                            <h4>The Lever Technique: Control Emotional Intensity</h4>
+                            
+                            <div class="technique-card">
+                                <h5>Step-by-Step Process</h5>
+                                <ol>
+                                    <li><strong>Induction:</strong> Find a quiet space. Take slow, deep breaths. Allow your eyes to close naturally as you relax.</li>
+                                    <li><strong>The Control Room:</strong> Imagine a "control room" within your mind containing various controls for your internal states.</li>
+                                    <li><strong>The Lever:</strong> Identify a specific lever that controls the intensity of your target emotion (anxiety, anger, etc.).</li>
+                                    <li><strong>Active Adjustment:</strong> Reach out and lower the lever. "With each notch, feel the intensity reducing. Feel relief spreading through your body."</li>
+                                    <li><strong>Anchoring:</strong> Lock in the new comfortable setting with the suggestion that your brain will maintain this level.</li>
+                                </ol>
+                            </div>
+                            
+                            <h4>The Perspective Elevator: Shift Your Viewpoint</h4>
+                            
+                            <div class="technique-card">
+                                <h5>How to Practice</h5>
+                                <p>During trance, imagine an elevator that transports you to different "floors" of perspective:</p>
+                                <ul>
+                                    <li><strong>Ground Floor:</strong> Immersed in the emotion—intense, immediate</li>
+                                    <li><strong>Middle Floors:</strong> Objective observation—seeing patterns</li>
+                                    <li><strong>Top Floor:</strong> Compassionate overview—understanding context</li>
+                                </ul>
+                                <p>This trains your brain to recognize that emotional intensity is often a function of the perspective you're currently occupying.</p>
+                            </div>
+                            
+                            <h4>The Resilience Timeline: Build Future Confidence</h4>
+                            
+                            <div class="technique-card">
+                                <h5>Protocol</h5>
+                                <ol>
+                                    <li>Float above your life timeline, viewing past setbacks with "capable calmness"</li>
+                                    <li>Notice how you survived and grew from each challenge</li>
+                                    <li>"Plant" new qualities (optimism, flexibility) into future scenarios</li>
+                                    <li>Use mental rehearsal to build future-oriented confidence</li>
+                                </ol>
+                            </div>
+                            
+                            <h4>Self-Holding: The Container Exercise</h4>
+                            
+                            <div class="technique-card">
+                                <h5>Physical Anchoring</h5>
+                                <p>Put one hand on your forehead, one on your heart. Feel the warmth. Imagine your body as a container that can hold any feeling without breaking.</p>
+                                <p><strong>Why it works:</strong> Creates physical boundaries. Tells your nervous system: "I can hold this. I'm still in control."</p>
+                            </div>
+                            
+                            <h4>The Voo Sound: Vagus Nerve Stimulation</h4>
+                            
+                            <div class="technique-card">
+                                <h5>How to Do It</h5>
+                                <p>Take a deep breath and make a low "voooo" sound like a foghorn. Feel it vibrate in your chest. The vibration stimulates your vagus nerve, activating your parasympathetic nervous system.</p>
+                                <p><strong>Best for:</strong> When you feel frozen or overwhelmed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 5: Finding Your Emotions -->
+                <div class="hypnosis-section" id="emotions">
+                    <div class="hypnosis-section-header" onclick="toggleHypnosisSection(this)">
+                        <span class="hypnosis-icon">🔍</span>
+                        <h3>Using Hypnosis to Find Your Emotions</h3>
+                        <i class="fas fa-chevron-down hypnosis-toggle"></i>
+                    </div>
+                    <div class="hypnosis-content">
+                        <div class="hypnosis-inner">
+                            <h4>The Problem: Disconnection from Feelings</h4>
+                            <p>Many people struggle with <strong>alexithymia</strong>—difficulty identifying and describing emotions. This often develops as a protective mechanism: if feelings were overwhelming or dangerous in childhood, the brain learned to shut them out.</p>
+                            
+                            <h4>How Hypnosis Helps</h4>
+                            
+                            <div class="technique-card">
+                                <h5>1. The Felt Sense Approach</h5>
+                                <p>Your body knows things your brain hasn't figured out yet. In hypnosis:</p>
+                                <ul>
+                                    <li>Scan your body for sensations (heaviness, tightness, fluttering)</li>
+                                    <li>Ask the sensation: "What are you trying to tell me?"</li>
+                                    <li>Wait for images, words, or memories to emerge</li>
+                                    <li>Stay with it gently—this creates the "felt shift"</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="technique-card">
+                                <h5>2. The Inner Sanctuary Method</h5>
+                                <p>Create a safe inner space where emotions can be witnessed without judgment:</p>
+                                <ol>
+                                    <li>Imagine a peaceful place (real or imagined)</li>
+                                    <li>Invite emotions to appear as symbols, colors, or figures</li>
+                                    <li>Ask them what they need</li>
+                                    <li>Offer compassion without trying to fix</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="technique-card">
+                                <h5>3. Parts Work (Internal Family Systems)</h5>
+                                <p>Your psyche has different "parts" with different jobs:</p>
+                                <ul>
+                                    <li><strong>The Exile:</strong> Carries pain and vulnerability</li>
+                                    <li><strong>The Manager:</strong> Tries to prevent pain through control</li>
+                                    <li><strong>The Firefighter:</strong> Panics and grabs quick fixes when pain breaks through</li>
+                                    <li><strong>The Self:</strong> The calm, compassionate observer</li>
+                                </ul>
+                                <p>In hypnosis, you can dialogue with these parts, understand their fears, and help them trust the Self.</p>
+                            </div>
+                            
+                            <div class="highlight-box">
+                                <h5><i class="fas fa-heart"></i> The Key</h5>
+                                <p>Instead of chasing what caught your eye (external hooks), turn inward: "What is this feeling in my body?" The shift you feel is your body releasing something it has been holding.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 6: Emotional Balance -->
+                <div class="hypnosis-section" id="balance">
+                    <div class="hypnosis-section-header" onclick="toggleHypnosisSection(this)">
+                        <span class="hypnosis-icon">⚖️</span>
+                        <h3>Hypnosis for Emotional Balance</h3>
+                        <i class="fas fa-chevron-down hypnosis-toggle"></i>
+                    </div>
+                    <div class="hypnosis-content">
+                        <div class="hypnosis-inner">
+                            <h4>The "Fundamental Peace" Model</h4>
+                            <p>The emerging mechanistic model proposes that hypnotic emotion regulation culminates in a state called <strong>"Fundamental Peace"</strong>—a neuro-experiential result of coordinated network reconfiguration characterized by:</p>
+                            
+                            <ul>
+                                <li><strong>Integrated Regulatory Capacity:</strong> Maintaining emotional coherence under challenging conditions</li>
+                                <li><strong>Flexible Attentional Control:</strong> Directing attention purposefully without effortful suppression</li>
+                                <li><strong>Compassionate Awareness:</strong> Shifting from self-critical rumination to objective self-observation</li>
+                            </ul>
+                            
+                            <h4>Heart Rate Variability (HRV) Enhancement</h4>
+                            <p>Hypnosis has been associated with a shift toward <strong>parasympathetic (vagal) dominance</strong>:</p>
+                            
+                            <div class="technique-card">
+                                <h5>Measured Effects</h5>
+                                <ul>
+                                    <li><strong>RMSSD:</strong> Significant increase (indicates vagal activity)</li>
+                                    <li><strong>SDNN:</strong> Significant increase (overall autonomic health)</li>
+                                    <li><strong>HF Power:</strong> Increase during relaxation (parasympathetic modulation)</li>
+                                    <li><strong>LF/HF Ratio:</strong> Shift toward lower values (improved balance)</li>
+                                </ul>
+                            </div>
+                            
+                            <h4>Mindful Hypnotherapy Integration</h4>
+                            <p>Mindful hypnotherapy combines hypnotic inductions with mindfulness principles:</p>
+                            
+                            <div class="technique-card">
+                                <h5>8-Session Structure</h5>
+                                <ol>
+                                    <li><strong>Establishing rapport</strong> and learning hypnotic relaxation</li>
+                                    <li><strong>Stabilization:</strong> Creating an internal sanctuary</li>
+                                    <li><strong>Initial mindfulness</strong> and present-moment focus</li>
+                                    <li><strong>Deepening hypnotic state</strong> with somatic awareness</li>
+                                    <li><strong>Analytical exploration</strong> of emotional patterns</li>
+                                    <li><strong>Integration:</strong> Combining insight with felt experience</li>
+                                    <li><strong>Consolidation:</strong> Strengthening new responses</li>
+                                    <li><strong>Generalization:</strong> Applying skills to daily life</li>
+                                </ol>
+                            </div>
+                            
+                            <p>Studies show mindful hypnotherapy has a <strong>large effect on reducing psychological distress</strong> (Hedges' g = 0.61) and stress (Hedges' g = 0.75).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 7: Clinical Applications -->
+                <div class="hypnosis-section" id="clinical">
+                    <div class="hypnosis-section-header" onclick="toggleHypnosisSection(this)">
+                        <span class="hypnosis-icon">🏥</span>
+                        <h3>Clinical Applications & Professional Standards</h3>
+                        <i class="fas fa-chevron-down hypnosis-toggle"></i>
+                    </div>
+                    <div class="hypnosis-content">
+                        <div class="hypnosis-inner">
+                            <h4>Conditions Where Hypnosis Helps</h4>
+                            
+                            <div class="technique-card">
+                                <h5>Generalized Anxiety Disorder (GAD)</h5>
+                                <p>Cognitive Analytical Hypnotherapy (CAH) integrates exploration of interpersonal patterns with experiential hypnosis. Studies show significant improvements in emotional regulation and self-efficacy (p < 0.001).</p>
+                            </div>
+                            
+                            <div class="technique-card">
+                                <h5>Trauma & Complex PTSD</h5>
+                                <p>Hypnosis is used for stabilization and developing "inner sanctuary" imagery. Helps bridge dissociative fragmentation and improve self-integration.</p>
+                            </div>
+                            
+                            <div class="technique-card">
+                                <h5>Borderline Personality Disorder (BPD)</h5>
+                                <p>Focuses on creating a wise, compassionate "inner self" that accepts the individual without judgment, helping to manage the "fear without solution."</p>
+                            </div>
+                            
+                            <div class="technique-card">
+                                <h5>Preoperative Anxiety</h5>
+                                <p>Clinical trials show hypnosis preserves vagal activity, reduces need for opioids, and improves emotional recovery post-surgery.</p>
+                            </div>
+                            
+                            <h4>California Regulatory Environment</h4>
+                            
+                            <div class="warning-note">
+                                <strong><i class="fas fa-gavel"></i> Legal Note:</strong> In California, hypnosis is recognized as a tool for "vocational and avocational self-improvement." Under Business and Professions Code #2908, unlicensed practitioners are exempt from psychology licensing as long as they do not "treat" or "diagnose" mental or emotional disorders.
+                            </div>
+                            
+                            <p><strong>For therapeutic work</strong> (treating GAD, clinical depression, etc.), a referral from a licensed physician, psychologist, or dentist is generally required.</p>
+                            
+                            <p><strong>Under Senate Bill SB-577,</strong> unlicensed practitioners must provide written "Informed Consent" disclosure stating:</p>
+                            <ul>
+                                <li>The practitioner is not a licensed physician</li>
+                                <li>Services are alternative or complementary</li>
+                                <li>The nature of services and theory of treatment</li>
+                                <li>The practitioner's education and qualifications</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Section -->
+                <div class="cta-section">
+                    <h3>🌀 Begin Your Journey</h3>
+                    <p>Hypnosis is not magic—it's a legitimate, science-backed mechanism for top-down neural control. Whether you work with a professional or practice self-hypnosis, you can build something inside that's stronger than any outside hook.</p>
+                    <a href="index.html#balance" class="btn btn-primary" style="background: white; color: #667eea;">
+                        <i class="fas fa-balance-scale"></i> Try Emotion Balance Tool
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="footer-content">
+                    <p>&copy; 2026 Mindfulness Therapy. All rights reserved.</p>
+                    <p class="footer-links">
+                        <a href="index.html">Home</a> |
+                        <a href="hypnosis.html">Hypnosis</a> |
+                        <a href="index.html#learn">Learn</a>
+                    </p>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Toggle hypnosis sections
+        function toggleHypnosisSection(header) {
+            header.classList.toggle('active');
+        }
+        
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        }
+        
+        // Open first section by default
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstHeader = document.querySelector('.hypnosis-section-header');
+            if (firstHeader) {
+                firstHeader.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
