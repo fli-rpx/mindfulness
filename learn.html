@@ -11,12 +11,12 @@
     <style>
         /* Tools Dropdown Styles */
         .tools-dropdown-container { position: relative; display: inline-block; }
-        .tools-dropdown-btn { display: flex; align-items: center; gap: 0.25rem; padding: 0.5rem 1rem; border: none; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer; border-radius: 9999px; font-family: inherit; }
-        .tools-dropdown-btn:hover { background: rgba(255, 255, 255, 0.1); color: white; }
-        .tools-dropdown-btn.active { background: #14b8a6; color: white; }
+        .tools-dropdown-btn { display: flex; align-items: center; gap: 0.25rem; padding: 0.5rem 1rem; border: none; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer; border-radius: 9999px; font-family: inherit; }
+        .tools-dropdown-btn:hover { background: rgba(255, 255, 255, 0.1); color: #1e293b; }
+        .tools-dropdown-btn.active { background: #14b8a6; color: #1e293b; }
         .tools-dropdown-menu { display: none; position: fixed; top: auto; left: auto; margin-top: 0.5rem; background: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; box-shadow: 0 10px 40px rgba(0,0,0,0.15); min-width: 220px; padding: 0.5rem; z-index: 9999; }
         .tools-dropdown-menu.open { display: block; }
-        .tools-dropdown-menu a { display: block; padding: 0.75rem 1rem; color: white; text-decoration: none; font-size: 0.875rem; border-radius: 0.5rem; transition: all 0.2s; white-space: nowrap; }
+        .tools-dropdown-menu a { display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; font-size: 0.875rem; border-radius: 0.5rem; transition: all 0.2s; white-space: nowrap; }
         .tools-dropdown-menu a:hover { background: rgba(20, 184, 166, 0.1); color: #14b8a6; }
 
         /* Page Styles */
@@ -29,7 +29,7 @@
             padding: 3rem 2rem;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 1.5rem;
-            color: white;
+            color: #1e293b;
         }
         
         .learn-header h1 {
@@ -79,12 +79,12 @@
         .learn-section-header h3 {
             flex: 1;
             margin: 0;
-            color: white;
+            color: #1e293b;
             font-size: 1.25rem;
         }
         
         .learn-toggle {
-            color: rgba(255,255,255,0.8);
+            color: #64748b;
             transition: transform 0.3s;
         }
         
@@ -103,7 +103,7 @@
         }
         
         .learn-summary {
-            color: rgba(255,255,255,0.8);
+            color: #64748b;
             font-size: 1.1rem;
             margin: 1.5rem 0;
             font-style: italic;
@@ -134,7 +134,7 @@
         
         .learn-key-point p {
             margin: 0;
-            color: white;
+            color: #1e293b;
         }
         
         .learn-exercises {
@@ -150,7 +150,7 @@
         }
         
         .learn-exercise h4 {
-            color: white;
+            color: #1e293b;
             margin: 0 0 1rem 0;
         }
         
@@ -239,7 +239,7 @@
         }
         
         .learn-summary-card h3 {
-            color: white;
+            color: #1e293b;
             margin: 0 0 1.5rem 0;
         }
         
@@ -256,7 +256,7 @@
         .learn-final {
             font-size: 1.1rem;
             font-weight: 600;
-            color: white;
+            color: #1e293b;
             margin-top: 1.5rem;
             padding-top: 1.5rem;
             border-top: 2px solid rgba(102, 126, 234, 0.3);
@@ -276,14 +276,14 @@
 <body>
     <!-- Navigation -->
     <nav class="nav-bar" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(30, 58, 138, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 2rem; height: 60px;">
-        <div class="nav-brand" onclick="window.location.href='index.html'" style="cursor: pointer; font-size: 1.25rem; font-weight: 600; color: white;">🧘 Mindfulness Therapy</div>
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()" style="display: none; background: none; border: none; font-size: 1.25rem; color: rgba(255,255,255,0.8); cursor: pointer; padding: 0.5rem;">
+        <div class="nav-brand" onclick="window.location.href='index.html'" style="cursor: pointer; font-size: 1.25rem; font-weight: 600; color: #1e293b;">🧘 Mindfulness Therapy</div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()" style="display: none; background: none; border: none; font-size: 1.25rem; color: #64748b; cursor: pointer; padding: 0.5rem;">
             <i class="fas fa-bars"></i>
         </button>
         <div class="nav-links" id="navLinks" style="display: flex; gap: 0.5rem; align-items: center;">
-            <button class="nav-btn" onclick="window.location.href='index.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer;">Home</button>
-            <button class="nav-btn" onclick="window.location.href='cycle.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer;">Cycle</button>
-            <button class="nav-btn" onclick="window.location.href='assessment.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer;">AI Chat</button>
+            <button class="nav-btn" onclick="window.location.href='index.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Home</button>
+            <button class="nav-btn" onclick="window.location.href='cycle.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Cycle</button>
+            <button class="nav-btn" onclick="window.location.href='assessment.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">AI Chat</button>
 
             <!-- Tools Dropdown -->
             <div class="tools-dropdown-container" id="toolsContainer">
@@ -300,9 +300,9 @@
                 </div>
             </div>
 
-            <button class="nav-btn" onclick="window.location.href='journal.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer;">Journal</button>
-            <button class="nav-btn" onclick="window.location.href='progress.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer;">Progress</button>
-            <button class="nav-btn active" onclick="window.location.href='learn.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: linear-gradient(135deg, #50c8b8, #4a90d9); color: white; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Learn</button>
+            <button class="nav-btn" onclick="window.location.href='journal.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Journal</button>
+            <button class="nav-btn" onclick="window.location.href='progress.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Progress</button>
+            <button class="nav-btn active" onclick="window.location.href='learn.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: linear-gradient(135deg, #50c8b8, #4a90d9); color: #1e293b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Learn</button>
         </div>
     </nav>
 
