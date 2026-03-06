@@ -2,623 +2,293 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="copyright" content="© 2026 Mindfulness Therapy. All rights reserved.">
-    <meta name="author" content="Mindfulness Therapy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mindfulness Therapy - Emotional Balancing</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="copyright" content="© 2026 Mindfulness Therapy. All rights reserved.">
+    <title>Mindfulness Therapy - Find Your Inner Balance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="emotion-ribbon.js"></script>
-    <script src="emotion-ribbon-visualizer.js"></script>
     <style>
-        /* Tools Dropdown Styles */
-        .tools-dropdown-container {
-            position: relative;
-            display: inline-block;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #14b8a6;
+            --accent: #f59e0b;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
         }
-        
-        .tools-dropdown-btn {
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        .nav-bar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
             display: flex;
             align-items: center;
-            gap: 0.25rem;
-            padding: 0.5rem 1rem;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(99,102,241,0.1);
+        }
+        .nav-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+        }
+        .nav-links { display: flex; gap: 0.5rem; }
+        .nav-btn {
+            padding: 0.6rem 1.2rem;
             border: none;
             background: transparent;
-            color: #64748b;
-            font-size: 0.875rem;
+            color: var(--gray);
+            font-size: 0.9rem;
             font-weight: 500;
             cursor: pointer;
-            border-radius: 9999px;
-            font-family: inherit;
+            border-radius: 50px;
+            transition: all 0.3s;
         }
-        
-        .tools-dropdown-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #1e293b;
+        .nav-btn:hover { background: rgba(99,102,241,0.1); color: var(--primary); }
+        .nav-btn.active { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; }
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 2rem 4rem;
+            background: radial-gradient(ellipse at 20% 20%, rgba(99,102,241,0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(20,184,166,0.1) 0%, transparent 50%), #f8fafc;
         }
-        
-        .tools-dropdown-btn.active {
-            background: #14b8a6;
-            color: white;
-        }
-        
-        .tools-dropdown-menu {
-            display: none;
-            position: fixed;
-            top: auto;
-            left: auto;
-            margin-top: 0.5rem;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            min-width: 220px;
-            padding: 0.5rem;
-            z-index: 9999;
-        }
-        
-        .tools-dropdown-menu.open {
-            display: block;
-        }
-        
-        .tools-dropdown-menu a {
-            display: block;
-            padding: 0.75rem 1rem;
-            color: #1e293b;
-            text-decoration: none;
+        .hero-content { max-width: 900px; text-align: center; }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(99,102,241,0.1);
+            border-radius: 50px;
+            color: var(--primary);
             font-size: 0.875rem;
-            border-radius: 0.5rem;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-        
-        .tools-dropdown-menu a:hover {
-            background: rgba(20, 184, 166, 0.1);
-            color: #14b8a6;
-        }
-
-        /* Learn Tab Styles */
-        .learn-header {
-            text-align: center;
+            font-weight: 500;
             margin-bottom: 2rem;
-            padding: 2rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 1rem;
+        }
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #0f172a 0%, #4f46e5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p { font-size: 1.25rem; color: var(--gray); max-width: 600px; margin: 0 auto 2.5rem; }
+        .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .btn-primary {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
             color: white;
-        }
-
-        .learn-header h2 {
-            margin: 0 0 0.5rem 0;
-            font-size: 1.75rem;
-        }
-
-        .learn-subtitle {
-            margin: 0;
-            opacity: 0.9;
+            border: none;
+            border-radius: 50px;
             font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
         }
-
-        .learn-content {
-            max-width: 800px;
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 20px 40px -10px rgba(99,102,241,0.4); }
+        .btn-secondary {
+            padding: 1rem 2rem;
+            background: white;
+            color: var(--dark);
+            border: 2px solid rgba(99,102,241,0.2);
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
+        .features { padding: 6rem 2rem; background: white; }
+        .features-header { text-align: center; max-width: 600px; margin: 0 auto 4rem; }
+        .features-header h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .features-header p { color: var(--gray); font-size: 1.125rem; }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
             margin: 0 auto;
         }
-
-        .learn-section {
-            background: white;
-            border-radius: 1rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            overflow: hidden;
-        }
-
-        .learn-section-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1.25rem 1.5rem;
-            cursor: pointer;
-            transition: background 0.2s;
-            border-bottom: 1px solid transparent;
-        }
-
-        .learn-section-header:hover {
-            background: #f8fafc;
-        }
-
-        .learn-section-header.active {
-            border-bottom-color: #e2e8f0;
-        }
-
-        .learn-icon {
-            font-size: 1.5rem;
-            width: 2.5rem;
-            height: 2.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #f1f5f9;
-            border-radius: 0.75rem;
-        }
-
-        .learn-section-header h3 {
-            flex: 1;
-            margin: 0;
-            font-size: 1.1rem;
-            color: #1e293b;
-        }
-
-        .learn-toggle {
-            color: #64748b;
-            transition: transform 0.3s;
-        }
-
-        .learn-section-header.active .learn-toggle {
-            transform: rotate(180deg);
-        }
-
-        .learn-section-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .learn-section-header.active + .learn-section-content {
-            max-height: 2000px;
-        }
-
-        .learn-summary {
-            padding: 1rem 1.5rem;
-            margin: 0;
-            color: #64748b;
-            font-style: italic;
-            border-bottom: 1px solid #f1f5f9;
-        }
-
-        .learn-detail {
-            padding: 1.5rem;
-        }
-
-        .learn-detail p {
-            margin: 0 0 1rem 0;
-            line-height: 1.6;
-            color: #334155;
-        }
-
-        .learn-key-point {
-            display: flex;
-            gap: 1rem;
-            background: #f8fafc;
-            padding: 1rem;
-            border-radius: 0.75rem;
-            margin-top: 1rem;
-        }
-
-        .key-icon {
-            font-size: 1.25rem;
-        }
-
-        .learn-key-point p {
-            margin: 0;
-            flex: 1;
-        }
-
-        .learn-comparison {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-
-        .learn-comparison-item {
-            padding: 1rem;
-            border-radius: 0.75rem;
-        }
-
-        .learn-comparison-item.negative {
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-        }
-
-        .learn-comparison-item.positive {
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
-        }
-
-        .learn-comparison-item h4 {
-            margin: 0 0 0.5rem 0;
-            font-size: 1rem;
-        }
-
-        .learn-comparison-item p {
-            margin: 0;
-            font-size: 0.9rem;
-        }
-
-        .learn-exercises {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .learn-exercise {
-            background: #f8fafc;
-            padding: 1.25rem;
-            border-radius: 0.75rem;
-            border-left: 4px solid #667eea;
-        }
-
-        .learn-exercise h4 {
-            margin: 0 0 0.75rem 0;
-            color: #1e293b;
-        }
-
-        .learn-exercise p {
-            margin: 0 0 0.5rem 0;
-        }
-
-        .learn-exercise ul {
-            margin: 0.5rem 0 0 0;
-            padding-left: 1.5rem;
-        }
-
-        .learn-exercise li {
-            margin-bottom: 0.5rem;
-        }
-
-        .learn-summary-card {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
+        .feature-card {
             padding: 2rem;
-            border-radius: 1rem;
-            margin-top: 2rem;
+            background: #f8fafc;
+            border-radius: 24px;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
         }
-
-        .learn-summary-card h3 {
-            margin: 0 0 1rem 0;
-        }
-
-        .learn-summary-card p {
-            margin: 0 0 1rem 0;
-            line-height: 1.6;
-        }
-
-        .learn-summary-card ul {
-            margin: 1rem 0;
-            padding-left: 1.5rem;
-        }
-
-        .learn-summary-card li {
-            margin-bottom: 0.5rem;
-        }
-
-        .learn-final {
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-align: center;
-            margin-top: 1.5rem !important;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255,255,255,0.3);
-        }
-
-        .learn-subsection {
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .learn-subsection:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .learn-subsection h4 {
-            margin: 0 0 0.75rem 0;
-            color: #1e293b;
-            font-size: 1.05rem;
-        }
-
-        .learn-parts-list {
-            margin: 0.75rem 0;
-            padding-left: 1.5rem;
-        }
-
-        .learn-parts-list li {
-            margin-bottom: 0.5rem;
-            line-height: 1.5;
-        }
-
-        .learn-transformation {
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1); }
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+        .feature-card h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .feature-card p { color: var(--gray); font-size: 0.9rem; }
+        .stats { padding: 4rem 2rem; background: linear-gradient(135deg, #0f172a, #1e293b); color: white; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 2rem;
-            margin: 1.5rem 0;
-            padding: 1.5rem;
-            background: #f8fafc;
-            border-radius: 1rem;
-        }
-
-        .learn-from, .learn-to {
+            max-width: 1000px;
+            margin: 0 auto;
             text-align: center;
-            flex: 1;
         }
-
-        .learn-from h5, .learn-to h5 {
-            margin: 0 0 0.75rem 0;
-            font-size: 1rem;
-        }
-
-        .learn-from ul, .learn-to ul {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        .learn-from li, .learn-to li {
-            margin-bottom: 0.25rem;
-            color: #64748b;
-        }
-
-        .learn-arrow {
-            font-size: 2rem;
-            color: #667eea;
-            font-weight: bold;
-        }
-
+        .stat-number { font-size: 3rem; font-weight: 700; background: linear-gradient(135deg, #6366f1, #14b8a6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .stat-label { color: rgba(255,255,255,0.6); font-size: 0.9rem; }
+        .cta-section { padding: 6rem 2rem; text-align: center; background: radial-gradient(ellipse at center, rgba(99,102,241,0.1) 0%, transparent 70%); }
+        .cta-section h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .cta-section p { color: var(--gray); font-size: 1.125rem; max-width: 500px; margin: 0 auto 2rem; }
+        footer { padding: 2rem; text-align: center; color: var(--gray); font-size: 0.875rem; border-top: 1px solid rgba(99,102,241,0.1); }
         @media (max-width: 768px) {
-            .learn-comparison {
-                grid-template-columns: 1fr;
-            }
-            
-            .learn-transformation {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .learn-arrow {
-                transform: rotate(90deg);
-            }
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
         }
     </style>
 </head>
 <body>
-    <div id="app">
-
-
-        <!-- Main Content -->
-        <div class="content-main">
-            <!-- Navigation Bar -->
-            <nav class="nav-bar">
-                <div class="nav-brand" onclick="window.location.href='index.html'" style="cursor: pointer;">🧘 Mindfulness Therapy</div>
-                <button class="mobile-menu-btn" onclick="app.toggleMobileMenu()">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="nav-links" id="navLinks">
-                    <button class="nav-btn" onclick="window.location.href='index-zh.html'">中文</button>
-                    <button class="nav-btn" onclick="window.location.href='index-ru.html'">Русский</button>
-                    <button class="nav-btn active" onclick="window.location.href='index.html'">Home</button>
-                    <button class="nav-btn" onclick="window.location.href='cycle.html'">Cycle</button>
-                    <button class="nav-btn" onclick="window.location.href='assessment.html'">AI Chat</button>
-                    
-                    <!-- Tools Dropdown -->
-                    <div class="tools-dropdown-container" id="toolsContainer">
-                        <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
-                            Tools <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
-                        </button>
-                        <div class="tools-dropdown-menu" id="toolsMenu">
-                            <a href="emotion-explorer.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🎨 Emotion Explorer</a>
-                            <a href="emotion-balance.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">⚡ Emotion Balance</a>
-                            <a href="hypnosis.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🌀 Hypnosis</a>
-                            <a href="salad-compass.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥗 Salad Compass</a>
-                            <a href="salad-check.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥬 Full Salad Check</a>
-                            <a href="interventions.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🧰 Interventions</a>
-                        </div>
-                    </div>
-                    
-                    <button class="nav-btn" onclick="window.location.href='journal.html'">Journal</button>
-                    <button class="nav-btn" onclick="window.location.href='progress.html'">Progress</button>
-                    <button class="nav-btn" onclick="window.location.href='learn.html'">Learn</button>
-                </div>
-            </nav>
-
-            <!-- Home Tab -->
-            <div id="home" class="tab active">
-                <div class="hero-section">
-                    <div class="hero-content">
-                        <h1 id="greeting">Good morning,</h1>
-                        <p>Ready to understand and balance your emotional state?</p>
-                        <div class="hero-actions">
-                            <button class="btn-primary" onclick="window.location.href='assessment.html'">
-                                <i class="fas fa-robot"></i> Start AI Assessment
-                            </button>
-                            <button class="btn-secondary" onclick="window.location.href='emotion-balance.html'">
-                                <i class="fas fa-bolt"></i> Quick Check-In
-                            </button>
-                        </div>
-                    </div>
-                    <div class="hero-visual">
-                        <div class="mini-cycle" id="miniCycle"></div>
-                    </div>
-                </div>
-
-                <div class="quick-stats">
-                    <div class="stat-card">
-                        <div class="stat-icon">🔥</div>
-                        <div class="stat-value" id="streakValue">0</div>
-                        <div class="stat-label">Day Streak</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">🧘</div>
-                        <div class="stat-value" id="sessionValue">0</div>
-                        <div class="stat-label">Sessions</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">⏱️</div>
-                        <div class="stat-value" id="minuteValue">0</div>
-                        <div class="stat-label">Minutes</div>
-                    </div>
-                </div>
-
-                <!-- Quick Tools Section -->
-                <div class="tools-section">
-                    <h2 class="section-title">⚡ Quick Tools</h2>
-                    <p class="section-subtitle">Fast check-ins for immediate clarity</p>
-                    <div class="feature-grid quick-tools">
-                        <div class="feature-card featured" onclick="window.location.href='emotion-balance.html'">
-                            <div class="feature-icon balance-icon">
-                                <i class="fas fa-balance-scale"></i>
-                            </div>
-                            <h3>Emotion Balance</h3>
-                            <p>4 sliders, instant score, personalized actions</p>
-                            <span class="card-badge">30 seconds</span>
-                        </div>
-                        <div class="feature-card featured" onclick="window.location.href='salad-compass.html'">
-                            <div class="feature-icon compass-icon">
-                                <i class="fas fa-compass"></i>
-                            </div>
-                            <h3>Salad Compass</h3>
-                            <p>Identify your state, find the missing vegetable</p>
-                            <span class="card-badge">1 minute</span>
-                        </div>
-                        <div class="feature-card" onclick="window.location.href='emotion-explorer.html'">
-                            <div class="feature-icon explorer-icon">
-                                <i class="fas fa-palette"></i>
-                            </div>
-                            <h3>Emotion Explorer</h3>
-                            <p>Build your emotion ribbon visualization</p>
-                            <span class="card-badge">Visual</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Deep Work Section -->
-                <div class="tools-section">
-                    <h2 class="section-title">🧠 Deep Work</h2>
-                    <p class="section-subtitle">Comprehensive tools for deeper understanding</p>
-                    <div class="feature-grid">
-                        <div class="feature-card" onclick="window.location.href='assessment.html'">
-                            <div class="feature-icon ai-icon">
-                                <i class="fas fa-brain"></i>
-                            </div>
-                            <h3>AI Assessment</h3>
-                            <p>94% accurate emotion detection with multimodal analysis</p>
-                        </div>
-                        <div class="feature-card" onclick="window.location.href='cycle.html'">
-                            <div class="feature-icon cycle-icon">
-                                <i class="fas fa-sync-alt"></i>
-                            </div>
-                            <h3>Power-Possession Cycle</h3>
-                            <p>Interactive visualization of your emotional journey</p>
-                        </div>
-                        <div class="feature-card" onclick="window.location.href='salad-check.html'">
-                            <div class="feature-icon salad-icon">
-                                <i class="fas fa-leaf"></i>
-                            </div>
-                            <h3>Emotional Salad Check</h3>
-                            <p>21-question diagnostic with personalized protocol</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Emergency Section -->
-                <div class="tools-section emergency-section">
-                    <h2 class="section-title">🆘 Need Relief Now?</h2>
-                    <div class="emergency-grid">
-                        <div class="emergency-card" onclick="window.location.href='interventions.html'">
-                            <i class="fas fa-toolbox"></i>
-                            <span>Micro-Interventions</span>
-                            <small>60-second techniques</small>
-                        </div>
-                        <div class="emergency-card" onclick="app.startIntervention('sigh')">
-                            <i class="fas fa-wind"></i>
-                            <span>Physiological Sigh</span>
-                            <small>Instant calm</small>
-                        </div>
-                        <div class="emergency-card" onclick="app.startIntervention('54321')">
-                            <i class="fas fa-eye"></i>
-                            <span>5-4-3-2-1 Grounding</span>
-                            <small>Come back to now</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Power-Possession Cycle Tab -->
-            <div id="cycle" class="tab">
+    <nav class="nav-bar">
+        <div class="nav-brand" onclick="window.location.href='index.html'">🧘 Mindfulness Therapy</div>
+        <div class="nav-links">
+            <button class="nav-btn active" onclick="window.location.href='index.html'">Home</button>
+            <button class="nav-btn" onclick="window.location.href='cycle.html'">Cycle</button>
+            <button class="nav-btn" onclick="window.location.href='assessment.html'">AI Chat</button>
+            <button class="nav-btn" onclick="window.location.href='journal.html'">Journal</button>
+            <button class="nav-btn" onclick="window.location.href='progress.html'">Progress</button>
+            <button class="nav-btn" onclick="window.location.href='learn.html'">Learn</button>
         </div>
-    </div>
+    </nav>
 
-    <script>
-        // Tools dropdown functions
-        function toggleToolsMenu() {
-            var menu = document.getElementById('toolsMenu');
-            var btn = document.getElementById('toolsBtn');
-            if (!menu || !btn) return;
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-sparkles"></i> Discover Inner Peace
+            </div>
+            <h1>Find Your Balance,<br>Embrace Your Journey</h1>
+            <p>A mindful approach to understanding your emotions. Track, explore, and transform your emotional well-being with AI-powered insights.</p>
             
-            if (menu.classList.contains('open')) {
-                menu.classList.remove('open');
-                btn.classList.remove('active');
-                btn.setAttribute('aria-expanded', 'false');
-            } else {
-                var btnRect = btn.getBoundingClientRect();
-                menu.style.top = (btnRect.bottom + 8) + 'px';
-                menu.style.left = btnRect.left + 'px';
-                menu.classList.add('open');
-                btn.classList.add('active');
-                btn.setAttribute('aria-expanded', 'true');
-            }
-        }
-        
-        function closeToolsDropdown() {
-            var menu = document.getElementById('toolsMenu');
-            var btn = document.getElementById('toolsBtn');
-            if (menu) {
-                menu.classList.remove('open');
-            }
-            if (btn) {
-                btn.classList.remove('active');
-                btn.setAttribute('aria-expanded', 'false');
-            }
-        }
-        
-        document.addEventListener('click', function(e) {
-            var btn = document.getElementById('toolsBtn');
-            var menu = document.getElementById('toolsMenu');
-            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
-                closeToolsDropdown();
-            }
-        });
+            <div class="hero-cta">
+                <a href="assessment.html" class="btn-primary">
+                    <i class="fas fa-play"></i> Start Your Journey
+                </a>
+                <a href="learn.html" class="btn-secondary">
+                    <i class="fas fa-book-open"></i> Explore Insights
+                </a>
+            </div>
+        </div>
+    </section>
 
-        function toggleMobileMenu() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('show');
-        }
-
-        // Tab navigation
-        function showTab(tabName) {
-            // All tabs are now standalone pages, redirect if needed
-            const tabUrls = {
-                'cycle': 'cycle.html',
-                'assessment': 'assessment.html',
-                'salad': 'salad-check.html',
-                'interventions': 'interventions.html',
-                'journal': 'journal.html',
-                'progress': 'progress.html',
-                'learn': 'learn.html'
-            };
+    <section class="features">
+        <div class="features-header">
+            <h2>Tools for Your Mind</h2>
+            <p>Everything you need to understand, track, and improve your emotional well-being.</p>
+        </div>
+        
+        <div class="features-grid">
+            <a href="emotion-explorer.html" class="feature-card">
+                <div class="feature-icon"><i class="fas fa-palette"></i></div>
+                <h3>Emotion Explorer</h3>
+                <p>Visualize and understand your emotional patterns through an interactive ribbon interface.</p>
+            </a>
             
-            if (tabUrls[tabName]) {
-                window.location.href = tabUrls[tabName];
-            }
-        }
+            <a href="emotion-balance.html" class="feature-card">
+                <div class="feature-icon" style="background: linear-gradient(135deg, #14b8a6, #06b6d4);"><i class="fas fa-balance-scale"></i></div>
+                <h3>Balance Check</h3>
+                <p>Quick assessment to check your emotional balance and get personalized recommendations.</p>
+            </a>
+            
+            <a href="journal.html" class="feature-card">
+                <div class="feature-icon" style="background: linear-gradient(135deg, #f59e0b, #f97316);"><i class="fas fa-pen-fancy"></i></div>
+                <h3>Mindful Journal</h3>
+                <p>Track your moods and thoughts over time. Build self-awareness through daily reflection.</p>
+            </a>
+            
+            <a href="salad-compass.html" class="feature-card">
+                <div class="feature-icon" style="background: linear-gradient(135deg, #ec4899, #8b5cf6);"><i class="fas fa-compass"></i></div>
+                <h3>Salad Compass</h3>
+                <p>Navigate your emotional "salad" - identify spicy, greasy, and nourishing elements.</p>
+            </a>
+            
+            <a href="interventions.html" class="feature-card">
+                <div class="feature-icon" style="background: linear-gradient(135deg, #ef4444, #f97316);"><i class="fas fa-heart-pulse"></i></div>
+                <h3>Micro-Interventions</h3>
+                <p>60-second techniques for rapid emotional regulation when you need immediate relief.</p>
+            </a>
+            
+            <a href="learn.html" class="feature-card">
+                <div class="feature-icon" style="background: linear-gradient(135deg, #3b82f6, #6366f1);"><i class="fas fa-graduation-cap"></i></div>
+                <h3>Learn & Grow</h3>
+                <p>Understand the psychology behind emotions. Science-backed insights for personal growth.</p>
+            </a>
+        </div>
+    </section>
 
-        // Start intervention
-        function startIntervention(type) {
-            window.location.href = 'interventions.html';
-        }
-    </script>
+    <section class="stats">
+        <div class="stats-grid">
+            <div>
+                <div class="stat-number">10+</div>
+                <div class="stat-label">Mindfulness Tools</div>
+            </div>
+            <div>
+                <div class="stat-number">94%</div>
+                <div class="stat-label">Accuracy Rate</div>
+            </div>
+            <div>
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">AI Support</div>
+            </div>
+            <div>
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Private & Secure</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Ready to Begin?</h2>
+        <p>Your journey to emotional wellness starts with a single step. Take the first assessment now.</p>
+        <a href="assessment.html" class="btn-primary">
+            <i class="fas fa-magic"></i> Start Free Assessment
+        </a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Mindfulness Therapy. All rights reserved.</p>
+    </footer>
 </body>
 </html>
