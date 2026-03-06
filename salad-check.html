@@ -3,19 +3,649 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="copyright" content="© 2026 Mindfulness Therapy. All rights reserved.">
     <title>Full Salad Check - Mindfulness Therapy</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Tools Dropdown Styles */
+        .tools-dropdown-container { position: relative; display: inline-block; }
+        .tools-dropdown-btn { display: flex; align-items: center; gap: 0.25rem; padding: 0.5rem 1rem; border: none; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer; border-radius: 9999px; font-family: inherit; }
+        .tools-dropdown-btn:hover { background: rgba(255, 255, 255, 0.1); color: #1e293b; }
+        .tools-dropdown-btn.active { background: #14b8a6; color: white; }
+        .tools-dropdown-menu { display: none; position: fixed; top: auto; left: auto; margin-top: 0.5rem; background: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; box-shadow: 0 10px 40px rgba(0,0,0,0.15); min-width: 220px; padding: 0.5rem; z-index: 9999; }
+        .tools-dropdown-menu.open { display: block; }
+        .tools-dropdown-menu a { display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; font-size: 0.875rem; border-radius: 0.5rem; transition: all 0.2s; white-space: nowrap; }
+        .tools-dropdown-menu a:hover { background: rgba(20, 184, 166, 0.1); color: #14b8a6; }
+
+        /* Page Styles */
+        .page-container { max-width: 800px; margin: 0 auto; padding: 100px 20px 40px 20px; }
+        .page-header { text-align: center; margin-bottom: 3rem; }
+        .page-header h1 { font-size: 2.5rem; background: linear-gradient(90deg, #50c8b8, #4a90d9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1rem; }
+        .page-header p { color: #64748b; font-size: 1.1rem; }
+
+        /* Salad Container */
+        .salad-container {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Compass Link Card */
+        .compass-link-card {
+            background: rgba(80, 200, 184, 0.1);
+            border: 1px solid rgba(80, 200, 184, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .compass-link-card .compass-text {
+            font-weight: 600;
+            color: #50c8b8;
+            margin-bottom: 5px;
+        }
+
+        .compass-link-card .compass-subtext {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* Progress Bar */
+        .progress-section {
+            margin-bottom: 30px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #50c8b8, #4a90d9);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        /* Questions */
+        .question-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .question-card h4 {
+            color: #1e293b;
+            margin: 0 0 16px 0;
+            font-size: 1.1rem;
+        }
+
+        .question-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-btn {
+            padding: 12px 16px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            color: #334155;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+        }
+
+        .option-btn:hover {
+            border-color: #50c8b8;
+            background: rgba(80, 200, 184, 0.1);
+        }
+
+        .option-btn.selected {
+            border-color: #50c8b8;
+            background: rgba(80, 200, 184, 0.2);
+            color: #1e293b;
+        }
+
+        /* Results */
+        .results-plate {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .results-plate h3 {
+            color: #1e293b;
+            margin-bottom: 24px;
+        }
+
+        .plate-visual {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            background: #f8fafc;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .plate-section {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .plate-spicy {
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ef4444;
+        }
+
+        .plate-greasy {
+            bottom: 15%;
+            left: 20%;
+            color: #f59e0b;
+        }
+
+        .plate-vegetable {
+            bottom: 15%;
+            right: 20%;
+            color: #22c55e;
+        }
+
+        .plate-emoji {
+            font-size: 2rem;
+            margin-bottom: 4px;
+        }
+
+        .results-breakdown {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .breakdown-item {
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .breakdown-item.spicy {
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .breakdown-item.greasy {
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .breakdown-item.vegetable {
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .breakdown-score {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .breakdown-item.spicy .breakdown-score { color: #ef4444; }
+        .breakdown-item.greasy .breakdown-score { color: #f59e0b; }
+        .breakdown-item.vegetable .breakdown-score { color: #22c55e; }
+
+        .breakdown-label {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        /* Protocol */
+        .protocol-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .protocol-section h3 {
+            color: #1e293b;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .protocol-step {
+            display: flex;
+            gap: 16px;
+            padding: 16px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border-left: 4px solid #50c8b8;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #50c8b8, #4a90d9);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            color: #1e293b;
+            margin: 0 0 4px 0;
+            font-size: 1rem;
+        }
+
+        .step-content p {
+            color: #64748b;
+            margin: 0;
+            font-size: 0.875rem;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #50c8b8, #4a90d9);
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: #64748b;
+            padding: 12px 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .results-breakdown {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html">Home</a> |
-        <a href="cycle.html">Cycle</a> |
-        <a href="assessment.html">AI Chat</a> |
-        <a href="journal.html">Journal</a> |
-        <a href="progress.html">Progress</a> |
-        <a href="learn.html">Learn</a>
+    <!-- Navigation -->
+    <nav class="nav-bar" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 2rem; height: 60px;">
+        <div class="nav-brand" onclick="window.location.href='index.html'" style="cursor: pointer; font-size: 1.25rem; font-weight: 600; color: #1e293b;">🧘 Mindfulness Therapy</div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()" style="display: none; background: none; border: none; font-size: 1.25rem; color: #64748b; cursor: pointer; padding: 0.5rem;">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-links" id="navLinks" style="display: flex; gap: 0.5rem; align-items: center;">
+            <button class="nav-btn" onclick="window.location.href='index.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Home</button>
+            <button class="nav-btn" onclick="window.location.href='cycle.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Cycle</button>
+            <button class="nav-btn" onclick="window.location.href='assessment.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">AI Chat</button>
+
+            <!-- Tools Dropdown -->
+            <div class="tools-dropdown-container" id="toolsContainer">
+                <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
+                    Tools <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
+                </button>
+                <div class="tools-dropdown-menu" id="toolsMenu">
+                    <a href="emotion-explorer.html">🎨 Emotion Explorer</a>
+                    <a href="emotion-balance.html">⚡ Emotion Balance</a>
+                    <a href="hypnosis.html">🌀 Hypnosis</a>
+                    <a href="salad-compass.html">🥗 Salad Compass</a>
+                    <a href="salad-check.html">🥬 Full Salad Check</a>
+                    <a href="interventions.html">🧰 Interventions</a>
+                </div>
+            </div>
+
+            <button class="nav-btn" onclick="window.location.href='journal.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Journal</button>
+            <button class="nav-btn" onclick="window.location.href='progress.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Progress</button>
+            <button class="nav-btn" onclick="window.location.href='learn.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Learn</button>
+        </div>
     </nav>
-    <h1>Full Salad Check</h1>
-    <p>Full Salad Check page content coming soon.</p>
+
+    <div class="page-container">
+        <div class="page-header">
+            <h1>🥗 Full Salad Check</h1>
+            <p>Identify your 🔥 Spicy (overwhelming), 🧈 Greasy (compulsive), and 🥗 Vegetable (nourishing) elements.</p>
+        </div>
+
+        <div class="salad-container">
+            <!-- Quick Access to Salad Compass -->
+            <div class="compass-link-card">
+                <div>
+                    <div class="compass-text"><i class="fas fa-compass"></i> Need a quick check-in?</div>
+                    <div class="compass-subtext">Use the Salad Plate Compass for instant emotional navigation.</div>
+                </div>
+                <button class="btn-secondary" onclick="window.location.href='salad-compass.html'" style="white-space: nowrap;">
+                    <i class="fas fa-compass"></i> Open Compass
+                </button>
+            </div>
+
+            <div class="progress-section">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="saladProgress" style="width: 0%;"></div>
+                </div>
+                <span class="progress-text" id="saladProgressText">Question 1 of 21</span>
+            </div>
+
+            <div id="saladQuestions">
+                <!-- Questions will be rendered here -->
+            </div>
+
+            <div id="saladResults" class="hidden">
+                <div class="results-plate">
+                    <h3>Your Emotional Salad</h3>
+                    <div class="plate-visual">
+                        <div class="plate-section plate-spicy">
+                            <div class="plate-emoji">🔥</div>
+                            <div id="spicyScore">0%</div>
+                        </div>
+                        <div class="plate-section plate-greasy">
+                            <div class="plate-emoji">🧈</div>
+                            <div id="greasyScore">0%</div>
+                        </div>
+                        <div class="plate-section plate-vegetable">
+                            <div class="plate-emoji">🥗</div>
+                            <div id="vegetableScore">0%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="results-breakdown">
+                        <div class="breakdown-item spicy">
+                            <div class="breakdown-score" id="spicyValue">0</div>
+                            <div class="breakdown-label">🔥 Spicy</div>
+                        </div>
+                        <div class="breakdown-item greasy">
+                            <div class="breakdown-score" id="greasyValue">0</div>
+                            <div class="breakdown-label">🧈 Greasy</div>
+                        </div>
+                        <div class="breakdown-item vegetable">
+                            <div class="breakdown-score" id="vegetableValue">0</div>
+                            <div class="breakdown-label">🥗 Vegetable</div>
+                        </div>
+                    </div>
+                </div>                
+                <div class="protocol-section">
+                    <h3>🎯 7-Step Balancing Protocol</h3>
+                    <div id="protocolSteps">
+                        <!-- Protocol steps will be rendered here -->
+                    </div>
+                </div>
+
+                <button class="btn-primary" onclick="resetSalad()">🔄 Start New Check</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tools dropdown functions
+        function toggleToolsMenu() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (!menu || !btn) return;
+            
+            if (menu.classList.contains('open')) {
+                menu.classList.remove('open');
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            } else {
+                var btnRect = btn.getBoundingClientRect();
+                menu.style.top = (btnRect.bottom + 8) + 'px';
+                menu.style.left = btnRect.left + 'px';
+                menu.classList.add('open');
+                btn.classList.add('active');
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        }
+        
+        function closeToolsDropdown() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (menu) {
+                menu.classList.remove('open');
+            }
+            if (btn) {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        }
+        
+        document.addEventListener('click', function(e) {
+            var btn = document.getElementById('toolsBtn');
+            var menu = document.getElementById('toolsMenu');
+            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
+                closeToolsDropdown();
+            }
+        });
+
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('show');
+        }
+
+        // Salad Check Questions
+        const saladQuestions = [
+            { id: 1, text: "I feel overwhelmed by intense emotions", category: "spicy" },
+            { id: 2, text: "I have urges to do things I know aren't good for me", category: "greasy" },
+            { id: 3, text: "I engage in activities that truly nourish me", category: "vegetable" },
+            { id: 4, text: "My emotions feel too hot to handle", category: "spicy" },
+            { id: 5, text: "I find myself reaching for quick fixes", category: "greasy" },
+            { id: 6, text: "I take time for self-care and reflection", category: "vegetable" },
+            { id: 7, text: "I feel like I'm burning up inside", category: "spicy" },
+            { id: 8, text: "I use distractions to avoid my feelings", category: "greasy" },
+            { id: 9, text: "I connect deeply with others", category: "vegetable" },
+            { id: 10, text: "My anger or anxiety feels explosive", category: "spicy" },
+            { id: 11, text: "I engage in compulsive behaviors", category: "greasy" },
+            { id: 12, text: "I practice mindfulness or meditation", category: "vegetable" },
+            { id: 13, text: "I feel emotionally flooded", category: "spicy" },
+            { id: 14, text: "I seek external validation excessively", category: "greasy" },
+            { id: 15, text: "I spend time in nature", category: "vegetable" },
+            { id: 16, text: "My emotions control my actions", category: "spicy" },
+            { id: 17, text: "I use substances or activities to numb pain", category: "greasy" },
+            { id: 18, text: "I express my feelings in healthy ways", category: "vegetable" },
+            { id: 19, text: "I feel like I'm on an emotional rollercoaster", category: "spicy" },
+            { id: 20, text: "I struggle with addictive patterns", category: "greasy" },
+            { id: 21, text: "I prioritize my well-being", category: "vegetable" }
+        ];
+
+        let currentQuestion = 0;
+        let answers = { spicy: 0, greasy: 0, vegetable: 0 };
+
+        function renderQuestion() {
+            const container = document.getElementById('saladQuestions');
+            const question = saladQuestions[currentQuestion];
+            
+            container.innerHTML = `
+                <div class="question-card">
+                    <h4>Question ${currentQuestion + 1} of ${saladQuestions.length}</h4>
+                    <p style="font-size: 1.1rem; color: #334155; margin-bottom: 20px;">${question.text}</p>
+                    <div class="question-options">
+                        <button class="option-btn" onclick="answerQuestion(0)">Not at all</button>
+                        <button class="option-btn" onclick="answerQuestion(1)">A little</button>
+                        <button class="option-btn" onclick="answerQuestion(2)">Moderately</button>
+                        <button class="option-btn" onclick="answerQuestion(3)">Quite a bit</button>
+                        <button class="option-btn" onclick="answerQuestion(4)">Very much</button>
+                    </div>
+                </div>
+            `;
+            
+            // Update progress
+            const progress = ((currentQuestion) / saladQuestions.length) * 100;
+            document.getElementById('saladProgress').style.width = progress + '%';
+            document.getElementById('saladProgressText').textContent = `Question ${currentQuestion + 1} of ${saladQuestions.length}`;
+        }
+
+        function answerQuestion(value) {
+            const question = saladQuestions[currentQuestion];
+            answers[question.category] += value;
+            
+            currentQuestion++;
+            
+            if (currentQuestion < saladQuestions.length) {
+                renderQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('saladQuestions').classList.add('hidden');
+            document.querySelector('.progress-section').classList.add('hidden');
+            document.getElementById('saladResults').classList.remove('hidden');
+            
+            // Calculate scores (max 28 per category = 7 questions × 4 max points)
+            const maxScore = 28;
+            const spicyPercent = Math.round((answers.spicy / maxScore) * 100);
+            const greasyPercent = Math.round((answers.greasy / maxScore) * 100);
+            const vegetablePercent = Math.round((answers.vegetable / maxScore) * 100);
+            
+            // Update plate
+            document.getElementById('spicyScore').textContent = spicyPercent + '%';
+            document.getElementById('greasyScore').textContent = greasyPercent + '%';
+            document.getElementById('vegetableScore').textContent = vegetablePercent + '%';
+            
+            // Update breakdown
+            document.getElementById('spicyValue').textContent = answers.spicy;
+            document.getElementById('greasyValue').textContent = answers.greasy;
+            document.getElementById('vegetableValue').textContent = answers.vegetable;
+            
+            // Generate protocol
+            generateProtocol(spicyPercent, greasyPercent, vegetablePercent);
+            
+            // Save to localStorage
+            localStorage.setItem('lastSaladCheck', JSON.stringify({
+                date: new Date().toISOString(),
+                scores: answers,
+                percentages: { spicy: spicyPercent, greasy: greasyPercent, vegetable: vegetablePercent }
+            }));
+        }
+
+        function generateProtocol(spicy, greasy, vegetable) {
+            const steps = [];
+            
+            if (spicy >= 50) {
+                steps.push({
+                    number: 1,
+                    title: "Cool Down the Heat",
+                    desc: "Practice the physiological sigh: two quick inhales through nose, one long exhale through mouth. Repeat 5 times."
+                });
+            }
+            
+            if (greasy >= 50) {
+                steps.push({
+                    number: steps.length + 1,
+                    title: "Pause Before Acting",
+                    desc: "When you feel the urge, set a 10-minute timer. Ask: 'What am I really needing right now?'"
+                });
+            }
+            
+            if (vegetable < 50) {
+                steps.push({
+                    number: steps.length + 1,
+                    title: "Add More Vegetables",
+                    desc: "Schedule one nourishing activity today: a walk, calling a friend, or 10 minutes of mindfulness."
+                });
+            }
+            
+            // Add general steps
+            steps.push({
+                number: steps.length + 1,
+                title: "Ground Yourself",
+                desc: "Place feet flat on floor. Notice 5 things you see, 4 you hear, 3 you can touch."
+            });
+            
+            steps.push({
+                number: steps.length + 1,
+                title: "Check Your Salad Plate",
+                desc: "Use the Salad Compass to identify which emotion is dominant right now."
+            });
+            
+            steps.push({
+                number: steps.length + 1,
+                title: "Practice Self-Compassion",
+                desc: "Place hand on heart. Say: 'This is hard. I'm doing my best. May I be kind to myself.'"
+            });
+            
+            steps.push({
+                number: steps.length + 1,
+                title: "Journal Your Experience",
+                desc: "Write about what triggered you and what you chose to do instead of the automatic response."
+            });
+            
+            const container = document.getElementById('protocolSteps');
+            container.innerHTML = steps.map(step => `
+                <div class="protocol-step">
+                    <div class="step-number">${step.number}</div>
+                    <div class="step-content">
+                        <h4>${step.title}</h4>
+                        <p>${step.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function resetSalad() {
+            currentQuestion = 0;
+            answers = { spicy: 0, greasy: 0, vegetable: 0 };
+            document.getElementById('saladQuestions').classList.remove('hidden');
+            document.querySelector('.progress-section').classList.remove('hidden');
+            document.getElementById('saladResults').classList.add('hidden');
+            renderQuestion();
+        }
+
+        // Initialize
+        renderQuestion();
+    </script>
 </body>
 </html>
