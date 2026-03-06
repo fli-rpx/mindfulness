@@ -22,7 +22,7 @@
             padding: 0.5rem 1rem;
             border: none;
             background: transparent;
-            color: #64748b;
+            color: rgba(255,255,255,0.8);
             font-size: 0.875rem;
             font-weight: 500;
             cursor: pointer;
@@ -32,7 +32,7 @@
 
         .tools-dropdown-btn:hover {
             background: #f1f5f9;
-            color: #1e293b;
+            color: white;
         }
 
         .tools-dropdown-btn.active {
@@ -62,7 +62,7 @@
         .tools-dropdown-menu a {
             display: block;
             padding: 0.75rem 1rem;
-            color: #1e293b;
+            color: white;
             text-decoration: none;
             font-size: 0.875rem;
             border-radius: 0.5rem;
@@ -87,7 +87,7 @@
         .nav-brand {
             font-size: 1.25rem;
             font-weight: 600;
-            color: #1e293b;
+            color: white;
         }
 
         .nav-links {
@@ -102,7 +102,7 @@
             border: none;
             border-radius: 0.5rem;
             background: transparent;
-            color: #64748b;
+            color: rgba(255,255,255,0.8);
             font-size: 0.875rem;
             font-weight: 500;
             cursor: pointer;
@@ -111,7 +111,7 @@
 
         .nav-btn:hover {
             background: #f1f5f9;
-            color: #1e293b;
+            color: white;
         }
 
         .nav-btn.active {
@@ -124,7 +124,7 @@
             background: none;
             border: none;
             font-size: 1.25rem;
-            color: #64748b;
+            color: rgba(255,255,255,0.8);
             cursor: pointer;
             padding: 0.5rem;
         }
@@ -465,7 +465,7 @@
 </head>
 <body>
     <!-- Full Navigation Bar -->
-    <nav class="nav-bar" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #e2e8f0;">
+    <nav class="nav-bar" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(30, 58, 138, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #e2e8f0;">
         <div class="nav-brand" onclick="window.location.href='index.html'" style="cursor: pointer;">🧘 Mindfulness Therapy</div>
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
             <i class="fas fa-bars"></i>
@@ -482,12 +482,12 @@
                     Tools <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
                 </button>
                 <div class="tools-dropdown-menu" id="toolsMenu">
-                    <a href="emotion-explorer.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🎨 Emotion Explorer</a>
-                    <a href="emotion-balance.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">⚡ Emotion Balance</a>
-                    <a href="hypnosis.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🌀 Hypnosis</a>
-                    <a href="salad-compass.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥗 Salad Compass</a>
-                    <a href="salad-check.html" onclick="closeToolsDropdown();" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥬 Full Salad Check</a>
-                    <a href="interventions.html" onclick="closeToolsDropdown();" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🧰 Interventions</a>
+                    <a href="emotion-explorer.html" style="display: block; padding: 0.75rem 1rem; color: white; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🎨 Emotion Explorer</a>
+                    <a href="emotion-balance.html" style="display: block; padding: 0.75rem 1rem; color: white; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">⚡ Emotion Balance</a>
+                    <a href="hypnosis.html" style="display: block; padding: 0.75rem 1rem; color: white; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🌀 Hypnosis</a>
+                    <a href="salad-compass.html" style="display: block; padding: 0.75rem 1rem; color: white; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥗 Salad Compass</a>
+                    <a href="salad-check.html" onclick="closeToolsDropdown();" style="display: block; padding: 0.75rem 1rem; color: white; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥬 Full Salad Check</a>
+                    <a href="interventions.html" onclick="closeToolsDropdown();" style="display: block; padding: 0.75rem 1rem; color: white; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🧰 Interventions</a>
                 </div>
             </div>
 

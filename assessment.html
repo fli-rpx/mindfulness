@@ -11,19 +11,19 @@
     <style>
         /* Tools Dropdown Styles */
         .tools-dropdown-container { position: relative; display: inline-block; }
-        .tools-dropdown-btn { display: flex; align-items: center; gap: 0.25rem; padding: 0.5rem 1rem; border: none; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer; border-radius: 9999px; font-family: inherit; }
-        .tools-dropdown-btn:hover { background: rgba(255, 255, 255, 0.1); color: #1e293b; }
+        .tools-dropdown-btn { display: flex; align-items: center; gap: 0.25rem; padding: 0.5rem 1rem; border: none; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer; border-radius: 9999px; font-family: inherit; }
+        .tools-dropdown-btn:hover { background: rgba(255, 255, 255, 0.1); color: white; }
         .tools-dropdown-btn.active { background: #14b8a6; color: white; }
         .tools-dropdown-menu { display: none; position: fixed; top: auto; left: auto; margin-top: 0.5rem; background: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; box-shadow: 0 10px 40px rgba(0,0,0,0.15); min-width: 220px; padding: 0.5rem; z-index: 9999; }
         .tools-dropdown-menu.open { display: block; }
-        .tools-dropdown-menu a { display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; font-size: 0.875rem; border-radius: 0.5rem; transition: all 0.2s; white-space: nowrap; }
+        .tools-dropdown-menu a { display: block; padding: 0.75rem 1rem; color: white; text-decoration: none; font-size: 0.875rem; border-radius: 0.5rem; transition: all 0.2s; white-space: nowrap; }
         .tools-dropdown-menu a:hover { background: rgba(20, 184, 166, 0.1); color: #14b8a6; }
 
         /* Page Styles */
         .page-container { max-width: 1000px; margin: 0 auto; padding: 100px 20px 40px 20px; }
         .page-header { text-align: center; margin-bottom: 3rem; }
         .page-header h1 { font-size: 2.5rem; background: linear-gradient(90deg, #50c8b8, #4a90d9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1rem; }
-        .page-header p { color: #64748b; font-size: 1.1rem; }
+        .page-header p { color: rgba(255,255,255,0.8); font-size: 1.1rem; }
 
         /* Assessment Container */
         .assessment-container {
@@ -64,7 +64,7 @@
         }
 
         .ai-info h3 {
-            color: #1e293b;
+            color: white;
             margin: 0;
             font-size: 1.1rem;
         }
@@ -141,7 +141,7 @@
             padding: 8px 16px;
             border: 1px solid rgba(255,255,255,0.2);
             background: rgba(255,255,255,0.05);
-            color: #64748b;
+            color: rgba(255,255,255,0.8);
             border-radius: 20px;
             font-size: 0.875rem;
             cursor: pointer;
@@ -168,7 +168,7 @@
             border: 1px solid rgba(255,255,255,0.2);
             border-radius: 12px;
             background: rgba(255,255,255,0.05);
-            color: #1e293b;
+            color: white;
             font-size: 1rem;
             resize: none;
             height: 50px;
@@ -212,13 +212,13 @@
         }
 
         .sidebar-card h4 {
-            color: #1e293b;
+            color: white;
             margin: 0 0 16px 0;
             font-size: 1rem;
         }
 
         .state-placeholder, .actions-placeholder {
-            color: #64748b;
+            color: rgba(255,255,255,0.8);
             font-size: 0.875rem;
             text-align: center;
             padding: 20px;
@@ -237,13 +237,13 @@
         .emotion-name {
             font-size: 1.25rem;
             font-weight: 600;
-            color: #1e293b;
+            color: white;
             margin-bottom: 4px;
         }
 
         .emotion-description {
             font-size: 0.875rem;
-            color: #64748b;
+            color: rgba(255,255,255,0.8);
         }
 
         .score-bar {
@@ -287,13 +287,13 @@
         }
 
         .suggested-action h5 {
-            color: #1e293b;
+            color: white;
             margin: 0 0 4px 0;
             font-size: 0.9rem;
         }
 
         .suggested-action p {
-            color: #64748b;
+            color: rgba(255,255,255,0.8);
             margin: 0;
             font-size: 0.8rem;
         }
@@ -333,7 +333,7 @@
         }
 
         .quiz-header h2 {
-            color: #1e293b;
+            color: white;
             margin: 0 0 10px 0;
         }
 
@@ -356,7 +356,7 @@
         }
 
         .quiz-question h3 {
-            color: #1e293b;
+            color: white;
             margin: 0 0 20px 0;
             font-size: 1.1rem;
         }
@@ -397,14 +397,14 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="nav-bar" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 2rem; height: 60px;">
-        <div class="nav-brand" onclick="window.location.href='index.html'" style="cursor: pointer; font-size: 1.25rem; font-weight: 600; color: #1e293b;">🧘 Mindfulness Therapy</div>
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()" style="display: none; background: none; border: none; font-size: 1.25rem; color: #64748b; cursor: pointer; padding: 0.5rem;">
+    <nav class="nav-bar" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(30, 58, 138, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 2rem; height: 60px;">
+        <div class="nav-brand" onclick="window.location.href='index.html'" style="cursor: pointer; font-size: 1.25rem; font-weight: 600; color: white;">🧘 Mindfulness Therapy</div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()" style="display: none; background: none; border: none; font-size: 1.25rem; color: rgba(255,255,255,0.8); cursor: pointer; padding: 0.5rem;">
             <i class="fas fa-bars"></i>
         </button>
         <div class="nav-links" id="navLinks" style="display: flex; gap: 0.5rem; align-items: center;">
-            <button class="nav-btn" onclick="window.location.href='index.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Home</button>
-            <button class="nav-btn" onclick="window.location.href='cycle.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Cycle</button>
+            <button class="nav-btn" onclick="window.location.href='index.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer;">Home</button>
+            <button class="nav-btn" onclick="window.location.href='cycle.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer;">Cycle</button>
             <button class="nav-btn active" onclick="window.location.href='assessment.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: linear-gradient(135deg, #50c8b8, #4a90d9); color: white; font-size: 0.875rem; font-weight: 500; cursor: pointer;">AI Chat</button>
 
             <!-- Tools Dropdown -->
@@ -422,9 +422,9 @@
                 </div>
             </div>
 
-            <button class="nav-btn" onclick="window.location.href='journal.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Journal</button>
-            <button class="nav-btn" onclick="window.location.href='progress.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Progress</button>
-            <button class="nav-btn" onclick="window.location.href='learn.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Learn</button>
+            <button class="nav-btn" onclick="window.location.href='journal.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer;">Journal</button>
+            <button class="nav-btn" onclick="window.location.href='progress.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer;">Progress</button>
+            <button class="nav-btn" onclick="window.location.href='learn.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer;">Learn</button>
         </div>
     </nav>
 
@@ -504,7 +504,7 @@
         <div class="quiz-content">
             <div class="quiz-header">
                 <h2>📝 Quick Emotional Check</h2>
-                <p style="color: #64748b;">Answer a few questions to get an instant emotional reading</p>
+                <p style="color: rgba(255,255,255,0.8);">Answer a few questions to get an instant emotional reading</p>
             </div>            
             <div class="quiz-progress">
                 <div class="quiz-progress-fill" id="quizProgress" style="width: 0%"></div>
@@ -797,8 +797,8 @@
             document.getElementById('quizContainer').innerHTML = `
                 <div style="text-align: center; padding: 40px 20px;">
                     <div style="font-size: 4rem; margin-bottom: 16px;">${emotionData.emoji}</div>
-                    <h3 style="color: #1e293b; margin-bottom: 8px;">You're feeling ${topEmotion}</h3>
-                    <p style="color: #64748b; margin-bottom: 24px;">${emotionData.description}</p>
+                    <h3 style="color: white; margin-bottom: 8px;">You're feeling ${topEmotion}</h3>
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 24px;">${emotionData.description}</p>
                     
                     <button class="btn-primary" onclick="closeQuiz()" style="padding: 12px 24px; background: linear-gradient(135deg, #50c8b8, #4a90d9); color: white; border: none; border-radius: 8px; cursor: pointer;">
                         View Suggested Actions
