@@ -3,19 +3,417 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="copyright" content="© 2026 Mindfulness Therapy. All rights reserved.">
     <title>Progress - Mindfulness Therapy</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Tools Dropdown Styles */
+        .tools-dropdown-container { position: relative; display: inline-block; }
+        .tools-dropdown-btn { display: flex; align-items: center; gap: 0.25rem; padding: 0.5rem 1rem; border: none; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer; border-radius: 9999px; font-family: inherit; }
+        .tools-dropdown-btn:hover { background: rgba(255, 255, 255, 0.1); color: #1e293b; }
+        .tools-dropdown-btn.active { background: #14b8a6; color: white; }
+        .tools-dropdown-menu { display: none; position: fixed; top: auto; left: auto; margin-top: 0.5rem; background: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; box-shadow: 0 10px 40px rgba(0,0,0,0.15); min-width: 220px; padding: 0.5rem; z-index: 9999; }
+        .tools-dropdown-menu.open { display: block; }
+        .tools-dropdown-menu a { display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; font-size: 0.875rem; border-radius: 0.5rem; transition: all 0.2s; white-space: nowrap; }
+        .tools-dropdown-menu a:hover { background: rgba(20, 184, 166, 0.1); color: #14b8a6; }
+
+        /* Page Styles */
+        .page-container { max-width: 1000px; margin: 0 auto; padding: 100px 20px 40px 20px; }
+        .page-header { text-align: center; margin-bottom: 3rem; }
+        .page-header h1 { font-size: 2.5rem; background: linear-gradient(90deg, #50c8b8, #4a90d9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1rem; }
+        .page-header p { color: #64748b; font-size: 1.1rem; }
+
+        /* Progress Dashboard */
+        .progress-dashboard { display: flex; flex-direction: column; gap: 2rem; }
+        
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .stat-box {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        .stat-icon-large {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #50c8b8, #4a90d9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-label {
+            color: #64748b;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+        
+        .chart-card, .achievements-card, .insights-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        .chart-card h3, .achievements-card h3, .insights-card h3 {
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+        }
+        
+        .achievement-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+        }
+        
+        .achievement-icon {
+            font-size: 2rem;
+        }
+        
+        .achievement-info h4 {
+            color: #1e293b;
+            margin: 0 0 0.25rem 0;
+        }
+        
+        .achievement-info p {
+            color: #64748b;
+            font-size: 0.875rem;
+            margin: 0;
+        }
+        
+        .achievement-locked {
+            opacity: 0.5;
+        }
+        
+        .insight-item {
+            padding: 1rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+            border-left: 4px solid #50c8b8;
+        }
+        
+        .insight-item h4 {
+            color: #1e293b;
+            margin: 0 0 0.5rem 0;
+        }
+        
+        .insight-item p {
+            color: #64748b;
+            margin: 0;
+            font-size: 0.875rem;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html">Home</a> |
-        <a href="cycle.html">Cycle</a> |
-        <a href="assessment.html">AI Chat</a> |
-        <a href="journal.html">Journal</a> |
-        <a href="progress.html">Progress</a> |
-        <a href="learn.html">Learn</a>
+    <!-- Navigation -->
+    <nav class="nav-bar" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 2rem; height: 60px;">
+        <div class="nav-brand" onclick="window.location.href='index.html'" style="cursor: pointer; font-size: 1.25rem; font-weight: 600; color: #1e293b;">🧘 Mindfulness Therapy</div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()" style="display: none; background: none; border: none; font-size: 1.25rem; color: #64748b; cursor: pointer; padding: 0.5rem;">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-links" id="navLinks" style="display: flex; gap: 0.5rem; align-items: center;">
+            <button class="nav-btn" onclick="window.location.href='index.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Home</button>
+            <button class="nav-btn" onclick="window.location.href='cycle.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Cycle</button>
+            <button class="nav-btn" onclick="window.location.href='assessment.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">AI Chat</button>
+
+            <!-- Tools Dropdown -->
+            <div class="tools-dropdown-container" id="toolsContainer">
+                <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
+                    Tools <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
+                </button>
+                <div class="tools-dropdown-menu" id="toolsMenu">
+                    <a href="emotion-explorer.html">🎨 Emotion Explorer</a>
+                    <a href="emotion-balance.html">⚡ Emotion Balance</a>
+                    <a href="hypnosis.html">🌀 Hypnosis</a>
+                    <a href="salad-compass.html">🥗 Salad Compass</a>
+                    <a href="salad-check.html">🥬 Full Salad Check</a>
+                    <a href="interventions.html">🧰 Interventions</a>
+                </div>
+            </div>
+
+            <button class="nav-btn" onclick="window.location.href='journal.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Journal</button>
+            <button class="nav-btn active" onclick="window.location.href='progress.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: linear-gradient(135deg, #50c8b8, #4a90d9); color: white; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Progress</button>
+            <button class="nav-btn" onclick="window.location.href='learn.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Learn</button>
+        </div>
     </nav>
-    <h1>Progress</h1>
-    <p>Progress page content coming soon.</p>
+
+    <div class="page-container">
+        <div class="page-header">
+            <h1>📊 Your Progress</h1>
+            <p>Track your mindfulness journey and celebrate your achievements.</p>
+        </div>
+
+        <div class="progress-dashboard">
+            <div class="stats-row">
+                <div class="stat-box">
+                    <div class="stat-icon-large">🔥</div>
+                    <div class="stat-number" id="progressStreak">0</div>
+                    <div class="stat-label">Day Streak</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon-large">✅</div>
+                    <div class="stat-number" id="progressSessions">0</div>
+                    <div class="stat-label">Sessions</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon-large">⏱️</div>
+                    <div class="stat-number" id="progressMinutes">0</div>
+                    <div class="stat-label">Minutes</div>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3>Weekly Activity</h3>
+                <canvas id="weeklyChart" style="max-height: 300px;"></canvas>
+            </div>
+
+            <div class="achievements-card">
+                <h3>🏆 Achievements</h3>
+                <div id="achievementsList"></div>
+            </div>
+
+            <div class="insights-card">
+                <h3>💡 Emotion Journey</h3>
+                <div id="insightsList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tools dropdown functions
+        function toggleToolsMenu() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (!menu || !btn) return;
+            
+            if (menu.classList.contains('open')) {
+                menu.classList.remove('open');
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            } else {
+                var btnRect = btn.getBoundingClientRect();
+                menu.style.top = (btnRect.bottom + 8) + 'px';
+                menu.style.left = btnRect.left + 'px';
+                menu.classList.add('open');
+                btn.classList.add('active');
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        }
+        
+        function closeToolsDropdown() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (menu) {
+                menu.classList.remove('open');
+            }
+            if (btn) {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        }
+        
+        document.addEventListener('click', function(e) {
+            var btn = document.getElementById('toolsBtn');
+            var menu = document.getElementById('toolsMenu');
+            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
+                closeToolsDropdown();
+            }
+        });
+
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('show');
+        }
+
+        // Progress tracking
+        function loadProgress() {
+            // Load stats from localStorage
+            const streak = localStorage.getItem('mindfulness_streak') || 0;
+            const sessions = localStorage.getItem('mindfulness_sessions') || 0;
+            const minutes = localStorage.getItem('mindfulness_minutes') || 0;
+            
+            document.getElementById('progressStreak').textContent = streak;
+            document.getElementById('progressSessions').textContent = sessions;
+            document.getElementById('progressMinutes').textContent = minutes;
+            
+            // Load weekly data
+            loadWeeklyChart();
+            
+            // Load achievements
+            loadAchievements();
+            
+            // Load insights
+            loadInsights();
+        }
+
+        function loadWeeklyChart() {
+            const ctx = document.getElementById('weeklyChart').getContext('2d');
+            
+            // Get last 7 days of mood data
+            const labels = [];
+            const data = [];
+            
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toISOString().split('T')[0];
+                labels.push(date.toLocaleDateString('en-US', { weekday: 'short' }));
+                
+                const mood = localStorage.getItem(`mood_${dateStr}`);
+                data.push(mood ? parseInt(mood) : 0);
+            }
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Daily Mood',
+                        data: data,
+                        backgroundColor: 'rgba(80, 200, 184, 0.6)',
+                        borderColor: '#50c8b8',
+                        borderWidth: 2,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 5,
+                            ticks: {
+                                stepSize: 1,
+                                callback: function(value) {
+                                    const moods = ['', '😢', '😕', '😐', '🙂', '😊'];
+                                    return moods[value] || '';
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+
+        function loadAchievements() {
+            const achievements = [
+                { id: 'first_entry', icon: '📝', title: 'First Step', desc: 'Made your first journal entry', check: () => (JSON.parse(localStorage.getItem('journalEntries') || '[]').length > 0) },
+                { id: 'week_streak', icon: '🔥', title: 'On Fire', desc: '7-day streak', check: () => (parseInt(localStorage.getItem('mindfulness_streak') || 0) >= 7) },
+                { id: 'mood_tracker', icon: '😊', title: 'Mood Master', desc: 'Logged mood 5 times', check: () => countMoodLogs() >= 5 },
+                { id: 'explorer', icon: '🎨', title: 'Explorer', desc: 'Used Emotion Explorer', check: () => localStorage.getItem('used_emotion_explorer') === 'true' },
+                { id: 'balanced', icon: '⚖️', title: 'Balanced', desc: 'Completed Emotion Balance', check: () => localStorage.getItem('completed_emotion_balance') === 'true' }
+            ];
+            
+            const container = document.getElementById('achievementsList');
+            container.innerHTML = achievements.map(ach => {
+                const unlocked = ach.check();
+                return `
+                    <div class="achievement-item ${unlocked ? '' : 'achievement-locked'}">
+                        <div class="achievement-icon">${ach.icon}</div>
+                        <div class="achievement-info">
+                            <h4>${ach.title} ${unlocked ? '✓' : '🔒'}</h4>
+                            <p>${ach.desc}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function countMoodLogs() {
+            let count = 0;
+            for (let i = 0; i < 30; i++) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toISOString().split('T')[0];
+                if (localStorage.getItem(`mood_${dateStr}`)) count++;
+            }
+            return count;
+        }
+
+        function loadInsights() {
+            const entries = JSON.parse(localStorage.getItem('journalEntries') || '[]');
+            const insights = [];
+            
+            if (entries.length > 0) {
+                // Calculate average mood
+                const moods = entries.filter(e => e.mood && e.mood !== 'Not recorded').map(e => parseInt(e.mood));
+                if (moods.length > 0) {
+                    const avgMood = moods.reduce((a, b) => a + b, 0) / moods.length;
+                    const moodText = avgMood >= 4 ? 'positive' : avgMood >= 3 ? 'balanced' : 'challenging';
+                    insights.push({
+                        title: 'Your Average Mood',
+                        text: `Based on your entries, your average mood has been ${moodText}. Keep tracking to see patterns!`
+                    });
+                }
+                
+                // Entry count insight
+                insights.push({
+                    title: 'Journey Progress',
+                    text: `You've made ${entries.length} journal ${entries.length === 1 ? 'entry' : 'entries'}. Each one is a step toward self-awareness.`
+                });
+                
+                // Streak insight
+                const streak = parseInt(localStorage.getItem('mindfulness_streak') || 0);
+                if (streak > 1) {
+                    insights.push({
+                        title: 'Consistency Wins',
+                        text: `You're on a ${streak}-day streak! Consistency is key to building mindfulness habits.`
+                    });
+                }
+            } else {
+                insights.push({
+                    title: 'Start Your Journey',
+                    text: 'Begin by making your first journal entry or logging your mood. Small steps lead to big changes!'
+                });
+            }
+            
+            const container = document.getElementById('insightsList');
+            container.innerHTML = insights.map(insight => `
+                <div class="insight-item">
+                    <h4>${insight.title}</h4>
+                    <p>${insight.text}</p>
+                </div>
+            `).join('');
+        }
+
+        // Initialize
+        loadProgress();
+    </script>
 </body>
 </html>
