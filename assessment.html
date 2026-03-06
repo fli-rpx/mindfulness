@@ -2,11 +2,834 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="copyright" content="© 2026 Mindfulness Therapy. All rights reserved.">
     <title>AI Assessment - Mindfulness Therapy</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Tools Dropdown Styles */
+        .tools-dropdown-container { position: relative; display: inline-block; }
+        .tools-dropdown-btn { display: flex; align-items: center; gap: 0.25rem; padding: 0.5rem 1rem; border: none; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer; border-radius: 9999px; font-family: inherit; }
+        .tools-dropdown-btn:hover { background: rgba(255, 255, 255, 0.1); color: #1e293b; }
+        .tools-dropdown-btn.active { background: #14b8a6; color: white; }
+        .tools-dropdown-menu { display: none; position: fixed; top: auto; left: auto; margin-top: 0.5rem; background: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; box-shadow: 0 10px 40px rgba(0,0,0,0.15); min-width: 220px; padding: 0.5rem; z-index: 9999; }
+        .tools-dropdown-menu.open { display: block; }
+        .tools-dropdown-menu a { display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; font-size: 0.875rem; border-radius: 0.5rem; transition: all 0.2s; white-space: nowrap; }
+        .tools-dropdown-menu a:hover { background: rgba(20, 184, 166, 0.1); color: #14b8a6; }
+
+        /* Page Styles */
+        .page-container { max-width: 1000px; margin: 0 auto; padding: 100px 20px 40px 20px; }
+        .page-header { text-align: center; margin-bottom: 3rem; }
+        .page-header h1 { font-size: 2.5rem; background: linear-gradient(90deg, #50c8b8, #4a90d9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1rem; }
+        .page-header p { color: #64748b; font-size: 1.1rem; }
+
+        /* Assessment Container */
+        .assessment-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+        }
+
+        /* Chat Interface */
+        .chat-interface {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(80, 200, 184, 0.1), rgba(74, 144, 217, 0.1));
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .ai-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #50c8b8, #4a90d9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .ai-info h3 {
+            color: #1e293b;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .ai-info .status {
+            color: #22c55e;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .ai-info .status::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+        }
+
+        .accuracy-badge {
+            margin-left: auto;
+            background: rgba(80, 200, 184, 0.2);
+            color: #50c8b8;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            line-height: 1.5;
+        }
+
+        .ai-message {
+            background: rgba(80, 200, 184, 0.1);
+            color: #334155;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .user-message {
+            background: linear-gradient(135deg, #50c8b8, #4a90d9);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-input-area {
+            padding: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .input-modes {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .mode-btn {
+            padding: 8px 16px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.05);
+            color: #64748b;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .mode-btn:hover, .mode-btn.active {
+            background: rgba(80, 200, 184, 0.2);
+            color: #50c8b8;
+            border-color: #50c8b8;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .input-container textarea {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.05);
+            color: #1e293b;
+            font-size: 1rem;
+            resize: none;
+            height: 50px;
+            font-family: inherit;
+        }
+
+        .input-container textarea::placeholder {
+            color: #94a3b8;
+        }
+
+        .send-btn {
+            width: 50px;
+            height: 50px;
+            border: none;
+            background: linear-gradient(135deg, #50c8b8, #4a90d9);
+            color: white;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.25rem;
+            transition: transform 0.2s;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Sidebar */
+        .assessment-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .sidebar-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar-card h4 {
+            color: #1e293b;
+            margin: 0 0 16px 0;
+            font-size: 1rem;
+        }
+
+        .state-placeholder, .actions-placeholder {
+            color: #64748b;
+            font-size: 0.875rem;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .detected-emotion {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .emotion-emoji {
+            font-size: 3rem;
+            margin-bottom: 8px;
+        }
+
+        .emotion-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+
+        .emotion-description {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        .score-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #50c8b8, #4a90d9);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .score-value {
+            color: #50c8b8;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .suggested-action {
+            padding: 12px;
+            background: rgba(80, 200, 184, 0.1);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid #50c8b8;
+        }
+
+        .suggested-action:hover {
+            background: rgba(80, 200, 184, 0.2);
+            transform: translateX(4px);
+        }
+
+        .suggested-action:last-child {
+            margin-bottom: 0;
+        }
+
+        .suggested-action h5 {
+            color: #1e293b;
+            margin: 0 0 4px 0;
+            font-size: 0.9rem;
+        }
+
+        .suggested-action p {
+            color: #64748b;
+            margin: 0;
+            font-size: 0.8rem;
+        }
+
+        /* Quiz Modal */
+        .quiz-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .quiz-modal.active {
+            display: flex;
+        }
+
+        .quiz-content {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .quiz-header h2 {
+            color: #1e293b;
+            margin: 0 0 10px 0;
+        }
+
+        .quiz-progress {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            margin-bottom: 30px;
+        }
+
+        .quiz-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #50c8b8, #4a90d9);
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+
+        .quiz-question {
+            margin-bottom: 30px;
+        }
+
+        .quiz-question h3 {
+            color: #1e293b;
+            margin: 0 0 20px 0;
+            font-size: 1.1rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            padding: 16px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.05);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            font-size: 1rem;
+            color: #334155;
+        }
+
+        .quiz-option:hover {
+            border-color: #50c8b8;
+            background: rgba(80, 200, 184, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .assessment-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .assessment-sidebar {
+                order: -1;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>AI Assessment Page</h1>
-    <a href="index.html">Back to Home</a>
+    <!-- Navigation -->
+    <nav class="nav-bar" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 2rem; height: 60px;">
+        <div class="nav-brand" onclick="window.location.href='index.html'" style="cursor: pointer; font-size: 1.25rem; font-weight: 600; color: #1e293b;">🧘 Mindfulness Therapy</div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()" style="display: none; background: none; border: none; font-size: 1.25rem; color: #64748b; cursor: pointer; padding: 0.5rem;">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-links" id="navLinks" style="display: flex; gap: 0.5rem; align-items: center;">
+            <button class="nav-btn" onclick="window.location.href='index.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Home</button>
+            <button class="nav-btn" onclick="window.location.href='cycle.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Cycle</button>
+            <button class="nav-btn active" onclick="window.location.href='assessment.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: linear-gradient(135deg, #50c8b8, #4a90d9); color: white; font-size: 0.875rem; font-weight: 500; cursor: pointer;">AI Chat</button>
+
+            <!-- Tools Dropdown -->
+            <div class="tools-dropdown-container" id="toolsContainer">
+                <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
+                    Tools <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
+                </button>
+                <div class="tools-dropdown-menu" id="toolsMenu">
+                    <a href="emotion-explorer.html">🎨 Emotion Explorer</a>
+                    <a href="emotion-balance.html">⚡ Emotion Balance</a>
+                    <a href="hypnosis.html">🌀 Hypnosis</a>
+                    <a href="salad-compass.html">🥗 Salad Compass</a>
+                    <a href="salad-check.html">🥬 Full Salad Check</a>
+                    <a href="interventions.html">🧰 Interventions</a>
+                </div>
+            </div>
+
+            <button class="nav-btn" onclick="window.location.href='journal.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Journal</button>
+            <button class="nav-btn" onclick="window.location.href='progress.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Progress</button>
+            <button class="nav-btn" onclick="window.location.href='learn.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: #64748b; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Learn</button>
+        </div>
+    </nav>
+
+    <div class="page-container">
+        <div class="page-header">
+            <h1>🤖 AI Emotional Assessment</h1>
+            <p>Chat naturally about your feelings and get insights about your emotional state.</p>
+        </div>
+
+        <div class="assessment-container">
+            <div class="chat-interface">
+                <div class="chat-header">
+                    <div class="ai-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="ai-info">
+                        <h3>Emotion AI</h3>
+                        <span class="status">Online</span>
+                    </div>
+                    <div class="accuracy-badge">94% accuracy</div>
+                </div>                
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message ai-message">
+                        <p>Hello! I'm here to help you understand your current emotional state. What's happening for you right now? You can describe your feelings, or try the structured quiz below. 👇</p>
+                    </div>
+                </div>
+
+                <div class="chat-input-area">
+                    <div class="input-modes">
+                        <button class="mode-btn active" data-mode="text">
+                            <i class="fas fa-keyboard"></i> Text
+                        </button>
+                        <button class="mode-btn" onclick="startQuiz()">
+                            <i class="fas fa-clipboard-check"></i> Quick Quiz
+                        </button>
+                        <button class="mode-btn" onclick="window.location.href='emotion-balance.html'">
+                            <i class="fas fa-balance-scale"></i> Balance Tool
+                        </button>
+                    </div>
+                    
+                    <div class="input-container">
+                        <textarea id="chatInput" placeholder="Describe how you're feeling..."></textarea>
+                        <button class="send-btn" onclick="sendMessage()">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="assessment-sidebar">
+                <div class="sidebar-card">
+                    <h4>📊 Detected State</h4>
+                    <div id="detectedState">
+                        <div class="state-placeholder">Start chatting to detect your emotional state</div>
+                    </div>
+                </div>                
+                <div class="sidebar-card">
+                    <h4>🎯 Confidence</h4>
+                    <div class="score-bar">
+                        <div class="score-fill" id="confidenceBar" style="width: 0%"></div>
+                    </div>
+                    <span class="score-value" id="confidenceValue">--</span>
+                </div>
+
+                <div class="sidebar-card">
+                    <h4>💡 Suggested Actions</h4>
+                    <div id="suggestedActions">
+                        <div class="actions-placeholder">Actions will appear based on your emotional state</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Modal -->
+    <div class="quiz-modal" id="quizModal">
+        <div class="quiz-content">
+            <div class="quiz-header">
+                <h2>📝 Quick Emotional Check</h2>
+                <p style="color: #64748b;">Answer a few questions to get an instant emotional reading</p>
+            </div>            
+            <div class="quiz-progress">
+                <div class="quiz-progress-fill" id="quizProgress" style="width: 0%"></div>
+            </div>
+            
+            <div id="quizContainer">
+                <!-- Quiz content will be rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tools dropdown functions
+        function toggleToolsMenu() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (!menu || !btn) return;
+            
+            if (menu.classList.contains('open')) {
+                menu.classList.remove('open');
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            } else {
+                var btnRect = btn.getBoundingClientRect();
+                menu.style.top = (btnRect.bottom + 8) + 'px';
+                menu.style.left = btnRect.left + 'px';
+                menu.classList.add('open');
+                btn.classList.add('active');
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        }
+        
+        function closeToolsDropdown() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (menu) {
+                menu.classList.remove('open');
+            }
+            if (btn) {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        }
+        
+        document.addEventListener('click', function(e) {
+            var btn = document.getElementById('toolsBtn');
+            var menu = document.getElementById('toolsMenu');
+            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
+                closeToolsDropdown();
+            }
+        });
+
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('show');
+        }
+
+        // Chat functionality
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+            
+            // Simulate AI analysis
+            setTimeout(() => {
+                analyzeEmotion(message);
+            }, 1000);
+        }
+
+        function addMessage(text, sender) {
+            const container = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            messageDiv.innerHTML = `<p>${text}</p>`;
+            container.appendChild(messageDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function analyzeEmotion(text) {
+            // Simple keyword-based emotion detection
+            const emotions = {
+                anxious: { emoji: '😰', name: 'Anxious', description: 'Feeling worried or nervous', confidence: 85 },
+                sad: { emoji: '😢', name: 'Sad', description: 'Experiencing low mood', confidence: 80 },
+                angry: { emoji: '😠', name: 'Angry', description: 'Feeling frustrated or mad', confidence: 82 },
+                happy: { emoji: '😊', name: 'Happy', description: 'Feeling positive and content', confidence: 88 },
+                stressed: { emoji: '😫', name: 'Stressed', description: 'Feeling overwhelmed', confidence: 86 },
+                tired: { emoji: '😴', name: 'Tired', description: 'Low energy or exhausted', confidence: 78 },
+                excited: { emoji: '🤩', name: 'Excited', description: 'Feeling enthusiastic', confidence: 84 },
+                confused: { emoji: '😕', name: 'Confused', description: 'Uncertain or puzzled', confidence: 75 }
+            };
+            
+            let detectedEmotion = null;
+            let maxConfidence = 0;
+            
+            for (const [keyword, emotion] of Object.entries(emotions)) {
+                if (text.toLowerCase().includes(keyword)) {
+                    if (emotion.confidence > maxConfidence) {
+                        maxConfidence = emotion.confidence;
+                        detectedEmotion = emotion;
+                    }
+                }
+            }
+            
+            if (!detectedEmotion) {
+                detectedEmotion = { emoji: '🤔', name: 'Mixed', description: 'Complex emotional state', confidence: 65 };
+            }
+            
+            // Update sidebar
+            updateDetectedState(detectedEmotion);
+            updateConfidence(detectedEmotion.confidence);
+            updateSuggestedActions(detectedEmotion.name);
+            
+            // Add AI response
+            const responses = [
+                `I notice you might be feeling ${detectedEmotion.name.toLowerCase()}. ${detectedEmotion.description}. Would you like to try a quick exercise to help?`,
+                `It sounds like you're experiencing ${detectedEmotion.name.toLowerCase()}. That's completely valid. I've suggested some actions that might help.`,
+                `I'm detecting ${detectedEmotion.name.toLowerCase()} in what you've shared. Remember, all emotions are temporary and serve a purpose.`
+            ];
+            
+            const response = responses[Math.floor(Math.random() * responses.length)];
+            addMessage(response, 'ai');
+        }
+
+        function updateDetectedState(emotion) {
+            document.getElementById('detectedState').innerHTML = `
+                <div class="detected-emotion">
+                    <div class="emotion-emoji">${emotion.emoji}</div>
+                    <div class="emotion-name">${emotion.name}</div>
+                    <div class="emotion-description">${emotion.description}</div>
+                </div>
+            `;
+        }
+
+        function updateConfidence(value) {
+            document.getElementById('confidenceBar').style.width = value + '%';
+            document.getElementById('confidenceValue').textContent = value + '%';
+        }
+
+        function updateSuggestedActions(emotion) {
+            const actions = {
+                Anxious: [
+                    { title: '🫁 Box Breathing', desc: '4 counts: in, hold, out, hold' },
+                    { title: '🦶 Grounding', desc: 'Feel your feet on the floor' },
+                    { title: '📝 Journal', desc: 'Write down your worries' }
+                ],
+                Sad: [
+                    { title: '🤗 Self-Compassion', desc: 'Place hand on heart, breathe' },
+                    { title: '🚶 Move', desc: 'Gentle walk or stretch' },
+                    { title: '💬 Connect', desc: 'Reach out to someone' }
+                ],
+                Angry: [
+                    { title: '🔥 Release', desc: 'Physical movement or scream' },
+                    { title: '⏸️ Pause', desc: 'Count to 10 before acting' },
+                    { title: '🧊 Cool Down', desc: 'Splash cold water on face' }
+                ],
+                Happy: [
+                    { title: '💝 Savor', desc: 'Stay with this feeling' },
+                    { title: '🙏 Gratitude', desc: 'Note what brought this joy' },
+                    { title: '🎉 Share', desc: 'Spread the positivity' }
+                ],
+                Stressed: [
+                    { title: '🧘 Mini-Meditation', desc: '2 minutes of breathing' },
+                    { title: '📋 Prioritize', desc: 'List and rank tasks' },
+                    { title: '☕ Break', desc: 'Step away for a moment' }
+                ],
+                Tired: [
+                    { title: '😴 Rest', desc: 'Even 5 minutes helps' },
+                    { title: '💧 Hydrate', desc: 'Drink water' },
+                    { title: '🌿 Fresh Air', desc: 'Step outside briefly' }
+                ]
+            };
+            
+            const defaultActions = [
+                { title: '🫁 Breathe', desc: 'Take 3 deep breaths' },
+                { title: '🧘 Check In', desc: 'Notice your body sensations' },
+                { title: '📖 Learn', desc: 'Read about emotions' }
+            ];
+            
+            const emotionActions = actions[emotion] || defaultActions;
+            
+            document.getElementById('suggestedActions').innerHTML = emotionActions.map(action => `
+                <div class="suggested-action" onclick="window.location.href='interventions.html'">
+                    <h5>${action.title}</h5>
+                    <p>${action.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        // Quiz functionality
+        const quizQuestions = [
+            {
+                question: "How would you describe your energy level right now?",
+                options: [
+                    { text: "Very high, restless", emotion: "Anxious" },
+                    { text: "Low, drained", emotion: "Tired" },
+                    { text: "Balanced, calm", emotion: "Happy" },
+                    { text: "Tense, on edge", emotion: "Stressed" }
+                ]
+            },
+            {
+                question: "What's your body feeling like?",
+                options: [
+                    { text: "Tight chest, shallow breathing", emotion: "Anxious" },
+                    { text: "Heavy, slow", emotion: "Sad" },
+                    { text: "Relaxed, open", emotion: "Happy" },
+                    { text: "Hot, clenched jaw", emotion: "Angry" }
+                ]
+            },
+            {
+                question: "What kind of thoughts are you having?",
+                options: [
+                    { text: "Worried about the future", emotion: "Anxious" },
+                    { text: "Ruminating on the past", emotion: "Sad" },
+                    { text: "Present and focused", emotion: "Happy" },
+                    { text: "Racing, scattered", emotion: "Stressed" }
+                ]
+            }
+        ];
+
+        let currentQuestion = 0;
+        let quizEmotions = [];
+
+        function startQuiz() {
+            currentQuestion = 0;
+            quizEmotions = [];
+            document.getElementById('quizModal').classList.add('active');
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = quizQuestions[currentQuestion];
+            const progress = ((currentQuestion) / quizQuestions.length) * 100;
+            
+            document.getElementById('quizProgress').style.width = progress + '%';
+            
+            document.getElementById('quizContainer').innerHTML = `
+                <div class="quiz-question">
+                    <h3>${q.question}</h3>
+                    <div class="quiz-options">
+                        ${q.options.map((opt, idx) => `
+                            <button class="quiz-option" onclick="answerQuiz(${idx})">${opt.text}</button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function answerQuiz(optionIndex) {
+            const emotion = quizQuestions[currentQuestion].options[optionIndex].emotion;
+            quizEmotions.push(emotion);
+            
+            currentQuestion++;
+            
+            if (currentQuestion < quizQuestions.length) {
+                renderQuestion();
+            } else {
+                showQuizResults();
+            }
+        }
+
+        function showQuizResults() {
+            // Count emotions
+            const counts = {};
+            quizEmotions.forEach(e => counts[e] = (counts[e] || 0) + 1);
+            
+            // Find most common
+            let topEmotion = '';
+            let maxCount = 0;
+            for (const [emotion, count] of Object.entries(counts)) {
+                if (count > maxCount) {
+                    maxCount = count;
+                    topEmotion = emotion;
+                }
+            }
+            
+            const emotionData = {
+                Anxious: { emoji: '😰', description: 'Feeling worried or nervous' },
+                Tired: { emoji: '😴', description: 'Low energy or exhausted' },
+                Happy: { emoji: '😊', description: 'Feeling positive and content' },
+                Stressed: { emoji: '😫', description: 'Feeling overwhelmed' },
+                Sad: { emoji: '😢', description: 'Experiencing low mood' },
+                Angry: { emoji: '😠', description: 'Feeling frustrated or mad' }
+            }[topEmotion];
+            
+            document.getElementById('quizContainer').innerHTML = `
+                <div style="text-align: center; padding: 40px 20px;">
+                    <div style="font-size: 4rem; margin-bottom: 16px;">${emotionData.emoji}</div>
+                    <h3 style="color: #1e293b; margin-bottom: 8px;">You're feeling ${topEmotion}</h3>
+                    <p style="color: #64748b; margin-bottom: 24px;">${emotionData.description}</p>
+                    
+                    <button class="btn-primary" onclick="closeQuiz()" style="padding: 12px 24px; background: linear-gradient(135deg, #50c8b8, #4a90d9); color: white; border: none; border-radius: 8px; cursor: pointer;">
+                        View Suggested Actions
+                    </button>
+                </div>
+            `;
+            
+            // Update sidebar
+            updateDetectedState({ emoji: emotionData.emoji, name: topEmotion, description: emotionData.description });
+            updateConfidence(80);
+            updateSuggestedActions(topEmotion);
+        }
+
+        function closeQuiz() {
+            document.getElementById('quizModal').classList.remove('active');
+        }
+
+        // Close modal on escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeQuiz();
+            }
+        });
+
+        // Send on enter
+        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    </script>
 </body>
 </html>
