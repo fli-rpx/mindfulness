@@ -7,7 +7,6 @@
     <title>Emotion Ribbon Explorer - Mindfulness Therapy</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
     <style>
         :root {
             --bg: #fafaf9;
@@ -25,13 +24,13 @@
             --empathy-color: #008000;
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg);
             color: var(--text);
             line-height: 1.6;
         }
-
         h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; }
 
         /* Navigation */
@@ -56,10 +55,10 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.5rem;
             font-weight: 600;
-            color: white; 
+            color: white;
             text-decoration: none;
         }
-        .nav-links { display: flex; gap: 0.25rem; }
+        .nav-links { display: flex; gap: 0.25rem; align-items: center; }
         .nav-link {
             padding: 0.5rem 1rem;
             color: rgba(255,255,255,0.8);
@@ -69,16 +68,61 @@
             border-radius: 6px;
             transition: all 0.2s;
         }
-        .nav-link:hover { color: white;  background: rgba(255,255,255,0.1); }
+        .nav-link:hover { color: white; background: rgba(255,255,255,0.1); }
         .nav-link.active { color: var(--accent); background: rgba(13,148,136,0.2); }
 
-        /* Hero Section */
+        /* Tools Dropdown */
+        .tools-dropdown-container { position: relative; display: inline-block; }
+        .tools-dropdown-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 6px;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+        .tools-dropdown-btn:hover { background: rgba(255,255,255,0.1); color: white; }
+        .tools-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 0.5rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            min-width: 220px;
+            padding: 0.5rem;
+            z-index: 9999;
+        }
+        .tools-dropdown-menu.open { display: block; }
+        .tools-dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .tools-dropdown-menu a:hover { background: rgba(13,148,136,0.1); color: var(--accent); }
+
+        /* Hero */
         .hero {
             padding: 160px 2rem 60px;
-            background: 
+            background:
                 radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.2), transparent),
                 linear-gradient(180deg, #1e3a8a 0%, #1e40af 50%, var(--bg) 100%);
-            color: white; 
+            color: white;
         }
         .hero-container {
             max-width: 720px;
@@ -104,13 +148,13 @@
             font-size: clamp(2.5rem, 5vw, 3.5rem);
             line-height: 1.1;
             margin-bottom: 1.25rem;
-            color: white; 
+            color: white;
         }
         .hero-subtitle {
             font-size: 1.125rem;
-            color: var(--muted);
-            max-width: 520px;
-            margin: 0 auto 2rem;
+            color: rgba(255,255,255,0.8);
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         /* Explorer Content */
@@ -140,10 +184,11 @@
         #emotionRibbonDisplay {
             width: 100%;
             height: 100px;
-            background-color: #f0f0f0;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
             position: relative;
             overflow: hidden;
             border-radius: 0.5rem;
+            border: 1px solid var(--border);
         }
 
         .selected-words-display {
@@ -152,6 +197,7 @@
             background: var(--bg);
             border-radius: 0.75rem;
             min-height: 60px;
+            width: 100%;
         }
 
         .selected-words-display h4 {
@@ -174,20 +220,12 @@
             border-radius: 9999px;
             font-size: 0.875rem;
             font-weight: 500;
-            color: white; 
+            color: white;
             cursor: pointer;
             transition: all 0.2s;
         }
 
-        .selected-word-tag:hover {
-            transform: scale(1.05);
-            opacity: 0.9;
-        }
-
-        .selected-word-tag .remove {
-            font-size: 1rem;
-            line-height: 1;
-        }
+        .selected-word-tag:hover { transform: scale(1.05); opacity: 0.9; }
 
         .clear-all-btn {
             margin-top: 1rem;
@@ -201,12 +239,9 @@
             transition: all 0.2s;
         }
 
-        .clear-all-btn:hover {
-            background: var(--border);
-            color: var(--text);
-        }
+        .clear-all-btn:hover { background: var(--border); color: var(--text); }
 
-        /* Categories Tabs */
+        /* Categories Section */
         .categories-section {
             max-width: 1200px;
             margin: 0 auto;
@@ -236,35 +271,12 @@
             min-width: 70px;
         }
 
-        .category-tab:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-        }
+        .category-tab:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+        .category-tab.active { border-color: var(--accent); box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
 
-        .category-tab.active {
-            border-color: var(--accent);
-            background: linear-gradient(135deg, var(--bg) 0%, var(--surface) 100%);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-        }
-
-        .tab-emoji {
-            font-size: 1.25rem;
-        }
-
-        .tab-name {
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--text);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .tab-color-indicator {
-            width: 20px;
-            height: 3px;
-            border-radius: 2px;
-            margin-top: 0.2rem;
-        }
+        .tab-emoji { font-size: 1.25rem; }
+        .tab-name { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+        .tab-color-indicator { width: 20px; height: 3px; border-radius: 2px; margin-top: 0.2rem; }
 
         .words-layout {
             display: grid;
@@ -290,19 +302,8 @@
             margin-bottom: 1.5rem;
         }
 
-        .category-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        .word-count {
-            font-size: 0.875rem;
-            color: var(--muted);
-            background: var(--bg);
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-        }
+        .category-title { font-size: 1.5rem; color: var(--text); }
+        .word-count { font-size: 0.875rem; color: var(--muted); background: var(--bg); padding: 0.25rem 0.75rem; border-radius: 9999px; }
 
         .word-chips {
             display: flex;
@@ -314,7 +315,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.25rem;
-            padding: 0.375rem 0.75rem;
+            padding: 0.5rem 1rem;
             border: 1px solid var(--border);
             border-radius: 9999px;
             font-size: 0.875rem;
@@ -324,26 +325,8 @@
             color: var(--text);
         }
 
-        .word-chip:hover {
-            transform: scale(1.05);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .word-chip.selected {
-            background: var(--accent);
-            color: white; 
-            border-color: var(--accent);
-        }
-
-        .word-chip .remove {
-            font-size: 1rem;
-            line-height: 1;
-            opacity: 0.7;
-        }
-
-        .word-chip .remove:hover {
-            opacity: 1;
-        }
+        .word-chip:hover { transform: scale(1.05); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .word-chip.selected { background: var(--accent); color: white; border-color: var(--accent); }
 
         .ai-prompt-section {
             background: var(--surface);
@@ -353,28 +336,19 @@
             border: 1px solid var(--border);
         }
 
-        .ai-prompt-section h3 {
-            font-size: 1.125rem;
-            margin-bottom: 1rem;
-            color: var(--text);
-        }
-
-        .ai-prompt-section p {
-            font-size: 0.875rem;
-            color: var(--muted);
-            margin-bottom: 1rem;
-        }
+        .ai-prompt-section h3 { font-size: 1.125rem; margin-bottom: 1rem; color: var(--text); }
+        .ai-prompt-section p { font-size: 0.875rem; color: var(--muted); margin-bottom: 1rem; }
 
         .ai-prompt-box {
             background: var(--bg);
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 1rem;
-            font-family: 'Inter', monospace;
             font-size: 0.875rem;
             line-height: 1.5;
             color: var(--text);
             margin-bottom: 1rem;
+            min-height: 80px;
         }
 
         .copy-prompt-btn {
@@ -383,7 +357,7 @@
             gap: 0.5rem;
             padding: 0.5rem 1rem;
             background: var(--accent);
-            color: white; 
+            color: white;
             border: none;
             border-radius: 6px;
             font-size: 0.875rem;
@@ -392,18 +366,13 @@
             transition: all 0.2s;
         }
 
-        .copy-prompt-btn:hover {
-            background: var(--accent-dark);
-            transform: translateY(-1px);
-        }
+        .copy-prompt-btn:hover { background: var(--accent-dark); transform: translateY(-1px); }
 
-        /* Mobile Responsive */
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .hero { padding: 120px 1.5rem 40px; }
             .explorer-content { padding: 1rem; }
             .words-layout { grid-template-columns: 1fr; }
-            .tabs-container { justify-content: flex-start; }
         }
     </style>
 </head>
@@ -415,6 +384,22 @@
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="cycle.html" class="nav-link">Cycle</a>
                 <a href="assessment.html" class="nav-link">AI Chat</a>
+
+                <!-- Tools Dropdown -->
+                <div class="tools-dropdown-container">
+                    <button class="tools-dropdown-btn" onclick="toggleToolsDropdown(this)">
+                        Tools <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="tools-dropdown-menu">
+                        <a href="emotion-explorer.html">🎨 Emotion Explorer</a>
+                        <a href="emotion-balance.html">⚡ Emotion Balance</a>
+                        <a href="hypnosis.html">🌀 Hypnosis</a>
+                        <a href="salad-compass.html">🥗 Salad Compass</a>
+                        <a href="salad-check.html">🥬 Full Salad Check</a>
+                        <a href="interventions.html">🧰 Interventions</a>
+                    </div>
+                </div>
+
                 <a href="journal.html" class="nav-link">Journal</a>
                 <a href="progress.html" class="nav-link">Progress</a>
                 <a href="learn.html" class="nav-link">Learn</a>
@@ -424,32 +409,16 @@
 
     <section class="hero">
         <div class="hero-container">
-            <div class="hero-eyebrow">
-                <i class="fas fa-palette"></i> Emotion Visualization
-            </div>
-            <h1>🎨 Emotion Ribbon Explorer</h1>
+            <div class="hero-eyebrow">🎨 Emotion Explorer</div>
+            <h1>Emotion Ribbon Explorer</h1>
             <p class="hero-subtitle">Click on words to build your emotion ribbon. Discover how different emotions combine to create your unique emotional landscape.</p>
         </div>
     </section>
 
     <div class="explorer-content">
-        <!-- Ribbon Display -->
         <section class="ribbon-display-section">
             <div class="ribbon-container-wrapper">
-                <div id="emotionRibbonDisplay">
-                    <div id="rainbowSvgContainer" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;">
-                        <svg id="emotionRainbowSvg" viewBox="0 0 1200 120" style="width: 100%; height: 100%;">
-                            <!-- Three overlapping bands for complementary pairs - equal thickness throughout -->
-                            <!-- Band 1: Power (Red) ↔ Empathy (Cyan) - Top -->
-                            <path id="rainbow-pair-1" d="M 0,120 A 600,35 0 0 1 1200,120 L 1200,95 A 600,35 0 0 0 0,95 Z" fill="transparent" stroke="none"></path>
-                            <!-- Band 2: Possession (Magenta) ↔ Emptiness (Green) - Middle -->
-                            <path id="rainbow-pair-2" d="M 0,100 A 600,25 0 0 1 1200,100 L 1200,75 A 600,25 0 0 0 0,75 Z" fill="transparent" stroke="none"></path>
-                            <!-- Band 3: Crave (Yellow) ↔ Loss (Blue) - Bottom -->
-                            <path id="rainbow-pair-3" d="M 0,80 A 600,15 0 0 1 1200,80 L 1200,55 A 600,15 0 0 0 0,55 Z" fill="transparent" stroke="none"></path>
-                        </svg>
-                    </div>
-                </div>
-
+                <div id="emotionRibbonDisplay"></div>
                 <div class="selected-words-display">
                     <h4>Selected Emotions</h4>
                     <div id="selectedWordsList"></div>
@@ -461,7 +430,6 @@
         </section>
     </div>
 
-    <!-- Categories Section -->
     <section class="categories-section">
         <div class="tabs-container">
             <button class="category-tab active" data-category="POWER" onclick="switchTab('POWER')">
@@ -518,141 +486,180 @@
         </div>
     </section>
 
-    <script src="app.js"></script>
     <script>
-        let selectedWords = [];
-        let visualizer;
-
-        function initializeEmotionExplorer() {
-            if (typeof app !== 'undefined' && app.emotionRibbon && typeof EmotionRibbon !== 'undefined' && typeof EmotionRibbonVisualizer !== 'undefined') {
-                initializeExplorer();
-            } else {
-                setTimeout(initializeEmotionExplorer, 100);
+        // Emotion words data
+        const emotionData = {
+            POWER: {
+                name: 'Power',
+                color: '#FF0000',
+                words: ['Powerful', 'Strong', 'Confident', 'Capable', 'In Control', 'Dominant', 'Assertive', 'Ambitious', 'Driven', 'Determined', 'Fearless', 'Bold', 'Courageous', 'Mighty', 'Influential', 'Commanding', 'Authoritative', 'Potent', 'Forceful', 'Vigorous']
+            },
+            POSSESSION: {
+                name: 'Possession',
+                color: '#FF8C00',
+                words: ['Attached', 'Clinging', 'Holding', 'Grasping', 'Owning', 'Controlling', 'Jealous', 'Protective', 'Defensive', 'Territorial', 'Possessive', 'Hoarding', 'Accumulating', 'Gathering', 'Collecting', 'Keeping', 'Retaining', 'Maintaining', 'Preserving', 'Guarding']
+            },
+            LOSS: {
+                name: 'Loss',
+                color: '#800080',
+                words: ['Grieving', 'Mourning', 'Sorrowful', 'Heartbroken', 'Devastated', 'Crushed', 'Defeated', 'Failed', 'Rejected', 'Abandoned', 'Betrayed', 'Disappointed', 'Let Down', 'Hurt', 'Wounded', 'Damaged', 'Broken', 'Shattered', 'Destroyed', 'Ruined']
+            },
+            EMPTINESS: {
+                name: 'Emptiness',
+                color: '#000080',
+                words: ['Empty', 'Hollow', 'Void', 'Numb', 'Detached', 'Disconnected', 'Isolated', 'Lonely', 'Lost', 'Adrift', 'Meaningless', 'Purposeless', 'Hopeless', 'Despairing', 'Desolate', 'Barren', 'Vacant', 'Lifeless', 'Apathetic', 'Indifferent']
+            },
+            CRAVE: {
+                name: 'Crave',
+                color: '#FF1493',
+                words: ['Craving', 'Longing', 'Yearning', 'Desiring', 'Wanting', 'Needing', 'Hungry', 'Thirsty', 'Greedy', 'Insatiable', 'Obsessed', 'Fixated', 'Compulsive', 'Addicted', 'Dependent', 'Desperate', 'Urgent', 'Intense', 'Burning', 'Consuming']
+            },
+            EMPATHY: {
+                name: 'Empathy',
+                color: '#008000',
+                words: ['Understanding', 'Compassionate', 'Caring', 'Kind', 'Gentle', 'Sensitive', 'Supportive', 'Nurturing', 'Healing', 'Comforting', 'Soothing', 'Calming', 'Peaceful', 'Serene', 'Tranquil', 'Balanced', 'Harmonious', 'Connected', 'Present', 'Mindful']
             }
+        };
+
+        let selectedWords = [];
+        let currentCategory = 'POWER';
+
+        function toggleToolsDropdown(btn) {
+            const menu = btn.nextElementSibling;
+            menu.classList.toggle('open');
         }
 
-        function initializeExplorer() {
-            visualizer = new EmotionRibbonVisualizer('emotionRibbonDisplay');
-            displayWordsForCategory('POWER');
-            updateSelectedWordsDisplay();
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.tools-dropdown-container')) {
+                document.querySelectorAll('.tools-dropdown-menu').forEach(menu => {
+                    menu.classList.remove('open');
+                });
+            }
+        });
+
+        function switchTab(category) {
+            currentCategory = category;
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`[data-category="${category}"]`).classList.add('active');
+            displayWords(category);
         }
 
-        function displayWordsForCategory(category) {
-            const wordChipsContainer = document.getElementById('wordChips');
-            const categoryTitle = document.getElementById('categoryTitle');
-            const wordCount = document.getElementById('wordCount');
+        function displayWords(category) {
+            const data = emotionData[category];
+            const container = document.getElementById('wordChips');
+            const title = document.getElementById('categoryTitle');
+            const count = document.getElementById('wordCount');
 
-            wordChipsContainer.innerHTML = '';
-            const words = EmotionRibbon.lexicon[category] || [];
-            
-            categoryTitle.textContent = EmotionRibbon.categories[category].name + ' Emotions';
-            wordCount.textContent = words.length + ' words';
+            title.textContent = data.name + ' Emotions';
+            count.textContent = data.words.length + ' words';
+            container.innerHTML = '';
 
-            words.forEach(word => {
+            data.words.forEach(word => {
                 const chip = document.createElement('div');
                 chip.className = 'word-chip';
                 chip.textContent = word;
                 chip.dataset.word = word;
                 chip.dataset.category = category;
-                chip.onclick = () => toggleWordSelection(word, category);
-                wordChipsContainer.appendChild(chip);
+
+                // Check if already selected
+                if (selectedWords.some(item => item.word === word)) {
+                    chip.classList.add('selected');
+                }
+
+                chip.onclick = () => toggleWord(word, category, data.color);
+                container.appendChild(chip);
             });
         }
 
-        function switchTab(category) {
-            document.querySelectorAll('.category-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelector(`.category-tab[data-category="${category}"]`).classList.add('active');
-            displayWordsForCategory(category);
-            updateWordChipSelection();
-        }
-
-        function toggleWordSelection(word, category) {
+        function toggleWord(word, category, color) {
             const index = selectedWords.findIndex(item => item.word === word);
             if (index > -1) {
                 selectedWords.splice(index, 1);
             } else {
-                selectedWords.push({ word, category });
+                selectedWords.push({ word, category, color });
             }
-            updateWordChipSelection();
-            updateSelectedWordsDisplay();
-            updateRibbonVisualization();
-            updateAIPrompt();
+            updateDisplay();
         }
 
-        function updateWordChipSelection() {
+        function updateDisplay() {
+            // Update word chips
             document.querySelectorAll('.word-chip').forEach(chip => {
                 const word = chip.dataset.word;
-                const isSelected = selectedWords.some(item => item.word === word);
-                if (isSelected) {
+                if (selectedWords.some(item => item.word === word)) {
                     chip.classList.add('selected');
                 } else {
                     chip.classList.remove('selected');
                 }
             });
-        }
 
-        function updateSelectedWordsDisplay() {
-            const listElement = document.getElementById('selectedWordsList');
-            listElement.innerHTML = '';
+            // Update selected words list
+            const list = document.getElementById('selectedWordsList');
+            list.innerHTML = '';
             selectedWords.forEach(item => {
                 const tag = document.createElement('span');
                 tag.className = 'selected-word-tag';
+                tag.style.backgroundColor = item.color;
                 tag.textContent = item.word;
-                tag.style.backgroundColor = EmotionRibbon.getColor(item.category, 'light');
-                tag.onclick = () => toggleWordSelection(item.word, item.category);
-                listElement.appendChild(tag);
-            });
-        }
-
-        function updateRibbonVisualization() {
-            const emotionData = {};
-            selectedWords.forEach(item => {
-                if (!emotionData[item.category]) {
-                    emotionData[item.category] = 0;
-                }
-                emotionData[item.category]++;
+                tag.onclick = () => toggleWord(item.word, item.category, item.color);
+                list.appendChild(tag);
             });
 
-            const formattedData = Object.keys(emotionData).map(category => ({
-                category: category,
-                intensity: Math.min(emotionData[category] / 5, 1) // Normalize intensity
-            }));
+            // Update ribbon display
+            updateRibbon();
 
-            visualizer.update(formattedData);
-        }
-        
-        function clearAllSelections() {
-            selectedWords = [];
-            updateWordChipSelection();
-            updateSelectedWordsDisplay();
-            updateRibbonVisualization();
+            // Update AI prompt
             updateAIPrompt();
         }
 
-        function updateAIPrompt() {
-            const promptBox = document.getElementById('aiPromptBox');
+        function updateRibbon() {
+            const display = document.getElementById('emotionRibbonDisplay');
             if (selectedWords.length === 0) {
-                promptBox.textContent = 'Select emotions to generate a personalized AI image prompt...';
+                display.innerHTML = '';
+                return;
+            }
+
+            // Create simple colored bars for each selected emotion
+            let html = '<div style="display: flex; height: 100%; width: 100%;">';
+            const segmentWidth = 100 / selectedWords.length;
+
+            selectedWords.forEach(item => {
+                html += `<div style="flex: 1; background: ${item.color}; opacity: 0.7;"></div>`;
+            });
+
+            html += '</div>';
+            display.innerHTML = html;
+        }
+
+        function clearAllSelections() {
+            selectedWords = [];
+            updateDisplay();
+        }
+
+        function updateAIPrompt() {
+            const box = document.getElementById('aiPromptBox');
+            if (selectedWords.length === 0) {
+                box.textContent = 'Select emotions to generate a personalized AI image prompt...';
                 return;
             }
 
             const emotions = selectedWords.map(item => item.word).join(', ');
-            const categories = [...new Set(selectedWords.map(item => item.category.toLowerCase()))].join(', ');
-            
-            const prompt = `cinematic photo, emotional portrait of a person feeling ${emotions}. The atmosphere should evoke a sense of ${categories}. Moody, dramatic lighting, high detail, masterpiece.`;
-            promptBox.textContent = prompt;
+            const prompt = `A cinematic portrait expressing ${emotions}. The composition uses flowing ribbons of color to represent the emotional landscape, with dramatic lighting and high detail. The atmosphere evokes a sense of emotional depth and introspection.`;
+            box.textContent = prompt;
         }
 
         function copyPrompt() {
-            const promptText = document.getElementById('aiPromptBox').textContent;
-            navigator.clipboard.writeText(promptText).then(() => {
+            const text = document.getElementById('aiPromptBox').textContent;
+            navigator.clipboard.writeText(text).then(() => {
                 alert('Prompt copied to clipboard!');
             });
         }
 
-        document.addEventListener('DOMContentLoaded', initializeEmotionExplorer);
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            displayWords('POWER');
+        });
     </script>
 </body>
 </html>
