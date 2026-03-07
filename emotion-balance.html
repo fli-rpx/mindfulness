@@ -6,7 +6,7 @@
     <meta name="copyright" content="© 2026 Mindfulness Therapy. All rights reserved.">
     <title>Emotion Balance Tool - Mindfulness Therapy</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Tools Dropdown Styles */
@@ -157,10 +157,11 @@
             }
         }
 
-        .emotion-balance-container {
+        /* Balance-specific styles */
+        .balance-content {
             max-width: 700px;
             margin: 0 auto;
-            padding: 200px 20px 40px 20px;
+            padding: 120px 20px 40px 20px;
         }
         
         .balance-card {
@@ -170,7 +171,6 @@
             padding: 40px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-            margin-left: -1cm;
         }
         
         .balance-header {
@@ -461,373 +461,496 @@
         .back-link:hover {
             color: #50c8b8;
         }
+
+        /* CSS Variables */
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --accent-primary: #50c8b8;
+            --accent-secondary: #4a90d9;
+            --border-color: #475569;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 120px 20px 60px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-eyebrow {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-brand {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .nav-btn:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: var(--bg-primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: var(--bg-secondary);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+                gap: 0.5rem;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .nav-btn {
+                width: 100%;
+                text-align: left;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero {
+                padding: 80px 20px 40px;
+            }
+            
+            .balance-content {
+                padding: 80px 20px 40px;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Full Navigation Bar -->
-    <nav class="nav-bar" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(30, 58, 138, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #e2e8f0;">
-        <div class="nav-brand" onclick="window.location.href='index.html'" style="cursor: pointer;">🧘 Mindfulness Therapy</div>
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="nav-links" id="navLinks">
-            <button class="nav-btn" onclick="window.location.href='index-zh.html'">中文</button>
-            <button class="nav-btn" onclick="window.location.href='index.html'">Home</button>
-            <button class="nav-btn" onclick="window.location.href='cycle.html'">Cycle</button>
-            <button class="nav-btn" onclick="window.location.href='assessment.html'">AI Chat</button>
-
-            <!-- Tools Dropdown -->
-            <div class="tools-dropdown-container" id="toolsContainer">
-                <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
-                    Tools <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
-                </button>
-                <div class="tools-dropdown-menu" id="toolsMenu">
-                    <a href="emotion-explorer.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b;  text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🎨 Emotion Explorer</a>
-                    <a href="emotion-balance.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b;  text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">⚡ Emotion Balance</a>
-                    <a href="hypnosis.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b;  text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🌀 Hypnosis</a>
-                    <a href="salad-compass.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b;  text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥗 Salad Compass</a>
-                    <a href="salad-check.html" onclick="closeToolsDropdown();" style="display: block; padding: 0.75rem 1rem; color: #1e293b;  text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥬 Full Salad Check</a>
-                    <a href="interventions.html" onclick="closeToolsDropdown();" style="display: block; padding: 0.75rem 1rem; color: #1e293b;  text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🧰 Interventions</a>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">🧘 Mindfulness Therapy</a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="index-zh.html" class="nav-btn">中文</a>
+                <a href="index.html" class="nav-btn">Home</a>
+                <a href="cycle.html" class="nav-btn">Cycle</a>
+                <a href="assessment.html" class="nav-btn">AI Chat</a>
+                
+                <!-- Tools Dropdown -->
+                <div class="tools-dropdown-container" id="toolsContainer">
+                    <button class="tools-dropdown-btn active" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
+                        Tools <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
+                    </button>
+                    <div class="tools-dropdown-menu open" id="toolsMenu">
+                        <a href="emotion-explorer.html">🎨 Emotion Explorer</a>
+                        <a href="emotion-balance.html" style="background: rgba(80, 200, 184, 0.1); color: #50c8b8;">⚡ Emotion Balance</a>
+                        <a href="hypnosis.html">🌀 Hypnosis</a>
+                        <a href="salad-compass.html">🥗 Salad Compass</a>
+                        <a href="salad-check.html">�� Full Salad Check</a>
+                        <a href="interventions.html">🧰 Interventions</a>
+                    </div>
                 </div>
+                
+                <a href="journal.html" class="nav-btn">Journal</a>
+                <a href="progress.html" class="nav-btn">Progress</a>
+                <a href="learn.html" class="nav-btn">Learn</a>
             </div>
-
-            <button class="nav-btn" onclick="window.location.href='journal.html'">Journal</button>
-            <button class="nav-btn" onclick="window.location.href='progress.html'">Progress</button>
-            <button class="nav-btn" onclick="window.location.href='learn.html'">Learn</button>
         </div>
     </nav>
 
-    <div id="app" style="padding-top: 60px;">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-eyebrow">⚡ Balance Assessment</div>
+        <h1>Emotion Balance Tool</h1>
+        <p class="hero-subtitle">Check in with yourself. Understand your emotional state. Get personalized guidance to restore balance and move forward with clarity.</p>
+    </section>
 
-
-        <!-- Main Content -->
-        <div class="content-main">
-
-            <!-- Emotion Balance Tool -->
-            <div class="emotion-balance-container">
-                <a href="index.html" class="back-link">
-                </a>
+    <!-- Main Content -->
+    <div class="balance-content">
+        <div class="balance-card">
+            <div class="balance-header">
+                <h1>⚡ Emotion Balance Tool</h1>
+                <p class="subtitle">Check in. Get balanced. Move forward.</p>
+            </div>
+            
+            <div id="quiz-section">
+                <div class="slider-question">
+                    <label>1. Energy Level</label>
+                    <div class="slider-container">
+                        <input type="range" id="energy" class="slider-track" min="1" max="10" value="5" oninput="updateValue('energy', this.value)">
+                        <div class="slider-labels">
+                            <span>Drained</span>
+                            <span>Balanced</span>
+                            <span>Hyper</span>
+                        </div>
+                        <div class="slider-value" id="energy-val">5</div>
+                    </div>
+                </div>
                 
-                <div class="balance-card">
-                    <div class="balance-header">
-                        <h1>⚡ Emotion Balance Tool</h1>
-                        <p class="subtitle">Check in. Get balanced. Move forward.</p>
+                <div class="slider-question">
+                    <label>2. Mental Clarity</label>
+                    <div class="slider-container">
+                        <input type="range" id="clarity" class="slider-track" min="1" max="10" value="5" oninput="updateValue('clarity', this.value)">
+                        <div class="slider-labels">
+                            <span>Foggy</span>
+                            <span>Clear</span>
+                            <span>Sharp</span>
+                        </div>
+                        <div class="slider-value" id="clarity-val">5</div>
                     </div>
-                    
-                    <div id="quiz-section">
-                        <div class="slider-question">
-                            <label>1. Energy Level</label>
-                            <div class="slider-container">
-                                <input type="range" id="energy" class="slider-track" min="1" max="10" value="5" oninput="updateValue('energy', this.value)">
-                                <div class="slider-labels">
-                                    <span>Drained</span>
-                                    <span>Balanced</span>
-                                    <span>Hyper</span>
-                                </div>
-                                <div class="slider-value" id="energy-val">5</div>
-                            </div>
+                </div>
+                
+                <div class="slider-question">
+                    <label>3. Emotional Stability</label>
+                    <div class="slider-container">
+                        <input type="range" id="stability" class="slider-track" min="1" max="10" value="5" oninput="updateValue('stability', this.value)">
+                        <div class="slider-labels">
+                            <span>Volatile</span>
+                            <span>Steady</span>
+                            <span>Centered</span>
                         </div>
-                        
-                        <div class="slider-question">
-                            <label>2. Mental Clarity</label>
-                            <div class="slider-container">
-                                <input type="range" id="clarity" class="slider-track" min="1" max="10" value="5" oninput="updateValue('clarity', this.value)">
-                                <div class="slider-labels">
-                                    <span>Foggy</span>
-                                    <span>Clear</span>
-                                    <span>Sharp</span>
-                                </div>
-                                <div class="slider-value" id="clarity-val">5</div>
-                            </div>
+                        <div class="slider-value" id="stability-val">5</div>
+                    </div>
+                </div>
+                
+                <div class="slider-question">
+                    <label>4. Stress Level</label>
+                    <div class="slider-container">
+                        <input type="range" id="stress" class="slider-track" min="1" max="10" value="5" oninput="updateValue('stress', this.value)">
+                        <div class="slider-labels">
+                            <span>Calm</span>
+                            <span>Manageable</span>
+                            <span>Overwhelmed</span>
                         </div>
-                        
-                        <div class="slider-question">
-                            <label>3. Emotional Stability</label>
-                            <div class="slider-container">
-                                <input type="range" id="stability" class="slider-track" min="1" max="10" value="5" oninput="updateValue('stability', this.value)">
-                                <div class="slider-labels">
-                                    <span>Volatile</span>
-                                    <span>Steady</span>
-                                    <span>Centered</span>
-                                </div>
-                                <div class="slider-value" id="stability-val">5</div>
-                            </div>
-                        </div>
-                        
-                        <div class="slider-question">
-                            <label>4. Stress Level</label>
-                            <div class="slider-container">
-                                <input type="range" id="stress" class="slider-track" min="1" max="10" value="5" oninput="updateValue('stress', this.value)">
-                                <div class="slider-labels">
-                                    <span>Calm</span>
-                                    <span>Manageable</span>
-                                    <span>Overwhelmed</span>
-                                </div>
-                                <div class="slider-value" id="stress-val">5</div>
-                            </div>
-                        </div>
-                        
-                        <button class="analyze-btn" onclick="calculateState()">
-                            <i class="fas fa-chart-line"></i> Analyze My State
+                        <div class="slider-value" id="stress-val">5</div>
+                    </div>
+                </div>
+                
+                <button class="analyze-btn" onclick="calculateState()">
+                    <i class="fas fa-chart-line"></i> Analyze My State
+                </button>
+            </div>
+            
+            <div id="result-section" class="result-section">
+                <div class="score-display">
+                    <div class="score-circle" id="score-circle">--</div>
+                    <h2 class="state-title" id="state-title">--</h2>
+                    <p class="state-description" id="state-desc"></p>
+                </div>
+                
+                <div class="advice-section">
+                    <h3><i class="fas fa-bullseye"></i> Quick Rebalance Actions</h3>
+                    <ul class="advice-list" id="advice-list"></ul>
+                </div>
+                
+                <div class="quick-actions-section">
+                    <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                    <div class="action-grid">
+                        <button class="action-btn" onclick="startBreathing()">
+                            <i class="fas fa-lungs"></i> Breathing
                         </button>
-                    </div>
-                    
-                    <div id="result-section" class="result-section">
-                        <div class="score-display">
-                            <div class="score-circle" id="score-circle">--</div>
-                            <h2 class="state-title" id="state-title">--</h2>
-                            <p class="state-description" id="state-desc"></p>
-                        </div>
-                        
-                        <div class="advice-section">
-                            <h3><i class="fas fa-bullseye"></i> Quick Rebalance Actions</h3>
-                            <ul class="advice-list" id="advice-list"></ul>
-                        </div>
-                        
-                        <div class="quick-actions-section">
-                            <h3><i class="fas fa-bolt"></i> Instant Tools</h3>
-                            <div class="action-grid">
-                                <button class="action-btn" onclick="showBreathing()">
-                                    <i class="fas fa-lungs"></i> Breathing
-                                </button>
-                                <button class="action-btn" onclick="groundingExercise()">
-                                    <i class="fas fa-globe"></i> Grounding
-                                </button>
-                                <button class="action-btn" onclick="resetTool()">
-                                    <i class="fas fa-redo"></i> Reset
-                                </button>
-                                <button class="action-btn" onclick="window.open('https://www.youtube.com/results?search_query=lofi+beats', '_blank')">
-                                    <i class="fas fa-music"></i> Lofi
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div id="breathing-section" class="breathing-exercise">
-                            <p style="color: #50c8b8; font-weight: 500;">Breathe with the circle...</p>
-                            <div class="breathing-circle"></div>
-                            <p style="color: #888; font-size: 0.9rem;">Inhale as it expands, exhale as it contracts</p>
-                            <button class="action-btn reset-btn" onclick="hideBreathing()" style="margin-top: 15px;">
-                                <i class="fas fa-stop"></i> Stop
-                            </button>
-                        </div>
-                        
-                        <button class="action-btn reset-btn" onclick="resetAll()" style="width: 100%; margin-top: 20px;">
-                            <i class="fas fa-redo"></i> Check Again
+                        <button class="action-btn" onclick="window.location.href='cycle.html'">
+                            <i class="fas fa-sync"></i> Cycle Check
+                        </button>
+                        <button class="action-btn" onclick="window.location.href='emotion-explorer.html'">
+                            <i class="fas fa-palette"></i> Explore Emotions
+                        </button>
+                        <button class="action-btn" onclick="window.location.href='hypnosis.html'">
+                            <i class="fas fa-moon"></i> Hypnosis
                         </button>
                     </div>
                 </div>
+                
+                <div class="breathing-exercise" id="breathingExercise">
+                    <h4><i class="fas fa-lungs"></i> Breathing Exercise</h4>
+                    <p>Follow the circle rhythm</p>
+                    <div class="breathing-circle"></div>
+                    <p id="breathText">Breathe In</p>
+                    <button class="reset-btn action-btn" onclick="stopBreathing()">
+                        <i class="fas fa-stop"></i> Stop
+                    </button>
+                </div>
+                
+                <button class="reset-btn analyze-btn" onclick="resetQuiz()">
+                    <i class="fas fa-redo"></i> Take Assessment Again
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <p>&copy; 2026 Mindfulness Therapy. All rights reserved.</p>
-            <p class="footer-links">
-                <a href="index.html">Home</a> |
-                
-                    <a href="emotion-explorer.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🎨 Emotion Explorer</a> |
-                
-                    <a href="emotion-balance.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">⚡ Balance Tool</a>
-            </p>
-        </div>
-    </footer>
-
+    <script src="app.js"></script>
     <script>
+        // Navigation functions
         function toggleMobileMenu() {
             const navLinks = document.getElementById('navLinks');
             navLinks.classList.toggle('show');
         }
-        
-        function toggleDropdown(dropdownId) {
-            const dropdown = document.getElementById(dropdownId);
-            const toggle = this;
-            
-            document.querySelectorAll('.dropdown-menu').forEach(d => {
-                if (d.id !== dropdownId) d.classList.remove('show');
-            });
-            document.querySelectorAll('.dropdown-toggle').forEach(t => {
-                if (t !== toggle) t.classList.remove('active');
-            });
-            
-            dropdown.classList.toggle('show');
-            toggle.classList.toggle('active');
-            
-            return false;
+
+        function toggleToolsMenu() {
+            const toolsMenu = document.getElementById('toolsMenu');
+            toolsMenu.classList.toggle('open');
         }
-        
-        // Close when clicking outside
-        document.addEventListener('click', function(e) {
-            var container = document.getElementById('toolsContainer');
-            if (container && !container.contains(e.target)) {
-                closeToolsDropdown();
+
+        function closeToolsDropdown() {
+            document.getElementById('toolsMenu').classList.remove('open');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const toolsContainer = document.getElementById('toolsContainer');
+            const toolsMenu = document.getElementById('toolsMenu');
+            
+            if (!toolsContainer.contains(event.target)) {
+                toolsMenu.classList.remove('open');
             }
         });
-        
-        function updateValue(id, value) {
-            document.getElementById(id + '-val').textContent = value;
+
+        // Emotion Balance Tool Functions
+        function updateValue(sliderId, value) {
+            document.getElementById(sliderId + '-val').textContent = value;
         }
-        
+
         function calculateState() {
             const energy = parseInt(document.getElementById('energy').value);
             const clarity = parseInt(document.getElementById('clarity').value);
             const stability = parseInt(document.getElementById('stability').value);
             const stress = parseInt(document.getElementById('stress').value);
             
-            // Calculate balance score (stress is inverted)
+            // Calculate balance score (higher is better)
             const balanceScore = Math.round((energy + clarity + stability + (11 - stress)) / 4 * 10);
             
             // Determine state
-            let state, color, desc, advice;
+            let state, description, color, advice;
             
             if (balanceScore >= 80) {
-                state = "⚡ Peak State";
+                state = "Thriving";
+                description = "You're in an excellent state of balance and well-being.";
                 color = "#50c8b8";
-                desc = "You're in a strong position. Channel this energy into meaningful work.";
                 advice = [
-                    "Tackle your most important task now — you're sharp",
-                    "Document what's working so you can replicate it",
-                    "Help someone else — your clarity is contagious",
-                    "Set a boundary: protect this state from interruptions"
+                    "Maintain your current routines",
+                    "Share your positive energy with others",
+                    "Consider helping someone else find balance",
+                    "Document what's working for you"
                 ];
             } else if (balanceScore >= 60) {
-                state = "🌊 Balanced Flow";
+                state = "Balanced";
+                description = "You're doing well with room for small improvements.";
                 color = "#4a90d9";
-                desc = "Good equilibrium. Small adjustments will optimize your day.";
                 advice = [
-                    "Take a 5-minute walk to maintain momentum",
-                    "Drink water — hydration affects clarity more than you think",
-                    "Do one thing that moves your main goal forward",
-                    "Check in with yourself again in 2 hours"
+                    "Try one new mindfulness technique",
+                    "Check in with your body more often",
+                    "Consider journaling your emotions",
+                    "Maintain your sleep schedule"
                 ];
             } else if (balanceScore >= 40) {
-                state = "🌫️ Drift Mode";
-                color = "#f5a623";
-                desc = "You're functional but not firing on all cylinders. Time to recalibrate.";
+                state = "Managing";
+                description = "You're managing but could benefit from some adjustments.";
+                color = "#f59e0b";
                 advice = [
-                    "Close all tabs except the one you need right now",
-                    "Do a 2-minute body scan — where are you holding tension?",
-                    "Eat something with protein if you haven't recently",
-                    "Lower the bar: what's the smallest next step you can take?"
+                    "Focus on deep breathing exercises",
+                    "Take regular breaks throughout the day",
+                    "Connect with someone you trust",
+                    "Try a short meditation session"
+                ];
+            } else if (balanceScore >= 20) {
+                state = "Struggling";
+                description = "You're experiencing significant imbalance. Be gentle with yourself.";
+                color = "#ef4444";
+                advice = [
+                    "Start with simple breathing exercises",
+                    "Reach out to someone for support",
+                    "Consider professional help if needed",
+                    "Focus on just one small improvement"
                 ];
             } else {
-                state = "⛈️ Storm Mode";
-                color = "#e74c3c";
-                desc = "Your system needs care before productivity. Recovery first.";
+                state = "Overwhelmed";
+                description = "You're in a state of significant distress. Please prioritize self-care.";
+                color = "#dc2626";
                 advice = [
-                    "Step away from the screen for 10 minutes minimum",
-                    "Name three things you can see, hear, and feel (grounding)",
-                    "Text someone you trust: 'Having a rough moment'",
-                    "Ask: what's the kindest thing I could do for myself right now?",
-                    "Consider postponing non-urgent tasks until tomorrow"
+                    "Seek immediate support from someone you trust",
+                    "Consider professional help right away",
+                    "Focus only on basic needs: rest, hydration, safety",
+                    "Use our breathing exercises to ground yourself"
                 ];
             }
             
-            // Display results
-            const resultDiv = document.getElementById('result-section');
+            // Update display
             const scoreCircle = document.getElementById('score-circle');
-            const stateTitle = document.getElementById('state-title');
-            
             scoreCircle.textContent = balanceScore;
             scoreCircle.style.setProperty('--score-color', color);
             scoreCircle.style.setProperty('--score-deg', (balanceScore * 3.6) + 'deg');
             
-            stateTitle.textContent = state;
-            stateTitle.style.setProperty('--score-color', color);
+            document.getElementById('state-title').textContent = state;
+            document.getElementById('state-title').style.color = color;
+            document.getElementById('state-desc').textContent = description;
             
-            document.getElementById('state-desc').textContent = desc;
-            
+            // Update advice list
             const adviceList = document.getElementById('advice-list');
-            adviceList.innerHTML = advice.map(a => `<li>${a}</li>`).join('');
+            adviceList.innerHTML = '';
+            advice.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                adviceList.appendChild(li);
+            });
             
+            // Show results
             document.getElementById('quiz-section').style.display = 'none';
-            resultDiv.classList.add('show');
+            document.getElementById('result-section').classList.add('show');
+        }
+
+        function resetQuiz() {
+            document.getElementById('quiz-section').style.display = 'block';
+            document.getElementById('result-section').classList.remove('show');
+            document.getElementById('breathingExercise').classList.remove('show');
             
-            // Scroll to results
-            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-        
-        function showBreathing() {
-            document.getElementById('breathing-section').classList.add('show');
-        }
-        
-        function hideBreathing() {
-            document.getElementById('breathing-section').classList.remove('show');
-        }
-        
-        function groundingExercise() {
-            alert(`5-4-3-2-1 Grounding Exercise:
-
-👁️ 5 things you can SEE
-👂 4 things you can HEAR
-✋ 3 things you can TOUCH
-👃 2 things you can SMELL
-👅 1 thing you can TASTE
-
-Take your time. Come back to now.`);
-        }
-        
-        function resetTool() {
+            // Reset sliders
             document.getElementById('energy').value = 5;
             document.getElementById('clarity').value = 5;
             document.getElementById('stability').value = 5;
             document.getElementById('stress').value = 5;
             
-            ['energy', 'clarity', 'stability', 'stress'].forEach(id => {
-                document.getElementById(id + '-val').textContent = '5';
-            });
+            updateValue('energy', 5);
+            updateValue('clarity', 5);
+            updateValue('stability', 5);
+            updateValue('stress', 5);
         }
-        
-        function resetAll() {
-            document.getElementById('result-section').classList.remove('show');
-            document.getElementById('quiz-section').style.display = 'block';
-            hideBreathing();
-            resetTool();
+
+        function startBreathing() {
+            document.getElementById('breathingExercise').classList.add('show');
             
-            // Scroll back to top
-            document.querySelector('.balance-card').scrollIntoView({ behavior: 'smooth' });
+            let breathPhase = 0;
+            const breathText = document.getElementById('breathText');
+            const phases = ['Breathe In', 'Hold', 'Breathe Out', 'Hold'];
+            
+            const breathingInterval = setInterval(() => {
+                breathText.textContent = phases[breathPhase];
+                breathPhase = (breathPhase + 1) % 4;
+            }, 1000);
+            
+            // Store interval ID for cleanup
+            document.getElementById('breathingExercise').dataset.interval = breathingInterval;
         }
 
-        // Tools dropdown functions
-        function toggleToolsMenu() {
-            var menu = document.getElementById('toolsMenu');
-            var btn = document.getElementById('toolsBtn');
-            if (!menu || !btn) return;
-
-            if (menu.style.display === 'block') {
-                menu.style.display = 'none';
-                menu.classList.remove('open');
-                btn.classList.remove('active');
-            } else {
-                var btnRect = btn.getBoundingClientRect();
-                menu.style.top = (btnRect.bottom + 8) + 'px';
-                menu.style.left = btnRect.left + 'px';
-                menu.style.display = 'block';
-                menu.classList.add('open');
-                btn.classList.add('active');
+        function stopBreathing() {
+            document.getElementById('breathingExercise').classList.remove('show');
+            
+            // Clear the breathing interval
+            const interval = document.getElementById('breathingExercise').dataset.interval;
+            if (interval) {
+                clearInterval(parseInt(interval));
             }
         }
-
-        function closeToolsDropdown() {
-            var menu = document.getElementById('toolsMenu');
-            var btn = document.getElementById('toolsBtn');
-            if (menu) {
-                menu.style.display = 'none';
-                menu.classList.remove('open');
-                menu.style.top = 'auto';
-                menu.style.left = 'auto';
-            }
-            if (btn) btn.classList.remove('active');
-        }
-
-        document.addEventListener('click', function(e) {
-            var btn = document.getElementById('toolsBtn');
-            var menu = document.getElementById('toolsMenu');
-            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
-                closeToolsDropdown();
-            }
-        });
     </script>
 </body>
 </html>

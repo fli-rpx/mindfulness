@@ -1,0 +1,290 @@
+{
+  "testSuite": "BackstopJS",
+  "tests": [
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_app_HomePage_0_document_0_desktop.png",
+        "test": "../bitmaps_test/20260304-230204/mindfulness_app_HomePage_0_document_0_desktop.png",
+        "selector": "document",
+        "fileName": "mindfulness_app_HomePage_0_document_0_desktop.png",
+        "label": "HomePage",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "http://localhost:8003/index.html",
+        "expect": 0,
+        "viewportLabel": "desktop",
+        "diff": {
+          "isSameDimensions": false,
+          "dimensionDifference": {
+            "width": 0,
+            "height": -1367
+          },
+          "rawMisMatchPercentage": 34.377134055819475,
+          "misMatchPercentage": "34.38",
+          "analysisTime": 121
+        },
+        "diffImage": "../bitmaps_test/20260304-230204/failed_diff_mindfulness_app_HomePage_0_document_0_desktop.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_app_Emotion_Explorer_Page_0_document_0_desktop.png",
+        "test": "../bitmaps_test/20260304-230204/mindfulness_app_Emotion_Explorer_Page_0_document_0_desktop.png",
+        "selector": "document",
+        "fileName": "mindfulness_app_Emotion_Explorer_Page_0_document_0_desktop.png",
+        "label": "Emotion_Explorer_Page",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "http://localhost:8003/emotion-explorer.html",
+        "expect": 0,
+        "viewportLabel": "desktop",
+        "diff": {
+          "isSameDimensions": false,
+          "dimensionDifference": {
+            "width": 0,
+            "height": -156
+          },
+          "rawMisMatchPercentage": 12.930813029661017,
+          "misMatchPercentage": "12.93",
+          "analysisTime": 59
+        },
+        "diffImage": "../bitmaps_test/20260304-230204/failed_diff_mindfulness_app_Emotion_Explorer_Page_0_document_0_desktop.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_app_Emotion_Balance_Page_0_document_0_desktop.png",
+        "test": "../bitmaps_test/20260304-230204/mindfulness_app_Emotion_Balance_Page_0_document_0_desktop.png",
+        "selector": "document",
+        "fileName": "mindfulness_app_Emotion_Balance_Page_0_document_0_desktop.png",
+        "label": "Emotion_Balance_Page",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "http://localhost:8003/emotion-balance.html",
+        "expect": 0,
+        "viewportLabel": "desktop",
+        "diff": {
+          "isSameDimensions": false,
+          "dimensionDifference": {
+            "width": 0,
+            "height": -239
+          },
+          "rawMisMatchPercentage": 11.100863519398258,
+          "misMatchPercentage": "11.10",
+          "analysisTime": 70
+        },
+        "diffImage": "../bitmaps_test/20260304-230204/failed_diff_mindfulness_app_Emotion_Balance_Page_0_document_0_desktop.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_app_Salad_Compass_Page_0_document_0_desktop.png",
+        "test": "../bitmaps_test/20260304-230204/mindfulness_app_Salad_Compass_Page_0_document_0_desktop.png",
+        "selector": "document",
+        "fileName": "mindfulness_app_Salad_Compass_Page_0_document_0_desktop.png",
+        "label": "Salad_Compass_Page",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "http://localhost:8003/salad-compass.html",
+        "expect": 0,
+        "viewportLabel": "desktop",
+        "diff": {
+          "isSameDimensions": false,
+          "dimensionDifference": {
+            "width": 0,
+            "height": -1634
+          },
+          "rawMisMatchPercentage": 8.851727097441685,
+          "misMatchPercentage": "8.85",
+          "analysisTime": 86
+        },
+        "diffImage": "../bitmaps_test/20260304-230204/failed_diff_mindfulness_app_Salad_Compass_Page_0_document_0_desktop.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_app_SPA_Home_0__0_desktop.png",
+        "test": "../bitmaps_test/20260304-230204/mindfulness_app_SPA_Home_0__0_desktop.png",
+        "selector": "",
+        "fileName": "mindfulness_app_SPA_Home_0__0_desktop.png",
+        "label": "SPA_Home",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "http://localhost:8003/index.html",
+        "expect": 0,
+        "viewportLabel": "desktop",
+        "engineErrorMsg": "Waiting for selector `[data-tab='home']` failed: Waiting failed: 30000ms exceeded",
+        "error": "Reference file not found /Users/fudongli/mindfulness/backstop_data/bitmaps_reference/mindfulness_app_SPA_Home_0__0_desktop.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_app_SPA_Cycle_0__0_desktop.png",
+        "test": "../bitmaps_test/20260304-230204/mindfulness_app_SPA_Cycle_0__0_desktop.png",
+        "selector": "",
+        "fileName": "mindfulness_app_SPA_Cycle_0__0_desktop.png",
+        "label": "SPA_Cycle",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "http://localhost:8003/index.html",
+        "expect": 0,
+        "viewportLabel": "desktop",
+        "engineErrorMsg": "Waiting for selector `[data-tab='cycle']` failed: Waiting failed: 30000ms exceeded",
+        "error": "Reference file not found /Users/fudongli/mindfulness/backstop_data/bitmaps_reference/mindfulness_app_SPA_Cycle_0__0_desktop.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_app_SPA_Assessment_0__0_desktop.png",
+        "test": "../bitmaps_test/20260304-230204/mindfulness_app_SPA_Assessment_0__0_desktop.png",
+        "selector": "",
+        "fileName": "mindfulness_app_SPA_Assessment_0__0_desktop.png",
+        "label": "SPA_Assessment",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "http://localhost:8003/index.html",
+        "expect": 0,
+        "viewportLabel": "desktop",
+        "engineErrorMsg": "Waiting for selector `[data-tab='assessment']` failed: Waiting failed: 30000ms exceeded",
+        "error": "Reference file not found /Users/fudongli/mindfulness/backstop_data/bitmaps_reference/mindfulness_app_SPA_Assessment_0__0_desktop.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_app_Tools_Menu_Open_0_document_0_desktop.png",
+        "test": "../bitmaps_test/20260304-230204/mindfulness_app_Tools_Menu_Open_0_document_0_desktop.png",
+        "selector": "document",
+        "fileName": "mindfulness_app_Tools_Menu_Open_0_document_0_desktop.png",
+        "label": "Tools_Menu_Open",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "http://localhost:8003/index.html",
+        "expect": 0,
+        "viewportLabel": "desktop",
+        "diff": {
+          "isSameDimensions": false,
+          "dimensionDifference": {
+            "width": 0,
+            "height": -1367
+          },
+          "rawMisMatchPercentage": 34.319839296318285,
+          "misMatchPercentage": "34.32",
+          "analysisTime": 116
+        },
+        "diffImage": "../bitmaps_test/20260304-230204/failed_diff_mindfulness_app_Tools_Menu_Open_0_document_0_desktop.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_app_SPA_Salad_0_document_0_desktop.png",
+        "test": "../bitmaps_test/20260304-230204/mindfulness_app_SPA_Salad_0_document_0_desktop.png",
+        "selector": "document",
+        "fileName": "mindfulness_app_SPA_Salad_0_document_0_desktop.png",
+        "label": "SPA_Salad",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "http://localhost:8003/index.html",
+        "expect": 0,
+        "viewportLabel": "desktop",
+        "diff": {
+          "isSameDimensions": false,
+          "dimensionDifference": {
+            "width": 0,
+            "height": -1814
+          },
+          "rawMisMatchPercentage": 29.296619841152015,
+          "misMatchPercentage": "29.30",
+          "analysisTime": 104
+        },
+        "diffImage": "../bitmaps_test/20260304-230204/failed_diff_mindfulness_app_SPA_Salad_0_document_0_desktop.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_app_SPA_Interventions_0_document_0_desktop.png",
+        "test": "../bitmaps_test/20260304-230204/mindfulness_app_SPA_Interventions_0_document_0_desktop.png",
+        "selector": "document",
+        "fileName": "mindfulness_app_SPA_Interventions_0_document_0_desktop.png",
+        "label": "SPA_Interventions",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "http://localhost:8003/index.html",
+        "expect": 0,
+        "viewportLabel": "desktop",
+        "diff": {
+          "isSameDimensions": false,
+          "dimensionDifference": {
+            "width": 0,
+            "height": -2139
+          },
+          "rawMisMatchPercentage": 27.479262544536816,
+          "misMatchPercentage": "27.48",
+          "analysisTime": 90
+        },
+        "diffImage": "../bitmaps_test/20260304-230204/failed_diff_mindfulness_app_SPA_Interventions_0_document_0_desktop.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_app_SPA_Journal_0__0_desktop.png",
+        "test": "../bitmaps_test/20260304-230204/mindfulness_app_SPA_Journal_0__0_desktop.png",
+        "selector": "",
+        "fileName": "mindfulness_app_SPA_Journal_0__0_desktop.png",
+        "label": "SPA_Journal",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "http://localhost:8003/index.html",
+        "expect": 0,
+        "viewportLabel": "desktop",
+        "engineErrorMsg": "Waiting for selector `[data-tab='journal']` failed: Waiting failed: 30000ms exceeded",
+        "error": "Reference file not found /Users/fudongli/mindfulness/backstop_data/bitmaps_reference/mindfulness_app_SPA_Journal_0__0_desktop.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_app_SPA_Progress_0__0_desktop.png",
+        "test": "../bitmaps_test/20260304-230204/mindfulness_app_SPA_Progress_0__0_desktop.png",
+        "selector": "",
+        "fileName": "mindfulness_app_SPA_Progress_0__0_desktop.png",
+        "label": "SPA_Progress",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "http://localhost:8003/index.html",
+        "expect": 0,
+        "viewportLabel": "desktop",
+        "engineErrorMsg": "Waiting for selector `[data-tab='progress']` failed: Waiting failed: 30000ms exceeded",
+        "error": "Reference file not found /Users/fudongli/mindfulness/backstop_data/bitmaps_reference/mindfulness_app_SPA_Progress_0__0_desktop.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_app_SPA_Learn_0__0_desktop.png",
+        "test": "../bitmaps_test/20260304-230204/mindfulness_app_SPA_Learn_0__0_desktop.png",
+        "selector": "",
+        "fileName": "mindfulness_app_SPA_Learn_0__0_desktop.png",
+        "label": "SPA_Learn",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "http://localhost:8003/index.html",
+        "expect": 0,
+        "viewportLabel": "desktop",
+        "engineErrorMsg": "Waiting for selector `[data-tab='learn']` failed: Waiting failed: 30000ms exceeded",
+        "error": "Reference file not found /Users/fudongli/mindfulness/backstop_data/bitmaps_reference/mindfulness_app_SPA_Learn_0__0_desktop.png"
+      },
+      "status": "fail"
+    }
+  ],
+  "id": "mindfulness_app"
+}

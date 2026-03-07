@@ -1,0 +1,52 @@
+{
+  "testSuite": "BackstopJS",
+  "tests": [
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_app_Emotion_Explorer_Page_0_document_0_desktop.png",
+        "test": "../bitmaps_test/20260304-230619/mindfulness_app_Emotion_Explorer_Page_0_document_0_desktop.png",
+        "selector": "document",
+        "fileName": "mindfulness_app_Emotion_Explorer_Page_0_document_0_desktop.png",
+        "label": "Emotion_Explorer_Page",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "http://localhost:8003/emotion-explorer.html",
+        "expect": 0,
+        "viewportLabel": "desktop",
+        "diff": {
+          "isSameDimensions": true,
+          "dimensionDifference": {
+            "width": 0,
+            "height": 0
+          },
+          "misMatchPercentage": "0.00"
+        }
+      },
+      "status": "pass"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/mindfulness_app_Emotion_Balance_Page_0_document_0_desktop.png",
+        "test": "../bitmaps_test/20260304-230619/mindfulness_app_Emotion_Balance_Page_0_document_0_desktop.png",
+        "selector": "document",
+        "fileName": "mindfulness_app_Emotion_Balance_Page_0_document_0_desktop.png",
+        "label": "Emotion_Balance_Page",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "http://localhost:8003/emotion-balance.html",
+        "expect": 0,
+        "viewportLabel": "desktop",
+        "diff": {
+          "isSameDimensions": true,
+          "dimensionDifference": {
+            "width": 0,
+            "height": 0
+          },
+          "misMatchPercentage": "0.00"
+        }
+      },
+      "status": "pass"
+    }
+  ],
+  "id": "mindfulness_app"
+}

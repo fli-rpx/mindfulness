@@ -5,319 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="copyright" content="© 2026 Mindfulness Therapy. All rights reserved.">
     <title>Learn - Mindfulness Therapy</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Tools Dropdown Styles */
-        .tools-dropdown-container { position: relative; display: inline-block; }
-        .tools-dropdown-btn { display: flex; align-items: center; gap: 0.25rem; padding: 0.5rem 1rem; border: none; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer; border-radius: 9999px; font-family: inherit; }
-        .tools-dropdown-btn:hover { background: rgba(255, 255, 255, 0.1); color: #1e293b;  }
-        .tools-dropdown-btn.active { background: #14b8a6; color: #1e293b;  }
-        .tools-dropdown-menu { display: none; position: fixed; top: auto; left: auto; margin-top: 0.5rem; background: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; box-shadow: 0 10px 40px rgba(0,0,0,0.15); min-width: 220px; padding: 0.5rem; z-index: 9999; }
-        .tools-dropdown-menu.open { display: block; }
-        .tools-dropdown-menu a { display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; font-size: 0.875rem; border-radius: 0.5rem; transition: all 0.2s; white-space: nowrap; }
-        .tools-dropdown-menu a:hover { background: rgba(20, 184, 166, 0.1); color: #14b8a6; }
-
-        /* Page Styles */
-        .page-container { max-width: 900px; margin: 0 auto; padding: 100px 20px 40px 20px; }
-        
-        /* Learn Header */
-        .learn-header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding: 3rem 2rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 1.5rem;
-            color: #1e293b; 
-        }
-        
-        .learn-header h1 {
-            font-size: 2.5rem;
-            margin: 0 0 1rem 0;
-        }
-        
-        .learn-subtitle {
-            margin: 0;
-            opacity: 0.9;
-            font-size: 1.1rem;
-        }
-        
-        /* Learn Sections */
-        .learn-content {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        
-        .learn-section {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-        }
-        
-        .learn-section-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1.5rem 2rem;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        
-        .learn-section-header:hover {
-            background: rgba(255,255,255,0.05);
-        }
-        
-        .learn-icon {
-            font-size: 2rem;
-        }
-        
-        .learn-section-header h3 {
-            flex: 1;
-            margin: 0;
-            color: #1e293b; 
-            font-size: 1.25rem;
-        }
-        
-        .learn-toggle {
-            color: rgba(255,255,255,0.8);
-            transition: transform 0.3s;
-        }
-        
-        .learn-section.open .learn-toggle {
-            transform: rotate(180deg);
-        }
-        
-        .learn-section-content {
-            display: none;
-            padding: 0 2rem 2rem 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .learn-section.open .learn-section-content {
-            display: block;
-        }
-        
-        .learn-summary {
-            color: rgba(255,255,255,0.8);
-            font-size: 1.1rem;
-            margin: 1.5rem 0;
-            font-style: italic;
-        }
-        
-        .learn-detail {
-            color: #334155;
-            line-height: 1.7;
-        }
-        
-        .learn-detail p {
-            margin-bottom: 1rem;
-        }
-        
-        .learn-key-point {
-            display: flex;
-            gap: 1rem;
-            padding: 1.5rem;
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 12px;
-            margin: 1.5rem 0;
-            border-left: 4px solid #667eea;
-        }
-        
-        .key-icon {
-            font-size: 1.5rem;
-        }
-        
-        .learn-key-point p {
-            margin: 0;
-            color: #1e293b; 
-        }
-        
-        .learn-exercises {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        
-        .learn-exercise {
-            padding: 1.5rem;
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-        }
-        
-        .learn-exercise h4 {
-            color: #1e293b; 
-            margin: 0 0 1rem 0;
-        }
-        
-        .learn-exercise p {
-            margin: 0.5rem 0;
-        }
-        
-        .learn-comparison {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-        
-        .learn-comparison-item {
-            padding: 1.5rem;
-            border-radius: 12px;
-        }
-        
-        .learn-comparison-item.negative {
-            background: rgba(239, 68, 68, 0.1);
-            border-left: 4px solid #ef4444;
-        }
-        
-        .learn-comparison-item.positive {
-            background: rgba(34, 197, 94, 0.1);
-            border-left: 4px solid #22c55e;
-        }
-        
-        .learn-comparison-item h4 {
-            margin: 0 0 0.5rem 0;
-        }
-        
-        .learn-parts-list {
-            list-style: none;
-            padding: 0;
-            margin: 1rem 0;
-        }
-        
-        .learn-parts-list li {
-            padding: 0.75rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .learn-parts-list li:last-child {
-            border-bottom: none;
-        }
-        
-        .learn-transformation {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
-            padding: 2rem;
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-        }
-        
-        .learn-from, .learn-to {
-            text-align: center;
-        }
-        
-        .learn-from h5, .learn-to h5 {
-            margin: 0 0 1rem 0;
-            font-size: 1.1rem;
-        }
-        
-        .learn-from ul, .learn-to ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .learn-arrow {
-            font-size: 2rem;
-            color: #50c8b8;
-        }
-        
-        .learn-summary-card {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            border-radius: 20px;
-            padding: 2rem;
-            margin-top: 2rem;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .learn-summary-card h3 {
-            color: #1e293b; 
-            margin: 0 0 1.5rem 0;
-        }
-        
-        .learn-summary-card ul {
-            margin: 1.5rem 0;
-            padding-left: 1.5rem;
-        }
-        
-        .learn-summary-card li {
-            margin: 0.75rem 0;
-            color: #334155;
-        }
-        
-        .learn-final {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #1e293b; 
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 2px solid rgba(102, 126, 234, 0.3);
-        }
-        
-        @media (max-width: 768px) {
-            .learn-comparison {
-                grid-template-columns: 1fr;
-            }
-            
-            .learn-transformation {
-                flex-direction: column;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="nav-bar" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(30, 58, 138, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 2rem; height: 60px;">
-        <div class="nav-brand" onclick="window.location.href='index.html'" style="cursor: pointer; font-size: 1.25rem; font-weight: 600; color: #1e293b; ">🧘 Mindfulness Therapy</div>
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()" style="display: none; background: none; border: none; font-size: 1.25rem; color: rgba(255,255,255,0.8); cursor: pointer; padding: 0.5rem;">
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="nav-links" id="navLinks" style="display: flex; gap: 0.5rem; align-items: center;">
-            <button class="nav-btn" onclick="window.location.href='index.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer;">Home</button>
-            <button class="nav-btn" onclick="window.location.href='cycle.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer;">Cycle</button>
-            <button class="nav-btn" onclick="window.location.href='assessment.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer;">AI Chat</button>
-
-            <!-- Tools Dropdown -->
-            <div class="tools-dropdown-container" id="toolsContainer">
-                <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
-                    Tools <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
-                </button>
-                <div class="tools-dropdown-menu" id="toolsMenu">
-                    
-                    <a href="emotion-explorer.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🎨 Emotion Explorer</a>
-                    
-                    <a href="emotion-balance.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">⚡ Emotion Balance</a>
-                    
-                    <a href="hypnosis.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🌀 Hypnosis</a>
-                    
-                    <a href="salad-compass.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥗 Salad Compass</a>
-                    
-                    <a href="salad-check.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥬 Full Salad Check</a>
-                    
-                    <a href="interventions.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🧰 Interventions</a>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">🧘 Mindfulness Therapy</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="cycle.html" class="nav-link">Cycle</a>
+                <a href="assessment.html" class="nav-link">AI Chat</a>
+                
+                <!-- Tools Dropdown -->
+                <div class="tools-dropdown-container">
+                    <button class="tools-dropdown-btn" id="tools-menu-button" aria-haspopup="true" aria-expanded="false">
+                        Tools <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
+                    </button>
+                    <div class="tools-dropdown-menu" id="tools-menu-dropdown">
+                        <a href="emotion-explorer.html">🎨 Emotion Explorer</a>
+                        <a href="emotion-balance.html">⚡ Emotion Balance</a>
+                        <a href="hypnosis.html">🌀 Hypnosis</a>
+                        <a href="salad-compass.html">🥗 Salad Compass</a>
+                        <a href="salad-check.html">🥬 Full Salad Check</a>
+                        <a href="interventions.html">🧰 Interventions</a>
+                    </div>
                 </div>
+                
+                <a href="journal.html" class="nav-link">Journal</a>
+                <a href="progress.html" class="nav-link">Progress</a>
+                <a href="learn.html" class="nav-link active">Learn</a>
             </div>
-
-            <button class="nav-btn" onclick="window.location.href='journal.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer;">Journal</button>
-            <button class="nav-btn" onclick="window.location.href='progress.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer;">Progress</button>
-            <button class="nav-btn active" onclick="window.location.href='learn.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: linear-gradient(135deg, #50c8b8, #4a90d9); color: #1e293b;  font-size: 0.875rem; font-weight: 500; cursor: pointer;">Learn</button>
         </div>
     </nav>
 
-    <div class="page-container">
-        <div class="learn-header">
-            <h1>📚 Insights & Understanding</h1>
-            <p class="learn-subtitle">The psychology behind why we get hooked—and how to reclaim your power</p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-eyebrow">📚 Insights & Understanding</div>
+            <h1>The Psychology of Getting Hooked</h1>
+            <p class="hero-subtitle">Understanding why we get caught—and how to reclaim your power through mindfulness and awareness.</p>
         </div>
+    </section>
 
+    <!-- Main Content -->
+    <main class="content-main">
         <div class="learn-content">
             <!-- Section 1: Visual Hook -->
             <div class="learn-section">
@@ -350,7 +85,7 @@
                     <div class="learn-detail">
                         <p><strong>The Experiment:</strong> Show someone the word "RED" written in blue ink. Their brain slows down because it has to fight between the word and the color.</p>
                         <div class="learn-key-point">
-                            <span class="key-icon">💡</span>
+                            <span class="key-icon">🤯</span>
                             <p><strong>What This Means:</strong> Colors and appearances have power over your attention whether you want them to or not. Your brain processes them automatically before you can decide.</p>
                         </div>
                     </div>
@@ -376,341 +111,97 @@
                 </div>
             </div>
 
-            <!-- Section 4: Animism -->
+            <!-- Section 4: Addiction Mechanisms -->
             <div class="learn-section">
                 <div class="learn-section-header" onclick="toggleLearnSection(this)">
-                    <span class="learn-icon">🎭</span>
-                    <h3>Animism: Why Objects Feel Alive</h3>
+                    <span class="learn-icon">🔄</span>
+                    <h3>How Addiction Hijacks Your Reward System</h3>
                     <i class="fas fa-chevron-down learn-toggle"></i>
                 </div>
                 <div class="learn-section-content">
-                    <p class="learn-summary">Humans naturally project life and intention onto inanimate things—judging them by Evaluation, Potency, and Activity.</p>
+                    <p class="learn-summary">Addiction rewires your brain's reward system, creating a cycle where you need more and more to feel normal.</p>
                     <div class="learn-detail">
-                        <p>Your brain is wired to treat certain things as if they have power or intention. That's why a color can feel "strong" or a face can feel "magnetic."</p>
+                        <p><strong>The Cycle:</strong> 1) Dopamine release from stimulus. 2) Brain adapts by reducing dopamine receptors. 3) You need more stimulus for same effect. 4) Normal activities feel less rewarding.</p>
                         <div class="learn-key-point">
                             <span class="key-icon">💡</span>
-                            <p><strong>The Insight:</strong> Your brain evolved to pay attention to things that might be important—but sometimes it overdoes it, and you get hooked by something empty.</p>
+                            <p><strong>The Solution:</strong> Mindfulness creates a gap between stimulus and response. You can observe the craving without acting on it.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Section 5: Locus of Control -->
-            <div class="learn-section">
-                <div class="learn-section-header" onclick="toggleLearnSection(this)">
-                    <span class="learn-icon">🎯</span>
-                    <h3>Locus of Control: Where Do You Put Your Power?</h3>
-                    <i class="fas fa-chevron-down learn-toggle"></i>
-                </div>
-                <div class="learn-section-content">
-                    <p class="learn-summary">Internal vs External: Do you believe your actions shape your life, or that luck/fate/others control what happens?</p>
-                    <div class="learn-detail">
-                        <p><strong>External Locus:</strong> You believe power comes from outside—other people's attention, owning things, how you look. You're constantly scanning for hooks because you need them as fuel.</p>
-                        <p><strong>Internal Locus:</strong> You believe power comes from inside—your choices, your values, how you respond. Hooks lose their grip because you don't need them.</p>
-                        <div class="learn-key-point">
-                            <span class="key-icon">🔗</span>
-                            <p><strong>Connection to Trauma:</strong> Growing up in an unpredictable environment teaches you to surrender control—it kept you alive. But as an adult, this leaves you vulnerable to every shiny thing.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section 6: Triggers vs Glimmers -->
-            <div class="learn-section">
-                <div class="learn-section-header" onclick="toggleLearnSection(this)">
-                    <span class="learn-icon">⚡</span>
-                    <h3>Triggers vs. Glimmers: What Your Nervous System Seeks</h3>
-                    <i class="fas fa-chevron-down learn-toggle"></i>
-                </div>
-                <div class="learn-section-content">
-                    <p class="learn-summary">Your body scans for danger (triggers) and safety (glimmers). Both can "hook" you—but one leads to harm, the other to healing.</p>
-                    <div class="learn-detail">
-                        <div class="learn-comparison">
-                            <div class="learn-comparison-item negative">
-                                <h4>🔴 Triggers</h4>
-                                <p>Sensory cues that activate survival mode—fight, flight, or freeze. Based on past danger stored in your body.</p>
-                            </div>
-                            <div class="learn-comparison-item positive">
-                                <h4>🟢 Glimmers</h4>
-                                <p>Tiny cues that tell your nervous system "you're safe." A warm color, a bird singing, a sunbeam. Activates your ventral vagus nerve (calm and connection).</p>
-                            </div>
-                        </div>
-                        <div class="learn-key-point">
-                            <span class="key-icon">💡</span>
-                            <p><strong>The Practice:</strong> You can train yourself to notice glimmers. The more you notice moments of safety, the more your nervous system learns the world isn't all danger.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section 7: Gendlin's Focusing -->
-            <div class="learn-section">
-                <div class="learn-section-header" onclick="toggleLearnSection(this)">
-                    <span class="learn-icon">🔍</span>
-                    <h3>Gendlin's Focusing: Listen to Your Body's Wisdom</h3>
-                    <i class="fas fa-chevron-down learn-toggle"></i>
-                </div>
-                <div class="learn-section-content">
-                    <p class="learn-summary">Your body knows things your brain hasn't figured out yet. Learn to tune into your "felt sense"—a bodily intuition not yet in words.</p>
-                    <div class="learn-detail">
-                        <p><strong>The Felt Sense:</strong> A heaviness in your chest, a knot in your stomach, a fluttering sensation. By gently paying attention and asking it questions, you unlock a "felt shift"—physical release bringing new understanding.</p>
-                        <div class="learn-key-point">
-                            <span class="key-icon">💡</span>
-                            <p><strong>When Hooked:</strong> Instead of chasing what caught your eye, turn inward: "What is this feeling in my body?" Stay with it gently, without trying to fix it. The shift is your body releasing something.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section 8: Somatic Exercises -->
+            <!-- Section 5: Mindfulness Response -->
             <div class="learn-section">
                 <div class="learn-section-header" onclick="toggleLearnSection(this)">
                     <span class="learn-icon">🧘</span>
-                    <h3>Somatic Exercises: Practical Tools for Reclaiming Agency</h3>
+                    <h3>Mindfulness: Creating Space Between Stimulus and Response</h3>
                     <i class="fas fa-chevron-down learn-toggle"></i>
                 </div>
                 <div class="learn-section-content">
-                    <p class="learn-summary">Specific practices to build inner power that doesn't depend on outside hooks.</p>
-                    <div class="learn-exercises">
-                        <div class="learn-exercise">
-                            <h4>🤲 The Container Exercise (Self-Holding)</h4>
-                            <p><strong>How:</strong> Put one hand on your forehead, one on your heart. Feel the warmth. Imagine your body as a container that can hold any feeling without breaking.</p>
-                            <p><strong>Why:</strong> Creates physical boundaries. Tells your nervous system: "I can hold this. I'm still in control."</p>
-                        </div>
-                        <div class="learn-exercise">
-                            <h4>📢 The Voo Sound</h4>
-                            <p><strong>How:</strong> Take a deep breath and make a low "voooo" sound like a foghorn. Feel it vibrate in your chest.</p>
-                            <p><strong>Why:</strong> The vibration stimulates your vagus nerve, calming your nervous system. Good for when you feel frozen.</p>
-                        </div>
-                        <div class="learn-exercise">
-                            <h4>🔄 Pendulation</h4>
-                            <p><strong>How:</strong> Gently move attention between distress and safety. Notice the tightness... then your feet on the floor... then back to tightness... then your breath.</p>
-                            <p><strong>Why:</strong> Teaches your nervous system it can move in and out of discomfort without being destroyed.</p>
-                        </div>
-                        <div class="learn-exercise">
-                            <h4>🦶 Grounding Exercises</h4>
-                            <ul>
-                                <li><strong>Heel drops:</strong> Lift heels, drop with a thud. Feel the impact. "It's safe to take up space."</li>
-                                <li><strong>Body scan:</strong> Slowly notice each body part from head to toe, just observing.</li>
-                                <li><strong>Box breathing:</strong> Inhale 4s, hold 4s, exhale 4s, hold 4s. Cues relaxation.</li>
-                            </ul>
+                    <p class="learn-summary">Mindfulness isn't about stopping thoughts or feelings—it's about noticing them without getting pulled into the story.</p>
+                    <div class="learn-detail">
+                        <p><strong>The Practice:</strong> When you feel the pull of something, pause. Name what you're experiencing: "This is craving." "This is desire." "This is aesthetic arrest."</p>
+                        <div class="learn-key-point">
+                            <span class="key-icon">🎯</span>
+                            <p><strong>The Goal:</strong> Move from being controlled by stimuli to being an observer of them. You don't have to chase every beautiful thing or pleasant feeling.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Section 9: Emotional Transformation -->
+            <!-- Section 6: Practical Application -->
             <div class="learn-section">
                 <div class="learn-section-header" onclick="toggleLearnSection(this)">
-                    <span class="learn-icon">🦋</span>
-                    <h3>Emotional Transformation: From External to Inner Power</h3>
+                    <span class="learn-icon">🛠️</span>
+                    <h3>Practical Tools for Everyday Situations</h3>
                     <i class="fas fa-chevron-down learn-toggle"></i>
                 </div>
                 <div class="learn-section-content">
-                    <p class="learn-summary">Understanding your emotional patterns and the journey from grasping power through possession to finding power within yourself.</p>
+                    <p class="learn-summary">Simple techniques you can use when you feel yourself getting hooked by something visually appealing.</p>
                     <div class="learn-detail">
-                        <h4>🥗 The Emotional Plate Metaphor (Your Salad)</h4>
-                        <p>You already have a smart way of thinking about your feelings. You know that when one feeling takes over (too "spicy"), you look for something to balance it—even if you sometimes pick the wrong thing (something "greasy").</p>
+                        <p><strong>The 3-Step Method:</strong></p>
+                        <ol class="learn-parts-list">
+                            <li><strong>Notice:</strong> "I'm being pulled by this."</li>
+                            <li><strong>Name:</strong> "This is aesthetic arrest/visual hook."</li>
+                            <li><strong>Pause:</strong> Take 3 conscious breaths before deciding.</li>
+                        </ol>
                         <div class="learn-key-point">
-                            <span class="key-icon">💡</span>
-                            <p><strong>The Insight:</strong> You're naturally good at noticing your own emotional patterns. The Salad metaphor helps you see when one emotion dominates and what you reach for to compensate.</p>
-                        </div>
-
-                        <h4>🔄 Why Your Values Shift Depending on How You Feel</h4>
-                        <p>Your internal state acts like a filter that changes which values feel important. When you feel powerful, "owning" matters most. When you feel weak, you want safety. When you feel clear, you want real connection.</p>
-                        <div class="learn-key-point">
-                            <span class="key-icon">💡</span>
-                            <p><strong>The Insight:</strong> You're not broken or inconsistent. Your values shift because your emotional state literally changes what your brain cares about at that moment.</p>
-                        </div>
-
-                        <h4>🌶️ The "Spicy and Greasy" Cycle (Compensatory Control)</h4>
-                        <p>Humans need to feel like life is orderly. When something shakes that feeling (losing power), it creates anxiety—the "spicy" feeling. To cope, you reach for something that restores control. The "greasy" choice gives quick relief but causes problems later.</p>
-                        <div class="learn-key-point">
-                            <span class="key-icon">⚠️</span>
-                            <p><strong>The Pattern:</strong> When life feels chaotic and you lose power, your brain panics and grabs for anything that makes you feel in control again—even if it's unhealthy.</p>
-                        </div>
-
-                        <h4>👥 The "Parts" of You (Internal Family Systems)</h4>
-                        <p>Your psyche has different "parts" with different jobs:</p>
-                        <ul class="learn-parts-list">
-                            <li><strong>The Exile:</strong> Carries the pain of powerlessness and emptiness.</li>
-                            <li><strong>The Manager:</strong> Tries to get power through achievements to protect you from feeling the pain.</li>
-                            <li><strong>The Firefighter:</strong> When the Manager fails and pain breaks through, this part panics and grabs for quick fixes.</li>
-                            <li><strong>The Self:</strong> The "you" that watches all this and knows it's wrong. That calm part is your real self.</li>
-                        </ul>
-                        <div class="learn-key-point">
-                            <span class="key-icon">💡</span>
-                            <p><strong>The Insight:</strong> Your mind is like a team. One part holds old wounds. Another tries to prevent pain by chasing success. When that fails, a third part freaks out and reaches for anything to make the pain stop. And there's a calm part watching it all—that's your real self.</p>
-                        </div>
-
-                        <h4>🌫️ Why You Feel Lost Right Now (The Neutral Zone)</h4>
-                        <p>You're in the "Neutral Zone"—a period between identities. You've let go of the old way (grabbing power through possession), but the new way (finding power within) isn't fully formed yet. This stage feels like confusion, emptiness, and not knowing what to do.</p>
-                        <div class="learn-key-point">
-                            <span class="key-icon">✨</span>
-                            <p><strong>The Hope:</strong> This is normal and necessary. It's like being in a hallway between two rooms. You've left one room but haven't entered the next. The confusion means you're exactly where you need to be—growing.</p>
-                        </div>
-
-                        <h4>💪 What Inner Power Actually Is (Stoicism)</h4>
-                        <p>Real power comes from distinguishing what you can control from what you can't. You can't control whether people stay, whether projects succeed, or whether you lose status. But you can control your judgments, intentions, and how you respond to cravings.</p>
-                        <div class="learn-key-point">
-                            <span class="key-icon">💡</span>
-                            <p><strong>The Truth:</strong> True power isn't about controlling others or holding onto things. Real power is being able to sit with discomfort, choose how you respond, and know your worth without needing proof from the outside. It's quiet. It doesn't need an audience. And no one can take it from you.</p>
-                        </div>
-
-                        <h4>🎯 The Bottom Line: What This Means for You</h4>
-                        <p>You're in the middle of a profound transformation. You've moved from:</p>
-                        <div class="learn-transformation">
-                            <div class="learn-from">
-                                <h5>External Power</h5>
-                                <ul>
-                                    <li>Grabbing</li>
-                                    <li>Owning</li>
-                                    <li>Controlling</li>
-                                </ul>
-                            </div>
-                            <div class="learn-arrow">→</div>
-                            <div class="learn-to">
-                                <h5>Inner Power</h5>
-                                <ul>
-                                    <li>Being</li>
-                                    <li>Connecting</li>
-                                    <li>Choosing</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <p>The confusion and emptiness aren't signs of failure. They're signs that the old patterns are dying and something new is being born. The urge to own was never really about the target—it was a misguided attempt to fill a void left by early wounds and lost power.</p>
-                        <p><strong>The fact that you're asking "what now?" and "what is inner power?" proves you're already on the right path.</strong> You're not reaching for the quick fix anymore. You're sitting in the silence, waiting to see what you actually hunger for.</p>
-                        <div class="learn-key-point">
-                            <span class="key-icon">🔥</span>
-                            <p><strong>The Power Was Always in You.</strong> You're just learning how to feel it now. Keep sitting with the questions. Keep noticing when the hook pulls. Keep choosing the pause instead of the grab.</p>
+                            <span class="key-icon">💪</span>
+                            <p><strong>Remember:</strong> The goal isn't to avoid beauty or pleasure. It's to choose consciously rather than being automatically controlled by them.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Hypnosis Section -->
-            <div class="learn-section">
-                <div class="learn-section-header" onclick="toggleLearnSection(this)">
-                    <span class="learn-icon">🌀</span>
-                    <h3>Hypnosis for Emotional Balance</h3>
-                    <i class="fas fa-chevron-down learn-toggle"></i>
-                </div>
-                <div class="learn-section-content">
-                    <p class="learn-summary">Clinical hypnosis is a science-backed tool for accessing, understanding, and balancing your emotions through focused attention and neuroplasticity.</p>
-                    <div class="learn-detail">
-                        <h4>What is Clinical Hypnosis?</h4>
-                        <p>Hypnosis is <strong>not sleep</strong>—it's a collaborative state of highly focused attention and increased responsiveness to suggestion. You remain aware and in control throughout. Modern neuroscience understands it as <strong>top-down neural modulation</strong>, where your brain reorganizes its own networks to facilitate emotional balance.</p>
-                        <h4>The Four Pillars</h4>
-                        <ul class="learn-parts-list">
-                            <li><strong>Absorption:</strong> Deep involvement in internal experiences, filtering out distractions</li>
-                            <li><strong>Dissociation:</strong> Stepping back from intense emotions to observe them objectively</li>
-                            <li><strong>Suggestibility:</strong> Increased responsiveness to therapeutic guidance (not weakness)</li>
-                            <li><strong>Automaticity:</strong> Making calm and resilience feel natural and automatic</li>
-                        </ul>
-
-                        <h4>The Neuroscience</h4>
-                        <p>During hypnosis, your brain's Triple Network reconfigures:</p>
-                        <ul class="learn-parts-list">
-                            <li><strong>Salience Network:</strong> Reduced vigilance and external monitoring</li>
-                            <li><strong>Default Mode Network:</strong> Less self-referential rumination</li>
-                            <li><strong>Executive Control:</strong> Enhanced top-down emotional regulation</li>
-                        </ul>
-
-                        <div class="learn-key-point">
-                            <span class="key-icon">🧠</span>
-                            <p><strong>Key Finding:</strong> The decoupling of brain networks creates a window of "experiential plasticity" where new emotional responses can be installed without being constrained by your history of anxiety or trauma.</p>
-                        </div>
-
-                        <h4>Practical Techniques</h4>
-                        <div class="learn-exercise">
-                            <h4>🎚️ The Lever Technique</h4>
-                            <p>Imagine a control room with a lever that controls emotional intensity. Lower the lever and feel the intensity reduce with each notch.</p>
-                        </div>
-
-                        <div class="learn-exercise">
-                            <h4>🏢 The Perspective Elevator</h4>
-                            <p>Move between floors of perspective—ground floor (immersed), middle floors (objective), top floor (compassionate overview).</p>
-                        </div>
-
-                        <div class="learn-exercise">
-                            <h4>🔊 The Voo Sound</h4>
-                            <p>Make a low "voooo" sound like a foghorn. The vibration stimulates your vagus nerve for instant calm.</p>
-                        </div>
-
-                        <div class="learn-key-point">
-                            <span class="key-icon">📖</span>
-                            <p><strong>Learn More:</strong> <a href="hypnosis.html" style="color: #667eea;">Explore the full Hypnosis for Emotional Balance guide →</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Summary -->
+            <!-- Summary Card -->
             <div class="learn-summary-card">
-                <h3>🎯 What This All Means</h3>
-                <p>When you get hooked by a color, a face, an appearance—it's not weakness. It's your brain doing what brains do.</p>
-                <p><strong>The problem isn't the hook. The problem is when the hook becomes the only way you feel alive.</strong></p>
-                <p>The solution is to build something inside that's stronger than any outside hook:</p>
+                <h3>🎯 Key Takeaways</h3>
                 <ul>
-                    <li>Notice when you're hooked</li>
-                    <li>Feel what's happening in your body</li>
-                    <li>Choose a different response—even for a moment</li>
-                    <li>Find safety and power inside yourself</li>
+                    <li>Your brain automatically responds to visual stimuli with dopamine rewards</li>
+                    <li>Beauty can create "aesthetic arrest" that temporarily stops your critical thinking</li>
+                    <li>Addiction hijacks this natural reward system, making normal activities less satisfying</li>
+                    <li>Mindfulness creates a gap between stimulus and automatic response</li>
+                    <li>You can train yourself to observe rather than be controlled by visual hooks</li>
                 </ul>
-                <p class="learn-final">The hook will always be there. But you don't have to be at its mercy anymore.</p>
+                <p class="learn-final">The goal isn't to avoid beauty or pleasure, but to engage with them consciously and intentionally.</p>
             </div>
         </div>
-    </div>
+    </main>
 
     <script>
-        // Tools dropdown functions
-        function toggleToolsMenu() {
-            var menu = document.getElementById('toolsMenu');
-            var btn = document.getElementById('toolsBtn');
-            if (!menu || !btn) return;
-            
-            if (menu.classList.contains('open')) {
-                menu.classList.remove('open');
-                btn.classList.remove('active');
-                btn.setAttribute('aria-expanded', 'false');
-            } else {
-                var btnRect = btn.getBoundingClientRect();
-                menu.style.top = (btnRect.bottom + 8) + 'px';
-                menu.style.left = btnRect.left + 'px';
-                menu.classList.add('open');
-                btn.classList.add('active');
-                btn.setAttribute('aria-expanded', 'true');
-            }
-        }
-        
-        function closeToolsDropdown() {
-            var menu = document.getElementById('toolsMenu');
-            var btn = document.getElementById('toolsBtn');
-            if (menu) {
-                menu.classList.remove('open');
-            }
-            if (btn) {
-                btn.classList.remove('active');
-                btn.setAttribute('aria-expanded', 'false');
-            }
-        }
-        
-        document.addEventListener('click', function(e) {
-            var btn = document.getElementById('toolsBtn');
-            var menu = document.getElementById('toolsMenu');
-            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
-                closeToolsDropdown();
-            }
-        });
-
-        function toggleMobileMenu() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('show');
-        }
-
-        // Toggle learn sections
+        // Learn section toggle functionality
         function toggleLearnSection(header) {
             const section = header.parentElement;
+            const content = section.querySelector('.learn-section-content');
+            
+            // Close all other sections
+            document.querySelectorAll('.learn-section').forEach(s => {
+                if (s !== section) {
+                    s.classList.remove('open');
+                }
+            });
+            
+            // Toggle current section
             section.classList.toggle('open');
         }
     </script>

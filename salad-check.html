@@ -6,36 +6,91 @@
     <meta name="copyright" content="© 2026 Mindfulness Therapy. All rights reserved.">
     <title>Full Salad Check - Mindfulness Therapy</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Tools Dropdown Styles */
-        .tools-dropdown-container { position: relative; display: inline-block; }
-        .tools-dropdown-btn { display: flex; align-items: center; gap: 0.25rem; padding: 0.5rem 1rem; border: none; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer; border-radius: 9999px; font-family: inherit; }
-        .tools-dropdown-btn:hover { background: rgba(255, 255, 255, 0.1); color: #1e293b;  }
-        .tools-dropdown-btn.active { background: #14b8a6; color: #1e293b;  }
-        .tools-dropdown-menu { display: none; position: fixed; top: auto; left: auto; margin-top: 0.5rem; background: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; box-shadow: 0 10px 40px rgba(0,0,0,0.15); min-width: 220px; padding: 0.5rem; z-index: 9999; }
-        .tools-dropdown-menu.open { display: block; }
-        .tools-dropdown-menu a { display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; font-size: 0.875rem; border-radius: 0.5rem; transition: all 0.2s; white-space: nowrap; }
-        .tools-dropdown-menu a:hover { background: rgba(20, 184, 166, 0.1); color: #14b8a6; }
+        .tools-dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
 
-        /* Page Styles */
-        .page-container { max-width: 800px; margin: 0 auto; padding: 100px 20px 40px 20px; }
-        .page-header { text-align: center; margin-bottom: 3rem; }
-        .page-header h1 { font-size: 2.5rem; background: linear-gradient(90deg, #50c8b8, #4a90d9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1rem; }
-        .page-header p { color: rgba(255,255,255,0.8); font-size: 1.1rem; }
+        .tools-dropdown-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 9999px;
+            font-family: inherit;
+        }
 
-        /* Salad Container */
-        .salad-container {
-            background: rgba(255,255,255,0.05);
+        .tools-dropdown-btn:hover {
+            background: #f1f5f1;
+            color: #1e293b; 
+        }
+
+        .tools-dropdown-btn.active {
+            background: linear-gradient(135deg, #50c8b8, #4a90d9);
+            color: #1e293b; 
+        }
+
+        .tools-dropdown-menu {
+            display: none;
+            position: fixed;
+            top: auto;
+            left: auto;
+            margin-top: 0.5rem;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            min-width: 220px;
+            padding: 0.5rem;
+            z-index: 9999;
+        }
+
+        .tools-dropdown-menu.open {
+            display: block;
+        }
+
+        .tools-dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #1e293b; 
+            text-decoration: none;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .tools-dropdown-menu a:hover {
+            background: rgba(20, 184, 166, 0.1);
+            color: #14b8a6;
+        }
+
+        /* Salad Check specific styles */
+        .salad-check-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 120px 20px 40px 20px;
+        }
+
+        .salad-check-card {
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 40px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
         }
 
-        /* Compass Link Card */
         .compass-link-card {
             background: rgba(80, 200, 184, 0.1);
             border: 1px solid rgba(80, 200, 184, 0.2);
@@ -60,7 +115,6 @@
             font-size: 0.95rem;
         }
 
-        /* Progress Bar */
         .progress-section {
             margin-bottom: 30px;
         }
@@ -85,7 +139,6 @@
             font-size: 0.875rem;
         }
 
-        /* Questions */
         .question-card {
             background: rgba(255,255,255,0.05);
             border-radius: 16px;
@@ -95,7 +148,7 @@
         }
 
         .question-card h4 {
-            color: #1e293b; 
+            color: #f8fafc;
             margin: 0 0 16px 0;
             font-size: 1.1rem;
         }
@@ -111,7 +164,7 @@
             border: 2px solid rgba(255,255,255,0.1);
             border-radius: 10px;
             background: rgba(255,255,255,0.05);
-            color: #334155;
+            color: #cbd5e1;
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.2s;
@@ -126,10 +179,9 @@
         .option-btn.selected {
             border-color: #50c8b8;
             background: rgba(80, 200, 184, 0.2);
-            color: #1e293b; 
+            color: #f8fafc;
         }
 
-        /* Results */
         .results-plate {
             background: rgba(255,255,255,0.05);
             border-radius: 20px;
@@ -139,7 +191,7 @@
         }
 
         .results-plate h3 {
-            color: #1e293b; 
+            color: #f8fafc;
             margin-bottom: 24px;
         }
 
@@ -197,7 +249,6 @@
         .breakdown-item {
             padding: 16px;
             border-radius: 12px;
-            text-align: center;
         }
 
         .breakdown-item.spicy {
@@ -227,7 +278,6 @@
             color: rgba(255,255,255,0.8);
         }
 
-        /* Protocol */
         .protocol-section {
             background: rgba(255,255,255,0.05);
             border-radius: 20px;
@@ -236,7 +286,7 @@
         }
 
         .protocol-section h3 {
-            color: #1e293b; 
+            color: #f8fafc;
             margin-bottom: 24px;
             text-align: center;
         }
@@ -255,7 +305,7 @@
             width: 32px;
             height: 32px;
             background: linear-gradient(135deg, #50c8b8, #4a90d9);
-            color: #1e293b; 
+            color: #1e293b;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -265,7 +315,7 @@
         }
 
         .step-content h4 {
-            color: #1e293b; 
+            color: #f8fafc;
             margin: 0 0 4px 0;
             font-size: 1rem;
         }
@@ -276,10 +326,9 @@
             font-size: 0.875rem;
         }
 
-        /* Buttons */
         .btn-primary {
             background: linear-gradient(135deg, #50c8b8, #4a90d9);
-            color: #1e293b; 
+            color: #1e293b;
             padding: 14px 28px;
             border: none;
             border-radius: 10px;
@@ -318,55 +367,225 @@
             .results-breakdown {
                 grid-template-columns: 1fr;
             }
+            
+            .compass-link-card {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* CSS Variables */
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --accent-primary: #50c8b8;
+            --accent-secondary: #4a90d9;
+            --border-color: #475569;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 120px 20px 60px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-eyebrow {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-brand {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .nav-btn:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: var(--bg-primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: var(--bg-secondary);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+                gap: 0.5rem;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .nav-btn {
+                width: 100%;
+                text-align: left;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero {
+                padding: 80px 20px 40px;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="nav-bar" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(30, 58, 138, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 2rem; height: 60px;">
-        <div class="nav-brand" onclick="window.location.href='index.html'" style="cursor: pointer; font-size: 1.25rem; font-weight: 600; color: #1e293b; ">🧘 Mindfulness Therapy</div>
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()" style="display: none; background: none; border: none; font-size: 1.25rem; color: rgba(255,255,255,0.8); cursor: pointer; padding: 0.5rem;">
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="nav-links" id="navLinks" style="display: flex; gap: 0.5rem; align-items: center;">
-            <button class="nav-btn" onclick="window.location.href='index.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer;">Home</button>
-            <button class="nav-btn" onclick="window.location.href='cycle.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer;">Cycle</button>
-            <button class="nav-btn" onclick="window.location.href='assessment.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer;">AI Chat</button>
-
-            <!-- Tools Dropdown -->
-            <div class="tools-dropdown-container" id="toolsContainer">
-                <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
-                    Tools <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
-                </button>
-                <div class="tools-dropdown-menu" id="toolsMenu">
-                    
-                    <a href="emotion-explorer.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🎨 Emotion Explorer</a>
-                    
-                    <a href="emotion-balance.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">⚡ Emotion Balance</a>
-                    
-                    <a href="hypnosis.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🌀 Hypnosis</a>
-                    
-                    <a href="salad-compass.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥗 Salad Compass</a>
-                    
-                    <a href="salad-check.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥬 Full Salad Check</a>
-                    
-                    <a href="interventions.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🧰 Interventions</a>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">🧘 Mindfulness Therapy</a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="index-zh.html" class="nav-btn">中文</a>
+                <a href="index.html" class="nav-btn">Home</a>
+                <a href="cycle.html" class="nav-btn">Cycle</a>
+                <a href="assessment.html" class="nav-btn">AI Chat</a>
+                
+                <!-- Tools Dropdown -->
+                <div class="tools-dropdown-container" id="toolsContainer">
+                    <button class="tools-dropdown-btn active" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
+                        Tools <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
+                    </button>
+                    <div class="tools-dropdown-menu open" id="toolsMenu">
+                        <a href="emotion-explorer.html">🎨 Emotion Explorer</a>
+                        <a href="emotion-balance.html">⚡ Emotion Balance</a>
+                        <a href="salad-compass.html">🥗 Salad Compass</a>
+                        <a href="salad-check.html" style="background: rgba(80, 200, 184, 0.1); color: #50c8b8;">🥬 Full Salad Check</a>
+                        <a href="interventions.html">🧰 Interventions</a>
+                    </div>
                 </div>
+                
+                <a href="journal.html" class="nav-btn">Journal</a>
+                <a href="progress.html" class="nav-btn">Progress</a>
+                <a href="learn.html" class="nav-btn">Learn</a>
             </div>
-
-            <button class="nav-btn" onclick="window.location.href='journal.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer;">Journal</button>
-            <button class="nav-btn" onclick="window.location.href='progress.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer;">Progress</button>
-            <button class="nav-btn" onclick="window.location.href='learn.html'" style="padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; cursor: pointer;">Learn</button>
         </div>
     </nav>
 
-    <div class="page-container">
-        <div class="page-header">
-            <h1>🥗 Full Salad Check</h1>
-            <p>Identify your 🔥 Spicy (overwhelming), 🧈 Greasy (compulsive), and 🥗 Vegetable (nourishing) elements.</p>
-        </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-eyebrow">🥬 Emotional Balance Assessment</div>
+        <h1>Full Salad Check</h1>
+        <p class="hero-subtitle">Identify your 🔥 Spicy (overwhelming), 🧈 Greasy (compulsive), and �� Vegetable (nourishing) elements to understand your emotional state and find the right balance.</p>
+    </section>
 
-        <div class="salad-container">
+    <!-- Main Content -->
+    <div class="salad-check-content">
+        <div class="salad-check-card">
             <!-- Quick Access to Salad Compass -->
             <div class="compass-link-card">
                 <div>
@@ -406,252 +625,263 @@
                             <div id="vegetableScore">0%</div>
                         </div>
                     </div>
-                    
                     <div class="results-breakdown">
                         <div class="breakdown-item spicy">
-                            <div class="breakdown-score" id="spicyValue">0</div>
-                            <div class="breakdown-label">🔥 Spicy</div>
+                            <div class="breakdown-score" id="spicyScoreResult">0%</div>
+                            <div class="breakdown-label">Spicy (Overwhelming)</div>
                         </div>
                         <div class="breakdown-item greasy">
-                            <div class="breakdown-score" id="greasyValue">0</div>
-                            <div class="breakdown-label">🧈 Greasy</div>
+                            <div class="breakdown-score" id="greasyScoreResult">0%</div>
+                            <div class="breakdown-label">Greasy (Compulsive)</div>
                         </div>
                         <div class="breakdown-item vegetable">
-                            <div class="breakdown-score" id="vegetableValue">0</div>
-                            <div class="breakdown-label">🥗 Vegetable</div>
+                            <div class="breakdown-score" id="vegetableScoreResult">0%</div>
+                            <div class="breakdown-label">Vegetable (Nourishing)</div>
                         </div>
-                    </div>
-                </div>                
-                <div class="protocol-section">
-                    <h3>🎯 7-Step Balancing Protocol</h3>
-                    <div id="protocolSteps">
-                        <!-- Protocol steps will be rendered here -->
                     </div>
                 </div>
 
-                <button class="btn-primary" onclick="resetSalad()">🔄 Start New Check</button>
+                <div class="protocol-section">
+                    <h3><i class="fas fa-clipboard-list"></i> Your Personalized Protocol</h3>
+                    <div id="protocolSteps">
+                        <!-- Protocol steps will be generated here -->
+                    </div>
+                </div>
+
+                <button class="btn-primary" onclick="restartSaladCheck()">
+                    <i class="fas fa-redo"></i> Take Check Again
+                </button>
             </div>
         </div>
     </div>
 
+    <script src="app.js"></script>
     <script>
-        // Tools dropdown functions
-        function toggleToolsMenu() {
-            var menu = document.getElementById('toolsMenu');
-            var btn = document.getElementById('toolsBtn');
-            if (!menu || !btn) return;
-            
-            if (menu.classList.contains('open')) {
-                menu.classList.remove('open');
-                btn.classList.remove('active');
-                btn.setAttribute('aria-expanded', 'false');
-            } else {
-                var btnRect = btn.getBoundingClientRect();
-                menu.style.top = (btnRect.bottom + 8) + 'px';
-                menu.style.left = btnRect.left + 'px';
-                menu.classList.add('open');
-                btn.classList.add('active');
-                btn.setAttribute('aria-expanded', 'true');
-            }
-        }
-        
-        function closeToolsDropdown() {
-            var menu = document.getElementById('toolsMenu');
-            var btn = document.getElementById('toolsBtn');
-            if (menu) {
-                menu.classList.remove('open');
-            }
-            if (btn) {
-                btn.classList.remove('active');
-                btn.setAttribute('aria-expanded', 'false');
-            }
-        }
-        
-        document.addEventListener('click', function(e) {
-            var btn = document.getElementById('toolsBtn');
-            var menu = document.getElementById('toolsMenu');
-            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
-                closeToolsDropdown();
-            }
-        });
-
+        // Navigation functions
         function toggleMobileMenu() {
             const navLinks = document.getElementById('navLinks');
             navLinks.classList.toggle('show');
         }
 
-        // Salad Check Questions
+        function toggleToolsMenu() {
+            const toolsMenu = document.getElementById('toolsMenu');
+            toolsMenu.classList.toggle('open');
+        }
+
+        function closeToolsDropdown() {
+            document.getElementById('toolsMenu').classList.remove('open');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const toolsContainer = document.getElementById('toolsContainer');
+            const toolsMenu = document.getElementById('toolsMenu');
+            
+            if (!toolsContainer.contains(event.target)) {
+                toolsMenu.classList.remove('open');
+            }
+        });
+
+        // Salad Check Logic (preserved from original)
         const saladQuestions = [
-            { id: 1, text: "I feel overwhelmed by intense emotions", category: "spicy" },
-            { id: 2, text: "I have urges to do things I know aren't good for me", category: "greasy" },
-            { id: 3, text: "I engage in activities that truly nourish me", category: "vegetable" },
-            { id: 4, text: "My emotions feel too hot to handle", category: "spicy" },
-            { id: 5, text: "I find myself reaching for quick fixes", category: "greasy" },
-            { id: 6, text: "I take time for self-care and reflection", category: "vegetable" },
-            { id: 7, text: "I feel like I'm burning up inside", category: "spicy" },
-            { id: 8, text: "I use distractions to avoid my feelings", category: "greasy" },
-            { id: 9, text: "I connect deeply with others", category: "vegetable" },
-            { id: 10, text: "My anger or anxiety feels explosive", category: "spicy" },
-            { id: 11, text: "I engage in compulsive behaviors", category: "greasy" },
-            { id: 12, text: "I practice mindfulness or meditation", category: "vegetable" },
-            { id: 13, text: "I feel emotionally flooded", category: "spicy" },
-            { id: 14, text: "I seek external validation excessively", category: "greasy" },
-            { id: 15, text: "I spend time in nature", category: "vegetable" },
-            { id: 16, text: "My emotions control my actions", category: "spicy" },
-            { id: 17, text: "I use substances or activities to numb pain", category: "greasy" },
-            { id: 18, text: "I express my feelings in healthy ways", category: "vegetable" },
-            { id: 19, text: "I feel like I'm on an emotional rollercoaster", category: "spicy" },
-            { id: 20, text: "I struggle with addictive patterns", category: "greasy" },
-            { id: 21, text: "I prioritize my well-being", category: "vegetable" }
+            {
+                question: "How often do you feel overwhelmed by your emotions?",
+                options: [
+                    { text: "Rarely - I can usually manage my emotions", scores: { spicy: 1, greasy: 0, vegetable: 3 } },
+                    { text: "Sometimes - I get overwhelmed but recover", scores: { spicy: 2, greasy: 1, vegetable: 2 } },
+                    { text: "Often - I frequently feel overwhelmed", scores: { spicy: 3, greasy: 2, vegetable: 1 } },
+                    { text: "Constantly - I feel overwhelmed most of the time", scores: { spicy: 4, greasy: 3, vegetable: 0 } }
+                ]
+            },
+            {
+                question: "When you're stressed, what do you typically do?",
+                options: [
+                    { text: "Take deep breaths and ground myself", scores: { spicy: 0, greasy: 0, vegetable: 4 } },
+                    { text: "Talk to someone about it", scores: { spicy: 1, greasy: 0, vegetable: 3 } },
+                    { text: "Try to distract myself with activities", scores: { spicy: 2, greasy: 2, vegetable: 1 } },
+                    { text: "Engage in compulsive behaviors (eating, shopping, etc.)", scores: { spicy: 3, greasy: 4, vegetable: 0 } }
+                ]
+            },
+            {
+                question: "How would you describe your emotional intensity?",
+                options: [
+                    { text: "Calm and steady most of the time", scores: { spicy: 0, greasy: 0, vegetable: 4 } },
+                    { text: "Moderate ups and downs", scores: { spicy: 2, greasy: 1, vegetable: 2 } },
+                    { text: "Intense emotions that come and go", scores: { spicy: 3, greasy: 2, vegetable: 1 } },
+                    { text: "Extremely intense emotions that feel uncontrollable", scores: { spicy: 4, greasy: 3, vegetable: 0 } }
+                ]
+            },
+            {
+                question: "What's your relationship with comfort activities?",
+                options: [
+                    { text: "I enjoy them in moderation", scores: { spicy: 0, greasy: 1, vegetable: 3 } },
+                    { text: "I use them occasionally when needed", scores: { spicy: 1, greasy: 2, vegetable: 2 } },
+                    { text: "I rely on them frequently", scores: { spicy: 2, greasy: 3, vegetable: 1 } },
+                    { text: "I feel dependent on them to cope", scores: { spicy: 3, greasy: 4, vegetable: 0 } }
+                ]
+            },
+            {
+                question: "How do you handle difficult conversations?",
+                options: [
+                    { text: "I approach them calmly and directly", scores: { spicy: 0, greasy: 0, vegetable: 4 } },
+                    { text: "I prepare myself mentally first", scores: { spicy: 1, greasy: 1, vegetable: 3 } },
+                    { text: "I avoid them or get very anxious", scores: { spicy: 3, greasy: 2, vegetable: 1 } },
+                    { text: "I become overwhelmed or shut down", scores: { spicy: 4, greasy: 3, vegetable: 0 } }
+                ]
+            }
         ];
 
         let currentQuestion = 0;
-        let answers = { spicy: 0, greasy: 0, vegetable: 0 };
+        let scores = { spicy: 0, greasy: 0, vegetable: 0 };
+
+        function startSaladCheck() {
+            currentQuestion = 0;
+            scores = { spicy: 0, greasy: 0, vegetable: 0 };
+            document.getElementById('saladQuestions').classList.remove('hidden');
+            document.getElementById('saladResults').classList.add('hidden');
+            renderQuestion();
+        }
 
         function renderQuestion() {
-            const container = document.getElementById('saladQuestions');
             const question = saladQuestions[currentQuestion];
+            const questionsContainer = document.getElementById('saladQuestions');
             
-            container.innerHTML = `
+            questionsContainer.innerHTML = `
                 <div class="question-card">
-                    <h4>Question ${currentQuestion + 1} of ${saladQuestions.length}</h4>
-                    <p style="font-size: 1.1rem; color: #334155; margin-bottom: 20px;">${question.text}</p>
+                    <h4>${question.question}</h4>
                     <div class="question-options">
-                        <button class="option-btn" onclick="answerQuestion(0)">Not at all</button>
-                        <button class="option-btn" onclick="answerQuestion(1)">A little</button>
-                        <button class="option-btn" onclick="answerQuestion(2)">Moderately</button>
-                        <button class="option-btn" onclick="answerQuestion(3)">Quite a bit</button>
-                        <button class="option-btn" onclick="answerQuestion(4)">Very much</button>
+                        ${question.options.map((option, index) => `
+                            <button class="option-btn" onclick="selectOption(${index})">
+                                ${option.text}
+                            </button>
+                        `).join('')}
                     </div>
                 </div>
             `;
             
-            // Update progress
-            const progress = ((currentQuestion) / saladQuestions.length) * 100;
-            document.getElementById('saladProgress').style.width = progress + '%';
-            document.getElementById('saladProgressText').textContent = `Question ${currentQuestion + 1} of ${saladQuestions.length}`;
+            updateProgress();
         }
 
-        function answerQuestion(value) {
+        function selectOption(optionIndex) {
             const question = saladQuestions[currentQuestion];
-            answers[question.category] += value;
+            const selectedOption = question.options[optionIndex];
             
-            currentQuestion++;
+            // Add scores
+            scores.spicy += selectedOption.scores.spicy;
+            scores.greasy += selectedOption.scores.greasy;
+            scores.vegetable += selectedOption.scores.vegetable;
             
-            if (currentQuestion < saladQuestions.length) {
-                renderQuestion();
-            } else {
-                showResults();
-            }
+            // Visual feedback
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach((btn, index) => {
+                btn.classList.remove('selected');
+                if (index === optionIndex) {
+                    btn.classList.add('selected');
+                }
+            });
+            
+            // Move to next question after a short delay
+            setTimeout(() => {
+                currentQuestion++;
+                if (currentQuestion < saladQuestions.length) {
+                    renderQuestion();
+                } else {
+                    showResults();
+                }
+            }, 500);
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / saladQuestions.length) * 100;
+            document.getElementById('saladProgress').style.width = `${progress}%`;
+            document.getElementById('saladProgressText').textContent = `Question ${currentQuestion + 1} of ${saladQuestions.length}`;
         }
 
         function showResults() {
             document.getElementById('saladQuestions').classList.add('hidden');
-            document.querySelector('.progress-section').classList.add('hidden');
             document.getElementById('saladResults').classList.remove('hidden');
             
-            // Calculate scores (max 28 per category = 7 questions × 4 max points)
-            const maxScore = 28;
-            const spicyPercent = Math.round((answers.spicy / maxScore) * 100);
-            const greasyPercent = Math.round((answers.greasy / maxScore) * 100);
-            const vegetablePercent = Math.round((answers.vegetable / maxScore) * 100);
+            // Calculate percentages
+            const total = scores.spicy + scores.greasy + scores.vegetable;
+            const spicyPercent = Math.round((scores.spicy / total) * 100);
+            const greasyPercent = Math.round((scores.greasy / total) * 100);
+            const vegetablePercent = Math.round((scores.vegetable / total) * 100);
             
-            // Update plate
-            document.getElementById('spicyScore').textContent = spicyPercent + '%';
-            document.getElementById('greasyScore').textContent = greasyPercent + '%';
-            document.getElementById('vegetableScore').textContent = vegetablePercent + '%';
+            // Update results display
+            document.getElementById('spicyScore').textContent = `${spicyPercent}%`;
+            document.getElementById('greasyScore').textContent = `${greasyPercent}%`;
+            document.getElementById('vegetableScore').textContent = `${vegetablePercent}%`;
             
-            // Update breakdown
-            document.getElementById('spicyValue').textContent = answers.spicy;
-            document.getElementById('greasyValue').textContent = answers.greasy;
-            document.getElementById('vegetableValue').textContent = answers.vegetable;
+            document.getElementById('spicyScoreResult').textContent = `${spicyPercent}%`;
+            document.getElementById('greasyScoreResult').textContent = `${greasyPercent}%`;
+            document.getElementById('vegetableScoreResult').textContent = `${vegetablePercent}%`;
             
             // Generate protocol
             generateProtocol(spicyPercent, greasyPercent, vegetablePercent);
-            
-            // Save to localStorage
-            localStorage.setItem('lastSaladCheck', JSON.stringify({
-                date: new Date().toISOString(),
-                scores: answers,
-                percentages: { spicy: spicyPercent, greasy: greasyPercent, vegetable: vegetablePercent }
-            }));
         }
 
         function generateProtocol(spicy, greasy, vegetable) {
-            const steps = [];
+            const protocolContainer = document.getElementById('protocolSteps');
+            let steps = [];
             
-            if (spicy >= 50) {
+            if (spicy > 40) {
                 steps.push({
-                    number: 1,
-                    title: "Cool Down the Heat",
-                    desc: "Practice the physiological sigh: two quick inhales through nose, one long exhale through mouth. Repeat 5 times."
+                    title: "Cool the Heat",
+                    description: "Practice 5-4-3-2-1 grounding technique when emotions feel overwhelming"
                 });
             }
             
-            if (greasy >= 50) {
+            if (greasy > 40) {
                 steps.push({
-                    number: steps.length + 1,
-                    title: "Pause Before Acting",
-                    desc: "When you feel the urge, set a 10-minute timer. Ask: 'What am I really needing right now?'"
+                    title: "Clean the Grease",
+                    description: "Replace one compulsive behavior with a mindful activity today"
                 });
             }
             
-            if (vegetable < 50) {
+            if (vegetable < 30) {
                 steps.push({
-                    number: steps.length + 1,
                     title: "Add More Vegetables",
-                    desc: "Schedule one nourishing activity today: a walk, calling a friend, or 10 minutes of mindfulness."
+                    description: "Schedule one nourishing activity that brings genuine joy"
                 });
             }
             
-            // Add general steps
-            steps.push({
-                number: steps.length + 1,
-                title: "Ground Yourself",
-                desc: "Place feet flat on floor. Notice 5 things you see, 4 you hear, 3 you can touch."
-            });
+            // Default steps if none specific
+            if (steps.length === 0) {
+                steps = [
+                    {
+                        title: "Daily Check-in",
+                        description: "Use the Salad Compass daily to monitor your emotional balance"
+                    },
+                    {
+                        title: "Mindful Moments",
+                        description: "Take 3 conscious breaths before each meal"
+                    },
+                    {
+                        title: "Evening Reflection",
+                        description: "Journal about your emotional states for 5 minutes"
+                    }
+                ];
+            }
             
-            steps.push({
-                number: steps.length + 1,
-                title: "Check Your Salad Plate",
-                desc: "Use the Salad Compass to identify which emotion is dominant right now."
-            });
-            
-            steps.push({
-                number: steps.length + 1,
-                title: "Practice Self-Compassion",
-                desc: "Place hand on heart. Say: 'This is hard. I'm doing my best. May I be kind to myself.'"
-            });
-            
-            steps.push({
-                number: steps.length + 1,
-                title: "Journal Your Experience",
-                desc: "Write about what triggered you and what you chose to do instead of the automatic response."
-            });
-            
-            const container = document.getElementById('protocolSteps');
-            container.innerHTML = steps.map(step => `
+            protocolContainer.innerHTML = steps.map((step, index) => `
                 <div class="protocol-step">
-                    <div class="step-number">${step.number}</div>
+                    <div class="step-number">${index + 1}</div>
                     <div class="step-content">
                         <h4>${step.title}</h4>
-                        <p>${step.desc}</p>
+                        <p>${step.description}</p>
                     </div>
                 </div>
             `).join('');
         }
 
-        function resetSalad() {
-            currentQuestion = 0;
-            answers = { spicy: 0, greasy: 0, vegetable: 0 };
-            document.getElementById('saladQuestions').classList.remove('hidden');
-            document.querySelector('.progress-section').classList.remove('hidden');
-            document.getElementById('saladResults').classList.add('hidden');
-            renderQuestion();
+        function restartSaladCheck() {
+            startSaladCheck();
         }
 
-        // Initialize
-        renderQuestion();
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            startSaladCheck();
+        });
     </script>
 </body>
 </html>

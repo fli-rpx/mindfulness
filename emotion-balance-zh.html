@@ -5,209 +5,158 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="copyright" content="© 2026 正念疗法. 保留所有权利.">
     <title>情绪平衡工具 - 正念疗法</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Tools Dropdown Styles */
-        .tools-dropdown-container {
-            position: relative;
-            display: inline-block;
+        :root {
+            --bg: #fafaf9;
+            --surface: #ffffff;
+            --text: #1c1917;
+            --muted: #78716c;
+            --border: #e7e5e4;
+            --accent: #0d9488;
+            --accent-dark: #0f766e;
         }
-
-        .tools-dropdown-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            padding: 0.5rem 1rem;
-            border: none;
-            background: transparent;
-            color: rgba(255,255,255,0.8);
-            font-size: 0.875rem;
-            font-weight: 500;
-            cursor: pointer;
-            border-radius: 9999px;
-            font-family: inherit;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Noto Sans SC', sans-serif;
+            font-family: 'Noto Sans SC', 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
         }
-
-        h1, h2, h3 {
-            font-family: 'Noto Serif SC', serif;
-        }
-
-        .tools-dropdown-btn:hover {
-            background: #f1f5f9;
-            color: #1e293b; 
-        }
-
-        .tools-dropdown-btn.active {
-            background: linear-gradient(135deg, #50c8b8, #4a90d9);
-            color: #1e293b; 
-        }
-
-        .tools-dropdown-menu {
-            display: none;
+        h1, h2, h3 { font-family: 'Noto Serif SC', 'Cormorant Garamond', serif; font-weight: 500; }
+        
+        /* Navigation */
+        .nav {
             position: fixed;
-            top: auto;
-            left: auto;
-            margin-top: 0.5rem;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            min-width: 220px;
-            padding: 0.5rem;
-            z-index: 9999;
+            top: 0; left: 0; right: 0;
+            background: rgba(30, 58, 138, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 100;
         }
-
-        .tools-dropdown-menu.open {
-            display: block;
-        }
-
-        .tools-dropdown-menu a {
-            display: block;
-            padding: 0.75rem 1rem;
-            color: #1e293b; 
-            text-decoration: none;
-            font-size: 0.875rem;
-            border-radius: 0.5rem;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-
-        .tools-dropdown-menu a:hover {
-            background: rgba(20, 184, 166, 0.1);
-            color: #14b8a6;
-        }
-
-        /* Navigation Bar Styles */
-        .nav-bar {
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.75rem 2rem;
-            height: 60px;
+            height: 70px;
         }
-
-        .nav-brand {
-            font-size: 1.25rem;
+        .nav-logo {
+            font-family: 'Noto Serif SC', 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
             font-weight: 600;
             color: #1e293b; 
+            text-decoration: none;
         }
-
-        .nav-links {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-            overflow-x: visible; /* Override the overflow from styles.css */
-        }
-
-        .nav-btn {
+        .nav-links { display: flex; gap: 0.25rem; }
+        .nav-link {
             padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 0.5rem;
-            background: transparent;
             color: rgba(255,255,255,0.8);
+            text-decoration: none;
             font-size: 0.875rem;
             font-weight: 500;
-            cursor: pointer;
+            border-radius: 6px;
             transition: all 0.2s;
         }
-
-        .nav-btn:hover {
-            background: #f1f5f9;
+        .nav-link:hover { color: #1e293b;  background: rgba(255,255,255,0.1); }
+        .nav-link.active { color: var(--accent); background: rgba(13,148,136,0.2); }
+        
+        /* Hero */
+        .hero {
+            padding: 160px 2rem 100px;
+            background: 
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.2), transparent),
+                linear-gradient(180deg, #1e3a8a 0%, #1e40af 50%, var(--bg) 100%);
             color: #1e293b; 
         }
-
-        .nav-btn.active {
-            background: linear-gradient(135deg, #50c8b8, #4a90d9);
-            color: #1e293b; 
+        .hero h1 { color: #1e293b;  }
+        .hero-subtitle { color: rgba(255,255,255,0.7); }
+        .hero-container {
+            max-width: 720px;
+            margin: 0 auto;
+            text-align: center;
         }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.25rem;
-            color: rgba(255,255,255,0.8);
-            cursor: pointer;
-            padding: 0.5rem;
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(13,148,136,0.1);
+            border: 1px solid rgba(13,148,136,0.2);
+            border-radius: 100px;
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
         }
-
-        @media (max-width: 1024px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 60px;
-                left: 0;
-                right: 0;
-                background: white;
-                flex-direction: column;
-                padding: 1rem;
-                box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-                gap: 0.5rem;
-            }
-
-            .nav-links.show {
-                display: flex;
-            }
-
-            .nav-btn {
-                width: 100%;
-                text-align: left;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
         }
-
-        .emotion-balance-container {
+        .hero-subtitle {
+            font-size: 1.125rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Main Content */
+        .content-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        
+        /* Balance Content */
+        .balance-content {
             max-width: 700px;
             margin: 0 auto;
-            padding: 40px 20px;
         }
         
         .balance-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            background: var(--surface);
             border-radius: 20px;
-            padding: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
         }
         
         .balance-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 2rem;
         }
         
         .balance-header h1 {
             font-size: 2rem;
-            background: linear-gradient(90deg, #50c8b8, #4a90d9);
+            background: linear-gradient(90deg, var(--accent), var(--accent-dark));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 10px;
+            margin-bottom: 0.5rem;
         }
         
         .balance-header .subtitle {
-            color: #b0b0b8;
-            font-size: 0.95rem;
+            color: var(--muted);
+            font-size: 1rem;
         }
         
         .slider-question {
-            margin-bottom: 30px;
+            margin-bottom: 2rem;
         }
         
         .slider-question label {
             display: block;
-            margin-bottom: 12px;
+            margin-bottom: 1rem;
             font-size: 1.1rem;
-            color: #e0e0e8;
+            color: var(--text);
             font-weight: 500;
         }
         
@@ -219,7 +168,7 @@
             width: 100%;
             height: 8px;
             border-radius: 4px;
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--border);
             outline: none;
             -webkit-appearance: none;
         }
@@ -229,9 +178,9 @@
             width: 24px;
             height: 24px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #50c8b8, #4a90d9);
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(80, 200, 184, 0.4);
+            box-shadow: 0 4px 15px rgba(13, 148, 136, 0.4);
             transition: transform 0.2s;
         }
         
@@ -242,46 +191,47 @@
         .slider-labels {
             display: flex;
             justify-content: space-between;
-            margin-top: 8px;
+            margin-top: 0.5rem;
             font-size: 0.8rem;
-            color: #888;
+            color: var(--muted);
         }
         
         .slider-value {
             text-align: center;
-            margin-top: 8px;
+            margin-top: 0.5rem;
             font-size: 1.2rem;
-            color: #50c8b8;
+            color: var(--accent);
             font-weight: 600;
         }
         
         .analyze-btn {
             width: 100%;
-            padding: 16px;
-            margin-top: 20px;
+            padding: 1rem;
+            margin-top: 1.5rem;
             border: none;
             border-radius: 12px;
-            background: linear-gradient(135deg, #50c8b8, #4a90d9);
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
             color: #1e293b; 
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 10px 30px rgba(80, 200, 184, 0.3);
+            box-shadow: 0 10px 30px rgba(13, 148, 136, 0.3);
         }
         
         .analyze-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(80, 200, 184, 0.4);
+            box-shadow: 0 15px 40px rgba(13, 148, 136, 0.4);
         }
         
         .result-section {
             display: none;
-            margin-top: 30px;
-            padding: 30px;
+            margin-top: 2rem;
+            padding: 2rem;
             border-radius: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             animation: fadeIn 0.5s ease;
         }
         
@@ -296,21 +246,22 @@
         
         .score-display {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 2rem;
         }
         
         .score-circle {
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            margin: 0 auto 15px;
+            margin: 0 auto 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2.5rem;
             font-weight: bold;
             position: relative;
-            background: rgba(0, 0, 0, 0.2);
+            background: var(--bg);
+            border: 2px solid var(--border);
         }
         
         .score-circle::before {
@@ -318,28 +269,28 @@
             position: absolute;
             inset: -3px;
             border-radius: 50%;
-            background: conic-gradient(var(--score-color) var(--score-deg), rgba(255,255,255,0.1) 0);
+            background: conic-gradient(var(--score-color) var(--score-deg), var(--border) 0);
             z-index: -1;
         }
         
         .state-title {
             font-size: 1.5rem;
-            margin-bottom: 10px;
+            margin-bottom: 0.5rem;
             color: var(--score-color);
         }
         
         .state-description {
-            color: #b0b0b8;
+            color: var(--muted);
             line-height: 1.6;
         }
         
         .advice-section {
-            margin-top: 25px;
+            margin-top: 2rem;
         }
         
         .advice-section h3 {
-            color: #50c8b8;
-            margin-bottom: 15px;
+            color: var(--accent);
+            margin-bottom: 1rem;
             font-size: 1.1rem;
             display: flex;
             align-items: center;
@@ -351,12 +302,12 @@
         }
         
         .advice-list li {
-            padding: 12px 0;
-            padding-left: 30px;
+            padding: 0.75rem 0;
+            padding-left: 1.5rem;
             position: relative;
-            color: #d0d0d8;
+            color: var(--text);
             line-height: 1.6;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid var(--border);
         }
         
         .advice-list li:last-child {
@@ -367,19 +318,19 @@
             content: '→';
             position: absolute;
             left: 0;
-            color: #50c8b8;
+            color: var(--accent);
             font-weight: bold;
         }
         
         .quick-actions-section {
-            margin-top: 25px;
-            padding-top: 25px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
         }
         
         .quick-actions-section h3 {
-            color: #4a90d9;
-            margin-bottom: 15px;
+            color: var(--accent-dark);
+            margin-bottom: 1rem;
             font-size: 1.1rem;
             display: flex;
             align-items: center;
@@ -389,18 +340,18 @@
         .action-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 1rem;
         }
         
         .action-btn {
-            padding: 14px;
+            padding: 1rem;
             border-radius: 10px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #e0e0e8;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text);
             cursor: pointer;
             transition: all 0.2s;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -408,19 +359,19 @@
         }
         
         .action-btn:hover {
-            background: rgba(80, 200, 184, 0.2);
-            border-color: #50c8b8;
+            background: rgba(13,148,136,0.1);
+            border-color: var(--accent);
             transform: translateY(-1px);
         }
         
         .breathing-exercise {
             display: none;
-            margin-top: 25px;
-            padding: 30px;
+            margin-top: 2rem;
+            padding: 2rem;
             text-align: center;
-            background: rgba(80, 200, 184, 0.1);
+            background: rgba(13,148,136,0.1);
             border-radius: 15px;
-            border: 1px solid rgba(80, 200, 184, 0.2);
+            border: 1px solid rgba(13,148,136,0.2);
         }
         
         .breathing-exercise.show {
@@ -432,8 +383,8 @@
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #50c8b8, #4a90d9);
-            margin: 20px auto;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            margin: 1.5rem auto;
             animation: breathe 4s ease-in-out infinite;
         }
         
@@ -443,234 +394,269 @@
         }
         
         .reset-btn {
-            margin-top: 20px;
+            margin-top: 1.5rem;
             background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: none;
-            color: #b0b0b8;
+            border: 1px solid var(--border);
+            color: var(--muted);
         }
         
         .reset-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
+            background: rgba(0,0,0,0.02);
+            color: var(--text);
         }
         
-        .back-link {
-            display: inline-flex;
+        /* Tools Dropdown */
+        .tools-dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+        .tools-dropdown-btn {
+            display: flex;
             align-items: center;
-            gap: 8px;
-            color: #888;
+            gap: 0.25rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 6px;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+        .tools-dropdown-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #1e293b; 
+        }
+        .tools-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 0.5rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            min-width: 220px;
+            padding: 0.5rem;
+            z-index: 9999;
+        }
+        .tools-dropdown-menu.open {
+            display: block;
+        }
+        .tools-dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text);
             text-decoration: none;
-            margin-bottom: 20px;
-            transition: color 0.2s;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .tools-dropdown-menu a:hover {
+            background: rgba(13,148,136,0.1);
+            color: var(--accent);
         }
         
-        .back-link:hover {
-            color: #50c8b8;
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .hero {
+                padding: 120px 1rem 60px;
+            }
+            .content-main {
+                padding: 2rem 1rem;
+            }
+            .action-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Full Navigation Bar -->
-    <nav class="nav-bar" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(30, 58, 138, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #e2e8f0;">
-        <div class="nav-brand" onclick="window.location.href='index.html'" style="cursor: pointer;">🧘 Mindfulness Therapy</div>
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="nav-links" id="navLinks">
-            <button class="nav-btn" onclick="window.location.href='index-zh.html'">中文</button>
-            <button class="nav-btn" onclick="window.location.href='index.html'">Home</button>
-            <button class="nav-btn" onclick="window.location.href='cycle.html'">Cycle</button>
-            <button class="nav-btn" onclick="window.location.href='assessment.html'">AI Chat</button>
-
-            <!-- Tools Dropdown -->
-            <div class="tools-dropdown-container" id="toolsContainer">
-                <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
-                    Tools <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
-                </button>
-                <div class="tools-dropdown-menu" id="toolsMenu">
-                    <a href="emotion-explorer.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b;  text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🎨 Emotion Explorer</a>
-                    <a href="emotion-balance.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b;  text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">⚡ Emotion Balance</a>
-                    <a href="salad-compass.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b;  text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥗 Salad Compass</a>
-                    <a href="salad-check.html" onclick="closeToolsDropdown();" style="display: block; padding: 0.75rem 1rem; color: #1e293b;  text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥬 Full Salad Check</a>
-                    <a href="interventions.html" onclick="closeToolsDropdown();" style="display: block; padding: 0.75rem 1rem; color: #1e293b;  text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🧰 Interventions</a>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index-zh.html" class="nav-logo">🧘 正念疗法</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">English</a>
+                <a href="index-ru.html" class="nav-link">Русский</a>
+                <a href="index-zh.html" class="nav-link">首页</a>
+                <a href="cycle-zh.html" class="nav-link">循环</a>
+                <a href="assessment-zh.html" class="nav-link">AI聊天</a>
+                
+                <!-- Tools Dropdown -->
+                <div class="tools-dropdown-container">
+                    <button class="tools-dropdown-btn" onclick="toggleToolsMenu()">
+                        工具 <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
+                    </button>
+                    <div class="tools-dropdown-menu" id="toolsMenu">
+                        <a href="emotion-explorer-zh.html">🎨 情绪探索器</a>
+                        <a href="emotion-balance-zh.html">⚡ 情绪平衡</a>
+                        <a href="hypnosis-zh.html">🌀 催眠</a>
+                        <a href="salad-compass-zh.html">🥗 沙拉指南针</a>
+                        <a href="salad-check-zh.html">🥬 完整沙拉检测</a>
+                        <a href="interventions-zh.html">🧰 干预工具</a>
+                    </div>
                 </div>
+                
+                <a href="journal-zh.html" class="nav-link">日记</a>
+                <a href="progress-zh.html" class="nav-link">进度</a>
+                <a href="learn-zh.html" class="nav-link">学习</a>
             </div>
-
-            <button class="nav-btn" onclick="window.location.href='journal.html'">Journal</button>
-            <button class="nav-btn" onclick="window.location.href='progress.html'">Progress</button>
-            <button class="nav-btn" onclick="window.location.href='learn.html'">Learn</button>
         </div>
     </nav>
 
-    <div id="app" style="padding-top: 60px;">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-eyebrow">⚡ 情绪平衡</div>
+            <h1>情绪平衡工具</h1>
+            <p class="hero-subtitle">检查状态。获得平衡。继续前进。</p>
+        </div>
+    </section>
 
-
-        <!-- Main Content -->
-        <div class="content-main">
-
-            <!-- Emotion Balance Tool -->
-            <div class="emotion-balance-container">
-                <a href="index.html" class="back-link">
-                </a>
+    <!-- Main Content -->
+    <main class="content-main">
+        <div class="balance-content">
+            <div class="balance-card">
+                <div class="balance-header">
+                    <h1>⚡ 情绪平衡工具</h1>
+                    <p class="subtitle">检查状态。获得平衡。继续前进。</p>
+                </div>
                 
-                <div class="balance-card">
-                    <div class="balance-header">
-                        <h1>⚡ Emotion Balance Tool</h1>
-                        <p class="subtitle">Check in. Get balanced. Move forward.</p>
+                <div id="quiz-section">
+                    <div class="slider-question">
+                        <label>1. 能量水平</label>
+                        <div class="slider-container">
+                            <input type="range" id="energy" class="slider-track" min="1" max="10" value="5" oninput="updateValue('energy', this.value)">
+                            <div class="slider-labels">
+                                <span>疲惫</span>
+                                <span>平衡</span>
+                                <span>兴奋</span>
+                            </div>
+                            <div class="slider-value" id="energy-val">5</div>
+                        </div>
                     </div>
                     
-                    <div id="quiz-section">
-                        <div class="slider-question">
-                            <label>1. Energy Level</label>
-                            <div class="slider-container">
-                                <input type="range" id="energy" class="slider-track" min="1" max="10" value="5" oninput="updateValue('energy', this.value)">
-                                <div class="slider-labels">
-                                    <span>Drained</span>
-                                    <span>Balanced</span>
-                                    <span>Hyper</span>
-                                </div>
-                                <div class="slider-value" id="energy-val">5</div>
+                    <div class="slider-question">
+                        <label>2. 思维清晰度</label>
+                        <div class="slider-container">
+                            <input type="range" id="clarity" class="slider-track" min="1" max="10" value="5" oninput="updateValue('clarity', this.value)">
+                            <div class="slider-labels">
+                                <span>模糊</span>
+                                <span>清晰</span>
+                                <span>敏锐</span>
                             </div>
+                            <div class="slider-value" id="clarity-val">5</div>
                         </div>
-                        
-                        <div class="slider-question">
-                            <label>2. Mental Clarity</label>
-                            <div class="slider-container">
-                                <input type="range" id="clarity" class="slider-track" min="1" max="10" value="5" oninput="updateValue('clarity', this.value)">
-                                <div class="slider-labels">
-                                    <span>Foggy</span>
-                                    <span>Clear</span>
-                                    <span>Sharp</span>
-                                </div>
-                                <div class="slider-value" id="clarity-val">5</div>
-                            </div>
-                        </div>
-                        
-                        <div class="slider-question">
-                            <label>3. Emotional Stability</label>
-                            <div class="slider-container">
-                                <input type="range" id="stability" class="slider-track" min="1" max="10" value="5" oninput="updateValue('stability', this.value)">
-                                <div class="slider-labels">
-                                    <span>Volatile</span>
-                                    <span>Steady</span>
-                                    <span>Centered</span>
-                                </div>
-                                <div class="slider-value" id="stability-val">5</div>
-                            </div>
-                        </div>
-                        
-                        <div class="slider-question">
-                            <label>4. Stress Level</label>
-                            <div class="slider-container">
-                                <input type="range" id="stress" class="slider-track" min="1" max="10" value="5" oninput="updateValue('stress', this.value)">
-                                <div class="slider-labels">
-                                    <span>Calm</span>
-                                    <span>Manageable</span>
-                                    <span>Overwhelmed</span>
-                                </div>
-                                <div class="slider-value" id="stress-val">5</div>
-                            </div>
-                        </div>
-                        
-                        <button class="analyze-btn" onclick="calculateState()">
-                            <i class="fas fa-chart-line"></i> Analyze My State
-                        </button>
                     </div>
                     
-                    <div id="result-section" class="result-section">
-                        <div class="score-display">
-                            <div class="score-circle" id="score-circle">--</div>
-                            <h2 class="state-title" id="state-title">--</h2>
-                            <p class="state-description" id="state-desc"></p>
-                        </div>
-                        
-                        <div class="advice-section">
-                            <h3><i class="fas fa-bullseye"></i> Quick Rebalance Actions</h3>
-                            <ul class="advice-list" id="advice-list"></ul>
-                        </div>
-                        
-                        <div class="quick-actions-section">
-                            <h3><i class="fas fa-bolt"></i> Instant Tools</h3>
-                            <div class="action-grid">
-                                <button class="action-btn" onclick="showBreathing()">
-                                    <i class="fas fa-lungs"></i> Breathing
-                                </button>
-                                <button class="action-btn" onclick="groundingExercise()">
-                                    <i class="fas fa-globe"></i> Grounding
-                                </button>
-                                <button class="action-btn" onclick="resetTool()">
-                                    <i class="fas fa-redo"></i> Reset
-                                </button>
-                                <button class="action-btn" onclick="window.open('https://www.youtube.com/results?search_query=lofi+beats', '_blank')">
-                                    <i class="fas fa-music"></i> Lofi
-                                </button>
+                    <div class="slider-question">
+                        <label>3. 情绪稳定性</label>
+                        <div class="slider-container">
+                            <input type="range" id="stability" class="slider-track" min="1" max="10" value="5" oninput="updateValue('stability', this.value)">
+                            <div class="slider-labels">
+                                <span>不稳定</span>
+                                <span>稳定</span>
+                                <span>专注</span>
                             </div>
+                            <div class="slider-value" id="stability-val">5</div>
                         </div>
-                        
-                        <div id="breathing-section" class="breathing-exercise">
-                            <p style="color: #50c8b8; font-weight: 500;">Breathe with the circle...</p>
-                            <div class="breathing-circle"></div>
-                            <p style="color: #888; font-size: 0.9rem;">Inhale as it expands, exhale as it contracts</p>
-                            <button class="action-btn reset-btn" onclick="hideBreathing()" style="margin-top: 15px;">
-                                <i class="fas fa-stop"></i> Stop
+                    </div>
+                    
+                    <div class="slider-question">
+                        <label>4. 压力水平</label>
+                        <div class="slider-container">
+                            <input type="range" id="stress" class="slider-track" min="1" max="10" value="5" oninput="updateValue('stress', this.value)">
+                            <div class="slider-labels">
+                                <span>平静</span>
+                                <span>可控</span>
+                                <span>不堪重负</span>
+                            </div>
+                            <div class="slider-value" id="stress-val">5</div>
+                        </div>
+                    </div>
+                    
+                    <button class="analyze-btn" onclick="calculateState()">
+                        <i class="fas fa-chart-line"></i> 分析我的状态
+                    </button>
+                </div>
+                
+                <div id="result-section" class="result-section">
+                    <div class="score-display">
+                        <div class="score-circle" id="score-circle">--</div>
+                        <h2 class="state-title" id="state-title">--</h2>
+                        <p class="state-description" id="state-desc"></p>
+                    </div>
+                    
+                    <div class="advice-section">
+                        <h3><i class="fas fa-bullseye"></i> 快速再平衡行动</h3>
+                        <ul class="advice-list" id="advice-list"></ul>
+                    </div>
+                    
+                    <div class="quick-actions-section">
+                        <h3><i class="fas fa-bolt"></i> 即时工具</h3>
+                        <div class="action-grid">
+                            <button class="action-btn" onclick="showBreathing()">
+                                <i class="fas fa-lungs"></i> 呼吸
+                            </button>
+                            <button class="action-btn" onclick="groundingExercise()">
+                                <i class="fas fa-globe"></i> 接地
+                            </button>
+                            <button class="action-btn" onclick="resetTool()">
+                                <i class="fas fa-redo"></i> 重置
+                            </button>
+                            <button class="action-btn" onclick="window.open('https://www.youtube.com/results?search_query=lofi+beats', '_blank')">
+                                <i class="fas fa-music"></i> 轻音乐
                             </button>
                         </div>
-                        
-                        <button class="action-btn reset-btn" onclick="resetAll()" style="width: 100%; margin-top: 20px;">
-                            <i class="fas fa-redo"></i> Check Again
+                    </div>
+                    
+                    <div id="breathing-section" class="breathing-exercise">
+                        <p style="color: var(--accent); font-weight: 500;">跟着圆圈呼吸...</p>
+                        <div class="breathing-circle"></div>
+                        <p style="color: var(--muted); font-size: 0.9rem;">圆圈扩大时吸气，缩小时呼气</p>
+                        <button class="action-btn reset-btn" onclick="hideBreathing()" style="margin-top: 15px;">
+                            <i class="fas fa-stop"></i> 停止
                         </button>
                     </div>
+                    
+                    <button class="action-btn reset-btn" onclick="resetAll()" style="width: 100%; margin-top: 2rem;">
+                        <i class="fas fa-redo"></i> 再次检查
+                    </button>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <p>&copy; 2026 Mindfulness Therapy. All rights reserved.</p>
-            <p class="footer-links">
-                <a href="index.html">Home</a> |
-                
-                    <a href="emotion-explorer.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🎨 Emotion Explorer</a> |
-                
-                    <a href="emotion-balance.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">⚡ Balance Tool</a>
-            </p>
-        </div>
-    </footer>
+    </main>
 
     <script>
-        function toggleMobileMenu() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('show');
+        // Tools dropdown functions
+        function toggleToolsMenu() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.querySelector('.tools-dropdown-btn');
+            if (!menu || !btn) return;
+            
+            if (menu.classList.contains('open')) {
+                menu.classList.remove('open');
+            } else {
+                menu.classList.add('open');
+            }
         }
         
-        function toggleDropdown(dropdownId) {
-            const dropdown = document.getElementById(dropdownId);
-            const toggle = this;
-            
-            document.querySelectorAll('.dropdown-menu').forEach(d => {
-                if (d.id !== dropdownId) d.classList.remove('show');
-            });
-            document.querySelectorAll('.dropdown-toggle').forEach(t => {
-                if (t !== toggle) t.classList.remove('active');
-            });
-            
-            dropdown.classList.toggle('show');
-            toggle.classList.toggle('active');
-            
-            return false;
-        }
-        
-        // Close when clicking outside
         document.addEventListener('click', function(e) {
-            var container = document.getElementById('toolsContainer');
-            if (container && !container.contains(e.target)) {
-                closeToolsDropdown();
+            var btn = document.querySelector('.tools-dropdown-btn');
+            var menu = document.getElementById('toolsMenu');
+            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.remove('open');
             }
         });
-        
+
         function updateValue(id, value) {
             document.getElementById(id + '-val').textContent = value;
         }
@@ -688,45 +674,45 @@
             let state, color, desc, advice;
             
             if (balanceScore >= 80) {
-                state = "⚡ Peak State";
-                color = "#50c8b8";
-                desc = "You're in a strong position. Channel this energy into meaningful work.";
+                state = "⚡ 巅峰状态";
+                color = "#0d9488";
+                desc = "你处于很强的位置。将这种能量投入到有意义的工作中。";
                 advice = [
-                    "Tackle your most important task now — you're sharp",
-                    "Document what's working so you can replicate it",
-                    "Help someone else — your clarity is contagious",
-                    "Set a boundary: protect this state from interruptions"
+                    "现在处理最重要的任务——你很敏锐",
+                    "记录有效的方法，以便你可以复制它",
+                    "帮助别人——你的清晰度具有感染力",
+                    "设定界限：保护这种状态免受干扰"
                 ];
             } else if (balanceScore >= 60) {
-                state = "🌊 Balanced Flow";
-                color = "#4a90d9";
-                desc = "Good equilibrium. Small adjustments will optimize your day.";
+                state = "🌊 平衡流动";
+                color = "#0f766e";
+                desc = "良好的平衡。小的调整将优化你的一天。";
                 advice = [
-                    "Take a 5-minute walk to maintain momentum",
-                    "Drink water — hydration affects clarity more than you think",
-                    "Do one thing that moves your main goal forward",
-                    "Check in with yourself again in 2 hours"
+                    "散步5分钟以维持动力",
+                    "喝水——水合作用对清晰度的影响比你想象的更大",
+                    "做一件能推动你主要目标前进的事情",
+                    "2小时后再次检查自己"
                 ];
             } else if (balanceScore >= 40) {
-                state = "🌫️ Drift Mode";
-                color = "#f5a623";
-                desc = "You're functional but not firing on all cylinders. Time to recalibrate.";
+                state = "��️ 漂移模式";
+                color = "#f59e0b";
+                desc = "你有功能，但没有全速运转。是时候重新校准了。";
                 advice = [
-                    "Close all tabs except the one you need right now",
-                    "Do a 2-minute body scan — where are you holding tension?",
-                    "Eat something with protein if you haven't recently",
-                    "Lower the bar: what's the smallest next step you can take?"
+                    "关闭除你需要的那个标签之外的所有标签",
+                    "进行2分钟身体扫描——你在哪里感到紧张？",
+                    "如果你最近没有吃东西，吃点含蛋白质的食物",
+                    "降低标准：你能采取的最小下一步是什么？"
                 ];
             } else {
-                state = "⛈️ Storm Mode";
-                color = "#e74c3c";
-                desc = "Your system needs care before productivity. Recovery first.";
+                state = "⛈️ 风暴模式";
+                color = "#dc2626";
+                desc = "你的系统需要照顾，然后才能提高效率。恢复优先。";
                 advice = [
-                    "Step away from the screen for 10 minutes minimum",
-                    "Name three things you can see, hear, and feel (grounding)",
-                    "Text someone you trust: 'Having a rough moment'",
-                    "Ask: what's the kindest thing I could do for myself right now?",
-                    "Consider postponing non-urgent tasks until tomorrow"
+                    "至少离开屏幕10分钟",
+                    "说出你能看到、听到和感觉到的三件事（接地）",
+                    "给你信任的人发短信：'正在经历困难时刻'",
+                    "问：我现在能为自己做的最善良的事情是什么？",
+                    "考虑将非紧急任务推迟到明天"
                 ];
             }
             
@@ -763,15 +749,15 @@
         }
         
         function groundingExercise() {
-            alert(`5-4-3-2-1 Grounding Exercise:
+            alert(`5-4-3-2-1 接地练习：
 
-👁️ 5 things you can SEE
-👂 4 things you can HEAR
-✋ 3 things you can TOUCH
-👃 2 things you can SMELL
-👅 1 thing you can TASTE
+��️ 你能看到的5样东西
+👂 你能听到的4种声音
+✋ 你能触摸到的3样东西
+�� 你能闻到的2种气味
+👅 你能尝到的1种味道
 
-Take your time. Come back to now.`);
+慢慢来。回到当下。`);
         }
         
         function resetTool() {
@@ -794,46 +780,6 @@ Take your time. Come back to now.`);
             // Scroll back to top
             document.querySelector('.balance-card').scrollIntoView({ behavior: 'smooth' });
         }
-
-        // Tools dropdown functions
-        function toggleToolsMenu() {
-            var menu = document.getElementById('toolsMenu');
-            var btn = document.getElementById('toolsBtn');
-            if (!menu || !btn) return;
-
-            if (menu.style.display === 'block') {
-                menu.style.display = 'none';
-                menu.classList.remove('open');
-                btn.classList.remove('active');
-            } else {
-                var btnRect = btn.getBoundingClientRect();
-                menu.style.top = (btnRect.bottom + 8) + 'px';
-                menu.style.left = btnRect.left + 'px';
-                menu.style.display = 'block';
-                menu.classList.add('open');
-                btn.classList.add('active');
-            }
-        }
-
-        function closeToolsDropdown() {
-            var menu = document.getElementById('toolsMenu');
-            var btn = document.getElementById('toolsBtn');
-            if (menu) {
-                menu.style.display = 'none';
-                menu.classList.remove('open');
-                menu.style.top = 'auto';
-                menu.style.left = 'auto';
-            }
-            if (btn) btn.classList.remove('active');
-        }
-
-        document.addEventListener('click', function(e) {
-            var btn = document.getElementById('toolsBtn');
-            var menu = document.getElementById('toolsMenu');
-            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
-                closeToolsDropdown();
-            }
-        });
     </script>
 </body>
 </html>
