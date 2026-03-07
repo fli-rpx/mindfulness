@@ -73,7 +73,7 @@
             color: white;
         }
         .hero h1 { color: white; }
-        .hero-subtitle { color: rgba(255,255,255,0.9); }
+        .hero-subtitle { color: rgba(255,255,255,0.7); }
         .hero-container {
             max-width: 720px;
             margin: 0 auto;
@@ -125,17 +125,17 @@
             font-size: 0.875rem;
             font-weight: 500;
             cursor: pointer;
-            border-radius: 6px;
+            border-radius: 9999px;
             font-family: inherit;
             transition: all 0.2s;
         }
-        .tools-dropdown-btn:hover { background: rgba(255,255,255,0.1); color: white; }
+        .tools-dropdown-btn:hover { background: rgba(255, 255, 255, 0.1); color: white; }
         .tools-dropdown-btn.active { background: rgba(13,148,136,0.2); color: var(--accent); }
         .tools-dropdown-menu {
             display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
+            position: fixed;
+            top: auto;
+            left: auto;
             margin-top: 0.5rem;
             background: var(--surface);
             border: 1px solid var(--border);
