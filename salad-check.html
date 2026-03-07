@@ -32,12 +32,12 @@
 
         .tools-dropdown-btn:hover {
             background: #f1f5f1;
-            color: #1e293b; 
+            color: var(--text); 
         }
 
         .tools-dropdown-btn.active {
             background: linear-gradient(135deg, #50c8b8, #4a90d9);
-            color: #1e293b; 
+            color: var(--text); 
         }
 
         .tools-dropdown-menu {
@@ -46,8 +46,8 @@
             top: auto;
             left: auto;
             margin-top: 0.5rem;
-            background: white;
-            border: 1px solid #e2e8f0;
+            background: var(--surface);
+            border: 1px solid var(--border);
             border-radius: 0.75rem;
             box-shadow: 0 10px 40px rgba(0,0,0,0.15);
             min-width: 220px;
@@ -62,7 +62,7 @@
         .tools-dropdown-menu a {
             display: block;
             padding: 0.75rem 1rem;
-            color: #1e293b; 
+            color: var(--text); 
             text-decoration: none;
             font-size: 0.875rem;
             border-radius: 0.5rem;
@@ -71,8 +71,8 @@
         }
 
         .tools-dropdown-menu a:hover {
-            background: rgba(20, 184, 166, 0.1);
-            color: #14b8a6;
+            background: rgba(13,148,136,0.1);
+            color: var(--accent);
         }
 
         /* Salad Check specific styles */
