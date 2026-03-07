@@ -41,12 +41,12 @@
 
         .tools-dropdown-btn:hover {
             background: #f1f5f1;
-            color: white; 
+            color: white;
         }
 
         .tools-dropdown-btn.active {
             background: linear-gradient(135deg, #50c8b8, #4a90d9);
-            color: white; 
+            color: white;
         }
 
         .tools-dropdown-menu {
@@ -71,7 +71,7 @@
         .tools-dropdown-menu a {
             display: block;
             padding: 0.75rem 1rem;
-            color: white; 
+            color: #1e293b;
             text-decoration: none;
             font-size: 0.875rem;
             border-radius: 0.5rem;
@@ -376,7 +376,7 @@
             .results-breakdown {
                 grid-template-columns: 1fr;
             }
-            
+
             .compass-link-card {
                 flex-direction: column;
                 text-align: center;
@@ -544,7 +544,7 @@
             .hero h1 {
                 font-size: 2.5rem;
             }
-            
+
             .hero {
                 padding: 80px 20px 40px;
             }
@@ -564,7 +564,7 @@
                 <a href="index.html" class="nav-btn">Home</a>
                 <a href="cycle.html" class="nav-btn">Cycle</a>
                 <a href="assessment.html" class="nav-btn">AI Chat</a>
-                
+
                 <!-- Tools Dropdown -->
                 <div class="tools-dropdown-container" id="toolsContainer">
                     <button class="tools-dropdown-btn active" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
@@ -578,7 +578,7 @@
                         <a href="interventions.html">🧰 Interventions</a>
                     </div>
                 </div>
-                
+
                 <a href="journal.html" class="nav-btn">Journal</a>
                 <a href="progress.html" class="nav-btn">Progress</a>
                 <a href="learn.html" class="nav-btn">Learn</a>
@@ -686,7 +686,7 @@
         document.addEventListener('click', function(event) {
             const toolsContainer = document.getElementById('toolsContainer');
             const toolsMenu = document.getElementById('toolsMenu');
-            
+
             if (!toolsContainer.contains(event.target)) {
                 toolsMenu.classList.remove('open');
             }
@@ -755,7 +755,7 @@
         function renderQuestion() {
             const question = saladQuestions[currentQuestion];
             const questionsContainer = document.getElementById('saladQuestions');
-            
+
             questionsContainer.innerHTML = `
                 <div class="question-card">
                     <h4>${question.question}</h4>
@@ -768,19 +768,19 @@
                     </div>
                 </div>
             `;
-            
+
             updateProgress();
         }
 
         function selectOption(optionIndex) {
             const question = saladQuestions[currentQuestion];
             const selectedOption = question.options[optionIndex];
-            
+
             // Add scores
             scores.spicy += selectedOption.scores.spicy;
             scores.greasy += selectedOption.scores.greasy;
             scores.vegetable += selectedOption.scores.vegetable;
-            
+
             // Visual feedback
             const buttons = document.querySelectorAll('.option-btn');
             buttons.forEach((btn, index) => {
@@ -789,7 +789,7 @@
                     btn.classList.add('selected');
                 }
             });
-            
+
             // Move to next question after a short delay
             setTimeout(() => {
                 currentQuestion++;
@@ -810,22 +810,22 @@
         function showResults() {
             document.getElementById('saladQuestions').classList.add('hidden');
             document.getElementById('saladResults').classList.remove('hidden');
-            
+
             // Calculate percentages
             const total = scores.spicy + scores.greasy + scores.vegetable;
             const spicyPercent = Math.round((scores.spicy / total) * 100);
             const greasyPercent = Math.round((scores.greasy / total) * 100);
             const vegetablePercent = Math.round((scores.vegetable / total) * 100);
-            
+
             // Update results display
             document.getElementById('spicyScore').textContent = `${spicyPercent}%`;
             document.getElementById('greasyScore').textContent = `${greasyPercent}%`;
             document.getElementById('vegetableScore').textContent = `${vegetablePercent}%`;
-            
+
             document.getElementById('spicyScoreResult').textContent = `${spicyPercent}%`;
             document.getElementById('greasyScoreResult').textContent = `${greasyPercent}%`;
             document.getElementById('vegetableScoreResult').textContent = `${vegetablePercent}%`;
-            
+
             // Generate protocol
             generateProtocol(spicyPercent, greasyPercent, vegetablePercent);
         }
@@ -833,28 +833,28 @@
         function generateProtocol(spicy, greasy, vegetable) {
             const protocolContainer = document.getElementById('protocolSteps');
             let steps = [];
-            
+
             if (spicy > 40) {
                 steps.push({
                     title: "Cool the Heat",
                     description: "Practice 5-4-3-2-1 grounding technique when emotions feel overwhelming"
                 });
             }
-            
+
             if (greasy > 40) {
                 steps.push({
                     title: "Clean the Grease",
                     description: "Replace one compulsive behavior with a mindful activity today"
                 });
             }
-            
+
             if (vegetable < 30) {
                 steps.push({
                     title: "Add More Vegetables",
                     description: "Schedule one nourishing activity that brings genuine joy"
                 });
             }
-            
+
             // Default steps if none specific
             if (steps.length === 0) {
                 steps = [
@@ -872,7 +872,7 @@
                     }
                 ];
             }
-            
+
             protocolContainer.innerHTML = steps.map((step, index) => `
                 <div class="protocol-step">
                     <div class="step-number">${index + 1}</div>
