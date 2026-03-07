@@ -387,9 +387,21 @@
 
         .hero {
             text-align: center;
-            padding: 120px 20px 60px;
-            max-width: 800px;
-            margin: 0 auto;
+            padding: 160px 20px 100px;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.2), transparent),
+                linear-gradient(180deg, #1e3a8a 0%, #1e40af 50%, var(--bg) 100%);
+            color: white;
+            max-width: none;
+            margin: 0;
+        }
+
+        .hero h1 {
+            color: white;
+        }
+
+        .hero-subtitle {
+            color: rgba(255,255,255,0.9);
         }
 
         .hero-eyebrow {
