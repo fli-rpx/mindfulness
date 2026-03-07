@@ -253,6 +253,87 @@
             }
             .interventions-content { padding: 1rem; }
         }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--muted);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--text);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-duration {
+            display: inline-block;
+            background: rgba(13,148,136,0.1);
+            color: var(--accent);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-instructions {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .modal-instructions ol {
+            margin-left: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .modal-instructions li {
+            margin-bottom: 0.75rem;
+        }
+
+        .modal-instructions strong {
+            color: var(--text);
+        }
     </style>
 </head>
 <body>
@@ -387,6 +468,18 @@
         </div>
     </main>
 
+    <!-- Intervention Modal -->
+    <div class="modal-overlay" id="interventionModal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h2 class="modal-title" id="modalTitle">Intervention Title</h2>
+            <span class="modal-duration" id="modalDuration">60s</span>
+            <div class="modal-instructions" id="modalInstructions">
+                Instructions will appear here...
+            </div>
+        </div>
+    </div>
+
     <script src="app.js"></script>
     <script>
         // Tools dropdown functions
@@ -431,12 +524,202 @@
             }
         });
 
-        // Intervention functions
+        // Intervention data
+        const interventions = {
+            'grounding': {
+                title: 'Values Grounding',
+                duration: '60s',
+                instructions: `
+                    <p><strong>Reconnect with your internal values vs external validation.</strong></p>
+                    <ol>
+                        <li>Take a deep breath and pause.</li>
+                        <li>Ask yourself: "What truly matters to me?"</li>
+                        <li>Identify 2-3 core values (e.g., honesty, kindness, growth).</li>
+                        <li>Remind yourself: "My worth comes from within, not from others' opinions."</li>
+                        <li>Feel your feet on the ground and breathe.</li>
+                    </ol>
+                `
+            },
+            'power-pose': {
+                title: 'Power Pose Reset',
+                duration: '90s',
+                instructions: `
+                    <p><strong>Posture-based confidence restoration.</strong></p>
+                    <ol>
+                        <li>Stand up straight with your shoulders back.</li>
+                        <li>Place your hands on your hips (Wonder Woman pose) or raise them in victory.</li>
+                        <li>Hold this pose for 60 seconds.</li>
+                        <li>Breathe deeply and feel your power.</li>
+                        <li>Notice how your confidence increases.</li>
+                    </ol>
+                `
+            },
+            'anchoring': {
+                title: 'Anchor Installation',
+                duration: '45s',
+                instructions: `
+                    <p><strong>Create a physical trigger for resourceful states.</strong></p>
+                    <ol>
+                        <li>Recall a time when you felt confident and capable.</li>
+                        <li>As you feel that state, touch your thumb and forefinger together.</li>
+                        <li>Hold for 5 seconds while fully feeling the positive state.</li>
+                        <li>Release and repeat 3 times.</li>
+                        <li>Use this anchor anytime you need confidence.</li>
+                    </ol>
+                `
+            },
+            'heart-breathing': {
+                title: 'Heart-Centered Breathing',
+                duration: '120s',
+                instructions: `
+                    <p><strong>Coherence breathing through the heart center.</strong></p>
+                    <ol>
+                        <li>Place your hand over your heart.</li>
+                        <li>Breathe in for 5 counts, out for 5 counts.</li>
+                        <li>Focus your attention on your heart area.</li>
+                        <li>Feel gratitude or appreciation for someone or something.</li>
+                        <li>Continue for 2 minutes.</li>
+                    </ol>
+                `
+            },
+            'gratitude': {
+                title: 'Gratitude Amplification',
+                duration: '60s',
+                instructions: `
+                    <p><strong>Three things you're grateful for right now.</strong></p>
+                    <ol>
+                        <li>Pause and take a breath.</li>
+                        <li>Think of 3 things you're grateful for right now.</li>
+                        <li>They can be small (a warm cup of tea) or big (family, health).</li>
+                        <li>Feel the gratitude in your body.</li>
+                        <li>Let this feeling expand.</li>
+                    </ol>
+                `
+            },
+            'compassion': {
+                title: 'Self-Compassion Break',
+                duration: '90s',
+                instructions: `
+                    <p><strong>Kindness towards yourself in difficulty.</strong></p>
+                    <ol>
+                        <li>Acknowledge that you're struggling: "This is a moment of suffering."</li>
+                        <li>Recognize that suffering is part of being human.</li>
+                        <li>Place your hand on your heart.</li>
+                        <li>Say to yourself: "May I be kind to myself."</li>
+                        <li>Offer yourself the same kindness you'd offer a good friend.</li>
+                    </ol>
+                `
+            },
+            'reframing': {
+                title: 'Context Reframe',
+                duration: '60s',
+                instructions: `
+                    <p><strong>Shift perspective on the current situation.</strong></p>
+                    <ol>
+                        <li>Identify the negative thought.</li>
+                        <li>Ask: "Will this matter in 5 years?"</li>
+                        <li>Ask: "What would I tell a friend in this situation?"</li>
+                        <li>Find one positive aspect or opportunity.</li>
+                        <li>Adopt this new perspective.</li>
+                    </ol>
+                `
+            },
+            'labeling': {
+                title: 'Affect Labeling',
+                duration: '30s',
+                instructions: `
+                    <p><strong>Name the emotion to tame it.</strong></p>
+                    <ol>
+                        <li>Notice what you're feeling.</li>
+                        <li>Name the emotion specifically (e.g., "I feel anxious" not "I feel bad").</li>
+                        <li>Say it out loud or write it down.</li>
+                        <li>Notice how naming it reduces its intensity.</li>
+                    </ol>
+                `
+            },
+            'evidence': {
+                title: 'Evidence Check',
+                duration: '75s',
+                instructions: `
+                    <p><strong>Challenge automatic negative thoughts.</strong></p>
+                    <ol>
+                        <li>Identify the negative thought.</li>
+                        <li>Ask: "What evidence supports this thought?"</li>
+                        <li>Ask: "What evidence contradicts this thought?"</li>
+                        <li>Consider alternative explanations.</li>
+                        <li>Form a more balanced thought.</li>
+                    </ol>
+                `
+            },
+            'progressive': {
+                title: 'Progressive Relaxation',
+                duration: '180s',
+                instructions: `
+                    <p><strong>Systematic muscle tension release.</strong></p>
+                    <ol>
+                        <li>Start with your feet - tense for 5 seconds, then release.</li>
+                        <li>Move to your calves - tense and release.</li>
+                        <li>Continue up: thighs, stomach, chest, hands, arms, shoulders.</li>
+                        <li>Finally, tense your whole face, then release.</li>
+                        <li>Notice the wave of relaxation through your body.</li>
+                    </ol>
+                `
+            },
+            'shaking': {
+                title: 'Trauma Releasing',
+                duration: '60s',
+                instructions: `
+                    <p><strong>Shake out stored tension and stress.</strong></p>
+                    <ol>
+                        <li>Stand with feet shoulder-width apart.</li>
+                        <li>Begin gently shaking your hands.</li>
+                        <li>Let the shaking move up your arms to your shoulders.</li>
+                        <li>Allow your whole body to shake gently.</li>
+                        <li>Let go of control and release tension.</li>
+                    </ol>
+                `
+            },
+            'breathwork': {
+                title: '4-7-8 Breathing',
+                duration: '120s',
+                instructions: `
+                    <p><strong>Calm the nervous system quickly.</strong></p>
+                    <ol>
+                        <li>Inhale through your nose for 4 counts.</li>
+                        <li>Hold your breath for 7 counts.</li>
+                        <li>Exhale completely through your mouth for 8 counts.</li>
+                        <li>Repeat this cycle 4 times.</li>
+                        <li>Notice the calming effect on your body.</li>
+                    </ol>
+                `
+            }
+        };
+
+        // Modal functions
         function startIntervention(type) {
-            // Implementation for starting interventions
-            console.log('Starting intervention:', type);
-            // Add your intervention logic here
+            const intervention = interventions[type];
+            if (!intervention) return;
+
+            document.getElementById('modalTitle').textContent = intervention.title;
+            document.getElementById('modalDuration').textContent = intervention.duration;
+            document.getElementById('modalInstructions').innerHTML = intervention.instructions;
+            document.getElementById('interventionModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
+
+        function closeModal(event) {
+            if (!event || event.target.id === 'interventionModal') {
+                document.getElementById('interventionModal').classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>
