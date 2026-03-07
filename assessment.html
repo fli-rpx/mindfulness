@@ -170,11 +170,10 @@
 
         /* Chat Interface */
         .chat-interface {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
+            background: var(--surface);
             border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             overflow: hidden;
         }
 
@@ -184,7 +183,7 @@
             gap: 1rem;
             padding: 20px;
             background: linear-gradient(135deg, rgba(80, 200, 184, 0.1), rgba(74, 144, 217, 0.1));
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid var(--border);
         }
 
         .ai-avatar {
@@ -256,13 +255,14 @@
         }
 
         .ai-message p {
-            background: rgba(255,255,255,0.1);
+            background: var(--bg);
+            border: 1px solid var(--border);
             border-bottom-left-radius: 4px;
-            color: white;
+            color: var(--text);
         }
 
         .chat-input-area {
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid var(--border);
             padding: 20px;
         }
 
