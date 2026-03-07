@@ -257,6 +257,39 @@
             color: var(--text);
         }
 
+        .learn-summary-card {
+            background: linear-gradient(135deg, rgba(13,148,136,0.1) 0%, rgba(13,148,136,0.05) 100%);
+            border: 1px solid rgba(13,148,136,0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .learn-summary-card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .learn-summary-card ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .learn-summary-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        .learn-final {
+            color: var(--accent);
+            font-weight: 600;
+            font-style: italic;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(13,148,136,0.2);
+        }
+
         @media (max-width: 768px) {
             .hero { padding: 140px 1rem 80px; }
             .content-main { padding: 2rem 1rem; }
@@ -420,6 +453,43 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Section 7: Practical Tools -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggleLearnSection(this)">
+                    <span class="learn-icon">🛠️</span>
+                    <h3>Practical Tools for Everyday Situations</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">Simple techniques you can use when you feel yourself getting hooked by something visually appealing.</p>
+                    <div class="learn-detail">
+                        <p><strong>The 3-Step Method:</strong></p>
+                        <ol class="learn-parts-list">
+                            <li><strong>Notice:</strong> "I'm being pulled by this."</li>
+                            <li><strong>Name:</strong> "This is aesthetic arrest/visual hook."</li>
+                            <li><strong>Pause:</strong> Take 3 conscious breaths before deciding.</li>
+                        </ol>
+                        <div class="learn-key-point">
+                            <span class="key-icon">💪</span>
+                            <p><strong>Remember:</strong> The goal isn't to avoid beauty or pleasure. It's to choose consciously rather than being automatically controlled by them.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Card -->
+            <div class="learn-summary-card">
+                <h3>🎯 Key Takeaways</h3>
+                <ul>
+                    <li>Your brain automatically responds to visual stimuli with dopamine rewards</li>
+                    <li>Beauty can create "aesthetic arrest" that temporarily stops your critical thinking</li>
+                    <li>Addiction hijacks this natural reward system, making normal activities less satisfying</li>
+                    <li>Mindfulness creates a gap between stimulus and automatic response</li>
+                    <li>You can train yourself to observe rather than be controlled by visual hooks</li>
+                </ul>
+                <p class="learn-final">The goal isn't to avoid beauty or pleasure, but to engage with them consciously and intentionally.</p>
             </div>
         </div>
     </main>
