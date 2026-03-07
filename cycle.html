@@ -290,42 +290,42 @@
                     <line x1="96.08" y1="140" x2="200" y2="80" stroke="#e2e8f0" stroke-width="3"/>
                     
                     <!-- Power node -->
-                    <g class="cycle-node" onclick="showStateDetail('power')" style="cursor: pointer;">
+                    <g class="cycle-node" onclick="showStateDetail('power')" onmouseenter="changeBackgroundColor('#8B0000')" onmouseleave="resetBackgroundColor()" style="cursor: pointer;">
                         <circle cx="200" cy="80" r="40" fill="#8B000020" stroke="#8B0000" stroke-width="3"/>
                         <text x="200" y="75" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">Power</text>
                         <text x="200" y="92" text-anchor="middle" font-size="20">💪</text>
                     </g>
                     
                     <!-- Possession node -->
-                    <g class="cycle-node" onclick="showStateDetail('possession')" style="cursor: pointer;">
+                    <g class="cycle-node" onclick="showStateDetail('possession')" onmouseenter="changeBackgroundColor('#FF6B35')" onmouseleave="resetBackgroundColor()" style="cursor: pointer;">
                         <circle cx="303.92" cy="140" r="40" fill="#FF6B3520" stroke="#FF6B35" stroke-width="3"/>
                         <text x="303.92" y="135" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">Possession</text>
                         <text x="303.92" y="152" text-anchor="middle" font-size="20">🎯</text>
                     </g>
                     
                     <!-- Loss node -->
-                    <g class="cycle-node" onclick="showStateDetail('loss')" style="cursor: pointer;">
+                    <g class="cycle-node" onclick="showStateDetail('loss')" onmouseenter="changeBackgroundColor('#191970')" onmouseleave="resetBackgroundColor()" style="cursor: pointer;">
                         <circle cx="303.92" cy="260" r="40" fill="#19197020" stroke="#191970" stroke-width="3"/>
                         <text x="303.92" y="255" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">Loss</text>
                         <text x="303.92" y="272" text-anchor="middle" font-size="20">��</text>
                     </g>
                     
                     <!-- Emptiness node -->
-                    <g class="cycle-node" onclick="showStateDetail('emptiness')" style="cursor: pointer;">
+                    <g class="cycle-node" onclick="showStateDetail('emptiness')" onmouseenter="changeBackgroundColor('#36454F')" onmouseleave="resetBackgroundColor()" style="cursor: pointer;">
                         <circle cx="200" cy="320" r="40" fill="#36454F20" stroke="#36454F" stroke-width="3"/>
                         <text x="200" y="315" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">Emptiness</text>
                         <text x="200" y="332" text-anchor="middle" font-size="20">🕳️</text>
                     </g>
                     
                     <!-- Craving node -->
-                    <g class="cycle-node" onclick="showStateDetail('craving')" style="cursor: pointer;">
+                    <g class="cycle-node" onclick="showStateDetail('craving')" onmouseenter="changeBackgroundColor('#DC143C')" onmouseleave="resetBackgroundColor()" style="cursor: pointer;">
                         <circle cx="96.08" cy="260" r="40" fill="#DC143C20" stroke="#DC143C" stroke-width="3"/>
                         <text x="96.08" y="255" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">Craving</text>
                         <text x="96.08" y="272" text-anchor="middle" font-size="20">🔥</text>
                     </g>
                     
                     <!-- Return node -->
-                    <g class="cycle-node" onclick="showStateDetail('return')" style="cursor: pointer;">
+                    <g class="cycle-node" onclick="showStateDetail('return')" onmouseenter="changeBackgroundColor('#2E8B57')" onmouseleave="resetBackgroundColor()" style="cursor: pointer;">
                         <circle cx="96.08" cy="140" r="40" fill="#2E8B5720" stroke="#2E8B57" stroke-width="3"/>
                         <text x="96.08" y="135" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">Return</text>
                         <text x="96.08" y="152" text-anchor="middle" font-size="20">🔄</text>
@@ -432,6 +432,15 @@
             const nodes = document.querySelectorAll('.cycle-node');
             nodes.forEach(node => node.classList.remove('active'));
             document.querySelector(`.cycle-node[onclick="showStateDetail('${state}')"]`).classList.add('active');
+        }
+
+        // Hover effects for cycle nodes
+        function changeBackgroundColor(color) {
+            document.body.style.background = `linear-gradient(135deg, ${color}10 0%, #fafaf9 100%)`;
+        }
+
+        function resetBackgroundColor() {
+            document.body.style.background = '';
         }
     </script>
 </body>
