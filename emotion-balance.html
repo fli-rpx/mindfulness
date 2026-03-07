@@ -46,8 +46,8 @@
             top: auto;
             left: auto;
             margin-top: 0.5rem;
-            background: var(--surface);
-            border: 1px solid var(--border);
+            background: white;
+            border: 1px solid #e2e8f0;
             border-radius: 0.75rem;
             box-shadow: 0 10px 40px rgba(0,0,0,0.15);
             min-width: 220px;
@@ -71,8 +71,8 @@
         }
 
         .tools-dropdown-menu a:hover {
-            background: rgba(13,148,136,0.1);
-            color: #0d9488;
+            background: rgba(20, 184, 166, 0.1);
+            color: #14b8a6;
         }
 
         /* Navigation Bar Styles */
@@ -136,7 +136,7 @@
                 top: 60px;
                 left: 0;
                 right: 0;
-                background: var(--surface);
+                background: white;
                 flex-direction: column;
                 padding: 1rem;
                 box-shadow: 0 10px 40px rgba(0,0,0,0.1);
@@ -464,11 +464,11 @@
 
         /* CSS Variables */
         :root {
-            --bg-primary: #fafaf9;
-            --bg-secondary: #ffffff;
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
             --bg-tertiary: #334155;
-            --text-primary: #1c1917;
-            --text-secondary: #78716c;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
             --text-muted: #94a3b8;
             --accent-primary: #50c8b8;
             --accent-secondary: #4a90d9;
@@ -477,7 +477,7 @@
 
         body {
             background: var(--bg-primary);
-            color: white;
+            color: var(--text-primary);
             font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
@@ -513,7 +513,7 @@
 
         .hero-subtitle {
             font-size: 1.2rem;
-            color: rgba(255,255,255,0.8);
+            color: var(--text-secondary);
             margin-bottom: 2rem;
             max-width: 600px;
             margin-left: auto;
@@ -543,7 +543,7 @@
         .nav-brand {
             font-size: 1.25rem;
             font-weight: 600;
-            color: white;
+            color: var(--text-primary);
             cursor: pointer;
             text-decoration: none;
         }
@@ -559,7 +559,7 @@
             border: none;
             border-radius: 0.5rem;
             background: transparent;
-            color: rgba(255,255,255,0.8);
+            color: var(--text-secondary);
             font-size: 0.875rem;
             font-weight: 500;
             cursor: pointer;
@@ -571,13 +571,13 @@
         }
 
         .nav-btn:hover {
-            background: rgba(255,255,255,0.1);
-            color: white;
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
         }
 
         .nav-btn.active {
             background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            color: white;
+            color: var(--bg-primary);
         }
 
         .mobile-menu-btn {
@@ -585,7 +585,7 @@
             background: none;
             border: none;
             font-size: 1.25rem;
-            color: rgba(255,255,255,0.8);
+            color: var(--text-secondary);
             cursor: pointer;
             padding: 0.5rem;
         }
