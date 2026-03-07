@@ -8,8 +8,243 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="styles.css">
-    <script src="app.js" defer></script>
+    <style>
+        :root {
+            --bg: #fafaf9;
+            --surface: #ffffff;
+            --text: #1c1917;
+            --muted: #78716c;
+            --border: #e7e5e4;
+            --accent: #0d9488;
+            --accent-dark: #0f766e;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(30, 58, 138, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e293b;
+            text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 0.25rem; }
+        .nav-link {
+            padding: 0.5rem 1rem;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .nav-link:hover { color: #1e293b; background: rgba(255,255,255,0.1); }
+        .nav-link.active { color: var(--accent); background: rgba(13,148,136,0.2); }
+        
+        /* Hero */
+        .hero {
+            padding: 160px 2rem 100px;
+            background: 
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.2), transparent),
+                linear-gradient(180deg, #1e3a8a 0%, #1e40af 50%, var(--bg) 100%);
+            color: #1e293b;
+        }
+        .hero h1 { color: #1e293b; }
+        .hero-subtitle { color: rgba(255,255,255,0.7); }
+        .hero-container {
+            max-width: 720px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(13,148,136,0.1);
+            border: 1px solid rgba(13,148,136,0.2);
+            border-radius: 100px;
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
+        }
+        .hero-subtitle {
+            font-size: 1.125rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Main Content */
+        .content-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        .progress-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        /* Tools Dropdown Styles */
+        .tools-dropdown-container { position: relative; display: inline-block; }
+        .tools-dropdown-btn { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.25rem; 
+            padding: 0.5rem 1rem; 
+            border: none; 
+            background: transparent; 
+            color: rgba(255,255,255,0.8); 
+            font-size: 0.875rem; 
+            font-weight: 500; 
+            cursor: pointer; 
+            border-radius: 9999px; 
+            font-family: inherit; 
+            transition: all 0.2s;
+        }
+        .tools-dropdown-btn:hover { background: rgba(255, 255, 255, 0.1); color: #1e293b; }
+        .tools-dropdown-btn.active { background: rgba(13,148,136,0.2); color: var(--accent); }
+        .tools-dropdown-menu { 
+            display: none; 
+            position: fixed; 
+            top: auto; 
+            left: auto; 
+            margin-top: 0.5rem; 
+            background: var(--surface); 
+            border: 1px solid var(--border); 
+            border-radius: 0.75rem; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15); 
+            min-width: 220px; 
+            padding: 0.5rem; 
+            z-index: 9999; 
+        }
+        .tools-dropdown-menu.open { display: block; }
+        .tools-dropdown-menu a { 
+            display: block; 
+            padding: 0.75rem 1rem; 
+            color: var(--text); 
+            text-decoration: none; 
+            font-size: 0.875rem; 
+            border-radius: 0.5rem; 
+            transition: all 0.2s; 
+            white-space: nowrap; 
+        }
+        .tools-dropdown-menu a:hover { background: rgba(13,148,136,0.1); color: var(--accent); }
+
+        /* Progress Styles */
+        .progress-dashboard { display: flex; flex-direction: column; gap: 2rem; }
+        
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .stat-box {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-icon-large {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            font-family: 'Cormorant Garamond', serif;
+        }
+        
+        .stat-label {
+            color: var(--muted);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+        
+        .chart-card, .achievements-card, .insights-card {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .chart-card h3, .achievements-card h3, .insights-card h3 {
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+        }
+        
+        .achievement-item, .insight-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+        
+        .achievement-icon, .insight-icon {
+            font-size: 1.5rem;
+        }
+        
+        .achievement-text h4, .insight-text h4 {
+            color: var(--text);
+            margin-bottom: 0.25rem;
+        }
+        
+        .achievement-text p, .insight-text p {
+            color: var(--muted);
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            .stats-row { grid-template-columns: 1fr; }
+            .hero { padding: 140px 1rem 80px; }
+            .content-main { padding: 2rem 1rem; }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -22,11 +257,11 @@
                 <a href="assessment.html" class="nav-link">AI Chat</a>
                 
                 <!-- Tools Dropdown -->
-                <div class="tools-dropdown-container">
-                    <button class="tools-dropdown-btn" id="tools-menu-button" aria-haspopup="true" aria-expanded="false">
+                <div class="tools-dropdown-container" id="toolsContainer">
+                    <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
                         Tools <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
                     </button>
-                    <div class="tools-dropdown-menu" id="tools-menu-dropdown">
+                    <div class="tools-dropdown-menu" id="toolsMenu">
                         <a href="emotion-explorer.html">🎨 Emotion Explorer</a>
                         <a href="emotion-balance.html">⚡ Emotion Balance</a>
                         <a href="hypnosis.html">🌀 Hypnosis</a>
@@ -81,168 +316,163 @@
 
                 <div class="achievements-card">
                     <h3>🏆 Achievements</h3>
-                    <div id="achievementsList"></div>
+                    <div id="achievementsList">
+                        <div class="achievement-item">
+                            <span class="achievement-icon">🌟</span>
+                            <div class="achievement-text">
+                                <h4>First Step</h4>
+                                <p>Complete your first journal entry</p>
+                            </div>
+                        </div>
+                        <div class="achievement-item">
+                            <span class="achievement-icon">🔥</span>
+                            <div class="achievement-text">
+                                <h4>On Fire</h4>
+                                <p>Maintain a 7-day streak</p>
+                            </div>
+                        </div>
+                        <div class="achievement-item">
+                            <span class="achievement-icon">🧘</span>
+                            <div class="achievement-text">
+                                <h4>Mindful Master</h4>
+                                <p>Complete 30 sessions</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="insights-card">
                     <h3>💡 Emotion Journey</h3>
-                    <div id="insightsList"></div>
+                    <div id="insightsList">
+                        <div class="insight-item">
+                            <span class="insight-icon">📈</span>
+                            <div class="insight-text">
+                                <h4>Track Your Mood</h4>
+                                <p>Start logging your daily mood to see patterns over time</p>
+                            </div>
+                        </div>
+                        <div class="insight-item">
+                            <span class="insight-icon">🎯</span>
+                            <div class="insight-text">
+                                <h4>Set Goals</h4>
+                                <p>Use the Journal to set and track personal mindfulness goals</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Progress tracking
-            function loadProgress() {
-                // Load stats from localStorage
-                const streak = localStorage.getItem('mindfulness_streak') || 0;
-                const sessions = localStorage.getItem('mindfulness_sessions') || 0;
-                const minutes = localStorage.getItem('mindfulness_minutes') || 0;
-                
-                document.getElementById('progressStreak').textContent = streak;
-                document.getElementById('progressSessions').textContent = sessions;
-                document.getElementById('progressMinutes').textContent = minutes;
-                
-                // Load weekly data
-                loadWeeklyChart();
-                
-                // Load achievements
-                loadAchievements();
-                
-                // Load insights
-                loadInsights();
+        // Tools dropdown functions
+        function toggleToolsMenu() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (!menu || !btn) return;
+            
+            if (menu.classList.contains('open')) {
+                menu.classList.remove('open');
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            } else {
+                var btnRect = btn.getBoundingClientRect();
+                menu.style.top = (btnRect.bottom + 8) + 'px';
+                menu.style.left = btnRect.left + 'px';
+                menu.classList.add('open');
+                btn.classList.add('active');
+                btn.setAttribute('aria-expanded', 'true');
             }
+        }
+        
+        function closeToolsDropdown() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (menu) {
+                menu.classList.remove('open');
+            }
+            if (btn) {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        }
+        
+        document.addEventListener('click', function(e) {
+            var btn = document.getElementById('toolsBtn');
+            var menu = document.getElementById('toolsMenu');
+            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
+                closeToolsDropdown();
+            }
+        });
 
-            function loadWeeklyChart() {
-                const ctx = document.getElementById('weeklyChart').getContext('2d');
+        // Progress tracking
+        function loadProgress() {
+            // Load stats from localStorage
+            const streak = localStorage.getItem('mindfulness_streak') || 0;
+            const sessions = localStorage.getItem('mindfulness_sessions') || 0;
+            const minutes = localStorage.getItem('mindfulness_minutes') || 0;
+            
+            document.getElementById('progressStreak').textContent = streak;
+            document.getElementById('progressSessions').textContent = sessions;
+            document.getElementById('progressMinutes').textContent = minutes;
+            
+            // Load weekly chart
+            loadWeeklyChart();
+        }
+
+        function loadWeeklyChart() {
+            const ctx = document.getElementById('weeklyChart').getContext('2d');
+            
+            // Get last 7 days of mood data
+            const labels = [];
+            const data = [];
+            
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toISOString().split('T')[0];
+                labels.push(date.toLocaleDateString('en-US', { weekday: 'short' }));
                 
-                // Get last 7 days of mood data
-                const labels = [];
-                const data = [];
-                
-                for (let i = 6; i >= 0; i--) {
-                    const date = new Date();
-                    date.setDate(date.getDate() - i);
-                    const dateStr = date.toISOString().split('T')[0];
-                    labels.push(date.toLocaleDateString('en-US', { weekday: 'short' }));
-                    
-                    const mood = localStorage.getItem(`mood_${dateStr}`);
-                    data.push(mood ? parseInt(mood) : 0);
-                }
-                
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: labels,
-                        datasets: [{
-                            label: 'Daily Mood',
-                            data: data,
-                            backgroundColor: 'rgba(13, 148, 136, 0.6)',
-                            borderColor: '#0d9488',
-                            borderWidth: 2,
-                            borderRadius: 8
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                max: 5,
-                                ticks: {
-                                    stepSize: 1,
-                                    callback: function(value) {
-                                        const moods = ['', '😢', '😕', '😐', '🙂', '😊'];
-                                        return moods[value] || '';
-                                    }
-                                }
-                            }
-                        },
-                        plugins: {
-                            legend: {
-                                display: false
+                const mood = localStorage.getItem(`mood_${dateStr}`);
+                data.push(mood ? parseInt(mood) : 0);
+            }
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Daily Mood',
+                        data: data,
+                        backgroundColor: 'rgba(13, 148, 136, 0.6)',
+                        borderColor: '#0d9488',
+                        borderWidth: 2,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 5,
+                            ticks: {
+                                stepSize: 1
                             }
                         }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
                     }
-                });
-            }
-
-            function loadAchievements() {
-                const achievements = [
-                    { id: 'first_entry', icon: '📝', title: 'First Step', desc: 'Made your first journal entry', check: () => (JSON.parse(localStorage.getItem('journalEntries') || '[]').length > 0) },
-                    { id: 'week_streak', icon: '🔥', title: 'On Fire', desc: '7-day streak', check: () => (parseInt(localStorage.getItem('mindfulness_streak') || 0) >= 7) },
-                    { id: 'mood_tracker', icon: '😊', title: 'Mood Master', desc: 'Logged mood 5 times', check: () => countMoodLogs() >= 5 },
-                    { id: 'explorer', icon: '🎨', title: 'Explorer', desc: 'Used Emotion Explorer', check: () => localStorage.getItem('used_emotion_explorer') === 'true' },
-                    { id: 'balanced', icon: '⚖️', title: 'Balanced', desc: 'Completed Emotion Balance', check: () => localStorage.getItem('completed_emotion_balance') === 'true' }
-                ];
-                
-                const container = document.getElementById('achievementsList');
-                container.innerHTML = achievements.map(ach => {
-                    const unlocked = ach.check();
-                    return `
-                        <div class="achievement-item ${unlocked ? '' : 'achievement-locked'}">
-                            <div class="achievement-icon">${ach.icon}</div>
-                            <div class="achievement-info">
-                                <h4>${ach.title} ${unlocked ? '✓' : '��'}</h4>
-                                <p>${ach.desc}</p>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-            }
-
-            function countMoodLogs() {
-                let count = 0;
-                for (let i = 0; i < 30; i++) {
-                    const date = new Date();
-                    date.setDate(date.getDate() - i);
-                    const dateStr = date.toISOString().split('T')[0];
-                    if (localStorage.getItem(`mood_${dateStr}`)) count++;
                 }
-                return count;
-            }
+            });
+        }
 
-            function loadInsights() {
-                const entries = JSON.parse(localStorage.getItem('journalEntries') || '[]');
-                const insights = [];
-                
-                if (entries.length > 0) {
-                    // Calculate average mood
-                    const moods = entries.filter(e => e.mood && e.mood !== 'Not recorded').map(e => parseInt(e.mood));
-                    if (moods.length > 0) {
-                        const avgMood = moods.reduce((a, b) => a + b, 0) / moods.length;
-                        const moodText = avgMood >= 4 ? 'positive' : avgMood >= 3 ? 'balanced' : 'challenging';
-                        insights.push({
-                            title: 'Your Average Mood',
-                            text: `Based on your entries, your average mood has been ${moodText}. Keep tracking to see patterns!`
-                        });
-                    }
-                    
-                    // Entry count insight
-                    insights.push({
-                        title: 'Journey Progress',
-                        text: `You've made ${entries.length} journal ${entries.length === 1 ? 'entry' : 'entries'}. Each one is a step toward self-awareness.`
-                    });
-                }
-                
-                const container = document.getElementById('insightsList');
-                if (insights.length > 0) {
-                    container.innerHTML = insights.map(insight => `
-                        <div class="insight-item">
-                            <h4>${insight.title}</h4>
-                            <p>${insight.text}</p>
-                        </div>
-                    `).join('');
-                } else {
-                    container.innerHTML = `<p style="text-align: center; color: var(--muted);">No insights yet. Start journaling to uncover patterns in your emotional journey.</p>`;
-                }
-            }
-
-            loadProgress();
-        });
+        // Load progress on page load
+        document.addEventListener('DOMContentLoaded', loadProgress);
     </script>
 </body>
 </html>

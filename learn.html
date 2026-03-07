@@ -7,8 +7,262 @@
     <title>Learn - Mindfulness Therapy</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <script src="app.js" defer></script>
+    <style>
+        :root {
+            --bg: #fafaf9;
+            --surface: #ffffff;
+            --text: #1c1917;
+            --muted: #78716c;
+            --border: #e7e5e4;
+            --accent: #0d9488;
+            --accent-dark: #0f766e;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(30, 58, 138, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e293b;
+            text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 0.25rem; }
+        .nav-link {
+            padding: 0.5rem 1rem;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .nav-link:hover { color: #1e293b; background: rgba(255,255,255,0.1); }
+        .nav-link.active { color: var(--accent); background: rgba(13,148,136,0.2); }
+        
+        /* Hero */
+        .hero {
+            padding: 160px 2rem 100px;
+            background: 
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.2), transparent),
+                linear-gradient(180deg, #1e3a8a 0%, #1e40af 50%, var(--bg) 100%);
+            color: #1e293b;
+        }
+        .hero h1 { color: #1e293b; }
+        .hero-subtitle { color: rgba(255,255,255,0.7); }
+        .hero-container {
+            max-width: 720px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(13,148,136,0.1);
+            border: 1px solid rgba(13,148,136,0.2);
+            border-radius: 100px;
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
+        }
+        .hero-subtitle {
+            font-size: 1.125rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Main Content */
+        .content-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        .learn-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Tools Dropdown Styles */
+        .tools-dropdown-container { position: relative; display: inline-block; }
+        .tools-dropdown-btn { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.25rem; 
+            padding: 0.5rem 1rem; 
+            border: none; 
+            background: transparent; 
+            color: rgba(255,255,255,0.8); 
+            font-size: 0.875rem; 
+            font-weight: 500; 
+            cursor: pointer; 
+            border-radius: 9999px; 
+            font-family: inherit; 
+            transition: all 0.2s;
+        }
+        .tools-dropdown-btn:hover { background: rgba(255, 255, 255, 0.1); color: #1e293b; }
+        .tools-dropdown-btn.active { background: rgba(13,148,136,0.2); color: var(--accent); }
+        .tools-dropdown-menu { 
+            display: none; 
+            position: fixed; 
+            top: auto; 
+            left: auto; 
+            margin-top: 0.5rem; 
+            background: var(--surface); 
+            border: 1px solid var(--border); 
+            border-radius: 0.75rem; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15); 
+            min-width: 220px; 
+            padding: 0.5rem; 
+            z-index: 9999; 
+        }
+        .tools-dropdown-menu.open { display: block; }
+        .tools-dropdown-menu a { 
+            display: block; 
+            padding: 0.75rem 1rem; 
+            color: var(--text); 
+            text-decoration: none; 
+            font-size: 0.875rem; 
+            border-radius: 0.5rem; 
+            transition: all 0.2s; 
+            white-space: nowrap; 
+        }
+        .tools-dropdown-menu a:hover { background: rgba(13,148,136,0.1); color: var(--accent); }
+
+        /* Learn Section Styles */
+        .learn-section {
+            background: var(--surface);
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .learn-section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .learn-section-header:hover {
+            background: var(--bg);
+        }
+        
+        .learn-icon {
+            font-size: 1.5rem;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg);
+            border-radius: 12px;
+        }
+        
+        .learn-section-header h3 {
+            flex: 1;
+            color: var(--text);
+            font-size: 1.25rem;
+        }
+        
+        .learn-toggle {
+            color: var(--muted);
+            transition: transform 0.3s;
+        }
+        
+        .learn-section.active .learn-toggle {
+            transform: rotate(180deg);
+        }
+        
+        .learn-section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .learn-section.active .learn-section-content {
+            max-height: 1000px;
+        }
+        
+        .learn-summary {
+            padding: 0 1.5rem 1rem;
+            color: var(--muted);
+            font-style: italic;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .learn-detail {
+            padding: 1.5rem;
+        }
+        
+        .learn-detail p {
+            color: var(--text);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        
+        .learn-key-point {
+            display: flex;
+            gap: 1rem;
+            background: var(--bg);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+        
+        .key-icon {
+            font-size: 1.25rem;
+        }
+        
+        .learn-key-point p {
+            margin: 0;
+            color: var(--text);
+        }
+
+        @media (max-width: 768px) {
+            .hero { padding: 140px 1rem 80px; }
+            .content-main { padding: 2rem 1rem; }
+            .learn-section-header h3 { font-size: 1.1rem; }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -21,11 +275,11 @@
                 <a href="assessment.html" class="nav-link">AI Chat</a>
                 
                 <!-- Tools Dropdown -->
-                <div class="tools-dropdown-container">
-                    <button class="tools-dropdown-btn" id="tools-menu-button" aria-haspopup="true" aria-expanded="false">
+                <div class="tools-dropdown-container" id="toolsContainer">
+                    <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
                         Tools <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
                     </button>
-                    <div class="tools-dropdown-menu" id="tools-menu-dropdown">
+                    <div class="tools-dropdown-menu" id="toolsMenu">
                         <a href="emotion-explorer.html">🎨 Emotion Explorer</a>
                         <a href="emotion-balance.html">⚡ Emotion Balance</a>
                         <a href="hypnosis.html">🌀 Hypnosis</a>
@@ -149,60 +403,72 @@
                 </div>
             </div>
 
-            <!-- Section 6: Practical Application -->
+            <!-- Section 6: Hypnosis -->
             <div class="learn-section">
                 <div class="learn-section-header" onclick="toggleLearnSection(this)">
-                    <span class="learn-icon">🛠️</span>
-                    <h3>Practical Tools for Everyday Situations</h3>
+                    <span class="learn-icon">🌀</span>
+                    <h3>Hypnosis for Emotional Balance</h3>
                     <i class="fas fa-chevron-down learn-toggle"></i>
                 </div>
                 <div class="learn-section-content">
-                    <p class="learn-summary">Simple techniques you can use when you feel yourself getting hooked by something visually appealing.</p>
+                    <p class="learn-summary">Hypnosis is a powerful tool for accessing the subconscious mind and creating lasting emotional change.</p>
                     <div class="learn-detail">
-                        <p><strong>The 3-Step Method:</strong></p>
-                        <ol class="learn-parts-list">
-                            <li><strong>Notice:</strong> "I'm being pulled by this."</li>
-                            <li><strong>Name:</strong> "This is aesthetic arrest/visual hook."</li>
-                            <li><strong>Pause:</strong> Take 3 conscious breaths before deciding.</li>
-                        </ol>
+                        <p><strong>How It Works:</strong> Hypnosis puts you in a state of focused attention where your subconscious mind becomes more receptive to positive suggestions. This can help break old patterns and establish new, healthier responses.</p>
                         <div class="learn-key-point">
-                            <span class="key-icon">💪</span>
-                            <p><strong>Remember:</strong> The goal isn't to avoid beauty or pleasure. It's to choose consciously rather than being automatically controlled by them.</p>
+                            <span class="key-icon">💫</span>
+                            <p><strong>Try It:</strong> Visit our <a href="hypnosis.html">Hypnosis page</a> for guided sessions to help with emotional balance and breaking the power-possession cycle.</p>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Summary Card -->
-            <div class="learn-summary-card">
-                <h3>🎯 Key Takeaways</h3>
-                <ul>
-                    <li>Your brain automatically responds to visual stimuli with dopamine rewards</li>
-                    <li>Beauty can create "aesthetic arrest" that temporarily stops your critical thinking</li>
-                    <li>Addiction hijacks this natural reward system, making normal activities less satisfying</li>
-                    <li>Mindfulness creates a gap between stimulus and automatic response</li>
-                    <li>You can train yourself to observe rather than be controlled by visual hooks</li>
-                </ul>
-                <p class="learn-final">The goal isn't to avoid beauty or pleasure, but to engage with them consciously and intentionally.</p>
             </div>
         </div>
     </main>
 
     <script>
-        // Learn section toggle functionality
+        // Tools dropdown functions
+        function toggleToolsMenu() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (!menu || !btn) return;
+            
+            if (menu.classList.contains('open')) {
+                menu.classList.remove('open');
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            } else {
+                var btnRect = btn.getBoundingClientRect();
+                menu.style.top = (btnRect.bottom + 8) + 'px';
+                menu.style.left = btnRect.left + 'px';
+                menu.classList.add('open');
+                btn.classList.add('active');
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        }
+        
+        function closeToolsDropdown() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (menu) {
+                menu.classList.remove('open');
+            }
+            if (btn) {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        }
+        
+        document.addEventListener('click', function(e) {
+            var btn = document.getElementById('toolsBtn');
+            var menu = document.getElementById('toolsMenu');
+            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
+                closeToolsDropdown();
+            }
+        });
+
+        // Learn section toggle
         function toggleLearnSection(header) {
             const section = header.parentElement;
-            const content = section.querySelector('.learn-section-content');
-            
-            // Close all other sections
-            document.querySelectorAll('.learn-section').forEach(s => {
-                if (s !== section) {
-                    s.classList.remove('open');
-                }
-            });
-            
-            // Toggle current section
-            section.classList.toggle('open');
+            section.classList.toggle('active');
         }
     </script>
 </body>
