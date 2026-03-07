@@ -9,7 +9,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Tools Dropdown Styles */
+        :root {
+            --bg: #fafaf9;
+            --surface: #ffffff;
+            --text: #1c1917;
+            --muted: #78716c;
+            --border: #e7e5e4;
+            --accent: #0d9488;
+            --accent-dark: #0f766e;
+        }
         .tools-dropdown-container {
             position: relative;
             display: inline-block;
@@ -476,7 +484,7 @@
         }
 
         body {
-            background: var(--bg-primary);
+            background: var(--bg);
             color: white;
             font-family: 'Inter', sans-serif;
             margin: 0;
@@ -495,7 +503,7 @@
         .hero-eyebrow {
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.2rem;
-            color: var(--accent-primary);
+            color: var(--accent);
             margin-bottom: 1rem;
             font-style: italic;
         }
@@ -505,7 +513,7 @@
             font-size: 3.5rem;
             font-weight: 600;
             margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -528,7 +536,7 @@
             z-index: 1000;
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border);
         }
 
         .nav-container {
@@ -576,7 +584,7 @@
         }
 
         .nav-btn.active {
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
             color: white;
         }
 
@@ -597,7 +605,7 @@
                 top: 60px;
                 left: 0;
                 right: 0;
-                background: var(--bg-secondary);
+                background: var(--surface);
                 flex-direction: column;
                 padding: 1rem;
                 box-shadow: 0 10px 40px rgba(0,0,0,0.1);
