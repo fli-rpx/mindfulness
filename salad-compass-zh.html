@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Tools Dropdown Styles */
+        /* 工具 Dropdown Styles */
         .tools-dropdown-container {
             position: relative;
             display: inline-block;
@@ -376,7 +376,7 @@
                     <button class="nav-btn" onclick="window.location.href='cycle.html'" style="color: rgba(255,255,255,0.8);">周期</button>
                     <button class="nav-btn" onclick="window.location.href='assessment.html'" style="color: rgba(255,255,255,0.8);">AI对话</button>
 
-                    <!-- Tools Dropdown -->
+                    <!-- 工具 Dropdown -->
                     <div class="tools-dropdown-container" id="toolsContainer">
                         <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();" style="color: rgba(255,255,255,0.8);">
                             工具 <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
@@ -399,7 +399,7 @@
                 </div>
             </nav>
 
-            <!-- Salad Compass Content -->
+            <!-- 沙拉罗盘 Content -->
             <div class="compass-container">
                 <a href="index-zh.html" class="back-link">
                 </a>
@@ -580,7 +580,7 @@
             navLinks.classList.toggle('show');
         }
 
-        // Tools dropdown functions
+        // 工具 dropdown functions
         function toggleToolsMenu() {
             var menu = document.getElementById('toolsMenu');
             var btn = document.getElementById('toolsBtn');
@@ -613,7 +613,7 @@
             if (btn) btn.classList.remove('active');
         }
 
-        // Close dropdown when clicking outside
+        // 关闭 dropdown when clicking outside
         document.addEventListener('click', function(e) {
             var btn = document.getElementById('toolsBtn');
             var menu = document.getElementById('toolsMenu');

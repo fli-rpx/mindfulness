@@ -422,7 +422,7 @@
             <button class="nav-btn" onclick="window.location.href='index.html'">首页</button>
             <button class="nav-btn" onclick="window.location.href='emotion-balance.html'">情绪平衡</button>
 
-            <!-- Tools Dropdown -->
+            <!-- 工具 Dropdown -->
             <div class="tools-dropdown-container" id="toolsContainer">
                 <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
                     工具 <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
@@ -719,7 +719,7 @@
             updateUI();
         }
 
-        // Tools dropdown functions
+        // 工具 dropdown functions
         function toggleToolsMenu() {
             const menu = document.getElementById('toolsMenu');
             const btn = document.getElementById('toolsBtn');
@@ -747,7 +747,7 @@
             navLinks.classList.toggle('show');
         }
 
-        // Close dropdown when clicking outside
+        // 关闭 dropdown when clicking outside
         document.addEventListener('click', function(event) {
             const container = document.getElementById('toolsContainer');
             const menu = document.getElementById('toolsMenu');
