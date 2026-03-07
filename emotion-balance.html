@@ -9,16 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --bg: #fafaf9;
-            --surface: #ffffff;
-            --text: #1c1917;
-            --muted: #78716c;
-            --border: #e7e5e4;
-            --accent: #0d9488;
-            --accent-dark: #0f766e;
-        }
-
+        /* Tools Dropdown Styles */
         .tools-dropdown-container {
             position: relative;
             display: inline-block;
@@ -41,12 +32,12 @@
 
         .tools-dropdown-btn:hover {
             background: #f1f5f9;
-            color: white;
+            color: #1e293b; 
         }
 
         .tools-dropdown-btn.active {
             background: linear-gradient(135deg, #50c8b8, #4a90d9);
-            color: white;
+            color: #1e293b; 
         }
 
         .tools-dropdown-menu {
@@ -71,7 +62,7 @@
         .tools-dropdown-menu a {
             display: block;
             padding: 0.75rem 1rem;
-            color: #000000;
+            color: #1e293b; 
             text-decoration: none;
             font-size: 0.875rem;
             border-radius: 0.5rem;
@@ -96,7 +87,7 @@
         .nav-brand {
             font-size: 1.25rem;
             font-weight: 600;
-            color: white;
+            color: #1e293b; 
         }
 
         .nav-links {
@@ -120,12 +111,12 @@
 
         .nav-btn:hover {
             background: #f1f5f9;
-            color: white;
+            color: #1e293b; 
         }
 
         .nav-btn.active {
             background: linear-gradient(135deg, #50c8b8, #4a90d9);
-            color: white;
+            color: #1e293b; 
         }
 
         .mobile-menu-btn {
@@ -172,7 +163,7 @@
             margin: 0 auto;
             padding: 120px 20px 40px 20px;
         }
-
+        
         .balance-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
@@ -181,12 +172,12 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
         }
-
+        
         .balance-header {
             text-align: center;
             margin-bottom: 30px;
         }
-
+        
         .balance-header h1 {
             font-size: 2rem;
             background: linear-gradient(90deg, #50c8b8, #4a90d9);
@@ -195,16 +186,16 @@
             background-clip: text;
             margin-bottom: 10px;
         }
-
+        
         .balance-header .subtitle {
             color: #b0b0b8;
             font-size: 0.95rem;
         }
-
+        
         .slider-question {
             margin-bottom: 30px;
         }
-
+        
         .slider-question label {
             display: block;
             margin-bottom: 12px;
@@ -212,11 +203,11 @@
             color: #e0e0e8;
             font-weight: 500;
         }
-
+        
         .slider-container {
             position: relative;
         }
-
+        
         .slider-track {
             width: 100%;
             height: 8px;
@@ -225,7 +216,7 @@
             outline: none;
             -webkit-appearance: none;
         }
-
+        
         .slider-track::-webkit-slider-thumb {
             -webkit-appearance: none;
             width: 24px;
@@ -236,11 +227,11 @@
             box-shadow: 0 4px 15px rgba(80, 200, 184, 0.4);
             transition: transform 0.2s;
         }
-
+        
         .slider-track::-webkit-slider-thumb:hover {
             transform: scale(1.1);
         }
-
+        
         .slider-labels {
             display: flex;
             justify-content: space-between;
@@ -248,7 +239,7 @@
             font-size: 0.8rem;
             color: #888;
         }
-
+        
         .slider-value {
             text-align: center;
             margin-top: 8px;
@@ -256,7 +247,7 @@
             color: #50c8b8;
             font-weight: 600;
         }
-
+        
         .analyze-btn {
             width: 100%;
             padding: 16px;
@@ -264,19 +255,19 @@
             border: none;
             border-radius: 12px;
             background: linear-gradient(135deg, #50c8b8, #4a90d9);
-            color: white;
+            color: #1e293b; 
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             box-shadow: 0 10px 30px rgba(80, 200, 184, 0.3);
         }
-
+        
         .analyze-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 15px 40px rgba(80, 200, 184, 0.4);
         }
-
+        
         .result-section {
             display: none;
             margin-top: 30px;
@@ -286,21 +277,21 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             animation: fadeIn 0.5s ease;
         }
-
+        
         .result-section.show {
             display: block;
         }
-
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
+        
         .score-display {
             text-align: center;
             margin-bottom: 25px;
         }
-
+        
         .score-circle {
             width: 120px;
             height: 120px;
@@ -314,7 +305,7 @@
             position: relative;
             background: rgba(0, 0, 0, 0.2);
         }
-
+        
         .score-circle::before {
             content: '';
             position: absolute;
@@ -323,22 +314,22 @@
             background: conic-gradient(var(--score-color) var(--score-deg), rgba(255,255,255,0.1) 0);
             z-index: -1;
         }
-
+        
         .state-title {
             font-size: 1.5rem;
             margin-bottom: 10px;
             color: var(--score-color);
         }
-
+        
         .state-description {
             color: #b0b0b8;
             line-height: 1.6;
         }
-
+        
         .advice-section {
             margin-top: 25px;
         }
-
+        
         .advice-section h3 {
             color: #50c8b8;
             margin-bottom: 15px;
@@ -347,11 +338,11 @@
             align-items: center;
             gap: 8px;
         }
-
+        
         .advice-list {
             list-style: none;
         }
-
+        
         .advice-list li {
             padding: 12px 0;
             padding-left: 30px;
@@ -360,11 +351,11 @@
             line-height: 1.6;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-
+        
         .advice-list li:last-child {
             border-bottom: none;
         }
-
+        
         .advice-list li::before {
             content: '→';
             position: absolute;
@@ -372,13 +363,13 @@
             color: #50c8b8;
             font-weight: bold;
         }
-
+        
         .quick-actions-section {
             margin-top: 25px;
             padding-top: 25px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
-
+        
         .quick-actions-section h3 {
             color: #4a90d9;
             margin-bottom: 15px;
@@ -387,13 +378,13 @@
             align-items: center;
             gap: 8px;
         }
-
+        
         .action-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
         }
-
+        
         .action-btn {
             padding: 14px;
             border-radius: 10px;
@@ -408,13 +399,13 @@
             justify-content: center;
             gap: 8px;
         }
-
+        
         .action-btn:hover {
             background: rgba(80, 200, 184, 0.2);
             border-color: #50c8b8;
             transform: translateY(-1px);
         }
-
+        
         .breathing-exercise {
             display: none;
             margin-top: 25px;
@@ -424,12 +415,12 @@
             border-radius: 15px;
             border: 1px solid rgba(80, 200, 184, 0.2);
         }
-
+        
         .breathing-exercise.show {
             display: block;
             animation: fadeIn 0.5s ease;
         }
-
+        
         .breathing-circle {
             width: 100px;
             height: 100px;
@@ -438,12 +429,12 @@
             margin: 20px auto;
             animation: breathe 4s ease-in-out infinite;
         }
-
+        
         @keyframes breathe {
             0%, 100% { transform: scale(1); opacity: 0.7; }
             50% { transform: scale(1.3); opacity: 1; }
         }
-
+        
         .reset-btn {
             margin-top: 20px;
             background: transparent;
@@ -451,12 +442,12 @@
             box-shadow: none;
             color: #b0b0b8;
         }
-
+        
         .reset-btn:hover {
             background: rgba(255, 255, 255, 0.1);
             color: #fff;
         }
-
+        
         .back-link {
             display: inline-flex;
             align-items: center;
@@ -466,15 +457,26 @@
             margin-bottom: 20px;
             transition: color 0.2s;
         }
-
+        
         .back-link:hover {
             color: #50c8b8;
         }
 
         /* CSS Variables */
+        :root {
+            --bg-primary: #fafaf9;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #334155;
+            --text-primary: #1c1917;
+            --text-secondary: #78716c;
+            --text-muted: #94a3b8;
+            --accent-primary: #50c8b8;
+            --accent-secondary: #4a90d9;
+            --border-color: #475569;
+        }
 
         body {
-            background: var(--bg);
+            background: var(--bg-primary);
             color: white;
             font-family: 'Inter', sans-serif;
             margin: 0;
@@ -485,27 +487,15 @@
 
         .hero {
             text-align: center;
-            padding: 160px 20px 100px;
-            background:
-                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.2), transparent),
-                linear-gradient(180deg, #1e3a8a 0%, #1e40af 50%, var(--bg) 100%);
-            color: white;
-            max-width: none;
-            margin: 0;
-        }
-
-        .hero h1 {
-            color: white;
-        }
-
-        .hero-subtitle {
-            color: rgba(255,255,255,0.9);
+            padding: 120px 20px 60px;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .hero-eyebrow {
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.2rem;
-            color: var(--accent);
+            color: var(--accent-primary);
             margin-bottom: 1rem;
             font-style: italic;
         }
@@ -515,7 +505,7 @@
             font-size: 3.5rem;
             font-weight: 600;
             margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -536,9 +526,9 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            background: rgba(30, 58, 138, 0.9);
+            background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .nav-container {
@@ -586,7 +576,7 @@
         }
 
         .nav-btn.active {
-            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
             color: white;
         }
 
@@ -607,7 +597,7 @@
                 top: 60px;
                 left: 0;
                 right: 0;
-                background: var(--surface);
+                background: var(--bg-secondary);
                 flex-direction: column;
                 padding: 1rem;
                 box-shadow: 0 10px 40px rgba(0,0,0,0.1);
@@ -632,11 +622,11 @@
             .hero h1 {
                 font-size: 2.5rem;
             }
-
+            
             .hero {
                 padding: 80px 20px 40px;
             }
-
+            
             .balance-content {
                 padding: 80px 20px 40px;
             }
@@ -656,7 +646,7 @@
                 <a href="index.html" class="nav-btn">Home</a>
                 <a href="cycle.html" class="nav-btn">Cycle</a>
                 <a href="assessment.html" class="nav-btn">AI Chat</a>
-
+                
                 <!-- Tools Dropdown -->
                 <div class="tools-dropdown-container" id="toolsContainer">
                     <button class="tools-dropdown-btn active" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
@@ -671,7 +661,7 @@
                         <a href="interventions.html">🧰 Interventions</a>
                     </div>
                 </div>
-
+                
                 <a href="journal.html" class="nav-btn">Journal</a>
                 <a href="progress.html" class="nav-btn">Progress</a>
                 <a href="learn.html" class="nav-btn">Learn</a>
@@ -693,7 +683,7 @@
                 <h1>⚡ Emotion Balance Tool</h1>
                 <p class="subtitle">Check in. Get balanced. Move forward.</p>
             </div>
-
+            
             <div id="quiz-section">
                 <div class="slider-question">
                     <label>1. Energy Level</label>
@@ -707,7 +697,7 @@
                         <div class="slider-value" id="energy-val">5</div>
                     </div>
                 </div>
-
+                
                 <div class="slider-question">
                     <label>2. Mental Clarity</label>
                     <div class="slider-container">
@@ -720,7 +710,7 @@
                         <div class="slider-value" id="clarity-val">5</div>
                     </div>
                 </div>
-
+                
                 <div class="slider-question">
                     <label>3. Emotional Stability</label>
                     <div class="slider-container">
@@ -733,7 +723,7 @@
                         <div class="slider-value" id="stability-val">5</div>
                     </div>
                 </div>
-
+                
                 <div class="slider-question">
                     <label>4. Stress Level</label>
                     <div class="slider-container">
@@ -746,24 +736,24 @@
                         <div class="slider-value" id="stress-val">5</div>
                     </div>
                 </div>
-
+                
                 <button class="analyze-btn" onclick="calculateState()">
                     <i class="fas fa-chart-line"></i> Analyze My State
                 </button>
             </div>
-
+            
             <div id="result-section" class="result-section">
                 <div class="score-display">
                     <div class="score-circle" id="score-circle">--</div>
                     <h2 class="state-title" id="state-title">--</h2>
                     <p class="state-description" id="state-desc"></p>
                 </div>
-
+                
                 <div class="advice-section">
                     <h3><i class="fas fa-bullseye"></i> Quick Rebalance Actions</h3>
                     <ul class="advice-list" id="advice-list"></ul>
                 </div>
-
+                
                 <div class="quick-actions-section">
                     <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
                     <div class="action-grid">
@@ -781,7 +771,7 @@
                         </button>
                     </div>
                 </div>
-
+                
                 <div class="breathing-exercise" id="breathingExercise">
                     <h4><i class="fas fa-lungs"></i> Breathing Exercise</h4>
                     <p>Follow the circle rhythm</p>
@@ -791,7 +781,7 @@
                         <i class="fas fa-stop"></i> Stop
                     </button>
                 </div>
-
+                
                 <button class="reset-btn analyze-btn" onclick="resetQuiz()">
                     <i class="fas fa-redo"></i> Take Assessment Again
                 </button>
@@ -820,7 +810,7 @@
         document.addEventListener('click', function(event) {
             const toolsContainer = document.getElementById('toolsContainer');
             const toolsMenu = document.getElementById('toolsMenu');
-
+            
             if (!toolsContainer.contains(event.target)) {
                 toolsMenu.classList.remove('open');
             }
@@ -836,13 +826,13 @@
             const clarity = parseInt(document.getElementById('clarity').value);
             const stability = parseInt(document.getElementById('stability').value);
             const stress = parseInt(document.getElementById('stress').value);
-
+            
             // Calculate balance score (higher is better)
             const balanceScore = Math.round((energy + clarity + stability + (11 - stress)) / 4 * 10);
-
+            
             // Determine state
             let state, description, color, advice;
-
+            
             if (balanceScore >= 80) {
                 state = "Thriving";
                 description = "You're in an excellent state of balance and well-being.";
@@ -894,17 +884,17 @@
                     "Use our breathing exercises to ground yourself"
                 ];
             }
-
+            
             // Update display
             const scoreCircle = document.getElementById('score-circle');
             scoreCircle.textContent = balanceScore;
             scoreCircle.style.setProperty('--score-color', color);
             scoreCircle.style.setProperty('--score-deg', (balanceScore * 3.6) + 'deg');
-
+            
             document.getElementById('state-title').textContent = state;
             document.getElementById('state-title').style.color = color;
             document.getElementById('state-desc').textContent = description;
-
+            
             // Update advice list
             const adviceList = document.getElementById('advice-list');
             adviceList.innerHTML = '';
@@ -913,7 +903,7 @@
                 li.textContent = item;
                 adviceList.appendChild(li);
             });
-
+            
             // Show results
             document.getElementById('quiz-section').style.display = 'none';
             document.getElementById('result-section').classList.add('show');
@@ -923,13 +913,13 @@
             document.getElementById('quiz-section').style.display = 'block';
             document.getElementById('result-section').classList.remove('show');
             document.getElementById('breathingExercise').classList.remove('show');
-
+            
             // Reset sliders
             document.getElementById('energy').value = 5;
             document.getElementById('clarity').value = 5;
             document.getElementById('stability').value = 5;
             document.getElementById('stress').value = 5;
-
+            
             updateValue('energy', 5);
             updateValue('clarity', 5);
             updateValue('stability', 5);
@@ -938,23 +928,23 @@
 
         function startBreathing() {
             document.getElementById('breathingExercise').classList.add('show');
-
+            
             let breathPhase = 0;
             const breathText = document.getElementById('breathText');
             const phases = ['Breathe In', 'Hold', 'Breathe Out', 'Hold'];
-
+            
             const breathingInterval = setInterval(() => {
                 breathText.textContent = phases[breathPhase];
                 breathPhase = (breathPhase + 1) % 4;
             }, 1000);
-
+            
             // Store interval ID for cleanup
             document.getElementById('breathingExercise').dataset.interval = breathingInterval;
         }
 
         function stopBreathing() {
             document.getElementById('breathingExercise').classList.remove('show');
-
+            
             // Clear the breathing interval
             const interval = document.getElementById('breathingExercise').dataset.interval;
             if (interval) {
