@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="copyright" content="© 2026 Терапия Осознанности. Все права защищены.">
-    <title>Гипнотерапия - Терапия Осознанности</title>
+    <meta name="copyright" content="© 2026 Терапия Осознанности. All rights reserved.">
+    <title>Hypnosis for Emotional Balance - Терапия Осознанности</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -51,7 +51,7 @@
             color: white;
             text-decoration: none;
         }
-        .nav-links { display: flex; gap: 0.25rem; }
+        .nav-links { display: flex; gap: 0.25rem; align-items: center; }
         .nav-link {
             padding: 0.5rem 1rem;
             color: rgba(255,255,255,0.8);
@@ -118,7 +118,7 @@
             color: white;
         }
         .hero h1 { color: white; }
-        .hero-subtitle { color: rgba(255,255,255,0.9); }
+        .hero-subtitle { color: rgba(255,255,255,0.95); }
         .hero-container {
             max-width: 720px;
             margin: 0 auto;
@@ -156,55 +156,197 @@
             margin: 0 auto;
             padding: 2rem 2rem;
         }
-
-        /* Hypnosis Styles */
         .hypnosis-content {
             max-width: 800px;
             margin: 0 auto;
         }
 
-        .session-card {
+        /* Content Cards */
+        .content-card {
             background: var(--surface);
             border-radius: 20px;
             padding: 2rem;
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             margin-bottom: 2rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
         }
 
-        .session-card h2 {
-            color: var(--text);
-            margin-bottom: 1rem;
-            font-family: 'Cormorant Garamond', serif;
+        .content-card h2 {
+            color: var(--accent);
             font-size: 1.5rem;
-        }
-
-        .session-card p {
-            color: var(--muted);
             margin-bottom: 1.5rem;
         }
 
-        .play-btn {
-            background: var(--accent);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 0.5rem;
+        .content-card h3 {
+            color: var(--text);
+            font-size: 1.25rem;
+            margin: 1.5rem 0 1rem;
+        }
+
+        .content-card p {
+            color: var(--muted);
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .content-card strong { color: var(--text); }
+
+        .content-card ol, .content-card ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--muted);
+        }
+
+        .content-card li { margin-bottom: 0.5rem; }
+
+        /* Technique Cards */
+        .technique-card {
+            background: var(--bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        .technique-card h4 {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .technique-card p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(13,148,136,0.1) 0%, rgba(13,148,136,0.05) 100%);
+            border: 1px solid rgba(13,148,136,0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box h4 {
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+
+        /* Table */
+        .network-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .network-table th,
+        .network-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .network-table th {
+            background: var(--bg);
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
+            color: var(--text);
+        }
+
+        .network-table td { color: var(--muted); }
+
+        /* Results Grid */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, rgba(13,148,136,0.1) 0%, rgba(13,148,136,0.05) 100%);
+            border: 1px solid rgba(13,148,136,0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .result-card h5 {
+            color: var(--muted);
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .result-card .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        /* Предупреждение Note */
+        .warning-note {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 1rem 0;
+            color: #92400e;
+        }
+
+        .warning-note strong { color: #78350f; }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .cta-section h3 {
+            color: white;
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
         }
-        .play-btn:hover {
-            background: var(--accent-dark);
-            transform: translateY(-1px);
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         @media (max-width: 768px) {
+            .nav-links { display: none; }
             .hero { padding: 140px 1rem 80px; }
             .content-main { padding: 2rem 1rem; }
+            .content-card { padding: 1.5rem; }
         }
     </style>
 </head>
@@ -222,55 +364,182 @@
                         Инструменты <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="tools-dropdown-menu">
-                        <a href="emotion-explorer-ru.html">🎨 Исследование Эмоций</a>
+                        <a href="emotion-explorer-ru.html">🎨 Исследователь Эмоций</a>
                         <a href="emotion-balance-ru.html">⚡ Баланс Эмоций</a>
-                        <a href="hypnosis-ru.html">🌀 Гипнотерапия</a>
-                        <a href="salad-compass-ru.html">🥗 Салатный Компас</a>
+                        <a href="hypnosis-ru.html">🌀 Hypnosis</a>
+                        <a href="salad-compass-ru.html">🥗 Компас Салата</a>
                         <a href="salad-check-ru.html">🥬 Полная Проверка Салата</a>
-                        <a href="interventions-ru.html">🧰 Интервенции</a>
+                        <a href="interventions-ru.html">🧰 Вмешательства</a>
                     </div>
                 </div>
 
-                <a href="journal-ru.html" class="nav-link">Дневник</a>
+                <a href="journal-ru.html" class="nav-link">Журнал</a>
                 <a href="progress-ru.html" class="nav-link">Прогресс</a>
                 <a href="learn-ru.html" class="nav-link">Обучение</a>
-                <a href="hypnosis-ru.html" class="nav-link">Английский</a>
             </div>
         </div>
     </nav>
 
     <section class="hero">
         <div class="hero-container">
-            <div class="hero-eyebrow">🌀 Гипнотерапия</div>
-            <h1>Гипнотерапия</h1>
-            <p class="hero-subtitle">Найди внутренний покой через управляемый гипноз и техники расслабления</p>
+            <div class="hero-eyebrow">🌀 Clinical Hypnosis</div>
+            <h1>Hypnosis for Emotional Balance</h1>
+            <p class="hero-subtitle">Discover how clinical hypnosis can help you access, understand, and balance your emotions through science-backed techniques.</p>
         </div>
     </section>
 
     <main class="content-main">
         <div class="hypnosis-content">
-            <div class="session-card">
-                <h2>🌊 Глубокое Расслабление</h2>
-                <p>20-минутный сеанс управляемого гипноза, помогающий释放压力并找到内心的平静。</p>
-                <button class="play-btn">
-                    <i class="fas fa-play"></i> Начать Сеанс
-                </button>
+            <!-- What is Hypnosis -->
+            <div class="content-card">
+                <h2>🌀 What is Clinical Hypnosis?</h2>
+
+                <h3>Not Sleep, But Focused Awareness</h3>
+                <p>Contrary to popular myths, hypnosis is not sleep or unconsciousness. It's a <strong>collaborative state of highly focused attention and increased responsiveness to suggestion</strong>. You remain aware and in control throughout the entire process.</p>
+
+                <p>Modern clinical hypnosis is understood as a fundamental mechanism of <strong>top-down neural modulation</strong>—a way your brain can reorganize its own networks to facilitate emotional balance, stress resilience, and self-integration.</p>
+
+                <div class="highlight-box">
+                    <h4>💡 The Key Insight</h4>
+                    <p>Hypnosis creates "experiential plasticity"—a temporary window where your brain is more open to learning new emotional responses and breaking old patterns.</p>
+                </div>
+
+                <h3>The Four Pillars of Hypnotic State</h3>
+
+                <div class="technique-card">
+                    <h4>1. Absorption</h4>
+                    <p>The capacity to become deeply involved in internal experiences or sensory imagery. Your attention narrows, filtering out external distractions and ruminative thoughts.</p>
+                </div>
+
+                <div class="technique-card">
+                    <h4>2. Dissociation</h4>
+                    <p>The decoupling of mental processes from standard bodily awareness. This allows you to "step back" from intense emotions, observing them objectively.</p>
+                </div>
+
+                <div class="technique-card">
+                    <h4>3. Suggestibility</h4>
+                    <p>Increased responsiveness to therapeutic instructions intended to alter perception, mood, or behavior. This is not weakness—it's the ability to use imagery to modulate physiological systems.</p>
+                </div>
+
+                <div class="technique-card">
+                    <h4>4. Automaticity</h4>
+                    <p>The experience of responses feeling natural and non-voluntary. The goal is to make feelings of calm or resilience "automatic" in the face of stress.</p>
+                </div>
             </div>
 
-            <div class="session-card">
-                <h2>😴 Подготовка ко Сну</h2>
-                <p>Помогает расслабить разум и тело для спокойного сна。</p>
-                <button class="play-btn">
-                    <i class="fas fa-play"></i> Начать Сеанс
-                </button>
+            <!-- Neuroscience -->
+            <div class="content-card">
+                <h2>🧠 The Neuroscience of Hypnotic Emotion Regulation</h2>
+
+                <h3>The Triple Network Model</h3>
+                <p>Recent neuroimaging research has identified how hypnosis affects the brain's three core networks: the <strong>Default Mode Network (DMN)</strong>, <strong>Executive Control Network (ECN)</strong>, and <strong>Salience Network (SN)</strong>.</p>
+
+                <table class="network-table">
+                    <thead>
+                        <tr>
+                            <th>Brain Network</th>
+                            <th>Key Areas</th>
+                            <th>Hypnotic Effect</th>
+                            <th>Outcome</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Salience Network</strong></td>
+                            <td>Anterior Insula, dACC</td>
+                            <td>Reduced dACC activity</td>
+                            <td>Decreased vigilance & monitoring</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Default Mode Network</strong></td>
+                            <td>PCC, mPFC, Precuneus</td>
+                            <td>Reduced connectivity with ECN</td>
+                            <td>Less self-referential rumination</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Executive Control</strong></td>
+                            <td>DLPFC, Posterior Parietal</td>
+                            <td>Increased insula connectivity</td>
+                            <td>Enhanced emotional control</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight-box">
+                    <h4>🧠 Why This Matters</h4>
+                    <p>The decoupling of networks creates a window of "experiential plasticity" where new emotional responses can be installed without being constrained by your history of anxiety or trauma.</p>
+                </div>
             </div>
 
-            <div class="session-card">
-                <h2>✨ Снятие Тревоги</h2>
-                <p>Снимите тревогу через управляемое воображение и дыхательные техники。</p>
-                <button class="play-btn">
-                    <i class="fas fa-play"></i> Начать Сеанс
-                </button>
+            <!-- Jena Safety Anchor -->
+            <div class="content-card">
+                <h2>⚓ The Jena Safety Anchor</h2>
+
+                <h3>A Breakthrough in Single-Session Intervention</h3>
+                <p>Developed by researchers at Jena University, the <strong>Jena Safety Anchor (JSA)</strong> represents a breakthrough in using post-hypnotic suggestions for long-term emotional regulation after just one session.</p>
+
+                <h3>How It Works</h3>
+                <ol>
+                    <li><strong>Safe Place Visualization:</strong> During hypnosis, you vividly imagine a "safe place"—a mental sanctuary where you feel entirely secure.</li>
+                    <li><strong>Anchor Creation:</strong> While in this state of heightened safety, a post-hypnotic anchor is established (e.g., touching a specific object).</li>
+                    <li><strong>Suggestion Installation:</strong> The suggestion is made that activating this anchor outside of hypnosis will instantly reactivate the feeling of safety.</li>
+                </ol>
+
+                <h3>Research Results</h3>
+                <div class="results-grid">
+                    <div class="result-card">
+                        <h5>Stress Reduction</h5>
+                        <div class="value">~50%</div>
+                    </div>
+                    <div class="result-card">
+                        <h5>Negative Affect</h5>
+                        <div class="value">Significant ↓</div>
+                    </div>
+                    <div class="result-card">
+                        <h5>Cortisol Response</h5>
+                        <div class="value">Reduced</div>
+                    </div>
+                    <div class="result-card">
+                        <h5>Morning Heart Rate</h5>
+                        <div class="value">Lower</div>
+                    </div>
+                </div>
+
+                <div class="warning-note">
+                    <strong>ℹ️ Important:</strong> The JSA works regardless of hypnotic suggestibility scores, making it a robust intervention for most individuals.
+                </div>
+            </div>
+
+            <!-- Self-Hypnosis Techniques -->
+            <div class="content-card">
+                <h2>✋ Self-Hypnosis Techniques</h2>
+
+                <div class="technique-card">
+                    <h4>🎚️ The Lever Technique</h4>
+                    <p><strong>How:</strong> Imagine a control room with a lever that controls emotional intensity. Lower the lever and feel the intensity reduce with each notch.</p>
+                    <p><strong>Why:</strong> Gives you a sense of control over overwhelming sensations.</p>
+                </div>
+
+                <div class="technique-card">
+                    <h4>🏢 The Perspective Elevator</h4>
+                    <p><strong>How:</strong> Imagine an elevator that takes you to different "floors" of perspective—ground floor (immersed), middle floors (objective), top floor (compassionate overview).</p>
+                    <p><strong>Why:</strong> Trains your brain to recognize that emotional intensity is often a function of perspective.</p>
+                </div>
+
+                <div class="technique-card">
+                    <h4>🔊 The Voo Sound</h4>
+                    <p><strong>How:</strong> Make a low "voooo" sound like a foghorn. Feel it vibrate in your chest.</p>
+                    <p><strong>Why:</strong> The vibration stimulates your vagus nerve, activating your parasympathetic nervous system for instant calm.</p>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="cta-section">
+                <h3>🌀 Begin Your Journey</h3>
+                <p>Hypnosis is not magic—it's a legitimate, science-backed mechanism for top-down neural control. Build something inside that's stronger than any outside hook.</p>
+                <a href="emotion-balance-ru.html" class="btn btn-primary">
+                    <i class="fas fa-balance-scale"></i> Try Баланс Эмоций Tool
+                </a>
             </div>
         </div>
     </main>

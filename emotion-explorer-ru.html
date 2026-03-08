@@ -3,62 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Исследователь Эмоций - Терапия Осознанности</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="copyright" content="© 2026 Терапия Осознанности. All rights reserved.">
+    <title>Emotion Ribbon Explorer - Терапия Осознанности</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
+            --bg: #fafaf9;
+            --surface: #ffffff;
+            --text: #1c1917;
+            --muted: #78716c;
+            --border: #e7e5e4;
+            --accent: #0d9488;
+            --accent-dark: #0f766e;
             --power-color: #FF0000;
-            --empathy-color: #00FFFF;
-            --possession-color: #00FF00;
-            --loss-color: #FF00FF;
-            --crave-color: #0000FF;
-            --emptiness-color: #FFFF00;
+            --possession-color: #FF8C00;
+            --loss-color: #800080;
+            --emptiness-color: #000080;
+            --crave-color: #FF1493;
+            --empathy-color: #008000;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #fafaf9 0%, #f5f2ed 100%);
-            min-height: 100vh;
-            color: #1e293b; 
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
         }
+        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; }
 
-        .nav-bar {
+        /* Navigation */
+        .nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(30, 58, 138, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid #e2e8f0;
-            padding: 0.75rem 1.5rem;
+            top: 0; left: 0; right: 0;
+            background: rgba(30, 58, 138, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
+            height: 70px;
         }
-
-        .nav-brand {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #14b8a6;
-            cursor: pointer;
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
         }
+        .nav-links { display: flex; gap: 0.25rem; align-items: center; }
+        .nav-link {
+            padding: 0.5rem 1rem;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .nav-link:hover { color: white; background: rgba(255,255,255,0.1); }
+        .nav-link.active { color: var(--accent); background: rgba(13,148,136,0.2); }
 
-        .nav-links {
+        /* Инструменты Dropdown */
+        .tools-dropdown-container { position: relative; display: inline-block; }
+        .tools-dropdown-btn {
             display: flex;
-            gap: 0.5rem;
             align-items: center;
-        }
-
-        .nav-btn {
+            gap: 0.25rem;
             padding: 0.5rem 1rem;
             border: none;
             background: transparent;
@@ -66,77 +84,174 @@
             font-size: 0.875rem;
             font-weight: 500;
             cursor: pointer;
-            border-radius: 9999px;
+            border-radius: 6px;
+            font-family: inherit;
             transition: all 0.2s;
         }
-
-        .nav-btn:hover {
-            background: rgba(20, 184, 166, 0.1);
-            color: #14b8a6;
-        }
-
-        .mobile-menu-btn {
+        .tools-dropdown-btn:hover { background: rgba(255,255,255,0.1); color: white; }
+        .tools-dropdown-menu {
             display: none;
-            background: none;
-            border: none;
-            font-size: 1.25rem;
-            color: rgba(255,255,255,0.8);
-            cursor: pointer;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 0.5rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            min-width: 220px;
+            padding: 0.5rem;
+            z-index: 9999;
         }
+        .tools-dropdown-menu.open { display: block; }
+        .tools-dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .tools-dropdown-menu a:hover { background: rgba(13,148,136,0.1); color: var(--accent); }
 
-        .explorer-container {
-            max-width: 1400px;
+        /* Hero */
+        .hero {
+            padding: 160px 2rem 60px;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.2), transparent),
+                linear-gradient(180deg, #1e3a8a 0%, #1e40af 50%, var(--bg) 100%);
+            color: white;
+        }
+        .hero-container {
+            max-width: 720px;
             margin: 0 auto;
-            padding: 5rem 1rem 2rem;
-        }
-
-        .explorer-header {
             text-align: center;
-            margin-bottom: 0.75rem;
         }
-
-        .explorer-header h1 {
-            font-size: 1.25rem;
-            margin-bottom: 0.15rem;
-            background: linear-gradient(135deg, #8B0000, #FF6B35, #191970, #2E8B57);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(13,148,136,0.1);
+            border: 1px solid rgba(13,148,136,0.2);
+            border-radius: 100px;
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
         }
-
-        .explorer-header p {
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
+            color: white;
+        }
+        .hero-subtitle {
+            font-size: 1.125rem;
             color: rgba(255,255,255,0.8);
-            font-size: 0.8rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Explorer Content */
+        .explorer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
         }
 
         .ribbon-display-section {
-            background: white;
-            border-radius: 1rem;
-            padding: 1rem;
-            margin-bottom: 1rem;
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border);
+        }
+
+        .ribbon-container-wrapper {
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         #emotionRibbonDisplay {
             width: 100%;
             height: 100px;
-            background-color: #f0f0f0;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
             position: relative;
             overflow: hidden;
             border-radius: 0.5rem;
+            border: 1px solid var(--border);
         }
 
-        .categories-tabs-section {
+        .selected-words-display {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: var(--bg);
+            border-radius: 0.75rem;
+            min-height: 60px;
+            width: 100%;
+        }
+
+        .selected-words-display h4 {
+            font-size: 0.875rem;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+
+        #selectedWordsList {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .selected-word-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .selected-word-tag:hover { transform: scale(1.05); opacity: 0.9; }
+
+        .clear-all-btn {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            color: var(--muted);
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .clear-all-btn:hover { background: var(--border); color: var(--text); }
+
+        /* Categories Section */
+        .categories-section {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 1rem;
+            padding: 2rem;
         }
 
         .tabs-container {
             display: flex;
             gap: 0.4rem;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
             flex-wrap: wrap;
             justify-content: center;
         }
@@ -149,537 +264,402 @@
             padding: 0.6rem 1rem;
             border: 2px solid transparent;
             border-radius: 0.75rem;
-            background: white;
+            background: var(--surface);
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             min-width: 70px;
         }
 
-        .category-tab:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-        }
+        .category-tab:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+        .category-tab.active { border-color: var(--accent); box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
 
-        .category-tab.active {
-            border-color: #1e293b; 
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-        }
-
-        .tab-emoji {
-            font-size: 1.25rem;
-        }
-
-        .tab-name {
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: #1e293b; 
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .tab-color-indicator {
-            width: 20px;
-            height: 3px;
-            border-radius: 2px;
-            margin-top: 0.2rem;
-        }
+        .tab-emoji { font-size: 1.25rem; }
+        .tab-name { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+        .tab-color-indicator { width: 20px; height: 3px; border-radius: 2px; margin-top: 0.2rem; }
 
         .words-layout {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 1rem;
+            gap: 2rem;
             max-width: 1200px;
             margin: 0 auto;
             align-items: start;
         }
 
         .words-display-area {
-            background: white;
-            border-radius: 1rem;
-            padding: 1.5rem;
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 2rem;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            max-height: calc(100vh - 350px);
-            overflow-y: auto;
+            border: 1px solid var(--border);
         }
 
-        .words-category-header {
+        .category-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 2px solid #f1f5f9;
+            margin-bottom: 1.5rem;
         }
 
-        .words-category-emoji {
-            font-size: 1.75rem;
-        }
+        .category-title { font-size: 1.5rem; color: var(--text); }
+        .word-count { font-size: 0.875rem; color: var(--muted); background: var(--bg); padding: 0.25rem 0.75rem; border-radius: 9999px; }
 
-        .words-category-info h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #1e293b; 
-            margin: 0;
-        }
-
-        .words-category-info p {
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.8);
-            margin: 0.15rem 0 0 0;
-        }
-
-        .words-cloud {
+        .word-chips {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            justify-content: center;
         }
 
-        .word-bubble {
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: 2px solid transparent;
-            background: #f8fafc;
-            color: #1e293b; 
-        }
-
-        .word-bubble:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .word-bubble.selected {
-            background: #1e293b;
-            color: #1e293b; 
-            border-color: #1e293b; 
-            transform: scale(1.08);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-        }
-
-        .selected-words-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            max-height: calc(100vh - 350px);
-        }
-
-        .selected-words-display {
-            background: white;
-            border-radius: 1rem;
-            padding: 1rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            flex: 1;
-            overflow-y: auto;
-            min-height: 0;
-        }
-
-        .selected-words-display h4 {
-            font-size: 0.875rem;
-            color: #1e293b; 
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        #selectedWordsList {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-        }
-
-        .selected-word-tag {
+        .word-chip {
             display: inline-flex;
             align-items: center;
             gap: 0.25rem;
-            padding: 0.3rem 0.6rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
             border-radius: 9999px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: #1e293b; 
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .stats-bar {
-            display: flex;
-            justify-content: space-around;
-            background: white;
-            border-radius: 1rem;
-            padding: 0.75rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #1e293b; 
-        }
-
-        .stat-label {
-            font-size: 0.7rem;
-            color: rgba(255,255,255,0.8);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-top: 0.1rem;
-        }
-
-        .clear-all-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem;
-            border: none;
-            border-radius: 1rem;
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-            color: #1e293b; 
             font-size: 0.875rem;
-            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
-            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+            background: var(--surface);
+            color: var(--text);
         }
 
-        .clear-all-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+        .word-chip:hover { transform: scale(1.05); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .word-chip.selected { background: var(--accent); color: white; border-color: var(--accent); }
+
+        .ai-prompt-section {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid var(--border);
         }
+
+        .ai-prompt-section h3 { font-size: 1.125rem; margin-bottom: 1rem; color: var(--text); }
+        .ai-prompt-section p { font-size: 0.875rem; color: var(--muted); margin-bottom: 1rem; }
+
+        .ai-prompt-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            color: var(--text);
+            margin-bottom: 1rem;
+            min-height: 80px;
+        }
+
+        .copy-prompt-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-prompt-btn:hover { background: var(--accent-dark); transform: translateY(-1px); }
 
         @media (max-width: 768px) {
-            .words-layout {
-                grid-template-columns: 1fr;
-                gap: 0.75rem;
-            }
-            
-            .selected-words-panel {
-                order: -1;
-                max-height: none;
-            }
-            
-            .words-display-area {
-                max-height: none;
-                padding: 1rem;
-            }
-            
-            .selected-words-display {
-                max-height: 150px;
-            }
-            
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: white;
-                flex-direction: column;
-                padding: 1rem;
-                border-bottom: 1px solid #e2e8f0;
-            }
-            
-            .nav-links.show {
-                display: flex;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
+            .nav-links { display: none; }
+            .hero { padding: 120px 1.5rem 40px; }
+            .explorer-content { padding: 1rem; }
+            .words-layout { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <nav class="nav-bar">
-        <div class="nav-brand" onclick="window.location.href='index-ru.html'">🧘 Терапия Осознанности</div>
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="nav-links" id="navLinks">
-            <button class="nav-btn" onclick="window.location.href='emotion-explorer.html'">Английский</button>
-            <button class="nav-btn" onclick="window.location.href='emotion-explorer-zh.html'">中文</button>
-            <button class="nav-btn" onclick="window.location.href='index-ru.html'">Главная</button>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index-ru.html" class="nav-logo">🧘 Терапия Осознанности</a>
+            <div class="nav-links">
+                <a href="index-ru.html" class="nav-link">Главная</a>
+                <a href="cycle-ru.html" class="nav-link">Цикл</a>
+                <a href="assessment-ru.html" class="nav-link">ИИ Чат</a>
+
+                <!-- Инструменты Dropdown -->
+                <div class="tools-dropdown-container">
+                    <button class="tools-dropdown-btn" onclick="toggleToolsDropdown(this)">
+                        Инструменты <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="tools-dropdown-menu">
+                        <a href="emotion-explorer-ru.html">🎨 Исследователь Эмоций</a>
+                        <a href="emotion-balance-ru.html">⚡ Баланс Эмоций</a>
+                        <a href="hypnosis-ru.html">🌀 Hypnosis</a>
+                        <a href="salad-compass-ru.html">🥗 Компас Салата</a>
+                        <a href="salad-check-ru.html">🥬 Полная Проверка Салата</a>
+                        <a href="interventions-ru.html">🧰 Вмешательства</a>
+                    </div>
+                </div>
+
+                <a href="journal-ru.html" class="nav-link">Журнал</a>
+                <a href="progress-ru.html" class="nav-link">Прогресс</a>
+                <a href="learn-ru.html" class="nav-link">Обучение</a>
+            </div>
         </div>
     </nav>
 
-    <div class="explorer-container">
-        <header class="explorer-header">
-            <h1>🎨 Исследователь Эмоциональной Ленты</h1>
-            <p>Нажмите на слова, чтобы создать свою эмоциональную ленту. Узнайте, как разные эмоции сочетаются.</p>
-        </header>
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-eyebrow">🎨 Исследователь Эмоций</div>
+            <h1>Emotion Ribbon Explorer</h1>
+            <p class="hero-subtitle">Click on words to build your emotion ribbon. Discover how different emotions combine to create your unique emotional landscape.</p>
+        </div>
+    </section>
 
+    <div class="explorer-content">
         <section class="ribbon-display-section">
-            <div id="emotionRibbonDisplay">
-                <div id="rainbowSvgContainer" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;">
-                    <svg id="emotionRainbowSvg" viewBox="0 0 1200 120" style="width: 100%; height: 100%;">
-                        <path id="rainbow-pair-1" d="M 0,120 A 600,35 0 0 1 1200,120 L 1200,95 A 600,35 0 0 0 0,95 Z" fill="transparent" stroke="none"></path>
-                        <path id="rainbow-pair-2" d="M 0,100 A 600,25 0 0 1 1200,100 L 1200,75 A 600,25 0 0 0 0,75 Z" fill="transparent" stroke="none"></path>
-                        <path id="rainbow-pair-3" d="M 0,80 A 600,15 0 0 1 1200,80 L 1200,55 A 600,15 0 0 0 0,55 Z" fill="transparent" stroke="none"></path>
-                    </svg>
-                </div>
-            </div>
-        </section>
-
-        <section class="categories-tabs-section">
-            <div class="tabs-container">
-                <button class="category-tab active" data-category="POWER" onclick="switchTab('POWER')">
-                    <span class="tab-emoji">💪</span>
-                    <span class="tab-name">Сила</span>
-                    <span class="tab-color-indicator" style="background: #FF0000;"></span>
-                </button>
-                <button class="category-tab" data-category="POSSESSION" onclick="switchTab('POSSESSION')">
-                    <span class="tab-emoji">🏠</span>
-                    <span class="tab-name">Владение</span>
-                    <span class="tab-color-indicator" style="background: #00FF00;"></span>
-                </button>
-                <button class="category-tab" data-category="LOSS" onclick="switchTab('LOSS')">
-                    <span class="tab-emoji">💔</span>
-                    <span class="tab-name">Потеря</span>
-                    <span class="tab-color-indicator" style="background: #FF00FF;"></span>
-                </button>
-                <button class="category-tab" data-category="EMPTINESS" onclick="switchTab('EMPTINESS')">
-                    <span class="tab-emoji">⭕</span>
-                    <span class="tab-name">Пустота</span>
-                    <span class="tab-color-indicator" style="background: #FFFF00;"></span>
-                </button>
-                <button class="category-tab" data-category="CRAVE" onclick="switchTab('CRAVE')">
-                    <span class="tab-emoji">🔥</span>
-                    <span class="tab-name">Желание</span>
-                    <span class="tab-color-indicator" style="background: #0000FF;"></span>
-                </button>
-                <button class="category-tab" data-category="EMPATHY" onclick="switchTab('EMPATHY')">
-                    <span class="tab-emoji">🤝</span>
-                    <span class="tab-name">Эмпатия</span>
-                    <span class="tab-color-indicator" style="background: #00FFFF;"></span>
-                </button>
-            </div>
-            
-            <div class="words-layout">
-                <div class="words-display-area" id="wordsDisplayArea">
-                    <!-- Слова будут добавлены JavaScript -->
-                </div>
-                
-                <div class="selected-words-panel">
-                    <div class="selected-words-display">
-                        <h4><i class="fas fa-check-circle"></i> Выбранные Слова</h4>
-                        <div id="selectedWordsList">
-                            <span style="color: #94a3b8; font-size: 0.875rem;">Пока нет выбранных слов...</span>
-                        </div>
-                    </div>
-                    
-                    <div class="stats-bar">
-                        <div class="stat-item">
-                            <div class="stat-value" id="totalSelected">0</div>
-                            <div class="stat-label">Слова</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value" id="categoriesActive">0</div>
-                            <div class="stat-label">Категории</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value" id="dominantCategory">-</div>
-                            <div class="stat-label">Доминирует</div>
-                        </div>
-                    </div>
-                    
-                    <button class="clear-all-btn" onclick="clearAllWords()">
-                        <i class="fas fa-trash-alt"></i> Очистить Все
+            <div class="ribbon-container-wrapper">
+                <div id="emotionRibbonDisplay"></div>
+                <div class="selected-words-display">
+                    <h4>Selected Emotions</h4>
+                    <div id="selectedWordsList"></div>
+                    <button class="clear-all-btn" onclick="clearAllSelections()">
+                        <i class="fas fa-trash"></i> Clear All
                     </button>
                 </div>
             </div>
         </section>
     </div>
 
+    <section class="categories-section">
+        <div class="tabs-container">
+            <button class="category-tab active" data-category="POWER" onclick="switchTab('POWER')">
+                <span class="tab-emoji">💪</span>
+                <span class="tab-name">Power</span>
+                <span class="tab-color-indicator" style="background: var(--power-color);"></span>
+            </button>
+            <button class="category-tab" data-category="POSSESSION" onclick="switchTab('POSSESSION')">
+                <span class="tab-emoji">🏠</span>
+                <span class="tab-name">Possession</span>
+                <span class="tab-color-indicator" style="background: var(--possession-color);"></span>
+            </button>
+            <button class="category-tab" data-category="LOSS" onclick="switchTab('LOSS')">
+                <span class="tab-emoji">💔</span>
+                <span class="tab-name">Loss</span>
+                <span class="tab-color-indicator" style="background: var(--loss-color);"></span>
+            </button>
+            <button class="category-tab" data-category="EMPTINESS" onclick="switchTab('EMPTINESS')">
+                <span class="tab-emoji">⭕</span>
+                <span class="tab-name">Emptiness</span>
+                <span class="tab-color-indicator" style="background: var(--emptiness-color);"></span>
+            </button>
+            <button class="category-tab" data-category="CRAVE" onclick="switchTab('CRAVE')">
+                <span class="tab-emoji">🔥</span>
+                <span class="tab-name">Crave</span>
+                <span class="tab-color-indicator" style="background: var(--crave-color);"></span>
+            </button>
+            <button class="category-tab" data-category="EMPATHY" onclick="switchTab('EMPATHY')">
+                <span class="tab-emoji">🤝</span>
+                <span class="tab-name">Empathy</span>
+                <span class="tab-color-indicator" style="background: var(--empathy-color);"></span>
+            </button>
+        </div>
+
+        <div class="words-layout">
+            <div class="words-display-area">
+                <div class="category-header">
+                    <h2 class="category-title" id="categoryTitle">Power Emotions</h2>
+                    <span class="word-count" id="wordCount">0 words</span>
+                </div>
+                <div class="word-chips" id="wordChips"></div>
+            </div>
+
+            <div class="ai-prompt-section">
+                <h3><i class="fas fa-robot"></i> AI Image Prompt</h3>
+                <p>Generate visual representations of your emotional state:</p>
+                <div class="ai-prompt-box" id="aiPromptBox">
+                    Select emotions to generate a personalized AI image prompt...
+                </div>
+                <button class="copy-prompt-btn" onclick="copyPrompt()">
+                    <i class="fas fa-copy"></i> Copy Prompt
+                </button>
+            </div>
+        </div>
+    </section>
+
     <script>
-        // Russian Emotion Lexicon
-        const EmotionRibbon = {
-            lexicon: {
-                POWER: ['сильный','мощный','сила','доминирование','власть','контроль','мастер','лидер','уверенность','способность','триумф','победа','успех','мужество','храбрость','энергия','бодрость','достижение','амбиции','величие','герой','чемпион','превосходство','превосходный','смелый','решительный','влияние','мастерство','сильный','энтузиазм','счастье','оптимизм','вперед','возможно'],
-                POSSESSION: ['владение','иметь','приобретать','получать','желание','хотеть','жадность','богатство','сокровище','держать','собственность','принадлежности','активы','коллекция','накапливать','удовлетворенный','полный','занятый','завершенный','достаточно'],
-                LOSS: ['потеря','терять','горе','скорбь','печаль','страдание','боль','разлука','отказ','лишенный','утрата','смерть','развод','катастрофа','отчаяние','плакать','разбитое сердце','траур','покинутый','грустный','подавленный','меланхолия','разочарованный','беспомощный'],
-                EMPTINESS: ['пустой','пустота','полый','онемевший','мертвый','бессмысленный','бесцельный','изолированный','одинокий','отчаяние','отключенный','опустошенный','истощенный','пустынный','покинутый','бесполезный','отсутствие','депрессия','беспокойство','тревога'],
-                CRAVE: ['жаждать','тоска','желание','голод','жажда','настоятельная потребность','страсть','отчаянный','срочный','пылающий','зависимый','нетерпеливый','больной','ненасытный','помешанный','тревожный','компульсия','потребление'],
-                EMPATHY: ['эмпатия','сострадание','сочувствие','понимание','забота','доброта','нежность','любовь','связь','поддержка','комфорт','забота','делиться','слушать','забота','теплота','милосердие','доброта','исцеление','близость','доверие','чувствительность']
+        // Emotion words data
+        const emotionData = {
+            POWER: {
+                name: 'Power',
+                color: '#FF0000',
+                words: ['Powerful', 'Strong', 'Confident', 'Capable', 'In Control', 'Dominant', 'Assertive', 'Ambitious', 'Driven', 'Determined', 'Fearless', 'Bold', 'Courageous', 'Mighty', 'Influential', 'Commanding', 'Authoritative', 'Potent', 'Forceful', 'Vigorous']
+            },
+            POSSESSION: {
+                name: 'Possession',
+                color: '#FF8C00',
+                words: ['Attached', 'Clinging', 'Holding', 'Grasping', 'Owning', 'Controlling', 'Jealous', 'Protective', 'Defensive', 'Territorial', 'Possessive', 'Hoarding', 'Accumulating', 'Gathering', 'Collecting', 'Keeping', 'Retaining', 'Maintaining', 'Preserving', 'Guarding']
+            },
+            LOSS: {
+                name: 'Loss',
+                color: '#800080',
+                words: ['Grieving', 'Mourning', 'Sorrowful', 'Heartbroken', 'Devastated', 'Crushed', 'Defeated', 'Failed', 'Rejected', 'Abandoned', 'Betrayed', 'Disappointed', 'Let Down', 'Hurt', 'Wounded', 'Damaged', 'Broken', 'Shattered', 'Destroyed', 'Ruined']
+            },
+            EMPTINESS: {
+                name: 'Emptiness',
+                color: '#000080',
+                words: ['Empty', 'Hollow', 'Void', 'Numb', 'Detached', 'Disconnected', 'Isolated', 'Lonely', 'Lost', 'Adrift', 'Meaningless', 'Purposeless', 'Hopeless', 'Despairing', 'Desolate', 'Barren', 'Vacant', 'Lifeless', 'Apathetic', 'Indifferent']
+            },
+            CRAVE: {
+                name: 'Crave',
+                color: '#FF1493',
+                words: ['Craving', 'Longing', 'Yearning', 'Desiring', 'Wanting', 'Needing', 'Hungry', 'Thirsty', 'Greedy', 'Insatiable', 'Obsessed', 'Fixated', 'Compulsive', 'Addicted', 'Dependent', 'Desperate', 'Urgent', 'Intense', 'Burning', 'Consuming']
+            },
+            EMPATHY: {
+                name: 'Empathy',
+                color: '#008000',
+                words: ['Understanding', 'Compassionate', 'Caring', 'Kind', 'Gentle', 'Sensitive', 'Supportive', 'Nurturing', 'Healing', 'Comforting', 'Soothing', 'Calming', 'Peaceful', 'Serene', 'Tranquil', 'Balanced', 'Harmonious', 'Connected', 'Present', 'Mindful']
             }
         };
-        window.EmotionRibbon = EmotionRibbon;
 
-        // State
         let selectedWords = [];
-        let currentTab = 'POWER';
+        let currentCategory = 'POWER';
 
-        const categories = {
-            POWER: { name: 'Сила', emoji: '💪', color: '#8B0000' },
-            POSSESSION: { name: 'Владение', emoji: '🏠', color: '#FF6B35' },
-            LOSS: { name: 'Потеря', emoji: '💔', color: '#191970' },
-            EMPTINESS: { name: 'Пустота', emoji: '⭕', color: '#36454F' },
-            CRAVE: { name: 'Желание', emoji: '🔥', color: '#DC143C' },
-            EMPATHY: { name: 'Эмпатия', emoji: '🤝', color: '#2E8B57' }
-        };
-
-        const rainbowColors = {
-            POWER: '#FF0000',
-            EMPATHY: '#00FFFF',
-            POSSESSION: '#00FF00',
-            LOSS: '#FF00FF',
-            CRAVE: '#0000FF',
-            EMPTINESS: '#FFFF00'
-        };
-
-        function init() {
-            setTimeout(() => {
-                switchTab('POWER');
-                updateUI();
-            }, 100);
+        function toggleToolsDropdown(btn) {
+            const menu = btn.nextElementSibling;
+            menu.classList.toggle('open');
         }
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.tools-dropdown-container')) {
+                document.querySelectorAll('.tools-dropdown-menu').forEach(menu => {
+                    menu.classList.remove('open');
+                });
+            }
+        });
 
         function switchTab(category) {
-            currentTab = category;
+            currentCategory = category;
             document.querySelectorAll('.category-tab').forEach(tab => {
                 tab.classList.remove('active');
-                if (tab.dataset.category === category) {
-                    tab.classList.add('active');
+            });
+            document.querySelector(`[data-category="${category}"]`).classList.add('active');
+            displayWords(category);
+        }
+
+        function displayWords(category) {
+            const data = emotionData[category];
+            const container = document.getElementById('wordChips');
+            const title = document.getElementById('categoryTitle');
+            const count = document.getElementById('wordCount');
+
+            title.textContent = data.name + ' Emotions';
+            count.textContent = data.words.length + ' words';
+            container.innerHTML = '';
+
+            data.words.forEach(word => {
+                const chip = document.createElement('div');
+                chip.className = 'word-chip';
+                chip.textContent = word;
+                chip.dataset.word = word;
+                chip.dataset.category = category;
+
+                // Check if already selected
+                if (selectedWords.some(item => item.word === word)) {
+                    chip.classList.add('selected');
+                }
+
+                chip.onclick = () => toggleWord(word, category, data.color);
+                container.appendChild(chip);
+            });
+        }
+
+        function toggleWord(word, category, color) {
+            const index = selectedWords.findIndex(item => item.word === word);
+            if (index > -1) {
+                selectedWords.splice(index, 1);
+            } else {
+                selectedWords.push({ word, category, color });
+            }
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            // Update word chips
+            document.querySelectorAll('.word-chip').forEach(chip => {
+                const word = chip.dataset.word;
+                if (selectedWords.some(item => item.word === word)) {
+                    chip.classList.add('selected');
+                } else {
+                    chip.classList.remove('selected');
                 }
             });
-            displayWordsForCategory(category);
-        }
 
-        function displayWordsForCategory(categoryKey) {
-            const displayArea = document.getElementById('wordsDisplayArea');
-            const category = categories[categoryKey];
-            const words = window.EmotionRibbon.lexicon[categoryKey] || [];
-            
-            displayArea.innerHTML = `
-                <div class="words-category-header">
-                    <div class="words-category-emoji">${category.emoji}</div>
-                    <div class="words-category-info">
-                        <h3>${category.name}</h3>
-                        <p>${words.length} слов • Нажмите чтобы выбрать</p>
-                    </div>
-                </div>
-                <div class="words-cloud">
-                    ${words.map(word => {
-                        const isSelected = selectedWords.some(w => w.word === word && w.category === categoryKey);
-                        return `
-                            <button class="word-bubble ${isSelected ? 'selected' : ''}" 
-                                    onclick="toggleWord('${word}', '${categoryKey}')"
-                                    data-word="${word}" 
-                                    data-category="${categoryKey}">
-                                ${word}
-                            </button>
-                        `;
-                    }).join('')}
-                </div>
-            `;
-        }
-
-        function toggleWord(word, category) {
-            const existingIndex = selectedWords.findIndex(w => w.word === word && w.category === category);
-            if (existingIndex >= 0) {
-                selectedWords.splice(existingIndex, 1);
-            } else {
-                selectedWords.push({ word, category });
-            }
-            updateUI();
-        }
-
-        function updateUI() {
-            displayWordsForCategory(currentTab);
-            updateSelectedWordsList();
-            updateRibbon();
-            updateStats();
-        }
-
-        function updateSelectedWordsList() {
+            // Update selected words list
             const list = document.getElementById('selectedWordsList');
-            if (selectedWords.length === 0) {
-                list.innerHTML = '<span style="color: #94a3b8; font-size: 0.875rem;">Пока нет выбранных слов...</span>';
-                return;
-            }
-            list.innerHTML = selectedWords.map(w => {
-                const color = rainbowColors[w.category];
-                return `<span class="selected-word-tag" style="background: ${color};" onclick="toggleWord('${w.word}', '${w.category}')">
-                    ${w.word} <span class="remove">×</span>
-                </span>`;
-            }).join('');
-        }
+            list.innerHTML = '';
+            selectedWords.forEach(item => {
+                const tag = document.createElement('span');
+                tag.className = 'selected-word-tag';
+                tag.style.backgroundColor = item.color;
+                tag.textContent = item.word;
+                tag.onclick = () => toggleWord(item.word, item.category, item.color);
+                list.appendChild(tag);
+            });
 
-        function updateStats() {
-            document.getElementById('totalSelected').textContent = selectedWords.length;
-            const uniqueCategories = new Set(selectedWords.map(w => w.category));
-            document.getElementById('categoriesActive').textContent = uniqueCategories.size;
-            
-            if (selectedWords.length === 0) {
-                document.getElementById('dominantCategory').textContent = '-';
-            } else {
-                const counts = {};
-                selectedWords.forEach(w => { counts[w.category] = (counts[w.category] || 0) + 1; });
-                const dominant = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
-                document.getElementById('dominantCategory').textContent = categories[dominant[0]].name;
-            }
+            // Update ribbon display
+            updateRibbon();
+
+            // Update AI prompt
+            updateAIPrompt();
         }
 
         function updateRibbon() {
-            const activeCategories = new Set(selectedWords.map(w => w.category));
-            const categoryCounts = {};
-            selectedWords.forEach(w => { categoryCounts[w.category] = (categoryCounts[w.category] || 0) + 1; });
+            const display = document.getElementById('emotionRibbonDisplay');
+            if (selectedWords.length === 0) {
+                display.innerHTML = '';
+                return;
+            }
 
-            const bandPairs = [
-                { band: 'pair-1', cat1: 'POWER', cat2: 'EMPATHY' },
-                { band: 'pair-2', cat1: 'POSSESSION', cat2: 'LOSS' },
-                { band: 'pair-3', cat1: 'CRAVE', cat2: 'EMPTINESS' }
-            ];
+            // Create simple colored bars for each selected emotion
+            let html = '<div style="display: flex; height: 100%; width: 100%;">';
+            const segmentWidth = 100 / selectedWords.length;
 
-            bandPairs.forEach(pair => {
-                const band = document.getElementById(`rainbow-${pair.band}`);
-                if (!band) return;
+            selectedWords.forEach(item => {
+                html += `<div style="flex: 1; background: ${item.color}; opacity: 0.7;"></div>`;
+            });
 
-                const cat1Active = activeCategories.has(pair.cat1);
-                const cat2Active = activeCategories.has(pair.cat2);
-                const count1 = categoryCounts[pair.cat1] || 0;
-                const count2 = categoryCounts[pair.cat2] || 0;
+            html += '</div>';
+            display.innerHTML = html;
+        }
 
-                if (!cat1Active && !cat2Active) {
-                    band.setAttribute('fill', 'transparent');
-                } else if (cat1Active && !cat2Active) {
-                    const intensity = Math.min(count1 / 3, 1);
-                    const color = rainbowColors[pair.cat1];
-                    const r = Math.floor(parseInt(color.substring(1, 3), 16) * intensity);
-                    const g = Math.floor(parseInt(color.substring(3, 5), 16) * intensity);
-                    const b = Math.floor(parseInt(color.substring(5, 7), 16) * intensity);
-                    band.setAttribute('fill', `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`);
-                } else if (!cat1Active && cat2Active) {
-                    const intensity = Math.min(count2 / 3, 1);
-                    const color = rainbowColors[pair.cat2];
-                    const r = Math.floor(parseInt(color.substring(1, 3), 16) * intensity);
-                    const g = Math.floor(parseInt(color.substring(3, 5), 16) * intensity);
-                    const b = Math.floor(parseInt(color.substring(5, 7), 16) * intensity);
-                    band.setAttribute('fill', `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`);
-                } else {
-                    band.setAttribute('fill', '#FFFFFF');
-                }
+        function clearAllSelections() {
+            selectedWords = [];
+            updateDisplay();
+        }
+
+        function updateAIPrompt() {
+            const box = document.getElementById('aiPromptBox');
+            if (selectedWords.length === 0) {
+                box.textContent = 'Select emotions to generate a personalized AI image prompt...';
+                return;
+            }
+
+            const emotions = selectedWords.map(item => item.word).join(', ');
+            const prompt = `A cinematic portrait expressing ${emotions}. The composition uses flowing ribbons of color to represent the emotional landscape, with dramatic lighting and high detail. The atmosphere evokes a sense of emotional depth and introspection.`;
+            box.textContent = prompt;
+        }
+
+        function copyPrompt() {
+            const text = document.getElementById('aiPromptBox').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Prompt copied to clipboard!');
             });
         }
 
-        function clearAllWords() {
-            selectedWords = [];
-            updateUI();
-        }
-
-        function toggleMobileMenu() {
-            document.getElementById('navLinks').classList.toggle('show');
-        }
-
-        document.addEventListener('DOMContentLoaded', init);
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            displayWords('POWER');
+        });
     </script>
 </body>
 </html>
