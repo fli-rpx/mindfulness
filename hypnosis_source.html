@@ -37,46 +37,68 @@
           }
         });
         
-        // Force transparent backgrounds on all elements after React renders
-        function forceTransparent() {
-          // Find all elements with backgrounds
-          const allElements = document.querySelectorAll('*');
-          let count = 0;
-          
-          allElements.forEach(function(el) {
-            const style = window.getComputedStyle(el);
-            const bg = style.backgroundColor;
+        // Remove gradient overlays in Safe Place section
+        function removeSafePlaceGradients() {
+          // Find by code-path attribute
+          const byCodePath = document.querySelectorAll('[code-path*="App.tsx"]');
+          byCodePath.forEach(function(el) {
+            const text = el.textContent || '';
+            const parentText = el.parentElement?.textContent || '';
             
-            // If it has a semi-transparent or colored background (not fully transparent)
-            if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent' && 
-                (bg.includes('rgba') || bg.includes('rgb(2') || bg.includes('rgb(1'))) {
+            if (text.toLowerCase().includes('safe place') || 
+                parentText.toLowerCase().includes('safe place') ||
+                el.querySelector('h2, h3, h4, h5')?.textContent?.toLowerCase().includes('safe place')) {
               
-              // Check if this element or parent contains "Safe Place" text
-              const text = el.textContent || '';
-              const parentText = el.parentElement ? el.parentElement.textContent : '';
-              
-              if (text.toLowerCase().includes('safe place') || 
-                  parentText.toLowerCase().includes('safe place') ||
-                  el.querySelector('h2, h3, h4')?.textContent?.toLowerCase().includes('safe place')) {
-                
-                el.style.setProperty('background', 'transparent', 'important');
-                el.style.setProperty('background-color', 'transparent', 'important');
-                el.style.setProperty('backdrop-filter', 'none', 'important');
-                el.style.setProperty('-webkit-backdrop-filter', 'none', 'important');
-                count++;
-              }
+              // Hide this gradient overlay
+              el.style.setProperty('display', 'none', 'important');
+              console.log('Hidden gradient overlay by code-path');
             }
           });
           
-          console.log('Made ' + count + ' Safe Place elements transparent');
+          // Find by gradient classes
+          const gradientElements = document.querySelectorAll('.bg-gradient-to-br, .bg-gradient-to-r, .bg-gradient-to-b, [class*="gradient-to-"]');
+          gradientElements.forEach(function(el) {
+            // Check if inside Safe Place section
+            let parent = el;
+            for (let i = 0; i < 5; i++) {
+              if (!parent) break;
+              const text = parent.textContent || '';
+              if (text.toLowerCase().includes('safe place')) {
+                el.style.setProperty('display', 'none', 'important');
+                console.log('Hidden gradient overlay by class');
+                break;
+              }
+              parent = parent.parentElement;
+            }
+          });
+          
+          // Find absolute positioned overlay divs with backgrounds
+          const absoluteDivs = document.querySelectorAll('div.absolute, div[class*="absolute"]');
+          absoluteDivs.forEach(function(el) {
+            const classes = el.className || '';
+            if (classes.includes('bg-') || classes.includes('from-') || classes.includes('to-')) {
+              let parent = el;
+              for (let i = 0; i < 5; i++) {
+                if (!parent) break;
+                const text = parent.textContent || '';
+                if (text.toLowerCase().includes('safe place')) {
+                  el.style.setProperty('background', 'none', 'important');
+                  el.style.setProperty('background-image', 'none', 'important');
+                  console.log('Removed gradient from absolute div');
+                  break;
+                }
+                parent = parent.parentElement;
+              }
+            }
+          });
         }
         
-        // Run multiple times as React may re-render
-        setTimeout(forceTransparent, 2000);
-        setTimeout(forceTransparent, 5000);
-        setTimeout(forceTransparent, 8000);
+        // Run multiple times
+        setTimeout(removeSafePlaceGradients, 1000);
+        setTimeout(removeSafePlaceGradients, 3000);
+        setTimeout(removeSafePlaceGradients, 5000);
         
-        console.log('Audio control and transparency script loaded');
+        console.log('Gradient removal script loaded');
       })();
     </script>
   </body>
