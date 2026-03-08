@@ -6,17 +6,80 @@
     <link rel="stylesheet" crossorigin="" href="hypnosis_source.css"/>
     <base href="./">
     <style>
-      body {
-        margin: 0;
-        min-height: 100vh;
-      }
-      #root {
-        min-height: 100vh;
-      }
+      body { margin: 0; min-height: 100vh; }
+      #root { min-height: 100vh; }
     </style>
   </head>
   <body>
     <div id="root"></div>
   
-
-</body></html>
+    <!-- Audio for Safe Place Technique -->
+    <audio id="safePlaceMusic" loop>
+      <source src="sanctuary-of-light.mp3" type="audio/mpeg"/>
+    </audio>
+    
+    <script>
+      // Inject music player into Safe Place section
+      (function() {
+        const checkInterval = setInterval(function() {
+          const headings = document.querySelectorAll('h2, h3, h4, h5');
+          let targetSection = null;
+          
+          for (let h of headings) {
+            if (h.textContent.toLowerCase().includes('safe place')) {
+              targetSection = h.closest('section, div[class*="card"], div[class*="section"]') || h.parentElement;
+              break;
+            }
+          }
+          
+          if (targetSection && !targetSection.querySelector('.viz-btn')) {
+            clearInterval(checkInterval);
+            
+            const audio = document.getElementById('safePlaceMusic');
+            let playing = false;
+            
+            const wrapper = document.createElement('div');
+            wrapper.style.cssText = 'margin-top:24px;text-align:center;';
+            
+            const btn = document.createElement('button');
+            btn.className = 'viz-btn';
+            btn.innerHTML = '<span style="margin-right:8px;">▶</span>Begin Visualization';
+            btn.style.cssText = 'background:#e94560;color:#fff;border:none;padding:16px 32px;font-size:18px;font-weight:600;border-radius:50px;cursor:pointer;box-shadow:0 4px 15px rgba(233,69,96,0.4);transition:all 0.3s;';
+            
+            btn.onmouseenter = function() { this.style.transform='scale(1.05)'; };
+            btn.onmouseleave = function() { this.style.transform='scale(1)'; };
+            
+            btn.onclick = function() {
+              if (!playing) {
+                audio.play().then(function() {
+                  playing = true;
+                  btn.innerHTML = '<span style="margin-right:8px;">⏸</span>Pause Visualization';
+                  btn.style.background = '#0d9488';
+                }).catch(function(e) {
+                  console.log('Audio play failed:', e);
+                });
+              } else {
+                audio.pause();
+                playing = false;
+                btn.innerHTML = '<span style="margin-right:8px;">▶</span>Begin Visualization';
+                btn.style.background = '#e94560';
+              }
+            };
+            
+            const hint = document.createElement('p');
+            hint.textContent = 'Click to start your journey to inner peace';
+            hint.style.cssText = 'margin-top:12px;font-size:14px;color:rgba(255,255,255,0.6);';
+            
+            wrapper.appendChild(btn);
+            wrapper.appendChild(hint);
+            targetSection.appendChild(wrapper);
+            
+            console.log('Safe Place music player injected');
+          }
+        }, 500);
+        
+        setTimeout(function() { clearInterval(checkInterval); }, 20000);
+      })();
+    </script>
+  </body>
+</html>
