@@ -19,43 +19,45 @@
     </audio>
     
     <script>
-      // Hook into EXISTING buttons for audio control
       (function() {
         const audio = document.getElementById('safePlaceMusic');
-        let isPlaying = false;
         
-        // Function to handle button clicks
-        function handleButtonClick(btnText) {
-          const lowerText = btnText.toLowerCase();
+        // Handle button clicks for audio control
+        document.addEventListener('click', function(e) {
+          const btn = e.target.closest('button');
+          if (!btn) return;
           
-          if (lowerText.includes('begin') || lowerText.includes('start')) {
-            // Start music
+          const text = btn.textContent.toLowerCase();
+          
+          if (text.includes('begin') || text.includes('start')) {
             if (audio.paused) {
-              audio.play().catch(function(e) {
-                console.log('Audio play blocked:', e);
-              });
-              isPlaying = true;
+              audio.play().catch(function(e) { console.log('Audio blocked:', e); });
             }
-          } else if (lowerText.includes('end') || lowerText.includes('stop') || 
-                     lowerText.includes('pause') || lowerText.includes('close')) {
-            // Stop music
+          } else if (text.includes('end') || text.includes('stop') || text.includes('pause')) {
             if (!audio.paused) {
               audio.pause();
               audio.currentTime = 0;
-              isPlaying = false;
             }
-          }
-        }
-        
-        // Watch for button clicks on the whole document
-        document.addEventListener('click', function(e) {
-          const btn = e.target.closest('button');
-          if (btn) {
-            handleButtonClick(btn.textContent);
           }
         });
         
-        console.log('Audio control hooked to all buttons');
+        // Make Safe Place section background transparent
+        setTimeout(function() {
+          const headings = document.querySelectorAll('h2, h3, h4');
+          for (let h of headings) {
+            if (h.textContent.toLowerCase().includes('safe place')) {
+              let section = h.closest('section, div[class*="card"], div[class*="section"]');
+              if (section) {
+                section.style.background = 'transparent';
+                section.style.backgroundColor = 'transparent';
+                console.log('Safe Place section made transparent');
+              }
+              break;
+            }
+          }
+        }, 3000);
+        
+        console.log('Audio control and transparency script loaded');
       })();
     </script>
   </body>
