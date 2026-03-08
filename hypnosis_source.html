@@ -18,7 +18,7 @@
       (function() {
         const audio = document.getElementById('safePlaceMusic');
         
-        // Handle button clicks for audio control
+        // Simple audio control - don't modify any visuals
         document.addEventListener('click', function(e) {
           const btn = e.target.closest('button');
           if (!btn) return;
@@ -37,68 +37,7 @@
           }
         });
         
-        // Remove gradient overlays in Safe Place section
-        function removeSafePlaceGradients() {
-          // Find by code-path attribute
-          const byCodePath = document.querySelectorAll('[code-path*="App.tsx"]');
-          byCodePath.forEach(function(el) {
-            const text = el.textContent || '';
-            const parentText = el.parentElement?.textContent || '';
-            
-            if (text.toLowerCase().includes('safe place') || 
-                parentText.toLowerCase().includes('safe place') ||
-                el.querySelector('h2, h3, h4, h5')?.textContent?.toLowerCase().includes('safe place')) {
-              
-              // Hide this gradient overlay
-              el.style.setProperty('display', 'none', 'important');
-              console.log('Hidden gradient overlay by code-path');
-            }
-          });
-          
-          // Find by gradient classes
-          const gradientElements = document.querySelectorAll('.bg-gradient-to-br, .bg-gradient-to-r, .bg-gradient-to-b, [class*="gradient-to-"]');
-          gradientElements.forEach(function(el) {
-            // Check if inside Safe Place section
-            let parent = el;
-            for (let i = 0; i < 5; i++) {
-              if (!parent) break;
-              const text = parent.textContent || '';
-              if (text.toLowerCase().includes('safe place')) {
-                el.style.setProperty('display', 'none', 'important');
-                console.log('Hidden gradient overlay by class');
-                break;
-              }
-              parent = parent.parentElement;
-            }
-          });
-          
-          // Find absolute positioned overlay divs with backgrounds
-          const absoluteDivs = document.querySelectorAll('div.absolute, div[class*="absolute"]');
-          absoluteDivs.forEach(function(el) {
-            const classes = el.className || '';
-            if (classes.includes('bg-') || classes.includes('from-') || classes.includes('to-')) {
-              let parent = el;
-              for (let i = 0; i < 5; i++) {
-                if (!parent) break;
-                const text = parent.textContent || '';
-                if (text.toLowerCase().includes('safe place')) {
-                  el.style.setProperty('background', 'none', 'important');
-                  el.style.setProperty('background-image', 'none', 'important');
-                  console.log('Removed gradient from absolute div');
-                  break;
-                }
-                parent = parent.parentElement;
-              }
-            }
-          });
-        }
-        
-        // Run multiple times
-        setTimeout(removeSafePlaceGradients, 1000);
-        setTimeout(removeSafePlaceGradients, 3000);
-        setTimeout(removeSafePlaceGradients, 5000);
-        
-        console.log('Gradient removal script loaded');
+        console.log('Audio control loaded');
       })();
     </script>
   </body>
