@@ -12,9 +12,8 @@
         
         body {
             font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow: hidden; /* Prevent double scrollbars */
+            background: #1a1a2e;
+            color: white;
         }
 
         /* Navigation */
@@ -102,25 +101,221 @@
         .tools-dropdown-menu a:hover { background: rgba(13,148,136,0.1); color: #0d9488; }
         .tools-dropdown-menu a.active { color: #0d9488; font-weight: 600; }
 
-        /* Iframe Container */
-        .iframe-container {
-            position: fixed;
-            top: 70px; /* Height of nav */
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 100%;
-            height: calc(100vh - 70px);
+        /* HERO SECTION - Matches kimi URL */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #1a1a2e;
         }
         
-        .iframe-container iframe {
-            width: 100%;
-            height: 100%;
+        /* Spiral background image - EXACTLY like kimi URL */
+        .hero-spiral {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.3;
+            z-index: 1;
+        }
+        .hero-spiral img {
+            width: 800px;
+            height: 800px;
+            object-fit: contain;
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        /* Gradient overlay */
+        .hero-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent, rgba(26, 26, 46, 0.5), #1a1a2e);
+            z-index: 2;
+        }
+        
+        /* Hero content */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+        }
+        .hero-content h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        .hero-content .subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 2rem;
+        }
+        .hero-content .description {
+            font-size: 1.125rem;
+            color: rgba(255,255,255,0.6);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.7;
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #e94560;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.125rem;
+            font-weight: 500;
+            text-decoration: none;
             border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-primary:hover {
+            background: #d63d56;
+            transform: scale(1.05);
+        }
+
+        /* Main content sections */
+        .content-section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+        
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+        .card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(233, 69, 96, 0.3);
+        }
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: white;
+        }
+        .card p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Table */
+        .network-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .network-table th,
+        .network-table td {
+            padding: 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .network-table th {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            color: white;
+            font-weight: 600;
+        }
+        .network-table tr:last-child td { border-bottom: none; }
+        .network-table td { color: rgba(255,255,255,0.7); }
+        .network-table strong { color: white; }
+        .brain-region {
+            font-size: 0.85rem;
+            color: #e94560;
+        }
+
+        /* Journey card */
+        .journey-card {
+            background: rgba(13, 148, 136, 0.1);
+            border: 1px solid rgba(13, 148, 136, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+        }
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #0d9488;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Technique section */
+        .technique-section {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        .technique-section h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.4);
+            font-size: 0.875rem;
         }
 
         @media (max-width: 768px) {
             .nav-links { display: none; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-spiral img { width: 100%; height: auto; }
+            .card-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -155,14 +350,95 @@
         </div>
     </nav>
 
-    <!-- Iframe loading local hypnosis page -->
-    <div class="iframe-container">
-        <iframe src="hypnosis_source.html" 
-                title="Emotional Balance Through Self-Hypnosis"
-                allow="fullscreen"
-                loading="lazy">
-        </iframe>
-    </div>
+    <!-- HERO SECTION - Exact match to kimi URL -->
+    <section class="hero">
+        <!-- Spiral background image - EXACTLY like kimi URL -->
+        <div class="hero-spiral">
+            <img src="images/hypnosis1.png" alt="" />
+        </div>
+        
+        <!-- Gradient overlay -->
+        <div class="hero-gradient"></div>
+        
+        <!-- Hero content -->
+        <div class="hero-content">
+            <h1>Emotional Balance</h1>
+            <p class="subtitle">Through Self-Hypnosis</p>
+            <p class="description">Discover the science-backed practice of self-hypnosis to achieve profound emotional regulation and inner peace.</p>
+            <a href="#science" class="btn-primary">Begin Your Journey</a>
+        </div>
+    </section>
+
+    <!-- Science Section -->
+    <section id="science" class="content-section">
+        <h2 class="section-title">The Science of Hypnotic Emotion Regulation</h2>
+        
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-icon">🧘</div>
+                <h3>Absorption</h3>
+                <p>The capacity to become deeply immersed in internal experiences, filtering out distractions.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🔄</div>
+                <h3>Dissociation</h3>
+                <p>Decoupling from intense emotional states, enabling objective observation.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">💫</div>
+                <h3>Suggestibility</h3>
+                <p>Increased responsiveness to therapeutic suggestions to alter perception.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">⚡</div>
+                <h3>Automaticity</h3>
+                <p>Making feelings of calm and resilience feel natural and automatic.</p>
+            </div>
+        </div>
+
+        <h3 style="text-align: center; margin-bottom: 2rem; font-family: 'Cormorant Garamond', serif; font-size: 2rem;">Triple Network Model</h3>
+        
+        <table class="network-table">
+            <thead>
+                <tr>
+                    <th>Network</th>
+                    <th>Brain Regions</th>
+                    <th>Effect</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <strong>Salience Network</strong>
+                        <div class="brain-region">Anterior Insula, dACC</div>
+                    </td>
+                    <td>Reduced vigilance and decreased external monitoring</td>
+                    <td>Less anxiety, more present-moment awareness</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Default Mode Network</strong>
+                        <div class="brain-region">PCC, mPFC, Precuneus</div>
+                    </td>
+                    <td>Decoupling from self-referential rumination</td>
+                    <td>Reduced negative self-talk and worry</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Executive Control</strong>
+                        <div class="brain-region">DLPFC, Posterior Parietal</div>
+                    </td>
+                    <td>Enhanced top-down emotional control</td>
+                    <td>Better emotional regulation</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2026 Mindfulness Therapy. All rights reserved.</p>
+    </footer>
 
     <script>
         function toggleToolsDropdown(btn) {
