@@ -42,8 +42,8 @@
             }
           }
           
-          // Journey Section - Next Step
-          else if (text.includes('next step') || text.includes('next')) {
+          // Journey Section - Next Step or Previous
+          else if (text.includes('next step') || text.includes('next') || text.includes('previous') || text.includes('back')) {
             // Check if in Journey section
             let parent = btn.parentElement;
             let inJourney = false;
