@@ -19,66 +19,52 @@
     </audio>
     
     <script>
-      // Inject music player into Safe Place section
+      // Hook into EXISTING "Begin Visualization" button
       (function() {
-        const checkInterval = setInterval(function() {
-          const headings = document.querySelectorAll('h2, h3, h4, h5');
-          let targetSection = null;
+        let attempts = 0;
+        const maxAttempts = 60; // Try for 30 seconds
+        
+        const findButton = setInterval(function() {
+          attempts++;
           
-          for (let h of headings) {
-            if (h.textContent.toLowerCase().includes('safe place')) {
-              targetSection = h.closest('section, div[class*="card"], div[class*="section"]') || h.parentElement;
+          // Find button with "Begin Visualization" text
+          const buttons = document.querySelectorAll('button');
+          let targetBtn = null;
+          
+          for (let btn of buttons) {
+            if (btn.textContent.includes('Begin Visualization') || 
+                btn.textContent.includes('Begin Journey')) {
+              targetBtn = btn;
               break;
             }
           }
           
-          if (targetSection && !targetSection.querySelector('.viz-btn')) {
-            clearInterval(checkInterval);
+          if (targetBtn && !targetBtn.dataset.audioHooked) {
+            clearInterval(findButton);
+            targetBtn.dataset.audioHooked = 'true';
             
             const audio = document.getElementById('safePlaceMusic');
-            let playing = false;
             
-            const wrapper = document.createElement('div');
-            wrapper.style.cssText = 'margin-top:24px;text-align:center;';
+            // Hook into existing click handler
+            targetBtn.addEventListener('click', function() {
+              // Small delay to let React handle its own logic first
+              setTimeout(function() {
+                if (audio.paused) {
+                  audio.play().catch(function(e) {
+                    console.log('Audio autoplay blocked:', e);
+                  });
+                }
+              }, 100);
+            });
             
-            const btn = document.createElement('button');
-            btn.className = 'viz-btn';
-            btn.innerHTML = '<span style="margin-right:8px;">▶</span>Begin Visualization';
-            btn.style.cssText = 'background:#e94560;color:#fff;border:none;padding:16px 32px;font-size:18px;font-weight:600;border-radius:50px;cursor:pointer;box-shadow:0 4px 15px rgba(233,69,96,0.4);transition:all 0.3s;';
-            
-            btn.onmouseenter = function() { this.style.transform='scale(1.05)'; };
-            btn.onmouseleave = function() { this.style.transform='scale(1)'; };
-            
-            btn.onclick = function() {
-              if (!playing) {
-                audio.play().then(function() {
-                  playing = true;
-                  btn.innerHTML = '<span style="margin-right:8px;">⏸</span>Pause Visualization';
-                  btn.style.background = '#0d9488';
-                }).catch(function(e) {
-                  console.log('Audio play failed:', e);
-                });
-              } else {
-                audio.pause();
-                playing = false;
-                btn.innerHTML = '<span style="margin-right:8px;">▶</span>Begin Visualization';
-                btn.style.background = '#e94560';
-              }
-            };
-            
-            const hint = document.createElement('p');
-            hint.textContent = 'Click to start your journey to inner peace';
-            hint.style.cssText = 'margin-top:12px;font-size:14px;color:rgba(255,255,255,0.6);';
-            
-            wrapper.appendChild(btn);
-            wrapper.appendChild(hint);
-            targetSection.appendChild(wrapper);
-            
-            console.log('Safe Place music player injected');
+            console.log('Audio hooked to existing Begin Visualization button');
+          }
+          
+          if (attempts >= maxAttempts) {
+            clearInterval(findButton);
+            console.log('Could not find Begin Visualization button');
           }
         }, 500);
-        
-        setTimeout(function() { clearInterval(checkInterval); }, 20000);
       })();
     </script>
   </body>
