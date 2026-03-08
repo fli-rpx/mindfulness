@@ -14,7 +14,7 @@
             font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
-            overflow: hidden;
+            overflow-y: auto;  /* Allow scrolling */
         }
 
         /* Navigation */
@@ -104,13 +104,9 @@
 
         /* Iframe Container */
         .iframe-container {
-            position: fixed;
-            top: 70px;
-            left: 0;
-            right: 0;
-            bottom: 0;
             width: 100%;
-            height: calc(100vh - 70px);
+            height: 100vh;
+            position: relative;
         }
         
         .iframe-container iframe {
@@ -249,17 +245,18 @@
         </div>
     </nav>
 
-    <!-- Iframe with original React app -->
-    <div class="iframe-container" style="height: calc(100vh - 70px - 300px);">
+    <!-- Iframe with original React app - FULL HEIGHT -->
+    <div class="iframe-container" style="position: relative; height: 100vh;">
         <iframe src="hypnosis_source.html" 
                 title="Emotional Balance Through Self-Hypnosis"
                 allow="fullscreen"
-                loading="lazy">
+                loading="lazy"
+                style="width: 100%; height: 100vh; border: none; display: block;">
         </iframe>
     </div>
 
-    <!-- Safe Place Technique Section with Music -->
-    <section class="safe-place-section">
+    <!-- Safe Place Technique Section with Music - BELOW the iframe -->
+    <section class="safe-place-section" style="position: relative; z-index: 10;">
         <div class="safe-place-content">
             <h3>🏰 The Safe Place Technique</h3>
             <p class="safe-place-desc">Create your personal sanctuary. Find a quiet space, close your eyes, and let the calming sounds guide you to your inner safe place.</p>
