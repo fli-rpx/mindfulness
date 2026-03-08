@@ -121,6 +121,100 @@
 
         @media (max-width: 768px) {
             .nav-links { display: none; }
+            .safe-place-content { padding: 1.5rem; }
+            .visualization-btn { padding: 0.875rem 1.5rem; font-size: 1rem; }
+        }
+
+        /* Safe Place Section Styles */
+        .safe-place-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        .safe-place-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+        }
+        .safe-place-content h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+        .safe-place-desc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .visualization-btn {
+            background: linear-gradient(135deg, #e94560 0%, #d63d56 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+        }
+        .visualization-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.5);
+        }
+        .visualization-btn.playing {
+            background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+            box-shadow: 0 4px 15px rgba(13, 148, 136, 0.4);
+        }
+        .visualization-btn i {
+            font-size: 1.25rem;
+        }
+        .progress-container {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+        .progress-bar::after {
+            content: '';
+            display: block;
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #e94560, #0d9488);
+            transition: width 0.3s ease;
+            animation: progressAnimation 2s ease-in-out infinite;
+        }
+        @keyframes progressAnimation {
+            0% { width: 0%; opacity: 0.5; }
+            50% { width: 100%; opacity: 1; }
+            100% { width: 0%; opacity: 0.5; }
+        }
+        .progress-text {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            font-style: italic;
         }
     </style>
 </head>
@@ -156,13 +250,38 @@
     </nav>
 
     <!-- Iframe with original React app -->
-    <div class="iframe-container">
+    <div class="iframe-container" style="height: calc(100vh - 70px - 300px);">
         <iframe src="hypnosis_source.html" 
                 title="Emotional Balance Through Self-Hypnosis"
                 allow="fullscreen"
                 loading="lazy">
         </iframe>
     </div>
+
+    <!-- Safe Place Technique Section with Music -->
+    <section class="safe-place-section">
+        <div class="safe-place-content">
+            <h3>🏰 The Safe Place Technique</h3>
+            <p class="safe-place-desc">Create your personal sanctuary. Find a quiet space, close your eyes, and let the calming sounds guide you to your inner safe place.</p>
+            
+            <!-- Audio Player -->
+            <audio id="safePlaceAudio" loop>
+                <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=meditation-impulse-relaxing-music-for-meditation-yoga-12271.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            
+            <!-- Visualization Button -->
+            <button id="beginVisualizationBtn" class="visualization-btn" onclick="toggleVisualization()">
+                <i class="fas fa-play"></i> <span id="btnText">Begin Visualization</span>
+            </button>
+            
+            <!-- Progress Indicator -->
+            <div id="visualizationProgress" class="progress-container" style="display: none;">
+                <div class="progress-bar"></div>
+                <p class="progress-text">Breathe deeply... Let the music guide you to your safe place</p>
+            </div>
+        </div>
+    </section>
 
     <script>
         function toggleToolsDropdown(btn) {
@@ -176,6 +295,59 @@
                     menu.classList.remove('open');
                 });
             }
+        });
+
+        // Safe Place Visualization Audio Player
+        let isPlaying = false;
+        const audio = document.getElementById('safePlaceAudio');
+        const btn = document.getElementById('beginVisualizationBtn');
+        const btnText = document.getElementById('btnText');
+        const progressContainer = document.getElementById('visualizationProgress');
+        const icon = btn.querySelector('i');
+
+        function toggleVisualization() {
+            if (!isPlaying) {
+                // Start playing
+                audio.play().then(() => {
+                    isPlaying = true;
+                    btn.classList.add('playing');
+                    btnText.textContent = 'Pause Visualization';
+                    icon.className = 'fas fa-pause';
+                    progressContainer.style.display = 'block';
+                    console.log('Visualization started - audio playing');
+                }).catch(error => {
+                    console.error('Audio playback failed:', error);
+                    alert('Please click the button again to start the audio. Some browsers require user interaction first.');
+                });
+            } else {
+                // Pause
+                audio.pause();
+                isPlaying = false;
+                btn.classList.remove('playing');
+                btnText.textContent = 'Begin Visualization';
+                icon.className = 'fas fa-play';
+                progressContainer.style.display = 'none';
+                console.log('Visualization paused');
+            }
+        }
+
+        // Handle audio ending
+        audio.addEventListener('ended', function() {
+            isPlaying = false;
+            btn.classList.remove('playing');
+            btnText.textContent = 'Begin Visualization';
+            icon.className = 'fas fa-play';
+            progressContainer.style.display = 'none';
+            console.log('Visualization completed');
+        });
+
+        // Log audio loading
+        audio.addEventListener('canplaythrough', function() {
+            console.log('Audio loaded and ready to play');
+        });
+
+        audio.addEventListener('error', function(e) {
+            console.error('Audio loading error:', e);
         });
     </script>
 </body>
