@@ -41,16 +41,29 @@
           }
         });
         
-        // Make Safe Place section background transparent
+        // Make Safe Place panel/card background transparent
         setTimeout(function() {
-          const headings = document.querySelectorAll('h2, h3, h4');
-          for (let h of headings) {
-            if (h.textContent.toLowerCase().includes('safe place')) {
-              let section = h.closest('section, div[class*="card"], div[class*="section"]');
-              if (section) {
-                section.style.background = 'transparent';
-                section.style.backgroundColor = 'transparent';
-                console.log('Safe Place section made transparent');
+          // Find the panel containing "Begin Visualization" button
+          const buttons = document.querySelectorAll('button');
+          for (let btn of buttons) {
+            if (btn.textContent.toLowerCase().includes('begin visualization')) {
+              // Go up to find the card/panel container
+              let panel = btn.closest('div[class*="glass"], div[class*="card"], div[class*="panel"], div[style*="background"], .glass-card, .card, [class*="bg-"]');
+              if (!panel) {
+                panel = btn.parentElement;
+                while (panel && panel.tagName !== 'BODY') {
+                  const style = window.getComputedStyle(panel);
+                  if (style.backgroundColor !== 'rgba(0, 0, 0, 0)' && style.backgroundColor !== 'transparent') {
+                    break;
+                  }
+                  panel = panel.parentElement;
+                }
+              }
+              if (panel && panel.tagName !== 'BODY') {
+                panel.style.background = 'transparent';
+                panel.style.backgroundColor = 'transparent';
+                panel.style.backdropFilter = 'none';
+                console.log('Safe Place panel made transparent');
               }
               break;
             }
