@@ -5,20 +5,6 @@
     <script type="module" crossorigin="" src="hypnosis_source.js"></script>
     <link rel="stylesheet" crossorigin="" href="hypnosis_source.css"/>
     <base href="./">
-    <style>
-      body { margin: 0; min-height: 100vh; }
-      #root { min-height: 100vh; }
-      /* Force all cards/glass panels to be transparent */
-      .glass-card, [class*="glass"], [class*="Glass"], 
-      .card, [class*="card"], [class*="Card"],
-      div[style*="backdrop-filter"], div[style*="background: rgba"],
-      div[style*="background-color: rgba"] {
-        background: transparent !important;
-        background-color: transparent !important;
-        backdrop-filter: none !important;
-        -webkit-backdrop-filter: none !important;
-      }
-    </style>
   </head>
   <body>
     <div id="root"></div>
@@ -51,7 +37,46 @@
           }
         });
         
-        console.log('Audio control loaded');
+        // Force transparent backgrounds on all elements after React renders
+        function forceTransparent() {
+          // Find all elements with backgrounds
+          const allElements = document.querySelectorAll('*');
+          let count = 0;
+          
+          allElements.forEach(function(el) {
+            const style = window.getComputedStyle(el);
+            const bg = style.backgroundColor;
+            
+            // If it has a semi-transparent or colored background (not fully transparent)
+            if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent' && 
+                (bg.includes('rgba') || bg.includes('rgb(2') || bg.includes('rgb(1'))) {
+              
+              // Check if this element or parent contains "Safe Place" text
+              const text = el.textContent || '';
+              const parentText = el.parentElement ? el.parentElement.textContent : '';
+              
+              if (text.toLowerCase().includes('safe place') || 
+                  parentText.toLowerCase().includes('safe place') ||
+                  el.querySelector('h2, h3, h4')?.textContent?.toLowerCase().includes('safe place')) {
+                
+                el.style.setProperty('background', 'transparent', 'important');
+                el.style.setProperty('background-color', 'transparent', 'important');
+                el.style.setProperty('backdrop-filter', 'none', 'important');
+                el.style.setProperty('-webkit-backdrop-filter', 'none', 'important');
+                count++;
+              }
+            }
+          });
+          
+          console.log('Made ' + count + ' Safe Place elements transparent');
+        }
+        
+        // Run multiple times as React may re-render
+        setTimeout(forceTransparent, 2000);
+        setTimeout(forceTransparent, 5000);
+        setTimeout(forceTransparent, 8000);
+        
+        console.log('Audio control and transparency script loaded');
       })();
     </script>
   </body>
