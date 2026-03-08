@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="copyright" content="© 2026 Mindfulness Therapy. All rights reserved.">
-    <title>Hypnosis for Emotional Balance - Mindfulness Therapy</title>
+    <title>Emotional Balance Through Self-Hypnosis - Mindfulness Therapy</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -16,6 +16,7 @@
             --border: #e7e5e4;
             --accent: #0d9488;
             --accent-dark: #0f766e;
+            --hero-blue: #1e3a8a;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -109,244 +110,366 @@
         }
         .tools-dropdown-menu a:hover { background: rgba(13,148,136,0.1); color: var(--accent); }
 
-        /* Hero */
+        /* Hero - Dark Blue Gradient */
         .hero {
-            padding: 80px 2rem 20px;
+            padding: 120px 2rem 80px;
             background:
-                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.2), transparent),
-                linear-gradient(180deg, #1e3a8a 0%, #1e40af 50%, var(--bg) 100%);
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.3), transparent),
+                linear-gradient(180deg, #1e3a8a 0%, #1e40af 40%, #312e81 100%);
             color: white;
-        }
-        .hero h1 { color: white; }
-        .hero-subtitle { color: rgba(255,255,255,0.95); }
-        .hero-container {
-            max-width: 720px;
-            margin: 0 auto;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
-        .hero-eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(13,148,136,0.1);
-            border: 1px solid rgba(13,148,136,0.2);
-            border-radius: 100px;
-            color: var(--accent);
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 1.5rem;
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+        .hero-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
         .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
             line-height: 1.1;
-            margin-bottom: 1.25rem;
         }
         .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        .hero-description {
             font-size: 1.125rem;
             max-width: 600px;
             margin: 0 auto;
+            opacity: 0.8;
+            line-height: 1.7;
+        }
+        .hero-image {
+            margin-top: 3rem;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
 
         /* Main Content */
         .content-main {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 2rem 2rem;
-        }
-        .hypnosis-content {
-            max-width: 800px;
-            margin: 0 auto;
+            padding: 4rem 2rem;
         }
 
-        /* Content Cards */
-        .content-card {
-            background: var(--surface);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        /* Section Styles */
+        .section {
+            margin-bottom: 4rem;
         }
-
-        .content-card h2 {
-            color: var(--accent);
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .content-card h3 {
+        .section-title {
+            font-size: 2rem;
             color: var(--text);
-            font-size: 1.25rem;
-            margin: 1.5rem 0 1rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
         }
-
-        .content-card p {
+        .section-subtitle {
+            text-align: center;
             color: var(--muted);
-            margin-bottom: 1rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-size: 1.1rem;
             line-height: 1.7;
         }
 
-        .content-card strong { color: var(--text); }
-
-        .content-card ol, .content-card ul {
-            margin-left: 1.5rem;
+        /* Science Cards */
+        .science-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .science-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .science-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+        }
+        .science-icon {
+            font-size: 2.5rem;
             margin-bottom: 1rem;
-            color: var(--muted);
         }
-
-        .content-card li { margin-bottom: 0.5rem; }
-
-        /* Technique Cards */
-        .technique-card {
-            background: var(--bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            border-left: 4px solid var(--accent);
-        }
-
-        .technique-card h4 {
-            color: var(--text);
-            margin-bottom: 0.5rem;
-        }
-
-        .technique-card p {
-            margin-bottom: 0.5rem;
-        }
-
-        /* Highlight Box */
-        .highlight-box {
-            background: linear-gradient(135deg, rgba(13,148,136,0.1) 0%, rgba(13,148,136,0.05) 100%);
-            border: 1px solid rgba(13,148,136,0.2);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .highlight-box h4 {
-            color: var(--accent);
+        .science-card h3 {
+            font-size: 1.25rem;
             margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+        .science-card p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.6;
         }
 
-        /* Table */
+        /* Network Table */
+        .network-section {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border: 1px solid var(--border);
+        }
         .network-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 1rem 0;
-            font-size: 0.9rem;
+            margin-top: 1.5rem;
         }
-
         .network-table th,
         .network-table td {
-            padding: 0.75rem;
+            padding: 1rem;
             text-align: left;
             border-bottom: 1px solid var(--border);
         }
-
         .network-table th {
-            background: var(--bg);
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            color: white;
             font-weight: 600;
+        }
+        .network-table th:first-child { border-radius: 8px 0 0 0; }
+        .network-table th:last-child { border-radius: 0 8px 0 0; }
+        .network-table tr:last-child td { border-bottom: none; }
+        .network-table td { color: var(--muted); }
+        .network-table strong { color: var(--text); }
+        .brain-region {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* Journey Section */
+        .journey-card {
+            background: linear-gradient(135deg, rgba(13,148,136,0.08) 0%, rgba(13,148,136,0.03) 100%);
+            border: 1px solid rgba(13,148,136,0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+        }
+        .step-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        .journey-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
             color: var(--text);
         }
-
-        .network-table td { color: var(--muted); }
-
-        /* Results Grid */
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            margin: 1rem 0;
+        .journey-card p {
+            color: var(--muted);
+            line-height: 1.7;
         }
 
-        .result-card {
-            background: linear-gradient(135deg, rgba(13,148,136,0.1) 0%, rgba(13,148,136,0.05) 100%);
-            border: 1px solid rgba(13,148,136,0.2);
-            border-radius: 12px;
+        /* Technique Cards */
+        .technique-section {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+        .technique-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .technique-section p {
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        /* Steps */
+        .steps-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
             padding: 1rem;
+            background: var(--bg);
+            border-radius: 12px;
+        }
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .step-content h4 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+            color: var(--text);
+        }
+        .step-content p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Counter */
+        .counter-box {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        .counter-value {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .counter-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .counter-btn {
+            background: white;
+            color: #1e3a8a;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: transform 0.2s;
+        }
+        .counter-btn:hover { transform: scale(1.05); }
+
+        /* Lever Control */
+        .lever-container {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 1.5rem;
             text-align: center;
         }
-
-        .result-card h5 {
-            color: var(--muted);
-            font-size: 0.8rem;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-        }
-
-        .result-card .value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--accent);
-        }
-
-        /* Warning Note */
-        .warning-note {
-            background: #fef3c7;
-            border: 1px solid #fcd34d;
+        .lever-visual {
+            height: 200px;
+            background: linear-gradient(180deg, #ef4444 0%, #f59e0b 50%, #22c55e 100%);
             border-radius: 12px;
-            padding: 1rem;
-            margin: 1rem 0;
-            color: #92400e;
+            position: relative;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
         }
-
-        .warning-note strong { color: #78350f; }
+        .lever-handle {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 40px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--text);
+            cursor: grab;
+            transition: top 0.3s ease;
+        }
+        .lever-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            color: var(--muted);
+            margin-bottom: 1rem;
+        }
 
         /* CTA Section */
         .cta-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
             color: white;
             padding: 3rem 2rem;
             border-radius: 20px;
             text-align: center;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
-
         .cta-section h3 {
-            color: white;
             font-size: 1.75rem;
             margin-bottom: 1rem;
         }
-
         .cta-section p {
-            color: rgba(255,255,255,0.9);
+            opacity: 0.9;
             margin-bottom: 1.5rem;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
         }
-
         .btn {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
+            padding: 0.875rem 1.75rem;
             border: none;
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
             text-decoration: none;
+            font-size: 1rem;
         }
-
-        .btn-primary {
+        .btn-white {
             background: white;
-            color: #667eea;
+            color: #1e3a8a;
         }
-
-        .btn-primary:hover {
+        .btn-white:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .hero { padding: 140px 1rem 80px; }
+            .hero { padding: 100px 1rem 60px; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1.25rem; }
             .content-main { padding: 2rem 1rem; }
-            .content-card { padding: 1.5rem; }
+            .science-grid { grid-template-columns: 1fr; }
+            .network-table { font-size: 0.875rem; }
+            .network-table th, .network-table td { padding: 0.75rem 0.5rem; }
         }
     </style>
 </head>
@@ -366,7 +489,7 @@
                     <div class="tools-dropdown-menu">
                         <a href="emotion-explorer.html">🎨 Emotion Explorer</a>
                         <a href="emotion-balance.html">⚡ Emotion Balance</a>
-                        <a href="hypnosis.html">🌀 Hypnosis</a>
+                        <a href="hypnosis.html" class="active">🌀 Hypnosis</a>
                         <a href="salad-compass.html">🥗 Salad Compass</a>
                         <a href="salad-check.html">🥬 Full Salad Check</a>
                         <a href="interventions.html">🧰 Interventions</a>
@@ -380,167 +503,179 @@
         </div>
     </nav>
 
+    <!-- Hero Section - Dark Blue Gradient -->
     <section class="hero">
         <div class="hero-container">
-            <div class="hero-eyebrow">🌀 Clinical Hypnosis</div>
-            <h1>Hypnosis for Emotional Balance</h1>
-            <p class="hero-subtitle">Discover how clinical hypnosis can help you access, understand, and balance your emotions through science-backed techniques.</p>
+            <h1>Emotional Balance</h1>
+            <p class="hero-subtitle">Through Self-Hypnosis</p>
+            <p class="hero-description">Discover the science-backed practice of self-hypnosis to achieve profound emotional regulation and inner peace. Based on clinical research and neurobiological evidence.</p>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&h=600&fit=crop" alt="Peaceful meditation">
+            </div>
         </div>
     </section>
 
     <main class="content-main">
-        <div class="hypnosis-content">
-            <!-- What is Hypnosis -->
-            <div class="content-card">
-                <h2>🌀 What is Clinical Hypnosis?</h2>
+        <!-- Science Section -->
+        <section class="section">
+            <h2 class="section-title">The Science of Hypnotic Emotion Regulation</h2>
+            <p class="section-subtitle">Modern clinical hypnosis is understood as a fundamental mechanism of top-down neural modulation that reorganizes large-scale brain networks to facilitate emotional balance.</p>
 
-                <h3>Not Sleep, But Focused Awareness</h3>
-                <p>Contrary to popular myths, hypnosis is not sleep or unconsciousness. It's a <strong>collaborative state of highly focused attention and increased responsiveness to suggestion</strong>. You remain aware and in control throughout the entire process.</p>
-
-                <p>Modern clinical hypnosis is understood as a fundamental mechanism of <strong>top-down neural modulation</strong>—a way your brain can reorganize its own networks to facilitate emotional balance, stress resilience, and self-integration.</p>
-
-                <div class="highlight-box">
-                    <h4>💡 The Key Insight</h4>
-                    <p>Hypnosis creates "experiential plasticity"—a temporary window where your brain is more open to learning new emotional responses and breaking old patterns.</p>
+            <div class="science-grid">
+                <div class="science-card">
+                    <div class="science-icon">🧘</div>
+                    <h3>Absorption</h3>
+                    <p>The capacity to become deeply immersed in internal experiences, filtering out distractions and ruminative thoughts.</p>
                 </div>
-
-                <h3>The Four Pillars of Hypnotic State</h3>
-
-                <div class="technique-card">
-                    <h4>1. Absorption</h4>
-                    <p>The capacity to become deeply involved in internal experiences or sensory imagery. Your attention narrows, filtering out external distractions and ruminative thoughts.</p>
+                <div class="science-card">
+                    <div class="science-icon">🔄</div>
+                    <h3>Dissociation</h3>
+                    <p>Decoupling from intense emotional states, enabling objective observation rather than reactive identification.</p>
                 </div>
-
-                <div class="technique-card">
-                    <h4>2. Dissociation</h4>
-                    <p>The decoupling of mental processes from standard bodily awareness. This allows you to "step back" from intense emotions, observing them objectively.</p>
+                <div class="science-card">
+                    <div class="science-icon">💫</div>
+                    <h3>Suggestibility</h3>
+                    <p>Increased responsiveness to therapeutic suggestions intended to alter perception, mood, or behavior.</p>
                 </div>
-
-                <div class="technique-card">
-                    <h4>3. Suggestibility</h4>
-                    <p>Increased responsiveness to therapeutic instructions intended to alter perception, mood, or behavior. This is not weakness—it's the ability to use imagery to modulate physiological systems.</p>
-                </div>
-
-                <div class="technique-card">
-                    <h4>4. Automaticity</h4>
-                    <p>The experience of responses feeling natural and non-voluntary. The goal is to make feelings of calm or resilience "automatic" in the face of stress.</p>
+                <div class="science-card">
+                    <div class="science-icon">⚡</div>
+                    <h3>Automaticity</h3>
+                    <p>Making feelings of calm and resilience feel natural and automatic in the face of stressors.</p>
                 </div>
             </div>
+        </section>
 
-            <!-- Neuroscience -->
-            <div class="content-card">
-                <h2>🧠 The Neuroscience of Hypnotic Emotion Regulation</h2>
-
-                <h3>The Triple Network Model</h3>
-                <p>Recent neuroimaging research has identified how hypnosis affects the brain's three core networks: the <strong>Default Mode Network (DMN)</strong>, <strong>Executive Control Network (ECN)</strong>, and <strong>Salience Network (SN)</strong>.</p>
+        <!-- Triple Network Model -->
+        <section class="section">
+            <div class="network-section">
+                <h2 class="section-title" style="margin-bottom: 0.5rem;">Triple Network Model</h2>
+                <p class="section-subtitle" style="margin-bottom: 1.5rem;">How hypnosis affects your brain's core networks</p>
 
                 <table class="network-table">
                     <thead>
                         <tr>
-                            <th>Brain Network</th>
-                            <th>Key Areas</th>
-                            <th>Hypnotic Effect</th>
-                            <th>Outcome</th>
+                            <th>Network</th>
+                            <th>Brain Regions</th>
+                            <th>Effect</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>Salience Network</strong></td>
-                            <td>Anterior Insula, dACC</td>
-                            <td>Reduced dACC activity</td>
-                            <td>Decreased vigilance & monitoring</td>
+                            <td>
+                                <strong>Salience Network</strong>
+                                <div class="brain-region">Anterior Insula, dACC</div>
+                            </td>
+                            <td>Reduced vigilance and decreased external monitoring</td>
+                            <td>Less anxiety, more present-moment awareness</td>
                         </tr>
                         <tr>
-                            <td><strong>Default Mode Network</strong></td>
-                            <td>PCC, mPFC, Precuneus</td>
-                            <td>Reduced connectivity with ECN</td>
-                            <td>Less self-referential rumination</td>
+                            <td>
+                                <strong>Default Mode Network</strong>
+                                <div class="brain-region">PCC, mPFC, Precuneus</div>
+                            </td>
+                            <td>Decoupling from self-referential rumination</td>
+                            <td>Reduced negative self-talk and worry</td>
                         </tr>
                         <tr>
-                            <td><strong>Executive Control</strong></td>
-                            <td>DLPFC, Posterior Parietal</td>
-                            <td>Increased insula connectivity</td>
-                            <td>Enhanced emotional control</td>
+                            <td>
+                                <strong>Executive Control</strong>
+                                <div class="brain-region">DLPFC, Posterior Parietal</div>
+                            </td>
+                            <td>Enhanced top-down emotional control</td>
+                            <td>Better emotional regulation and response flexibility</td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </section>
 
-                <div class="highlight-box">
-                    <h4>🧠 Why This Matters</h4>
-                    <p>The decoupling of networks creates a window of "experiential plasticity" where new emotional responses can be installed without being constrained by your history of anxiety or trauma.</p>
+        <!-- Self-Hypnosis Journey -->
+        <section class="section">
+            <h2 class="section-title">Your Self-Hypnosis Journey</h2>
+            <p class="section-subtitle">Follow this guided flow to experience the benefits of self-hypnosis</p>
+
+            <div class="journey-card">
+                <div class="step-indicator">
+                    <i class="fas fa-route"></i>
+                    Step 1 of 6
+                </div>
+                <h3>🌿 Preparation</h3>
+                <p>Find a quiet, comfortable space. Sit or lie down in a relaxed position. Close your eyes when you're ready. Take a few deep breaths to settle into the present moment.</p>
+            </div>
+        </section>
+
+        <!-- Safe Place Technique -->
+        <section class="technique-section">
+            <h3><span>🏰</span> The Safe Place Technique</h3>
+            <p>One of the most powerful tools for emotional balance. Create an internal sanctuary you can return to whenever distress arises.</p>
+            <div style="background: linear-gradient(135deg, rgba(30,58,138,0.08) 0%, rgba(30,58,138,0.03) 100%); border: 1px solid rgba(30,58,138,0.2); border-radius: 12px; padding: 1.5rem;">
+                <p style="margin: 0; color: var(--text);"><strong>Practice:</strong> Take a moment to create your personal safe space. Imagine a place where you feel completely secure, peaceful, and at ease. It could be a real place you've been to or an imaginary sanctuary. Engage all your senses—what do you see, hear, feel?</p>
+            </div>
+        </section>
+
+        <!-- Jena Safety Anchor -->
+        <section class="technique-section">
+            <h3><span>⚓</span> The Jena Safety Anchor</h3>
+            <p>A breakthrough post-hypnotic suggestion technique. Research shows a <strong>50% reduction in stress intensity</strong>, with effects lasting one week after a single session.</p>
+
+            <h4 style="margin: 1.5rem 0 1rem; color: var(--text);">How It Works</h4>
+            <div class="steps-list">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Choose Your Anchor</h4>
+                        <p>Select a simple physical action (touch thumb to finger, say a word, etc.)</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Practice Activation</h4>
+                        <p>Activate your anchor while in your safe place state during hypnosis</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Use Anytime</h4>
+                        <p>Use your anchor whenever you need instant calm and safety</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Jena Safety Anchor -->
-            <div class="content-card">
-                <h2>⚓ The Jena Safety Anchor</h2>
-
-                <h3>A Breakthrough in Single-Session Intervention</h3>
-                <p>Developed by researchers at Jena University, the <strong>Jena Safety Anchor (JSA)</strong> represents a breakthrough in using post-hypnotic suggestions for long-term emotional regulation after just one session.</p>
-
-                <h3>How It Works</h3>
-                <ol>
-                    <li><strong>Safe Place Visualization:</strong> During hypnosis, you vividly imagine a "safe place"—a mental sanctuary where you feel entirely secure.</li>
-                    <li><strong>Anchor Creation:</strong> While in this state of heightened safety, a post-hypnotic anchor is established (e.g., touching a specific object).</li>
-                    <li><strong>Suggestion Installation:</strong> The suggestion is made that activating this anchor outside of hypnosis will instantly reactivate the feeling of safety.</li>
-                </ol>
-
-                <h3>Research Results</h3>
-                <div class="results-grid">
-                    <div class="result-card">
-                        <h5>Stress Reduction</h5>
-                        <div class="value">~50%</div>
-                    </div>
-                    <div class="result-card">
-                        <h5>Negative Affect</h5>
-                        <div class="value">Significant ↓</div>
-                    </div>
-                    <div class="result-card">
-                        <h5>Cortisol Response</h5>
-                        <div class="value">Reduced</div>
-                    </div>
-                    <div class="result-card">
-                        <h5>Morning Heart Rate</h5>
-                        <div class="value">Lower</div>
-                    </div>
-                </div>
-
-                <div class="warning-note">
-                    <strong>ℹ️ Important:</strong> The JSA works regardless of hypnotic suggestibility scores, making it a robust intervention for most individuals.
-                </div>
+            <div class="counter-box">
+                <div class="counter-value" id="anchorCounter">0</div>
+                <div class="counter-label">Anchor Activations</div>
+                <button class="counter-btn" onclick="incrementCounter()">
+                    <i class="fas fa-plus"></i> Practice Your Anchor
+                </button>
             </div>
+        </section>
 
-            <!-- Self-Hypnosis Techniques -->
-            <div class="content-card">
-                <h2>✋ Self-Hypnosis Techniques</h2>
+        <!-- Lever Technique -->
+        <section class="technique-section">
+            <h3><span>🎚️</span> The Lever Technique</h3>
+            <p>Take control of overwhelming emotions with this visualization technique. Imagine a lever that controls the intensity of your emotion.</p>
 
-                <div class="technique-card">
-                    <h4>🎚️ The Lever Technique</h4>
-                    <p><strong>How:</strong> Imagine a control room with a lever that controls emotional intensity. Lower the lever and feel the intensity reduce with each notch.</p>
-                    <p><strong>Why:</strong> Gives you a sense of control over overwhelming sensations.</p>
+            <div class="lever-container">
+                <div class="lever-labels">
+                    <span>High Intensity</span>
+                    <span>Low Intensity</span>
                 </div>
-
-                <div class="technique-card">
-                    <h4>🏢 The Perspective Elevator</h4>
-                    <p><strong>How:</strong> Imagine an elevator that takes you to different "floors" of perspective—ground floor (immersed), middle floors (objective), top floor (compassionate overview).</p>
-                    <p><strong>Why:</strong> Trains your brain to recognize that emotional intensity is often a function of perspective.</p>
+                <div class="lever-visual">
+                    <div class="lever-handle" id="leverHandle" style="top: 20%;">DRAG</div>
                 </div>
-
-                <div class="technique-card">
-                    <h4>🔊 The Voo Sound</h4>
-                    <p><strong>How:</strong> Make a low "voooo" sound like a foghorn. Feel it vibrate in your chest.</p>
-                    <p><strong>Why:</strong> The vibration stimulates your vagus nerve, activating your parasympathetic nervous system for instant calm.</p>
-                </div>
+                <p style="margin: 0; color: var(--muted);">Your anxiety is at a high level. Take a deep breath and begin lowering the lever. Feel the intensity decrease as you slide down.</p>
             </div>
+        </section>
 
-            <!-- CTA -->
-            <div class="cta-section">
-                <h3>🌀 Begin Your Journey</h3>
-                <p>Hypnosis is not magic—it's a legitimate, science-backed mechanism for top-down neural control. Build something inside that's stronger than any outside hook.</p>
-                <a href="emotion-balance.html" class="btn btn-primary">
-                    <i class="fas fa-balance-scale"></i> Try Emotion Balance Tool
-                </a>
-            </div>
+        <!-- CTA -->
+        <div class="cta-section">
+            <h3>🌀 Begin Your Self-Hypnosis Practice</h3>
+            <p>Take the first step toward emotional balance. The techniques you've learned here can be practiced daily for lasting change.</p>
+            <a href="emotion-balance.html" class="btn btn-white">
+                <i class="fas fa-play-circle"></i> Start Your Journey
+            </a>
         </div>
     </main>
 
@@ -556,6 +691,28 @@
                     menu.classList.remove('open');
                 });
             }
+        });
+
+        // Anchor Counter
+        let count = 0;
+        function incrementCounter() {
+            count++;
+            document.getElementById('anchorCounter').textContent = count;
+        }
+
+        // Simple lever drag effect
+        const leverHandle = document.getElementById('leverHandle');
+        let isDragging = false;
+
+        leverHandle.addEventListener('mousedown', () => isDragging = true);
+        document.addEventListener('mouseup', () => isDragging = false);
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const leverVisual = leverHandle.parentElement;
+            const rect = leverVisual.getBoundingClientRect();
+            const y = e.clientY - rect.top;
+            const percent = Math.max(0, Math.min(100, (y / rect.height) * 100));
+            leverHandle.style.top = percent + '%';
         });
     </script>
 </body>
