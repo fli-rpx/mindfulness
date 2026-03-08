@@ -1,0 +1,30 @@
+{
+  "english_files": [
+    "index.html",
+    "emotion-explorer.html",
+    "emotion-balance.html",
+    "salad-compass.html",
+    "salad-check.html",
+    "interventions.html",
+    "journal.html",
+    "learn.html",
+    "progress.html",
+    "cycle.html",
+    "assessment.html",
+    "hypnosis.html"
+  ],
+  "chinese_files": [
+    "index-zh.html",
+    "emotion-explorer-zh.html",
+    "emotion-balance-zh.html",
+    "salad-compass-zh.html",
+    "salad-check-zh.html",
+    "interventions-zh.html",
+    "journal-zh.html",
+    "learn-zh.html",
+    "progress-zh.html",
+    "cycle-zh.html",
+    "assessment-zh.html",
+    "hypnosis-zh.html"
+  ]
+}

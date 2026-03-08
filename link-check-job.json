@@ -1,0 +1,15 @@
+{
+  "name": "Chinese Link Checker & Fixer - Hourly",
+  "description": "Check if all Chinese HTML files have links only to Chinese versions. If not, fix them automatically and report changes.",
+  "schedule": "cron 0 * * * *",
+  "thinking": "minimal",
+  "sessionTarget": "isolated",
+  "payload": {
+    "kind": "agentTurn",
+    "content": "STEP 1: Read and execute /root/.openclaw/workspace/mindfulness/chinese_link_fixer.py - This script checks all 12 Chinese HTML files for links to English versions and fixes them automatically.\n\nSTEP 2: The script will output either:\n- 'Fixed N links: [list of changes]' (if fixes were made)\n- 'All Chinese files have correct links. No fixes needed.' (if all good)\n\nSTEP 3: If fixes were made, commit and push the changes to GitHub:\n- cd /root/.openclaw/workspace/mindfulness\n- git add *.html\n- git commit -m 'Auto-fix: Update Chinese file links to point to Chinese versions'\n- git push origin main\n\nSTEP 4: SEND a summary to Telegram using the message tool:\n- Report how many files were checked (12)\n- Report how many links were fixed (if any)\n- If no fixes needed, report that all links are correct"
+  },
+  "delivery": {
+    "mode": "announce",
+    "to": "telegram:8080442123"
+  }
+}
