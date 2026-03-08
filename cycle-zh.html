@@ -1,1 +1,624 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>周期追踪 - 正念疗法</title><style>:root{--bg:#fafaf9;--surface:#ffffff;--text:#1c1917;--muted:#78716c;--border:#e7e5e4;--accent:#0d9488}body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;margin:0}.nav{position:fixed;top:0;left:0;right:0;background:rgba(30,58,138,0.9);z-index:100}.nav-container{max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:70px}.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:white;text-decoration:none}.nav-links{display:flex;gap:0.25rem}.nav-link{padding:0.5rem 1rem;color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.875rem}.nav-link.active{color:var(--accent)}.hero{padding:100px 2rem 40px;background:linear-gradient(180deg,#1e3a8a 0%,#1e40af 50%,var(--bg) 100%);color:white;text-align:center}.hero h1{font-size:2.5rem;margin-bottom:1rem}.content-main{max-width:800px;margin:0 auto;padding:2rem}.card{background:var(--surface);border-radius:20px;padding:2rem;border:1px solid var(--border)}@media(max-width:768px){.hero{padding:120px 1rem 40px}.content-main{padding:1rem}}</style></head><body><nav class="nav"><div class="nav-container"><a href="index-zh.html" class="nav-logo">🧘 正念疗法</a><div class="nav-links"><a href="index-zh.html" class="nav-link">首页</a><a href="cycle-zh.html" class="nav-link active">周期</a><a href="assessment-zh.html" class="nav-link">AI对话</a><a href="journal-zh.html" class="nav-link">日记</a><a href="progress-zh.html" class="nav-link">进度</a><a href="learn-zh.html" class="nav-link">学习</a><a href="cycle-zh.html" class="nav-link">英语</a></div></div></nav><section class="hero"><h1>🔄 周期追踪</h1><p>追踪你的情绪和生理周期</p></section><main class="content-main"><div class="card"><h2>周期追踪</h2><p style="color:var(--muted)">了解你的周期模式。</p></div></main></body></html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="copyright" content="© 2026 正念疗法. All rights reserved.">
+    <title>Power-Possession 周期 - 正念疗法</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #fafaf9;
+            --surface: #ffffff;
+            --text: #1c1917;
+            --muted: #78716c;
+            --border: #e7e5e4;
+            --accent: #0d9488;
+            --accent-dark: #0f766e;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(30, 58, 138, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 0.25rem; }
+        .nav-link {
+            padding: 0.5rem 1rem;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .nav-link:hover { color: white; background: rgba(255,255,255,0.1); }
+        .nav-link.active { color: var(--accent); background: rgba(13,148,136,0.2); }
+        
+        /* Hero */
+        .hero {
+            padding: 80px 2rem 20px;
+            background: 
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.2), transparent),
+                linear-gradient(180deg, #1e3a8a 0%, #1e40af 50%, var(--bg) 100%);
+            color: white;
+        }
+        .hero h1 { color: white; }
+        .hero-subtitle { color: rgba(255,255,255,0.7); }
+        .hero-container {
+            max-width: 720px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(13,148,136,0.1);
+            border: 1px solid rgba(13,148,136,0.2);
+            border-radius: 100px;
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
+        }
+        .hero-subtitle {
+            font-size: 1.125rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Main Content */
+        .content-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 2rem;
+        }
+        .cycle-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        /* 工具 Dropdown Styles */
+        .tools-dropdown-container { position: relative; display: inline-block; }
+        .tools-dropdown-btn { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.25rem; 
+            padding: 0.5rem 1rem; 
+            border: none; 
+            background: transparent; 
+            color: rgba(255,255,255,0.8); 
+            font-size: 0.875rem; 
+            font-weight: 500; 
+            cursor: pointer; 
+            border-radius: 9999px; 
+            font-family: inherit; 
+            transition: all 0.2s;
+        }
+        .tools-dropdown-btn:hover { background: rgba(255, 255, 255, 0.1); color: white; }
+        .tools-dropdown-btn.active { background: rgba(13,148,136,0.2); color: var(--accent); }
+        .tools-dropdown-menu { 
+            display: none; 
+            position: fixed; 
+            top: auto; 
+            left: auto; 
+            margin-top: 0.5rem; 
+            background: var(--surface); 
+            border: 1px solid var(--border); 
+            border-radius: 0.75rem; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15); 
+            min-width: 220px; 
+            padding: 0.5rem; 
+            z-index: 9999; 
+        }
+        .tools-dropdown-menu.open { display: block; }
+        .tools-dropdown-menu a { 
+            display: block; 
+            padding: 0.75rem 1rem; 
+            color: var(--text); 
+            text-decoration: none; 
+            font-size: 0.875rem; 
+            border-radius: 0.5rem; 
+            transition: all 0.2s; 
+            white-space: nowrap; 
+        }
+        .tools-dropdown-menu a:hover { background: rgba(13,148,136,0.1); color: var(--accent); }
+
+        /* 周期 Visualization Styles */
+        .section-description {
+            color: var(--muted);
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .cycle-visualization {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+        }
+
+        .cycle-svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .cycle-node {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .cycle-node:hover {
+            transform: scale(1.1);
+        }
+
+        .cycle-node circle {
+            transition: all 0.3s;
+        }
+
+        .cycle-node:hover circle {
+            filter: brightness(1.2);
+        }
+
+        .cycle-info {
+            background: var(--surface);
+            padding: 30px;
+            border-radius: 20px;
+            min-height: 200px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .cycle-info h3 {
+            color: var(--text);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .cycle-info p {
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .cycle-info h4 {
+            color: var(--accent);
+            margin: 20px 0 10px 0;
+            font-size: 1.1rem;
+        }
+
+        .cycle-info ul {
+            color: var(--text);
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+
+        .cycle-info li {
+            margin-bottom: 5px;
+        }
+
+        .cycle-legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--surface);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg);
+            border-radius: 20px;
+            color: var(--text);
+            font-size: 0.9rem;
+            border: 1px solid var(--border);
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .legend-color.power { background: #8B0000; }
+        .legend-color.possession { background: #FF6B35; }
+        .legend-color.loss { background: #191970; }
+        .legend-color.emptiness { background: #36454F; }
+        .legend-color.craving { background: #DC143C; }
+        .legend-color.return { background: #2E8B57; }
+
+        /* Background overlay for hover effects */
+        #cycle-bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: -1;
+            transition: background-color 0.5s ease;
+        }
+
+        .state-detail-placeholder {
+            text-align: center;
+            color: var(--muted);
+            padding: 40px;
+        }
+
+        .state-detail-placeholder h3 {
+            color: var(--muted);
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .hero { padding: 140px 1rem 80px; }
+            .content-main { padding: 2rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background overlay for hover effects -->
+    <div id="cycle-bg-overlay"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index-zh.html" class="nav-logo">🧘 正念疗法</a>
+            <div class="nav-links">
+                <a href="index-zh.html" class="nav-link">首页</a>
+                <a href="cycle-zh.html" class="nav-link active">周期</a>
+                <a href="assessment-zh.html" class="nav-link">AI对话</a>
+                
+                <!-- 工具 Dropdown -->
+                <div class="tools-dropdown-container" id="toolsContainer">
+                    <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
+                        工具 <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
+                    </button>
+                    <div class="tools-dropdown-menu" id="toolsMenu">
+                        <a href="emotion-explorer-zh.html">🎨 情绪探索器</a>
+                        <a href="emotion-balance-zh.html">⚡ 情绪平衡</a>
+                        <a href="hypnosis-zh.html">🌀 Hypnosis</a>
+                        <a href="salad-compass-zh.html">🥗 沙拉罗盘</a>
+                        <a href="salad-check-zh.html">🥬 完整沙拉检查</a>
+                        <a href="interventions-zh.html">🧰 干预措施</a>
+                    </div>
+                </div>
+                
+                <a href="journal-zh.html" class="nav-link">日记</a>
+                <a href="progress-zh.html" class="nav-link">进度</a>
+                <a href="learn-zh.html" class="nav-link">学习</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-eyebrow">🔄 Power-Possession 周期</div>
+            <h1>Understand the Emotional Pattern</h1>
+            <p class="hero-subtitle">Explore the self-reinforcing emotional pattern that shapes your experiences. Click on any state to learn more.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="content-main">
+        <div class="cycle-content">
+            <p class="section-description">
+                A self-reinforcing emotional pattern: acquisition of external power → inevitable loss → 
+                collapse into emptiness → urgent craving → return to power-seeking.
+            </p>
+            
+            <div class="cycle-visualization" id="cycleVisualization">
+                <!-- SVG will be rendered here by JavaScript -->
+            </div>
+            
+            <div class="cycle-info" id="cycleInfo">
+                <div class="state-detail-placeholder">
+                    <h3>👆 Click on a state to learn more</h3>
+                    <p>Explore each phase of the emotional cycle and discover personalized strategies.</p>
+                </div>
+            </div>
+
+            <div class="cycle-legend">
+                <div class="legend-item">
+                    <span class="legend-color power"></span>
+                    <span>Power - External validation</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color possession"></span>
+                    <span>Possession - Owning phase</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color loss"></span>
+                    <span>Loss - Inevitability</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color emptiness"></span>
+                    <span>Emptiness - Collapse</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color craving"></span>
+                    <span>Craving - Compulsive</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color return"></span>
+                    <span>Return - Power-seeking</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 周期 state data
+        const cycleStates = {
+            power: {
+                name: 'Power',
+                color: '#8B0000',
+                bgColor: '#450a0a',
+                description: 'External validation, feeling in control. This is the phase where you feel empowered through external achievements, recognition, or status.',
+                triggers: ['Achievement', 'Recognition', 'Status gain', 'Winning', 'Being chosen'],
+                strategies: ['Values grounding', 'Internal validation', 'Preventive balance', 'Mindful awareness']
+            },
+            possession: {
+                name: 'Possession',
+                color: '#FF6B35',
+                bgColor: '#3b0764',
+                description: 'Owning phase, attachment to external power. You try to hold onto the power and control you\'ve gained, becoming territorial.',
+                triggers: ['Control behaviors', 'Territoriality', 'Acquisition', 'Hoarding', 'Defensiveness'],
+                strategies: ['Letting go practice', 'Non-attachment', 'Impermanence awareness', '打开-handed living']
+            },
+            loss: {
+                name: 'Loss',
+                color: '#191970',
+                bgColor: '#172554',
+                description: 'Inevitable decline, external power fading. The external validation begins to slip away - rejection, failure, or status loss.',
+                triggers: ['Status loss', 'Rejection', 'Failure', 'Criticism', 'Being overlooked'],
+                strategies: ['Acceptance', 'Grief processing', 'Reality orientation', 'Self-compassion']
+            },
+            emptiness: {
+                name: 'Emptiness',
+                color: '#36454F',
+                bgColor: '#111827',
+                description: 'Collapse, void when external validation gone. Without the external power, you feel empty, disconnected, and meaningless.',
+                triggers: ['Isolation', 'Meaninglessness', 'Disconnection', 'Numbness', 'Existential dread'],
+                strategies: ['Somatic anchoring', 'Presence', 'Self-compassion', 'Inner connection']
+            },
+            craving: {
+                name: 'Craving',
+                color: '#DC143C',
+                bgColor: '#451a03',
+                description: 'Compulsive urge for substitute satisfaction. The emptiness creates an urgent need to fill the void with anything.',
+                triggers: ['Emptiness', 'Boredom', 'Restlessness', 'Anxiety', 'Discomfort'],
+                strategies: ['Urge surfing', 'Pattern interruption', 'Alternative satisfaction', 'Grounding techniques']
+            },
+            return: {
+                name: 'Return',
+                color: '#2E8B57',
+                bgColor: '#052e16',
+                description: 'Power-seeking behavior restarting cycle. You seek new sources of external validation to feel powerful again.',
+                triggers: ['Hope', 'Opportunity', 'New validation source', 'Fresh start', 'Second chance'],
+                strategies: ['周期 awareness', 'Conscious choice', 'Break pattern', 'Seek internal power']
+            }
+        };
+
+        let hoverTimeout = null;
+        let currentHoverState = null;
+
+        // Render the cycle visualization
+        function renderCycle() {
+            const container = document.getElementById('cycleVisualization');
+            if (!container) return;
+
+            const states = ['power', 'possession', 'loss', 'emptiness', 'craving', 'return'];
+            const centerX = 200;
+            const centerY = 200;
+            const radius = 120;
+            const emojis = ['💪', '🎯', '😔', '🕳️', '🔥', '🔄'];
+
+            let svg = `<svg viewBox="0 0 400 400" class="cycle-svg" style="max-width: 400px;">`;
+            
+            // Draw connecting lines
+            for (let i = 0; i < states.length; i++) {
+                const angle1 = (i * 60 - 90) * Math.PI / 180;
+                const angle2 = ((i + 1) % states.length * 60 - 90) * Math.PI / 180;
+                const x1 = centerX + radius * Math.cos(angle1);
+                const y1 = centerY + radius * Math.sin(angle1);
+                const x2 = centerX + radius * Math.cos(angle2);
+                const y2 = centerY + radius * Math.sin(angle2);
+                
+                svg += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#e2e8f0" stroke-width="3" />`;
+            }
+
+            // Draw nodes
+            states.forEach((stateKey, i) => {
+                const state = cycleStates[stateKey];
+                const angle = (i * 60 - 90) * Math.PI / 180;
+                const x = centerX + radius * Math.cos(angle);
+                const y = centerY + radius * Math.sin(angle);
+                
+                svg += `
+                    <g class="cycle-node" 
+                       onclick="showStateDetail('${stateKey}')" 
+                       onmouseenter="changeBackgroundColor('${state.color}', '${state.bgColor}')"
+                       onmouseleave="resetBackgroundColor()">
+                        <circle cx="${x}" cy="${y}" r="40" fill="${state.color}20" stroke="${state.color}" stroke-width="3"/>
+                        <text x="${x}" y="${y - 5}" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">${state.name}</text>
+                        <text x="${x}" y="${y + 12}" text-anchor="middle" font-size="20">${emojis[i]}</text>
+                    </g>
+                `;
+            });
+
+            // Center label
+            svg += `
+                <circle cx="${centerX}" cy="${centerY}" r="50" fill="white" stroke="#e2e8f0" stroke-width="2"/>
+                <text x="${centerX}" y="${centerY - 5}" text-anchor="middle" font-size="11" font-weight="600" fill="#1e293b">Power-Possession</text>
+                <text x="${centerX}" y="${centerY + 10}" text-anchor="middle" font-size="11" font-weight="600" fill="#1e293b">周期</text>
+            `;
+
+            svg += '</svg>';
+            container.innerHTML = svg;
+        }
+
+        // Show state detail when clicked
+        function showStateDetail(stateKey) {
+            const state = cycleStates[stateKey];
+            const container = document.getElementById('cycleInfo');
+            if (!container) return;
+
+            container.innerHTML = `
+                <div class="state-detail">
+                    <h3 style="color: ${state.color}">${state.name}</h3>
+                    <p>${state.description}</p>
+                    <h4>Common Triggers:</h4>
+                    <ul>
+                        ${state.triggers.map(t => `<li>${t}</li>`).join('')}
+                    </ul>
+                    <h4>Helpful Strategies:</h4>
+                    <ul>
+                        ${state.strategies.map(s => `<li>${s}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+
+        // Change background color on hover
+        function changeBackgroundColor(color, bgColor) {
+            // Clear any pending reset
+            if (hoverTimeout) {
+                clearTimeout(hoverTimeout);
+                hoverTimeout = null;
+            }
+            
+            // Only change if it's a different state
+            if (currentHoverState === color) return;
+            currentHoverState = color;
+            
+            // Create or update overlay
+            let overlay = document.getElementById('cycle-bg-overlay');
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.id = 'cycle-bg-overlay';
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    pointer-events: none;
+                    z-index: -1;
+                    transition: background-color 0.5s ease;
+                `;
+                document.body.appendChild(overlay);
+            }
+            
+            overlay.style.backgroundColor = bgColor + '20'; // 12% opacity for light background
+        }
+
+        // Reset background color
+        function resetBackgroundColor() {
+            hoverTimeout = setTimeout(() => {
+                const overlay = document.getElementById('cycle-bg-overlay');
+                if (overlay) {
+                    overlay.style.backgroundColor = 'transparent';
+                }
+                currentHoverState = null;
+            }, 100);
+        }
+
+        // 工具 dropdown functions
+        function toggleToolsMenu() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (!menu || !btn) return;
+            
+            if (menu.classList.contains('open')) {
+                menu.classList.remove('open');
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            } else {
+                var btnRect = btn.getBoundingClientRect();
+                menu.style.top = (btnRect.bottom + 8) + 'px';
+                menu.style.left = btnRect.left + 'px';
+                menu.classList.add('open');
+                btn.classList.add('active');
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        }
+        
+        function closeToolsDropdown() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (menu) {
+                menu.classList.remove('open');
+            }
+            if (btn) {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        }
+        
+        document.addEventListener('click', function(e) {
+            var btn = document.getElementById('toolsBtn');
+            var menu = document.getElementById('toolsMenu');
+            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
+                closeToolsDropdown();
+            }
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCycle();
+        });
+    </script>
+</body>
+</html>

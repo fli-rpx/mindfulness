@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="copyright" content="© 2026 正念疗法。保留所有权利。">
-    <title>干预工具 - 正念疗法</title>
+    <meta name="copyright" content="© 2026 正念疗法. All rights reserved.">
+    <title>干预措施 - 正念疗法</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -25,7 +25,7 @@
             line-height: 1.6;
         }
         h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; }
-
+        
         /* Navigation */
         .nav {
             position: fixed;
@@ -48,7 +48,7 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.5rem;
             font-weight: 600;
-            color: white;
+            color: white; 
             text-decoration: none;
         }
         .nav-links { display: flex; gap: 0.25rem; }
@@ -61,64 +61,65 @@
             border-radius: 6px;
             transition: all 0.2s;
         }
-        .nav-link:hover { color: white; background: rgba(255,255,255,0.1); }
+        .nav-link:hover { color: white;  background: rgba(255,255,255,0.1); }
         .nav-link.active { color: var(--accent); background: rgba(13,148,136,0.2); }
-
-        /* 工具 Dropdown */
+        
+        /* 工具 Dropdown Styles */
         .tools-dropdown-container { position: relative; display: inline-block; }
-        .tools-dropdown-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            padding: 0.5rem 1rem;
-            border: none;
-            background: transparent;
-            color: rgba(255,255,255,0.8);
-            font-size: 0.875rem;
-            font-weight: 500;
-            cursor: pointer;
-            border-radius: 6px;
-            font-family: inherit;
+        .tools-dropdown-btn { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.25rem; 
+            padding: 0.5rem 1rem; 
+            border: none; 
+            background: transparent; 
+            color: rgba(255,255,255,0.8); 
+            font-size: 0.875rem; 
+            font-weight: 500; 
+            cursor: pointer; 
+            border-radius: 9999px; 
+            font-family: inherit; 
             transition: all 0.2s;
         }
-        .tools-dropdown-btn:hover { background: rgba(255,255,255,0.1); color: white; }
-        .tools-dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            margin-top: 0.5rem;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            min-width: 220px;
-            padding: 0.5rem;
-            z-index: 9999;
+        .tools-dropdown-btn:hover { background: rgba(255, 255, 255, 0.1); color: white; }
+        .tools-dropdown-btn.active { background: rgba(13,148,136,0.2); color: var(--accent); }
+        .tools-dropdown-menu { 
+            display: none; 
+            position: fixed; 
+            top: auto; 
+            left: auto; 
+            margin-top: 0.5rem; 
+            background: var(--surface); 
+            border: 1px solid var(--border); 
+            border-radius: 0.75rem; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15); 
+            min-width: 220px; 
+            padding: 0.5rem; 
+            z-index: 9999; 
         }
         .tools-dropdown-menu.open { display: block; }
-        .tools-dropdown-menu a {
-            display: block;
-            padding: 0.75rem 1rem;
-            color: var(--text);
-            text-decoration: none;
-            font-size: 0.875rem;
-            border-radius: 0.5rem;
-            transition: all 0.2s;
-            white-space: nowrap;
+        .tools-dropdown-menu a { 
+            display: block; 
+            padding: 0.75rem 1rem; 
+            color: var(--text); 
+            text-decoration: none; 
+            font-size: 0.875rem; 
+            border-radius: 0.5rem; 
+            transition: all 0.2s; 
+            white-space: nowrap; 
         }
         .tools-dropdown-menu a:hover { background: rgba(13,148,136,0.1); color: var(--accent); }
 
         /* Hero */
         .hero {
             padding: 80px 2rem 20px;
-            background:
+            background: 
                 radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.2), transparent),
                 linear-gradient(180deg, #1e3a8a 0%, #1e40af 50%, var(--bg) 100%);
-            color: white;
+            color: white; 
         }
-        .hero h1 { color: white; }
-        .hero-subtitle { color: rgba(255,255,255,0.9); }
+        .hero h1 { color: white;  }
+        .hero-subtitle { color: rgba(255,255,255,0.7); }
         .hero-container {
             max-width: 720px;
             margin: 0 auto;
@@ -146,72 +147,197 @@
         }
         .hero-subtitle {
             font-size: 1.125rem;
+            opacity: 0.8;
             max-width: 600px;
             margin: 0 auto;
         }
-
+        
         /* Main Content */
         .content-main {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem 2rem;
         }
-
+        .interventions-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
         /* 干预措施 Grid */
         .interventions-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            max-width: 1100px;
-            margin: 0 auto;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .intervention-category {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .intervention-category:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .intervention-category h3 {
+            color: var(--text);
+            margin: 0 0 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.25rem;
+        }
+
+        .intervention-category h3 i {
+            color: var(--accent);
+        }
+
+        .intervention-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
         .intervention-card {
-            background: var(--surface);
+            background: rgba(0,0,0,0.02);
             border-radius: 12px;
-            padding: 1.75rem;
-            border: 1px solid var(--border);
+            padding: 16px;
+            cursor: pointer;
             transition: all 0.2s;
+            border: 1px solid transparent;
+            position: relative;
         }
 
         .intervention-card:hover {
             border-color: var(--accent);
+            background: rgba(13,148,136,0.05);
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
         }
 
-        .intervention-icon {
-            width: 44px;
-            height: 44px;
-            background: var(--accent);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.125rem;
-            margin-bottom: 1rem;
+        .intervention-card .duration {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(13,148,136,0.1);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
         }
 
-        .intervention-card h3 {
-            font-size: 1.125rem;
-            margin-bottom: 0.5rem;
+        .intervention-card h4 {
             color: var(--text);
+            margin: 0 0 6px 0;
+            font-size: 1rem;
+            padding-right: 60px;
         }
 
         .intervention-card p {
-            font-size: 0.875rem;
             color: var(--muted);
-            line-height: 1.6;
+            margin: 0;
+            font-size: 0.875rem;
         }
 
         @media (max-width: 768px) {
-            .hero { padding: 140px 1rem 80px; }
-            .content-main { padding: 2rem 1rem; }
+            .interventions-grid {
+                grid-template-columns: 1fr;
+            }
+            .interventions-content { padding: 1rem; }
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--muted);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--text);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-duration {
+            display: inline-block;
+            background: rgba(13,148,136,0.1);
+            color: var(--accent);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-instructions {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .modal-instructions ol {
+            margin-left: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .modal-instructions li {
+            margin-bottom: 0.75rem;
+        }
+
+        .modal-instructions strong {
+            color: var(--text);
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
     <nav class="nav">
         <div class="nav-container">
             <a href="index-zh.html" class="nav-logo">🧘 正念疗法</a>
@@ -219,88 +345,379 @@
                 <a href="index-zh.html" class="nav-link">首页</a>
                 <a href="cycle-zh.html" class="nav-link">周期</a>
                 <a href="assessment-zh.html" class="nav-link">AI对话</a>
-
-                <div class="tools-dropdown-container">
-                    <button class="tools-dropdown-btn" onclick="toggleToolsDropdown(this)">
-                        工具 <i class="fas fa-chevron-down"></i>
+                
+                <!-- 工具 Dropdown -->
+                <div class="tools-dropdown-container" id="toolsContainer">
+                    <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
+                        工具 <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
                     </button>
-                    <div class="tools-dropdown-menu">
-                        <a href="emotion-explorer-zh.html">🎨 情绪探索</a>
+                    <div class="tools-dropdown-menu" id="toolsMenu">
+                        <a href="emotion-explorer-zh.html">🎨 情绪探索器</a>
                         <a href="emotion-balance-zh.html">⚡ 情绪平衡</a>
-                        <a href="hypnosis-zh.html">🌀 催眠疗法</a>
+                        <a href="hypnosis-zh.html">🌀 Hypnosis</a>
                         <a href="salad-compass-zh.html">🥗 沙拉罗盘</a>
-                        <a href="salad-check-zh.html">🥬 完整沙拉检测</a>
-                        <a href="interventions-zh.html">🧰 干预工具</a>
+                        <a href="salad-check-zh.html">🥬 完整沙拉检查</a>
+                        <a href="interventions-zh.html">🧰 干预措施</a>
                     </div>
                 </div>
-
+                
                 <a href="journal-zh.html" class="nav-link">日记</a>
                 <a href="progress-zh.html" class="nav-link">进度</a>
                 <a href="learn-zh.html" class="nav-link">学习</a>
-                <a href="interventions-zh.html" class="nav-link">英语</a>
             </div>
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-container">
-            <div class="hero-eyebrow">🧰 干预工具</div>
-            <h1>干预工具</h1>
-            <p class="hero-subtitle">实用的技巧和策略，帮助你管理情绪并找到平衡</p>
+            <div class="hero-eyebrow">🧰 Micro-干预措施</div>
+            <h1>60-Second Techniques</h1>
+            <p class="hero-subtitle">State-matched interventions for rapid emotional regulation and immediate relief</p>
         </div>
     </section>
 
+    <!-- Main Content -->
     <main class="content-main">
-        <div class="interventions-grid">
-            <div class="intervention-card">
-                <div class="intervention-icon"><i class="fas fa-wind"></i></div>
-                <h3>深呼吸练习</h3>
-                <p>使用4-7-8呼吸法来平静你的神经系统，减轻焦虑和压力。</p>
-            </div>
-
-            <div class="intervention-card">
-                <div class="intervention-icon"><i class="fas fa-hand-holding-heart"></i></div>
-                <h3>  grounding 技巧</h3>
-                <p>使用5-4-3-2-1方法来让自己回到当下，减少焦虑感。</p>
-            </div>
-
-            <div class="intervention-card">
-                <div class="intervention-icon"><i class="fas fa-spa"></i></div>
-                <h3>渐进式肌肉放松</h3>
-                <p>通过系统地紧张和放松肌肉群来释放身体压力。</p>
-            </div>
-
-            <div class="intervention-card">
-                <div class="intervention-icon"><i class="fas fa-brain"></i></div>
-                <h3>认知重构</h3>
-                <p>识别并改变负面思维模式，培养更积极的思维方式。</p>
-            </div>
-
-            <div class="intervention-card">
-                <div class="intervention-icon"><i class="fas fa-walking"></i></div>
-                <h3>正念散步</h3>
-                <p>通过有意识地行走来练习正念，连接身体和当下。</p>
-            </div>
-
-            <div class="intervention-card">
-                <div class="intervention-icon"><i class="fas fa-pen"></i></div>
-                <h3>情绪日记</h3>
-                <p>记录你的想法和感受，帮助你理解和处理情绪。</p>
+        <div class="interventions-content">
+            <div class="interventions-grid">
+                <div class="intervention-category">
+                    <h3><i class="fas fa-fire"></i> Power State</h3>
+                    <div class="intervention-list">
+                        <div class="intervention-card" onclick="startIntervention('grounding')">
+                            <span class="duration">60s</span>
+                            <h4>Values Grounding</h4>
+                            <p>Reconnect with internal values vs external validation</p>
+                        </div>
+                        <div class="intervention-card" onclick="startIntervention('power-pose')">
+                            <span class="duration">90s</span>
+                            <h4>Power Pose Reset</h4>
+                            <p>Posture-based confidence restoration</p>
+                        </div>
+                        <div class="intervention-card" onclick="startIntervention('anchoring')">
+                            <span class="duration">45s</span>
+                            <h4>Anchor Installation</h4>
+                            <p>Create a physical trigger for resourceful states</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="intervention-category">
+                    <h3><i class="fas fa-heart"></i> Heart State</h3>
+                    <div class="intervention-list">
+                        <div class="intervention-card" onclick="startIntervention('heart-breathing')">
+                            <span class="duration">120s</span>
+                            <h4>Heart-Centered Breathing</h4>
+                            <p>Coherence breathing through the heart center</p>
+                        </div>
+                        <div class="intervention-card" onclick="startIntervention('gratitude')">
+                            <span class="duration">60s</span>
+                            <h4>Gratitude Amplification</h4>
+                            <p>Three things you're grateful for right now</p>
+                        </div>
+                        <div class="intervention-card" onclick="startIntervention('compassion')">
+                            <span class="duration">90s</span>
+                            <h4>Self-Compassion Break</h4>
+                            <p>Kindness towards yourself in difficulty</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="intervention-category">
+                    <h3><i class="fas fa-brain"></i> Head State</h3>
+                    <div class="intervention-list">
+                        <div class="intervention-card" onclick="startIntervention('reframing')">
+                            <span class="duration">60s</span>
+                            <h4>Context Reframe</h4>
+                            <p>Shift perspective on the current situation</p>
+                        </div>
+                        <div class="intervention-card" onclick="startIntervention('labeling')">
+                            <span class="duration">30s</span>
+                            <h4>Affect Labeling</h4>
+                            <p>Name the emotion to tame it</p>
+                        </div>
+                        <div class="intervention-card" onclick="startIntervention('evidence')">
+                            <span class="duration">75s</span>
+                            <h4>Evidence Check</h4>
+                            <p>Challenge automatic negative thoughts</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="intervention-category">
+                    <h3><i class="fas fa-leaf"></i> Body State</h3>
+                    <div class="intervention-list">
+                        <div class="intervention-card" onclick="startIntervention('progressive')">
+                            <span class="duration">180s</span>
+                            <h4>Progressive Relaxation</h4>
+                            <p>Systematic muscle tension release</p>
+                        </div>
+                        <div class="intervention-card" onclick="startIntervention('shaking')">
+                            <span class="duration">60s</span>
+                            <h4>Trauma Releasing</h4>
+                            <p>Shake out stored tension and stress</p>
+                        </div>
+                        <div class="intervention-card" onclick="startIntervention('breathwork')">
+                            <span class="duration">120s</span>
+                            <h4>4-7-8 Breathing</h4>
+                            <p>Calm the nervous system quickly</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
+    <!-- Intervention Modal -->
+    <div class="modal-overlay" id="interventionModal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h2 class="modal-title" id="modalTitle">Intervention Title</h2>
+            <span class="modal-duration" id="modalDuration">60s</span>
+            <div class="modal-instructions" id="modalInstructions">
+                Instructions will appear here...
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
     <script>
-        function toggleToolsDropdown(btn) {
-            const menu = btn.nextElementSibling;
-            menu.classList.toggle('open');
+        // 工具 dropdown functions
+        function toggleToolsMenu() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (!menu || !btn) return;
+            
+            if (menu.classList.contains('open')) {
+                menu.classList.remove('open');
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            } else {
+                var btnRect = btn.getBoundingClientRect();
+                menu.style.top = (btnRect.bottom + 8) + 'px';
+                menu.style.left = btnRect.left + 'px';
+                menu.classList.add('open');
+                btn.classList.add('active');
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        }
+        
+        function closeToolsDropdown() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (menu) {
+                menu.classList.remove('open');
+            }
+            if (btn) {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        }
+        
+        document.addEventListener('click', function(e) {
+            var btn = document.getElementById('toolsBtn');
+            var menu = document.getElementById('toolsMenu');
+            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.remove('open');
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Intervention data
+        const interventions = {
+            'grounding': {
+                title: 'Values Grounding',
+                duration: '60s',
+                instructions: `
+                    <p><strong>Reconnect with your internal values vs external validation.</strong></p>
+                    <ol>
+                        <li>Take a deep breath and pause.</li>
+                        <li>Ask yourself: "What truly matters to me?"</li>
+                        <li>Identify 2-3 core values (e.g., honesty, kindness, growth).</li>
+                        <li>Remind yourself: "My worth comes from within, not from others' opinions."</li>
+                        <li>Feel your feet on the ground and breathe.</li>
+                    </ol>
+                `
+            },
+            'power-pose': {
+                title: 'Power Pose Reset',
+                duration: '90s',
+                instructions: `
+                    <p><strong>Posture-based confidence restoration.</strong></p>
+                    <ol>
+                        <li>Stand up straight with your shoulders back.</li>
+                        <li>Place your hands on your hips (Wonder Woman pose) or raise them in victory.</li>
+                        <li>Hold this pose for 60 seconds.</li>
+                        <li>Breathe deeply and feel your power.</li>
+                        <li>Notice how your confidence increases.</li>
+                    </ol>
+                `
+            },
+            'anchoring': {
+                title: 'Anchor Installation',
+                duration: '45s',
+                instructions: `
+                    <p><strong>Create a physical trigger for resourceful states.</strong></p>
+                    <ol>
+                        <li>Recall a time when you felt confident and capable.</li>
+                        <li>As you feel that state, touch your thumb and forefinger together.</li>
+                        <li>Hold for 5 seconds while fully feeling the positive state.</li>
+                        <li>Release and repeat 3 times.</li>
+                        <li>Use this anchor anytime you need confidence.</li>
+                    </ol>
+                `
+            },
+            'heart-breathing': {
+                title: 'Heart-Centered Breathing',
+                duration: '120s',
+                instructions: `
+                    <p><strong>Coherence breathing through the heart center.</strong></p>
+                    <ol>
+                        <li>Place your hand over your heart.</li>
+                        <li>Breathe in for 5 counts, out for 5 counts.</li>
+                        <li>Focus your attention on your heart area.</li>
+                        <li>Feel gratitude or appreciation for someone or something.</li>
+                        <li>继续 for 2 minutes.</li>
+                    </ol>
+                `
+            },
+            'gratitude': {
+                title: 'Gratitude Amplification',
+                duration: '60s',
+                instructions: `
+                    <p><strong>Three things you're grateful for right now.</strong></p>
+                    <ol>
+                        <li>Pause and take a breath.</li>
+                        <li>Think of 3 things you're grateful for right now.</li>
+                        <li>They can be small (a warm cup of tea) or big (family, health).</li>
+                        <li>Feel the gratitude in your body.</li>
+                        <li>Let this feeling expand.</li>
+                    </ol>
+                `
+            },
+            'compassion': {
+                title: 'Self-Compassion Break',
+                duration: '90s',
+                instructions: `
+                    <p><strong>Kindness towards yourself in difficulty.</strong></p>
+                    <ol>
+                        <li>Acknowledge that you're struggling: "This is a moment of suffering."</li>
+                        <li>Recognize that suffering is part of being human.</li>
+                        <li>Place your hand on your heart.</li>
+                        <li>Say to yourself: "May I be kind to myself."</li>
+                        <li>Offer yourself the same kindness you'd offer a good friend.</li>
+                    </ol>
+                `
+            },
+            'reframing': {
+                title: 'Context Reframe',
+                duration: '60s',
+                instructions: `
+                    <p><strong>Shift perspective on the current situation.</strong></p>
+                    <ol>
+                        <li>Identify the negative thought.</li>
+                        <li>Ask: "Will this matter in 5 years?"</li>
+                        <li>Ask: "What would I tell a friend in this situation?"</li>
+                        <li>Find one positive aspect or opportunity.</li>
+                        <li>Adopt this new perspective.</li>
+                    </ol>
+                `
+            },
+            'labeling': {
+                title: 'Affect Labeling',
+                duration: '30s',
+                instructions: `
+                    <p><strong>Name the emotion to tame it.</strong></p>
+                    <ol>
+                        <li>Notice what you're feeling.</li>
+                        <li>Name the emotion specifically (e.g., "I feel anxious" not "I feel bad").</li>
+                        <li>Say it out loud or write it down.</li>
+                        <li>Notice how naming it reduces its intensity.</li>
+                    </ol>
+                `
+            },
+            'evidence': {
+                title: 'Evidence Check',
+                duration: '75s',
+                instructions: `
+                    <p><strong>Challenge automatic negative thoughts.</strong></p>
+                    <ol>
+                        <li>Identify the negative thought.</li>
+                        <li>Ask: "What evidence supports this thought?"</li>
+                        <li>Ask: "What evidence contradicts this thought?"</li>
+                        <li>Consider alternative explanations.</li>
+                        <li>Form a more balanced thought.</li>
+                    </ol>
+                `
+            },
+            'progressive': {
+                title: 'Progressive Relaxation',
+                duration: '180s',
+                instructions: `
+                    <p><strong>Systematic muscle tension release.</strong></p>
+                    <ol>
+                        <li>开始 with your feet - tense for 5 seconds, then release.</li>
+                        <li>Move to your calves - tense and release.</li>
+                        <li>继续 up: thighs, stomach, chest, hands, arms, shoulders.</li>
+                        <li>Finally, tense your whole face, then release.</li>
+                        <li>Notice the wave of relaxation through your body.</li>
+                    </ol>
+                `
+            },
+            'shaking': {
+                title: 'Trauma Releasing',
+                duration: '60s',
+                instructions: `
+                    <p><strong>Shake out stored tension and stress.</strong></p>
+                    <ol>
+                        <li>Stand with feet shoulder-width apart.</li>
+                        <li>Begin gently shaking your hands.</li>
+                        <li>Let the shaking move up your arms to your shoulders.</li>
+                        <li>Allow your whole body to shake gently.</li>
+                        <li>Let go of control and release tension.</li>
+                    </ol>
+                `
+            },
+            'breathwork': {
+                title: '4-7-8 Breathing',
+                duration: '120s',
+                instructions: `
+                    <p><strong>Calm the nervous system quickly.</strong></p>
+                    <ol>
+                        <li>Inhale through your nose for 4 counts.</li>
+                        <li>Hold your breath for 7 counts.</li>
+                        <li>Exhale completely through your mouth for 8 counts.</li>
+                        <li>Repeat this cycle 4 times.</li>
+                        <li>Notice the calming effect on your body.</li>
+                    </ol>
+                `
+            }
+        };
+
+        // Modal functions
+        function startIntervention(type) {
+            const intervention = interventions[type];
+            if (!intervention) return;
+
+            document.getElementById('modalTitle').textContent = intervention.title;
+            document.getElementById('modalDuration').textContent = intervention.duration;
+            document.getElementById('modalInstructions').innerHTML = intervention.instructions;
+            document.getElementById('interventionModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.tools-dropdown-container')) {
-                document.querySelectorAll('.tools-dropdown-menu').forEach(menu => {
-                    menu.classList.remove('open');
-                });
+        function closeModal(event) {
+            if (!event || event.target.id === 'interventionModal') {
+                document.getElementById('interventionModal').classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // 关闭 modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
             }
         });
     </script>
