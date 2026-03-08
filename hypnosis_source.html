@@ -8,6 +8,16 @@
     <style>
       body { margin: 0; min-height: 100vh; }
       #root { min-height: 100vh; }
+      /* Force all cards/glass panels to be transparent */
+      .glass-card, [class*="glass"], [class*="Glass"], 
+      .card, [class*="card"], [class*="Card"],
+      div[style*="backdrop-filter"], div[style*="background: rgba"],
+      div[style*="background-color: rgba"] {
+        background: transparent !important;
+        background-color: transparent !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+      }
     </style>
   </head>
   <body>
@@ -41,36 +51,7 @@
           }
         });
         
-        // Make Safe Place panel/card background transparent
-        setTimeout(function() {
-          // Find the panel containing "Begin Visualization" button
-          const buttons = document.querySelectorAll('button');
-          for (let btn of buttons) {
-            if (btn.textContent.toLowerCase().includes('begin visualization')) {
-              // Go up to find the card/panel container
-              let panel = btn.closest('div[class*="glass"], div[class*="card"], div[class*="panel"], div[style*="background"], .glass-card, .card, [class*="bg-"]');
-              if (!panel) {
-                panel = btn.parentElement;
-                while (panel && panel.tagName !== 'BODY') {
-                  const style = window.getComputedStyle(panel);
-                  if (style.backgroundColor !== 'rgba(0, 0, 0, 0)' && style.backgroundColor !== 'transparent') {
-                    break;
-                  }
-                  panel = panel.parentElement;
-                }
-              }
-              if (panel && panel.tagName !== 'BODY') {
-                panel.style.background = 'transparent';
-                panel.style.backgroundColor = 'transparent';
-                panel.style.backdropFilter = 'none';
-                console.log('Safe Place panel made transparent');
-              }
-              break;
-            }
-          }
-        }, 3000);
-        
-        console.log('Audio control and transparency script loaded');
+        console.log('Audio control loaded');
       })();
     </script>
   </body>
