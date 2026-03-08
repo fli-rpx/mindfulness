@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="copyright" content="© 2026 Терапия Осознанности. Все права защищены.">
+    <meta name="copyright" content="© 2026 Терапия Осознанности. All rights reserved.">
     <title>Обучение - Терапия Осознанности</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -25,7 +25,7 @@
             line-height: 1.6;
         }
         h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; }
-
+        
         /* Navigation */
         .nav {
             position: fixed;
@@ -63,62 +63,17 @@
         }
         .nav-link:hover { color: white; background: rgba(255,255,255,0.1); }
         .nav-link.active { color: var(--accent); background: rgba(13,148,136,0.2); }
-
-        /* Инструменты Dropdown */
-        .tools-dropdown-container { position: relative; display: inline-block; }
-        .tools-dropdown-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            padding: 0.5rem 1rem;
-            border: none;
-            background: transparent;
-            color: rgba(255,255,255,0.8);
-            font-size: 0.875rem;
-            font-weight: 500;
-            cursor: pointer;
-            border-radius: 6px;
-            font-family: inherit;
-            transition: all 0.2s;
-        }
-        .tools-dropdown-btn:hover { background: rgba(255,255,255,0.1); color: white; }
-        .tools-dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            margin-top: 0.5rem;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            min-width: 220px;
-            padding: 0.5rem;
-            z-index: 9999;
-        }
-        .tools-dropdown-menu.open { display: block; }
-        .tools-dropdown-menu a {
-            display: block;
-            padding: 0.75rem 1rem;
-            color: var(--text);
-            text-decoration: none;
-            font-size: 0.875rem;
-            border-radius: 0.5rem;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-        .tools-dropdown-menu a:hover { background: rgba(13,148,136,0.1); color: var(--accent); }
-
+        
         /* Hero */
         .hero {
             padding: 80px 2rem 20px;
-            background:
+            background: 
                 radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.2), transparent),
                 linear-gradient(180deg, #1e3a8a 0%, #1e40af 50%, var(--bg) 100%);
             color: white;
         }
         .hero h1 { color: white; }
-        .hero-subtitle { color: rgba(255,255,255,0.9); }
+        .hero-subtitle { color: rgba(255,255,255,0.7); }
         .hero-container {
             max-width: 720px;
             margin: 0 auto;
@@ -146,74 +101,204 @@
         }
         .hero-subtitle {
             font-size: 1.125rem;
+            opacity: 0.8;
             max-width: 600px;
             margin: 0 auto;
         }
-
+        
         /* Main Content */
         .content-main {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem 2rem;
         }
-
-        /* Обучение Styles */
-        .learn-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            max-width: 1100px;
+        .learn-content {
+            max-width: 800px;
             margin: 0 auto;
         }
-
-        .learn-card {
-            background: var(--surface);
-            border-radius: 12px;
-            padding: 1.75rem;
-            border: 1px solid var(--border);
+        
+        /* Инструменты Dropdown Styles */
+        .tools-dropdown-container { position: relative; display: inline-block; }
+        .tools-dropdown-btn { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.25rem; 
+            padding: 0.5rem 1rem; 
+            border: none; 
+            background: transparent; 
+            color: rgba(255,255,255,0.8); 
+            font-size: 0.875rem; 
+            font-weight: 500; 
+            cursor: pointer; 
+            border-radius: 9999px; 
+            font-family: inherit; 
             transition: all 0.2s;
-            text-decoration: none;
-            color: inherit;
         }
-
-        .learn-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
+        .tools-dropdown-btn:hover { background: rgba(255, 255, 255, 0.1); color: white; }
+        .tools-dropdown-btn.active { background: rgba(13,148,136,0.2); color: var(--accent); }
+        .tools-dropdown-menu { 
+            display: none; 
+            position: fixed; 
+            top: auto; 
+            left: auto; 
+            margin-top: 0.5rem; 
+            background: var(--surface); 
+            border: 1px solid var(--border); 
+            border-radius: 0.75rem; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15); 
+            min-width: 220px; 
+            padding: 0.5rem; 
+            z-index: 9999; 
         }
+        .tools-dropdown-menu.open { display: block; }
+        .tools-dropdown-menu a { 
+            display: block; 
+            padding: 0.75rem 1rem; 
+            color: var(--text); 
+            text-decoration: none; 
+            font-size: 0.875rem; 
+            border-radius: 0.5rem; 
+            transition: all 0.2s; 
+            white-space: nowrap; 
+        }
+        .tools-dropdown-menu a:hover { background: rgba(13,148,136,0.1); color: var(--accent); }
 
+        /* Обучение Section Styles */
+        .learn-section {
+            background: var(--surface);
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .learn-section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .learn-section-header:hover {
+            background: var(--bg);
+        }
+        
         .learn-icon {
-            width: 44px;
-            height: 44px;
-            background: var(--accent);
-            border-radius: 10px;
+            font-size: 1.5rem;
+            width: 3rem;
+            height: 3rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 1.125rem;
+            background: var(--bg);
+            border-radius: 12px;
+        }
+        
+        .learn-section-header h3 {
+            flex: 1;
+            color: var(--text);
+            font-size: 1.25rem;
+        }
+        
+        .learn-toggle {
+            color: var(--muted);
+            transition: transform 0.3s;
+        }
+        
+        .learn-section.active .learn-toggle {
+            transform: rotate(180deg);
+        }
+        
+        .learn-section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .learn-section.active .learn-section-content {
+            max-height: 1000px;
+        }
+        
+        .learn-summary {
+            padding: 0 1.5rem 1rem;
+            color: var(--muted);
+            font-style: italic;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .learn-detail {
+            padding: 1.5rem;
+        }
+        
+        .learn-detail p {
+            color: var(--text);
+            line-height: 1.7;
             margin-bottom: 1rem;
         }
-
-        .learn-card h3 {
-            font-size: 1.125rem;
-            margin-bottom: 0.5rem;
+        
+        .learn-key-point {
+            display: flex;
+            gap: 1rem;
+            background: var(--bg);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+        
+        .key-icon {
+            font-size: 1.25rem;
+        }
+        
+        .learn-key-point p {
+            margin: 0;
             color: var(--text);
         }
 
-        .learn-card p {
-            font-size: 0.875rem;
-            color: var(--muted);
-            line-height: 1.6;
+        .learn-summary-card {
+            background: linear-gradient(135deg, rgba(13,148,136,0.1) 0%, rgba(13,148,136,0.05) 100%);
+            border: 1px solid rgba(13,148,136,0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .learn-summary-card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .learn-summary-card ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .learn-summary-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        .learn-final {
+            color: var(--accent);
+            font-weight: 600;
+            font-style: italic;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(13,148,136,0.2);
         }
 
         @media (max-width: 768px) {
             .hero { padding: 140px 1rem 80px; }
             .content-main { padding: 2rem 1rem; }
+            .learn-section-header h3 { font-size: 1.1rem; }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
     <nav class="nav">
         <div class="nav-container">
             <a href="index-ru.html" class="nav-logo">🧘 Терапия Осознанности</a>
@@ -221,90 +306,343 @@
                 <a href="index-ru.html" class="nav-link">Главная</a>
                 <a href="cycle-ru.html" class="nav-link">Цикл</a>
                 <a href="assessment-ru.html" class="nav-link">ИИ Чат</a>
-
-                <div class="tools-dropdown-container">
-                    <button class="tools-dropdown-btn" onclick="toggleToolsDropdown(this)">
-                        Инструменты <i class="fas fa-chevron-down"></i>
+                
+                <!-- Инструменты Dropdown -->
+                <div class="tools-dropdown-container" id="toolsContainer">
+                    <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleИнструментыMenu();">
+                        Инструменты <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
                     </button>
-                    <div class="tools-dropdown-menu">
-                        <a href="emotion-explorer-ru.html">🎨 Исследование Эмоций</a>
+                    <div class="tools-dropdown-menu" id="toolsMenu">
+                        <a href="emotion-explorer-ru.html">🎨 Исследователь Эмоций</a>
                         <a href="emotion-balance-ru.html">⚡ Баланс Эмоций</a>
-                        <a href="hypnosis-ru.html">🌀 Гипнотерапия</a>
-                        <a href="salad-compass-ru.html">🥗 Салатный Компас</a>
+                        <a href="hypnosis-ru.html">🌀 Гипноз</a>
+                        <a href="salad-compass-ru.html">🥗 Компас Салата</a>
                         <a href="salad-check-ru.html">🥬 Полная Проверка Салата</a>
-                        <a href="interventions-ru.html">🧰 Интервенции</a>
+                        <a href="interventions-ru.html">🧰 Вмешательства</a>
                     </div>
                 </div>
-
-                <a href="journal-ru.html" class="nav-link">Дневник</a>
+                
+                <a href="journal-ru.html" class="nav-link">Журнал</a>
                 <a href="progress-ru.html" class="nav-link">Прогресс</a>
                 <a href="learn-ru.html" class="nav-link active">Обучение</a>
-                <a href="learn-ru.html" class="nav-link">Английский</a>
             </div>
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-container">
-            <div class="hero-eyebrow">📚 Обучение</div>
-            <h1>База Знаний</h1>
-            <p class="hero-subtitle">Исследуй исследования, подтвержденные наукой, о психологии и эмоциональном благополучии</p>
+            <div class="hero-eyebrow">📚 Понимание и Осознание</div>
+            <h1>Психология Привязанности</h1>
+            <p class="hero-subtitle">Понимание, почему мы попадаем в ловушки—and как вернуть свою силу через осознанность и внимательность.</p>
         </div>
     </section>
 
+    <!-- Main Content -->
     <main class="content-main">
-        <div class="learn-grid">
-            <div class="learn-card">
-                <div class="learn-icon"><i class="fas fa-brain"></i></div>
-                <h3>Что Такое Осознанность?</h3>
-                <p>Осознанность - это практика направления внимания на настоящий момент без осуждения. Узнай, как она может помочь уменьшить стресс и улучшить благополучие.</p>
+        <div class="learn-content">
+            <!-- Section 1: Visual Hook -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggleОбучениеSection(this)">
+                    <span class="learn-icon">👁️</span>
+                    <h3>Почему Ваш Мозг Любит Определенные Цвета и Внешний Вид</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">Ваши глаза используют 44% энергии мозга. Поскольку зрение дорого, ваш мозг награждает "легкие" визуальные образы дофамином и эндорфинами.</p>
+                    <div class="learn-detail">
+                        <p><strong>Наука:</strong> Ваш мозг—скряга энергии. Когда вы видите что-то визуально "беглое" (симметричное, четкое, привлекательное), ваш мозг говорит "Ах, это было легко!" и дает вам награду удовольствия.</p>
+                        <div class="learn-key-point">
+                            <span class="key-icon">⚠️</span>
+                            <p><strong>Подвох:</strong> Только потому что что-то приятно смотреть, не означает что это полезно для вас. Это могут быть пустые калории для ваших глаз.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="learn-card">
-                <div class="learn-icon"><i class="fas fa-heart"></i></div>
-                <h3>Понимание Эмоций</h3>
-                <p>Эмоции - это сложные состояния, включающие физиологические реакции, поведенческие ответы и субъективный опыт. Исследуй науку об эмоциях.</p>
+            <!-- Section 2: Stroop Effect -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggleОбучениеSection(this)">
+                    <span class="learn-icon">🧠</span>
+                    <h3>Эффект Струпа: Цвета Могут Захватить Ваш Мозг</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">Визуальная информация конкурирует с концептуальной информацией в вашем мозге—and иногда визуальные образы побеждают автоматически.</p>
+                    <div class="learn-detail">
+                        <p><strong>Эксперимент:</strong> Покажите кому-то слово "RED", написанное синими чернилами. Их мозг замедляется, потому что он должен бороться между словом и цветом.</p>
+                        <div class="learn-key-point">
+                            <span class="key-icon">🤯</span>
+                            <p><strong>Что Это Значит:</strong> Цвета и внешний вид имеют власть над вашим вниманием, хотите вы этого или нет. Ваш мозг обрабатывает их автоматически, прежде чем вы можете решить.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="learn-card">
-                <div class="learn-icon"><i class="fas fa-wind"></i></div>
-                <h3>Дыхательные Техники</h3>
-                <p>Дыхательные упражнения - мощный инструмент для управления стрессом и тревогой. Узнай различные техники и когда их использовать.</p>
+            <!-- Section 3: Aesthetic Arrest -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggleОбучениеSection(this)">
+                    <span class="learn-icon">✨</span>
+                    <h3>Эстетический Арест: Когда Красота Останавливает Вас</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">Это чувство, когда вы "окостенели на месте" из-за чего-то красивого—временное бегство от желания и борьбы.</p>
+                    <div class="learn-detail">
+                        <p>Философ Шопенгауэр назвал это становлением "чистым, безволевым, безболезненным субъектом знания". На мгновение вы забываете свои проблемы и желания.</p>
+                        <div class="learn-key-point">
+                            <span class="key-icon">⚠️</span>
+                            <p><strong>Проблема:</strong> Вы не контролируете ситуацию во время эстетического ареста. Вещь контролирует вас. Вы зритель, а не действующее лицо.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="learn-card">
-                <div class="learn-icon"><i class="fas fa-bed"></i></div>
-                <h3>Сон и Эмоции</h3>
-                <p>Качество сна тесно связано с эмоциональным здоровьем. Узнай, как улучшить сон для лучшего эмоционального благополучия.</p>
+            <!-- Section 4: Animism -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggleОбучениеSection(this)">
+                    <span class="learn-icon">🎭</span>
+                    <h3>Анимизм: Почему Предметы Кажутся Живыми</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">Люди естественным образом проецируют жизнь и намерение на неодушевленные вещи—судя о них по Оценке, Силе и Активности.</p>
+                    <div class="learn-detail">
+                        <p>Ваш мозг устроен так, чтобы относиться к определенным вещам так, будто у них есть сила или намерение. Вот почему цвет может казаться "сильным" или лицо "магнитным".</p>
+                        <div class="learn-key-point">
+                            <span class="key-icon">💡</span>
+                            <p><strong>Проницательность:</strong> Ваш мозг эволюционировал, чтобы обращать внимание на вещи, которые могут быть важными—but иногда он перестараивается, и вы попадаете в ловушку чего-то пустого.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="learn-card">
-                <div class="learn-icon"><i class="fas fa-users"></i></div>
-                <h3>Отношения и Эмоции</h3>
-                <p>Здоровые отношения имеют решающее значение для эмоционального благополучия. Исследуй техники построения связей и общения.</p>
+            <!-- Section 5: Locus of Control -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggleОбучениеSection(this)">
+                    <span class="learn-icon">🎯</span>
+                    <h3>Локус Контроля: Куда Вы Кладете Свою Силу?</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">Внутренний против Внешнего: Верите ли вы, что ваши действия формируют вашу жизнь, или что удача/судьба/другие контролируют то, что происходит?</p>
+                    <div class="learn-detail">
+                        <p><strong>Внешний Локус:</strong> Вы верите, что сила приходит извне—внимание других людей, владение вещами, как вы выглядите. Вы постоянно сканируете ловушки, потому что нуждаетесь в них как в топливе.</p>
+                        <p><strong>Внутренний Локус:</strong> Вы верите, что сила приходит изнутри—ваш выбор, ваши ценности, как вы реагируете. Ловушки теряют хватку, потому что вы не нуждаетесь в них.</p>
+                        <div class="learn-key-point">
+                            <span class="key-icon">🔗</span>
+                            <p><strong>Связь с Травмой:</strong> Взросление в непредсказуемой среде учит вас сдавать контроль—это сохранило вас в живых. Но как взрослый, это делает вас уязвимым перед каждой блестящей вещью.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="learn-card">
-                <div class="learn-icon"><i class="fas fa-spa"></i></div>
-                <h3>Медитация для Начинающих</h3>
-                <p>Начни свою практику медитации с этих простых руководств. Узнай различные техники и найди ту, которая подходит именно тебе.</p>
+            <!-- Section 6: Триггеры vs Огоньки -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggleОбучениеSection(this)">
+                    <span class="learn-icon">⚡</span>
+                    <h3>Триггеры против Огоньков: Что Ищет Ваша Нервная Система</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">Ваше тело сканирует опасность (триггеры) и безопасность (огоньки). Оба могут "зацепить" вас—but один ведет к вреду, другой к исцелению.</p>
+                    <div class="learn-detail">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0;">
+                            <div style="padding: 1rem; background: rgba(239, 68, 68, 0.1); border-radius: 12px; border-left: 4px solid #ef4444;">
+                                <h4 style="color: #dc2626; margin-bottom: 0.5rem;">🔴 Триггеры</h4>
+                                <p style="font-size: 0.9rem;">Сенсорные сигналы, которые активируют режим выживания—бей, беги или замри. Основаны на прошлой опасности, хранящейся в вашем теле.</p>
+                            </div>
+                            <div style="padding: 1rem; background: rgba(34, 197, 94, 0.1); border-radius: 12px; border-left: 4px solid #22c55e;">
+                                <h4 style="color: #16a34a; margin-bottom: 0.5rem;">🟢 Огоньки</h4>
+                                <p style="font-size: 0.9rem;">Крошечные сигналы, которые говорят вашей нервной системе "вы в безопасности". Теплый цвет, пение птицы, луч солнца.</p>
+                            </div>
+                        </div>
+                        <div class="learn-key-point">
+                            <span class="key-icon">💡</span>
+                            <p><strong>Практика:</strong> Вы можете тренировать себя замечать огоньки. Чем больше вы замечаете моменты безопасности, тем больше ваша нервная система учится, что мир—не только опасность.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 7: Gendlin's Focusing -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggleОбучениеSection(this)">
+                    <span class="learn-icon">🔍</span>
+                    <h3>Фокусирование Гендлина: Слушайте Мудрость Вашего Тела</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">Your body knows things your brain hasn't figured out yet. Обучение to tune into your "felt sense"—a bodily intuition not yet in words.</p>
+                    <div class="learn-detail">
+                        <p><strong>Чувственное Ощущение:</strong> Тяжесть в груди, ком в желудке, трепетное ощущение. Мягко обращая внимание и задавая ему вопросы, вы открываете "чувственный сдвиг"—физическое освобождение, приносящее новое понимание.</p>
+                        <div class="learn-key-point">
+                            <span class="key-icon">💡</span>
+                            <p><strong>Когда Зацеплены:</strong> Вместо того чтобы гнаться за тем, что привлекло ваш взгляд, повернитесь внутрь: "Что это за чувство в моем теле?" Оставайтесь с ним мягко, не пытаясь исправить его. Сдвиг—это ваше тело освобождает что-то.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 8: Somatic Exercises -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggleОбучениеSection(this)">
+                    <span class="learn-icon">💪</span>
+                    <h3>Соматические Упражнения: Практические Инструменты для Возвращения Субъектности</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">Травма живет в теле, не только в уме. Эти упражнения помогают вам вернуть ощущение безопасности и контроля.</p>
+                    <div class="learn-detail">
+                        <h4>🌊 Техники Заземления</h4>
+                        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                            <li><strong>5-4-3-2-1 Чувств:</strong> Назовите 5 вещей, которые вы видите, 4 которые слышите, 3 которых можете коснуться, 2 которые чувствуете запах, 1 которую чувствуете вкус.</li>
+                            <li><strong>Сканирование Тела:</strong> Медленно перемещайте внимание от стоп к голове, замечая ощущения без осуждения.</li>
+                            <li><strong>Отжим от Стула:</strong> Вдавливайте стопы в пол, чувствуйте, как ваше тело поддерживается стулом.</li>
+                        </ul>
+                        <h4>🫁 Дыхательные Практики</h4>
+                        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                            <li><strong>Квадратное Дыхание:</strong> Вдох 4 счета, задержка 4, выдох 4, задержка 4.</li>
+                            <li><strong>Продленный Выдох:</strong> Вдохните нормально, выдохните вдвое дольше. Активирует вашу парасимпатическую нервную систему.</li>
+                        </ul>
+                        <div class="learn-key-point">
+                            <span class="key-icon">💡</span>
+                            <p><strong>Цель:</strong> Это не просто техники расслабления—это способы доказать вашей нервной системе, что вы в безопасности сейчас, в этот момент.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 9: Emotional Transformation -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggleОбучениеSection(this)">
+                    <span class="learn-icon">🌱</span>
+                    <h3>Эмоциональная Трансформация: От Внешней Силы к Внутренней</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">Понимание ваших эмоциональных паттернов помогает вам перейти от контроля внешними ловушками к руководству внутренними ценностями.</p>
+                    <div class="learn-detail">
+                        <h4>🎭 Треугольник Драмы</h4>
+                        <p>Когда мы под стрессом, мы часто падаем в три роли:</p>
+                        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                            <li><strong>Жертва:</strong> "Со мной происходит все."</li>
+                            <li><strong>Преследователь:</strong> "Это все их вина."</li>
+                            <li><strong>Спасатель:</strong> "Я все исправлю."</li>
+                        </ul>
+                        <p>Выход: <strong>Динамика Уполномочивания</strong>—переход к ролям Создателя, Испытателя и Тренера.</p>
+                        <div class="learn-key-point">
+                            <span class="key-icon">💡</span>
+                            <p><strong>Когда Зацеплены:</strong> Ask yourself: "Какую роль я играю прямо сейчас?" Распознавание паттерна—это первый шаг к его изменению.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 10: Гипноз -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggleОбучениеSection(this)">
+                    <span class="learn-icon">🌀</span>
+                    <h3>Гипноз для Эмоционального Баланса</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">Гипноз is a powerful tool for accessing the subconscious mind and creating lasting emotional change.</p>
+                    <div class="learn-detail">
+                        <p><strong>Как Это Работает:</strong> Гипноз puts you in a state of focused attention where your subconscious mind becomes more receptive to positive suggestions. This can help break old patterns and establish new, healthier responses.</p>
+                        <div class="learn-key-point">
+                            <span class="key-icon">💫</span>
+                            <p><strong>Попробуйте:</strong> Посетите нашу <a href="hypnosis-ru.html">Гипноз page</a> для управляемых сессий, помогающих с эмоциональным балансом и разрывом цикла силы-обладания.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 7: Practical Инструменты -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggleОбучениеSection(this)">
+                    <span class="learn-icon">🛠️</span>
+                    <h3>Практические Инструменты для Повседневных Ситуаций</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">Простые техники, которые вы можете использовать, когда чувствуете, что вас что-то визуально привлекательное цепляет.</p>
+                    <div class="learn-detail">
+                        <p><strong>Метод из 3 Шагов:</strong></p>
+                        <ol class="learn-parts-list">
+                            <li><strong>Заметьте:</strong> "Меня это тянет."</li>
+                            <li><strong>Назовите:</strong> "Это эстетический арест/визуальная ловушка."</li>
+                            <li><strong>Пауза:</strong> Сделайте 3 сознательных вдоха перед принятием решения.</li>
+                        </ol>
+                        <div class="learn-key-point">
+                            <span class="key-icon">💪</span>
+                            <p><strong>Помните:</strong> Цель не избегать красоты или удовольствия. Цель—выбирать сознательно, а не быть автоматически ими контролируемым.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Card -->
+            <div class="learn-summary-card">
+                <h3>🎯 Ключевые Выводы</h3>
+                <ul>
+                    <li>Ваш мозг автоматически реагирует на визуальные стимулы дофаминовыми наградами</li>
+                    <li>Красота может создать "эстетический арест", который временно останавливает ваше критическое мышление</li>
+                    <li>Зависимость захватывает эту естественную систему наград, делая нормальные действия менее удовлетворительными</li>
+                    <li>Осознанность создает промежуток между стимулом и автоматической реакцией</li>
+                    <li>Вы можете тренировать себя наблюдать, а не быть контролируемым визуальными ловушками</li>
+                </ul>
+                <p class="learn-final">Цель не избегать красоты или удовольствия, а взаимодействовать с ними сознательно и намеренно.</p>
             </div>
         </div>
     </main>
 
     <script>
-        function toggleToolsDropdown(btn) {
-            const menu = btn.nextElementSibling;
-            menu.classList.toggle('open');
+        // Инструменты dropdown functions
+        function toggleИнструментыMenu() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (!menu || !btn) return;
+            
+            if (menu.classList.contains('open')) {
+                menu.classList.remove('open');
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            } else {
+                var btnRect = btn.getBoundingClientRect();
+                menu.style.top = (btnRect.bottom + 8) + 'px';
+                menu.style.left = btnRect.left + 'px';
+                menu.classList.add('open');
+                btn.classList.add('active');
+                btn.setAttribute('aria-expanded', 'true');
+            }
         }
-
+        
+        function closeИнструментыDropdown() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (menu) {
+                menu.classList.remove('open');
+            }
+            if (btn) {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        }
+        
         document.addEventListener('click', function(e) {
-            if (!e.target.closest('.tools-dropdown-container')) {
-                document.querySelectorAll('.tools-dropdown-menu').forEach(menu => {
-                    menu.classList.remove('open');
-                });
+            var btn = document.getElementById('toolsBtn');
+            var menu = document.getElementById('toolsMenu');
+            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
+                closeИнструментыDropdown();
             }
         });
+
+        // Обучение section toggle
+        function toggleОбучениеSection(header) {
+            const section = header.parentElement;
+            section.classList.toggle('active');
+        }
     </script>
 </body>
 </html>

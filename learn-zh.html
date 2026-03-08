@@ -1,1 +1,648 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>学习 - 正念疗法</title><style>:root{--bg:#fafaf9;--surface:#ffffff;--text:#1c1917;--muted:#78716c;--border:#e7e5e4;--accent:#0d9488}body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;margin:0}.nav{position:fixed;top:0;left:0;right:0;background:rgba(30,58,138,0.9);z-index:100}.nav-container{max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:70px}.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:white;text-decoration:none}.nav-links{display:flex;gap:0.25rem}.nav-link{padding:0.5rem 1rem;color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.875rem}.nav-link.active{color:var(--accent)}.hero{padding:100px 2rem 40px;background:linear-gradient(180deg,#1e3a8a 0%,#1e40af 50%,var(--bg) 100%);color:white;text-align:center}.hero h1{font-size:2.5rem;margin-bottom:1rem}.content-main{max-width:800px;margin:0 auto;padding:2rem}.card{background:var(--surface);border-radius:20px;padding:2rem;border:1px solid var(--border);margin-bottom:1rem}@media(max-width:768px){.hero{padding:120px 1rem 40px}.content-main{padding:1rem}}</style></head><body><nav class="nav"><div class="nav-container"><a href="index-zh.html" class="nav-logo">🧘 正念疗法</a><div class="nav-links"><a href="index-zh.html" class="nav-link">首页</a><a href="cycle-zh.html" class="nav-link">周期</a><a href="assessment-zh.html" class="nav-link">AI对话</a><a href="journal-zh.html" class="nav-link">日记</a><a href="progress-zh.html" class="nav-link">进度</a><a href="learn-zh.html" class="nav-link active">学习</a><a href="learn-zh.html" class="nav-link">英语</a></div></div></nav><section class="hero"><h1>📚 学习</h1><p>探索正念和心理健康的知识</p></section><main class="content-main"><div class="card"><h2>什么是正念？</h2><p style="color:var(--muted)">正念是专注于当下的练习...</p></div><div class="card"><h2>呼吸技巧</h2><p style="color:var(--muted)">学习深呼吸和冥想技巧...</p></div></main></body></html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="copyright" content="© 2026 正念疗法. All rights reserved.">
+    <title>学习 - 正念疗法</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #fafaf9;
+            --surface: #ffffff;
+            --text: #1c1917;
+            --muted: #78716c;
+            --border: #e7e5e4;
+            --accent: #0d9488;
+            --accent-dark: #0f766e;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(30, 58, 138, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 0.25rem; }
+        .nav-link {
+            padding: 0.5rem 1rem;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .nav-link:hover { color: white; background: rgba(255,255,255,0.1); }
+        .nav-link.active { color: var(--accent); background: rgba(13,148,136,0.2); }
+        
+        /* Hero */
+        .hero {
+            padding: 80px 2rem 20px;
+            background: 
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.2), transparent),
+                linear-gradient(180deg, #1e3a8a 0%, #1e40af 50%, var(--bg) 100%);
+            color: white;
+        }
+        .hero h1 { color: white; }
+        .hero-subtitle { color: rgba(255,255,255,0.7); }
+        .hero-container {
+            max-width: 720px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(13,148,136,0.1);
+            border: 1px solid rgba(13,148,136,0.2);
+            border-radius: 100px;
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
+        }
+        .hero-subtitle {
+            font-size: 1.125rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Main Content */
+        .content-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 2rem;
+        }
+        .learn-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* 工具 Dropdown Styles */
+        .tools-dropdown-container { position: relative; display: inline-block; }
+        .tools-dropdown-btn { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.25rem; 
+            padding: 0.5rem 1rem; 
+            border: none; 
+            background: transparent; 
+            color: rgba(255,255,255,0.8); 
+            font-size: 0.875rem; 
+            font-weight: 500; 
+            cursor: pointer; 
+            border-radius: 9999px; 
+            font-family: inherit; 
+            transition: all 0.2s;
+        }
+        .tools-dropdown-btn:hover { background: rgba(255, 255, 255, 0.1); color: white; }
+        .tools-dropdown-btn.active { background: rgba(13,148,136,0.2); color: var(--accent); }
+        .tools-dropdown-menu { 
+            display: none; 
+            position: fixed; 
+            top: auto; 
+            left: auto; 
+            margin-top: 0.5rem; 
+            background: var(--surface); 
+            border: 1px solid var(--border); 
+            border-radius: 0.75rem; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15); 
+            min-width: 220px; 
+            padding: 0.5rem; 
+            z-index: 9999; 
+        }
+        .tools-dropdown-menu.open { display: block; }
+        .tools-dropdown-menu a { 
+            display: block; 
+            padding: 0.75rem 1rem; 
+            color: var(--text); 
+            text-decoration: none; 
+            font-size: 0.875rem; 
+            border-radius: 0.5rem; 
+            transition: all 0.2s; 
+            white-space: nowrap; 
+        }
+        .tools-dropdown-menu a:hover { background: rgba(13,148,136,0.1); color: var(--accent); }
+
+        /* 学习 Section Styles */
+        .learn-section {
+            background: var(--surface);
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .learn-section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .learn-section-header:hover {
+            background: var(--bg);
+        }
+        
+        .learn-icon {
+            font-size: 1.5rem;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg);
+            border-radius: 12px;
+        }
+        
+        .learn-section-header h3 {
+            flex: 1;
+            color: var(--text);
+            font-size: 1.25rem;
+        }
+        
+        .learn-toggle {
+            color: var(--muted);
+            transition: transform 0.3s;
+        }
+        
+        .learn-section.active .learn-toggle {
+            transform: rotate(180deg);
+        }
+        
+        .learn-section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .learn-section.active .learn-section-content {
+            max-height: 1000px;
+        }
+        
+        .learn-summary {
+            padding: 0 1.5rem 1rem;
+            color: var(--muted);
+            font-style: italic;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .learn-detail {
+            padding: 1.5rem;
+        }
+        
+        .learn-detail p {
+            color: var(--text);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        
+        .learn-key-point {
+            display: flex;
+            gap: 1rem;
+            background: var(--bg);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+        
+        .key-icon {
+            font-size: 1.25rem;
+        }
+        
+        .learn-key-point p {
+            margin: 0;
+            color: var(--text);
+        }
+
+        .learn-summary-card {
+            background: linear-gradient(135deg, rgba(13,148,136,0.1) 0%, rgba(13,148,136,0.05) 100%);
+            border: 1px solid rgba(13,148,136,0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .learn-summary-card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .learn-summary-card ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .learn-summary-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        .learn-final {
+            color: var(--accent);
+            font-weight: 600;
+            font-style: italic;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(13,148,136,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .hero { padding: 140px 1rem 80px; }
+            .content-main { padding: 2rem 1rem; }
+            .learn-section-header h3 { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index-zh.html" class="nav-logo">🧘 正念疗法</a>
+            <div class="nav-links">
+                <a href="index-zh.html" class="nav-link">首页</a>
+                <a href="cycle-zh.html" class="nav-link">周期</a>
+                <a href="assessment-zh.html" class="nav-link">AI对话</a>
+                
+                <!-- 工具 Dropdown -->
+                <div class="tools-dropdown-container" id="toolsContainer">
+                    <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggle工具Menu();">
+                        工具 <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
+                    </button>
+                    <div class="tools-dropdown-menu" id="toolsMenu">
+                        <a href="emotion-explorer-zh.html">🎨 情绪探索器</a>
+                        <a href="emotion-balance-zh.html">⚡ 情绪平衡</a>
+                        <a href="hypnosis-zh.html">🌀 催眠</a>
+                        <a href="salad-compass-zh.html">🥗 沙拉罗盘</a>
+                        <a href="salad-check-zh.html">🥬 完整沙拉检查</a>
+                        <a href="interventions-zh.html">🧰 干预措施</a>
+                    </div>
+                </div>
+                
+                <a href="journal-zh.html" class="nav-link">日记</a>
+                <a href="progress-zh.html" class="nav-link">进度</a>
+                <a href="learn-zh.html" class="nav-link active">学习</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-eyebrow">📚 洞察与理解</div>
+            <h1>被吸引的心理学</h1>
+            <p class="hero-subtitle">理解我们为何被吸引——以及如何通过正念和觉察重获力量。</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="content-main">
+        <div class="learn-content">
+            <!-- Section 1: Visual Hook -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggle学习Section(this)">
+                    <span class="learn-icon">👁️</span>
+                    <h3>为什么你的大脑喜欢某些颜色和外观</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">你的眼睛消耗大脑44%的能量。因为视觉是昂贵的，你的大脑用多巴胺和内啡肽奖励"容易"的视觉。</p>
+                    <div class="learn-detail">
+                        <p><strong>科学原理：</strong> 你的大脑是一个能量守财奴。当你看到视觉上"流畅"的东西（对称、清晰、吸引人），你的大脑会说"啊，真轻松！"并给你快乐奖励。</p>
+                        <div class="learn-key-point">
+                            <span class="key-icon">⚠️</span>
+                            <p><strong>陷阱：</strong> 仅仅因为某样东西看起来舒服并不意味着它对你有益。它可能是你眼睛的空虚卡路里。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Stroop Effect -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggle学习Section(this)">
+                    <span class="learn-icon">🧠</span>
+                    <h3>斯特鲁普效应：颜色可以劫持你的大脑</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">视觉信息与你大脑中的概念信息竞争——有时视觉会自动获胜。</p>
+                    <div class="learn-detail">
+                        <p><strong>实验：</strong> 向某人展示用蓝色墨水写的"RED"这个词。他们的大脑会变慢，因为它必须在单词和颜色之间战斗。</p>
+                        <div class="learn-key-point">
+                            <span class="key-icon">🤯</span>
+                            <p><strong>这意味着什么：</strong> 颜色和外观对你的注意力有控制力，无论你是否愿意。你的大脑在你能做决定之前就会自动处理它们。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Aesthetic Arrest -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggle学习Section(this)">
+                    <span class="learn-icon">✨</span>
+                    <h3>审美停滞：当美让你停下脚步</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">当你被某种美丽的事物"完全停下脚步"时的那种感觉——暂时逃离欲望和挣扎。</p>
+                    <div class="learn-detail">
+                        <p>哲学家叔本华称这为成为"纯粹的、无意志的、无痛的知识主体"。有一瞬间，你忘记了你的问题和渴望。</p>
+                        <div class="learn-key-point">
+                            <span class="key-icon">⚠️</span>
+                            <p><strong>问题：</strong> 在审美停滞期间，你无法控制。那个事物控制了你。你是一个旁观者，而不是行动者。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Animism -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggle学习Section(this)">
+                    <span class="learn-icon">🎭</span>
+                    <h3>万物有灵论：为什么物体感觉有生命</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">人类自然地将生命和意图投射到无生命的事物上——通过评估、潜能和活动来判断它们。</p>
+                    <div class="learn-detail">
+                        <p>你的大脑天生就会将某些事物视为拥有力量或意图。这就是为什么一种颜色可以感觉"强烈"，或者一张脸可以感觉"有磁性"。</p>
+                        <div class="learn-key-point">
+                            <span class="key-icon">💡</span>
+                            <p><strong>洞见：</strong> 你的大脑进化到会注意可能重要的事情——但有时它做得过头了，你就会被空虚的东西吸引。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Locus of Control -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggle学习Section(this)">
+                    <span class="learn-icon">🎯</span>
+                    <h3>控制点：你把力量放在哪里？</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">内在与外在：你相信你的行为塑造你的生活，还是运气/命运/他人控制发生的事情？</p>
+                    <div class="learn-detail">
+                        <p><strong>外在控制点：</strong> 你相信力量来自外部——他人的关注、拥有的东西、你的外表。你不断扫描钩子，因为你需要它们作为燃料。</p>
+                        <p><strong>内在控制点：</strong> 你相信力量来自内部——你的选择、你的价值观、你的反应方式。钩子失去控制，因为你不需要它们。</p>
+                        <div class="learn-key-point">
+                            <span class="key-icon">🔗</span>
+                            <p><strong>与创伤的联系：</strong> 在不可预测的环境中长大教会你放弃控制——这让你活了下来。但作为成年人，这让你对每一个闪亮的东西都脆弱不堪。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 6: 触发器 vs 微光 -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggle学习Section(this)">
+                    <span class="learn-icon">⚡</span>
+                    <h3>触发器与微光：你的神经系统寻找什么</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">你的身体扫描危险（触发器）和安全（微光）。两者都可以"钩住"你——但一个导致伤害，另一个导致疗愈。</p>
+                    <div class="learn-detail">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0;">
+                            <div style="padding: 1rem; background: rgba(239, 68, 68, 0.1); border-radius: 12px; border-left: 4px solid #ef4444;">
+                                <h4 style="color: #dc2626; margin-bottom: 0.5rem;">🔴 触发器</h4>
+                                <p style="font-size: 0.9rem;">激活生存模式的感官线索——战斗、逃跑或冻结。基于储存在你身体里的过去危险。</p>
+                            </div>
+                            <div style="padding: 1rem; background: rgba(34, 197, 94, 0.1); border-radius: 12px; border-left: 4px solid #22c55e;">
+                                <h4 style="color: #16a34a; margin-bottom: 0.5rem;">🟢 微光</h4>
+                                <p style="font-size: 0.9rem;">告诉你神经系统"你很安全"的微小线索。一种温暖的颜色，一只鸟在唱歌，一缕阳光。</p>
+                            </div>
+                        </div>
+                        <div class="learn-key-point">
+                            <span class="key-icon">💡</span>
+                            <p><strong>练习：</strong> 你可以训练自己注意微光。你注意到的安全时刻越多，你的神经系统就越明白世界不全是危险。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 7: Gendlin's Focusing -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggle学习Section(this)">
+                    <span class="learn-icon">🔍</span>
+                    <h3>金德林的聚焦：倾听你身体的智慧</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">Your body knows things your brain hasn't figured out yet. 学习 to tune into your "felt sense"—a bodily intuition not yet in words.</p>
+                    <div class="learn-detail">
+                        <p><strong>感受感：</strong> 胸口的沉重，胃里的结，颤动的 sensation。通过温和地关注和向它提问，你解锁了一个"感受转变"——带来新理解的身体释放。</p>
+                        <div class="learn-key-point">
+                            <span class="key-icon">💡</span>
+                            <p><strong>当被钩住时：</strong> 与其追逐吸引你眼球的东西，不如转向内心："我身体里的这种感觉是什么？"温和地与它同在，不要试图修复它。转变是你的身体在释放某种东西。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 8: Somatic Exercises -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggle学习Section(this)">
+                    <span class="learn-icon">💪</span>
+                    <h3>身体练习：重获主体性的实用工具</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">创伤存在于身体中，不仅仅是头脑里。这些练习帮助你恢复安全和控制感。</p>
+                    <div class="learn-detail">
+                        <h4>🌊  grounding 技术</h4>
+                        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                            <li><strong>5-4-3-2-1 感官：</strong> 说出你看到的5样东西，听到的4样，可以触摸的3样，闻到的2样，尝到的1样。</li>
+                            <li><strong>身体扫描：</strong> 慢慢将注意力从脚移到头部，不加判断地注意感觉。</li>
+                            <li><strong>椅子推压：</strong> 将脚推入地板，感受你的身体被椅子支撑。</li>
+                        </ul>
+                        <h4>🫁 呼吸练习</h4>
+                        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                            <li><strong>盒式呼吸：</strong> 吸气4拍，保持4拍，呼气4拍，保持4拍。</li>
+                            <li><strong>延长呼气：</strong> 正常吸气，呼气时间是两倍。激活你的副交感神经系统。</li>
+                        </ul>
+                        <div class="learn-key-point">
+                            <span class="key-icon">💡</span>
+                            <p><strong>目标：</strong> 这些不仅仅是放松技术——它们是向你的神经系统证明你现在、在这一刻是安全的方法。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 9: Emotional Transformation -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggle学习Section(this)">
+                    <span class="learn-icon">🌱</span>
+                    <h3>情绪转变：从外在力量到内在力量</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">理解你的情绪模式帮助你从被外部钩子控制转变为被内在价值观引导。</p>
+                    <div class="learn-detail">
+                        <h4>🎭 戏剧三角</h4>
+                        <p>当压力大时，我们经常落入三个角色：</p>
+                        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                            <li><strong>受害者：</strong> "所有事情都发生在我身上。"</li>
+                            <li><strong>迫害者：</strong> "都是他们的错。"</li>
+                            <li><strong>拯救者：</strong> "我会修好一切。"</li>
+                        </ul>
+                        <p>出路： <strong>赋权动态</strong>—转变为创造者、挑战者和教练角色。</p>
+                        <div class="learn-key-point">
+                            <span class="key-icon">💡</span>
+                            <p><strong>当被钩住时：</strong> Ask yourself: "我现在在扮演什么角色？" 认识到这个模式是改变它的第一步。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 10: 催眠 -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggle学习Section(this)">
+                    <span class="learn-icon">🌀</span>
+                    <h3>用于情绪平衡的催眠</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">催眠 is a powerful tool for accessing the subconscious mind and creating lasting emotional change.</p>
+                    <div class="learn-detail">
+                        <p><strong>它是如何工作的：</strong> 催眠 puts you in a state of focused attention where your subconscious mind becomes more receptive to positive suggestions. This can help break old patterns and establish new, healthier responses.</p>
+                        <div class="learn-key-point">
+                            <span class="key-icon">💫</span>
+                            <p><strong>尝试一下：</strong> 访问我们的 <a href="hypnosis-zh.html">催眠 page</a> 获取引导课程，帮助情绪平衡和打破力量-拥有循环。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 7: Practical 工具 -->
+            <div class="learn-section">
+                <div class="learn-section-header" onclick="toggle学习Section(this)">
+                    <span class="learn-icon">🛠️</span>
+                    <h3>日常情况的实用工具</h3>
+                    <i class="fas fa-chevron-down learn-toggle"></i>
+                </div>
+                <div class="learn-section-content">
+                    <p class="learn-summary">当你感到自己被视觉上有吸引力的东西钩住时，可以使用的简单技巧。</p>
+                    <div class="learn-detail">
+                        <p><strong>三步法：</strong></p>
+                        <ol class="learn-parts-list">
+                            <li><strong>注意：</strong> "我被这个吸引了。"</li>
+                            <li><strong>命名：</strong> "这是审美停滞/视觉钩子。"</li>
+                            <li><strong>暂停：</strong> 在做决定前做3次有意识的呼吸。</li>
+                        </ol>
+                        <div class="learn-key-point">
+                            <span class="key-icon">💪</span>
+                            <p><strong>记住：</strong> 目标不是避免美或快乐。而是有意识地选择，而不是被它们自动控制。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Card -->
+            <div class="learn-summary-card">
+                <h3>🎯 关键要点</h3>
+                <ul>
+                    <li>你的大脑自动用多巴胺奖励对视觉刺激做出反应</li>
+                    <li>美可以创造"审美停滞"，暂时停止你的批判性思维</li>
+                    <li>成瘾劫持了这个自然奖励系统，使正常活动变得不那么令人满意</li>
+                    <li>正念在刺激和自动反应之间创造了一个间隙</li>
+                    <li>你可以训练自己观察而不是被视觉钩子控制</li>
+                </ul>
+                <p class="learn-final">目标不是避免美或快乐，而是有意识地、有意图地与它们互动。</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 工具 dropdown functions
+        function toggle工具Menu() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (!menu || !btn) return;
+            
+            if (menu.classList.contains('open')) {
+                menu.classList.remove('open');
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            } else {
+                var btnRect = btn.getBoundingClientRect();
+                menu.style.top = (btnRect.bottom + 8) + 'px';
+                menu.style.left = btnRect.left + 'px';
+                menu.classList.add('open');
+                btn.classList.add('active');
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        }
+        
+        function close工具Dropdown() {
+            var menu = document.getElementById('toolsMenu');
+            var btn = document.getElementById('toolsBtn');
+            if (menu) {
+                menu.classList.remove('open');
+            }
+            if (btn) {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        }
+        
+        document.addEventListener('click', function(e) {
+            var btn = document.getElementById('toolsBtn');
+            var menu = document.getElementById('toolsMenu');
+            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
+                close工具Dropdown();
+            }
+        });
+
+        // 学习 section toggle
+        function toggle学习Section(header) {
+            const section = header.parentElement;
+            section.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
