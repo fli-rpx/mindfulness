@@ -18,7 +18,7 @@
       (function() {
         const audio = document.getElementById('safePlaceMusic');
         
-        // Simple audio control - don't modify any visuals
+        // Simple audio control
         document.addEventListener('click', function(e) {
           const btn = e.target.closest('button');
           if (!btn) return;
@@ -36,6 +36,25 @@
             }
           }
         });
+        
+        // Only hide the specific gradient overlay in Safe Place card
+        setTimeout(function() {
+          // Find by exact code-path
+          const overlay = document.querySelector('[code-path="src/App.tsx:339:7"]');
+          if (overlay) {
+            // Check if it's inside Safe Place section
+            let parent = overlay.parentElement;
+            for (let i = 0; i < 3; i++) {
+              if (!parent) break;
+              if (parent.textContent.toLowerCase().includes('safe place')) {
+                overlay.style.opacity = '0';
+                console.log('Hidden Safe Place gradient overlay');
+                break;
+              }
+              parent = parent.parentElement;
+            }
+          }
+        }, 2000);
         
         console.log('Audio control loaded');
       })();
