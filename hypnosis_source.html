@@ -42,8 +42,18 @@
             }
           }
           
-          // Journey Section - Next Step or Previous
-          else if (text.includes('next step') || text.includes('next') || text.includes('previous') || text.includes('back')) {
+          // Journey Section - Next Step (always plays)
+          else if (text.includes('next step') || text.includes('next')) {
+            if (journeyAudio.paused) {
+              journeyAudio.play().catch(function(e) { console.log('Journey audio blocked:', e); });
+            }
+          }
+          // Journey Section - Previous (only if not playing)
+          else if (text.includes('previous') || text.includes('back')) {
+            if (journeyAudio.paused) {
+              journeyAudio.play().catch(function(e) { console.log('Journey audio blocked:', e); });
+            }
+          }
             // Check if in Journey section
             let parent = btn.parentElement;
             let inJourney = false;
