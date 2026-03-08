@@ -15,8 +15,19 @@
         margin: 0;
       }
       #root {
-        background: transparent;
+        background: transparent !important;
         min-height: 100vh;
+      }
+      #root * {
+        background: transparent !important;
+      }
+      #root .glass-card,
+      #root [class*="card"],
+      #root [class*="glass"],
+      #root section,
+      #root div[class*="bg-"] {
+        background: rgba(255, 255, 255, 0.1) !important;
+        backdrop-filter: blur(10px);
       }
     </style>
   </head>
