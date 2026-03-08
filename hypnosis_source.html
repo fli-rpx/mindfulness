@@ -19,52 +19,43 @@
     </audio>
     
     <script>
-      // Hook into EXISTING "Begin Visualization" button
+      // Hook into EXISTING buttons for audio control
       (function() {
-        let attempts = 0;
-        const maxAttempts = 60; // Try for 30 seconds
+        const audio = document.getElementById('safePlaceMusic');
+        let isPlaying = false;
         
-        const findButton = setInterval(function() {
-          attempts++;
+        // Function to handle button clicks
+        function handleButtonClick(btnText) {
+          const lowerText = btnText.toLowerCase();
           
-          // Find button with "Begin Visualization" text
-          const buttons = document.querySelectorAll('button');
-          let targetBtn = null;
-          
-          for (let btn of buttons) {
-            if (btn.textContent.includes('Begin Visualization') || 
-                btn.textContent.includes('Begin Journey')) {
-              targetBtn = btn;
-              break;
+          if (lowerText.includes('begin') || lowerText.includes('start')) {
+            // Start music
+            if (audio.paused) {
+              audio.play().catch(function(e) {
+                console.log('Audio play blocked:', e);
+              });
+              isPlaying = true;
+            }
+          } else if (lowerText.includes('end') || lowerText.includes('stop') || 
+                     lowerText.includes('pause') || lowerText.includes('close')) {
+            // Stop music
+            if (!audio.paused) {
+              audio.pause();
+              audio.currentTime = 0;
+              isPlaying = false;
             }
           }
-          
-          if (targetBtn && !targetBtn.dataset.audioHooked) {
-            clearInterval(findButton);
-            targetBtn.dataset.audioHooked = 'true';
-            
-            const audio = document.getElementById('safePlaceMusic');
-            
-            // Hook into existing click handler
-            targetBtn.addEventListener('click', function() {
-              // Small delay to let React handle its own logic first
-              setTimeout(function() {
-                if (audio.paused) {
-                  audio.play().catch(function(e) {
-                    console.log('Audio autoplay blocked:', e);
-                  });
-                }
-              }, 100);
-            });
-            
-            console.log('Audio hooked to existing Begin Visualization button');
+        }
+        
+        // Watch for button clicks on the whole document
+        document.addEventListener('click', function(e) {
+          const btn = e.target.closest('button');
+          if (btn) {
+            handleButtonClick(btn.textContent);
           }
-          
-          if (attempts >= maxAttempts) {
-            clearInterval(findButton);
-            console.log('Could not find Begin Visualization button');
-          }
-        }, 500);
+        });
+        
+        console.log('Audio control hooked to all buttons');
       })();
     </script>
   </body>
