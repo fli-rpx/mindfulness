@@ -35,30 +35,50 @@
         const safePlaceAudio = document.getElementById('safePlaceMusic');
         const journeyAudio = document.getElementById('journeyMusic');
         
-        // Helper function to find and click step 1
-        function resetToStep1() {
-          console.log('Attempting to reset to step 1...');
+        // Helper to find and click step 1
+        function clickStep1() {
+          console.log('Looking for step 1 button...');
           
-          // Method 1: Find element containing "Step X of 6" and change it
-          const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
-          let node;
-          while (node = walker.nextNode()) {
-            const text = node.textContent;
-            if (text && text.match(/step\s*\d+\s*of\s*6/i)) {
-              node.textContent = 'Step 1 of 6';
-              console.log('Found and updated step indicator');
+          // Get ALL buttons
+          const allButtons = document.querySelectorAll('button');
+          console.log('Found', allButtons.length, 'buttons');
+          
+          for (let btn of allButtons) {
+            const text = btn.textContent.trim();
+            const ariaLabel = btn.getAttribute('aria-label') || '';
+            
+            // Look for button with just "1" or "Step 1"
+            if (text === '1' || 
+                ariaLabel.includes('Step 1') || 
+                ariaLabel.includes('step 1')) {
+              
+              console.log('Found step 1 button, clicking:', btn);
+              
+              // Simulate full click event
+              const clickEvent = new MouseEvent('click', {
+                bubbles: true,
+                cancelable: true,
+                view: window
+              });
+              btn.dispatchEvent(clickEvent);
+              
+              // Also try native click
+              btn.click();
+              
+              return true;
             }
           }
           
-          // Method 2: Find all buttons and look for step indicator buttons
-          const buttons = document.querySelectorAll('button');
-          for (let btn of buttons) {
-            // Look for button with "1" as text (step 1 button)
-            const btnText = btn.textContent.trim();
-            if (btnText === '1' || btn.getAttribute('aria-label')?.includes('Step 1')) {
-              btn.click();
-              console.log('Clicked step 1 button');
-              return true;
+          // Alternative: look for element that contains "1" and is clickable
+          const allElements = document.querySelectorAll('*');
+          for (let el of allElements) {
+            if (el.children.length === 0 && el.textContent.trim() === '1') {
+              const clickableParent = el.closest('button, [role="button"], .clickable');
+              if (clickableParent) {
+                console.log('Found clickable parent with "1"');
+                clickableParent.click();
+                return true;
+              }
             }
           }
           
@@ -89,15 +109,15 @@
               journeyAudio.play().catch(function(e) { console.log('Journey audio blocked:', e); });
             }
             
-            // Try to reset to step 1 multiple times
-            setTimeout(resetToStep1, 200);
-            setTimeout(resetToStep1, 500);
-            setTimeout(resetToStep1, 1000);
+            // Try multiple times to find and click step 1
+            setTimeout(clickStep1, 300);
+            setTimeout(clickStep1, 600);
+            setTimeout(clickStep1, 1000);
+            setTimeout(clickStep1, 1500);
           }
           
           // Journey Section - Next Step
           else if (text.includes('next step') || text.includes('next')) {
-            // Check if in Journey section
             let parent = btn.parentElement;
             let inJourney = false;
             for (let i = 0; i < 5; i++) {
