@@ -5,7 +5,6 @@
     
     <!-- CSS to hide gradient overlays -->
     <style>
-      /* Hide all gradient overlays that could be in Safe Place section */
       .absolute.inset-0[class*="bg-gradient"],
       .absolute.inset-0[class*="gradient-to"],
       div.absolute[class*="from-"],
@@ -36,6 +35,36 @@
         const safePlaceAudio = document.getElementById('safePlaceMusic');
         const journeyAudio = document.getElementById('journeyMusic');
         
+        // Helper function to find and click step 1
+        function resetToStep1() {
+          console.log('Attempting to reset to step 1...');
+          
+          // Method 1: Find element containing "Step X of 6" and change it
+          const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+          let node;
+          while (node = walker.nextNode()) {
+            const text = node.textContent;
+            if (text && text.match(/step\s*\d+\s*of\s*6/i)) {
+              node.textContent = 'Step 1 of 6';
+              console.log('Found and updated step indicator');
+            }
+          }
+          
+          // Method 2: Find all buttons and look for step indicator buttons
+          const buttons = document.querySelectorAll('button');
+          for (let btn of buttons) {
+            // Look for button with "1" as text (step 1 button)
+            const btnText = btn.textContent.trim();
+            if (btnText === '1' || btn.getAttribute('aria-label')?.includes('Step 1')) {
+              btn.click();
+              console.log('Clicked step 1 button');
+              return true;
+            }
+          }
+          
+          return false;
+        }
+        
         document.addEventListener('click', function(e) {
           const btn = e.target.closest('button');
           if (!btn) return;
@@ -45,7 +74,7 @@
           // Safe Place buttons
           if (text.includes('begin visualization')) {
             if (safePlaceAudio.paused) {
-              safePlaceAudio.play().catch(function(e) { console.log('Audio blocked:', e); });
+              safePlaceAudio.play().catch(function(e) { console.log('Safe Place audio blocked:', e); });
             }
           } else if (text.includes('end visualization')) {
             if (!safePlaceAudio.paused) {
@@ -54,34 +83,16 @@
             }
           }
           
-          // Journey Section - Begin Your Journey (hero button) - also resets to step 1
+          // Journey Section - Begin Your Journey (hero button)
           else if (text.includes('begin your journey')) {
             if (journeyAudio.paused) {
               journeyAudio.play().catch(function(e) { console.log('Journey audio blocked:', e); });
             }
             
-            // Reset journey to step 1
-            setTimeout(function() {
-              const stepIndicators = document.querySelectorAll('.step-badge, [class*="step"], [class*="Step"]');
-              for (let indicator of stepIndicators) {
-                if (indicator.textContent.toLowerCase().includes('step')) {
-                  indicator.textContent = 'Step 1 of 6';
-                  console.log('Journey reset to step 1');
-                  break;
-                }
-              }
-              
-              // Try to find and click step 1 button
-              const allButtons = document.querySelectorAll('button');
-              for (let btn of allButtons) {
-                if (btn.textContent === '1' || 
-                    btn.getAttribute('data-step') === '1' ||
-                    btn.className.includes('step-1')) {
-                  btn.click();
-                  break;
-                }
-              }
-            }, 100);
+            // Try to reset to step 1 multiple times
+            setTimeout(resetToStep1, 200);
+            setTimeout(resetToStep1, 500);
+            setTimeout(resetToStep1, 1000);
           }
           
           // Journey Section - Next Step
@@ -105,7 +116,7 @@
             }
           }
           
-          // Journey Section - Previous (only if not playing)
+          // Journey Section - Previous
           else if (text.includes('previous') || text.includes('back')) {
             if (journeyAudio.paused) {
               journeyAudio.play().catch(function(e) { console.log('Journey audio blocked:', e); });
@@ -125,7 +136,7 @@
           }
         });
         
-        console.log('Dual audio control loaded');
+        console.log('Audio control loaded');
       })();
     </script>
   </body>
