@@ -2,6 +2,18 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Emotional Balance - Self-Hypnosis</title>
+    
+    <!-- CSS to hide gradient overlays -->
+    <style>
+      /* Hide all gradient overlays that could be in Safe Place section */
+      .absolute.inset-0[class*="bg-gradient"],
+      .absolute.inset-0[class*="gradient-to"],
+      div.absolute[class*="from-"],
+      div.absolute[class*="to-"] {
+        display: none !important;
+      }
+    </style>
+    
     <script type="module" crossorigin="" src="hypnosis_source.js"></script>
     <link rel="stylesheet" crossorigin="" href="hypnosis_source.css"/>
     <base href="./">
@@ -14,15 +26,9 @@
       <source src="sanctuary-of-light.mp3" type="audio/mpeg"/>
     </audio>
     
-    <!-- Audio for Journey Section -->
-    <audio id="journeyMusic" loop>
-      <source src="sanctuary-of-stillness.mp3" type="audio/mpeg"/>
-    </audio>
-    
     <script>
       (function() {
-        const safePlaceAudio = document.getElementById('safePlaceMusic');
-        const journeyAudio = document.getElementById('journeyMusic');
+        const audio = document.getElementById('safePlaceMusic');
         
         document.addEventListener('click', function(e) {
           const btn = e.target.closest('button');
@@ -30,111 +36,19 @@
           
           const text = btn.textContent.toLowerCase();
           
-          // Safe Place buttons
-          if (text.includes('begin visualization') || text.includes('start visualization')) {
-            if (safePlaceAudio.paused) {
-              safePlaceAudio.play().catch(function(e) { console.log('Safe Place audio blocked:', e); });
+          if (text.includes('begin visualization')) {
+            if (audio.paused) {
+              audio.play().catch(function(e) { console.log('Audio blocked:', e); });
             }
-          } else if (text.includes('end visualization') || text.includes('stop visualization')) {
-            if (!safePlaceAudio.paused) {
-              safePlaceAudio.pause();
-              safePlaceAudio.currentTime = 0;
+          } else if (text.includes('end visualization')) {
+            if (!audio.paused) {
+              audio.pause();
+              audio.currentTime = 0;
             }
-          }
-          
-          // Hero Section - Begin Your Journey
-          else if (text.includes('begin your journey')) {
-            if (journeyAudio.paused) {
-              journeyAudio.play().catch(function(e) { console.log('Journey audio blocked:', e); });
-            }
-          }
-          
-          // Journey Section - Next Step (always plays)
-          else if (text.includes('next step') || text.includes('next')) {
-            if (journeyAudio.paused) {
-              journeyAudio.play().catch(function(e) { console.log('Journey audio blocked:', e); });
-            }
-          }
-          // Journey Section - Previous (only if not playing)
-          else if (text.includes('previous') || text.includes('back')) {
-            if (journeyAudio.paused) {
-              journeyAudio.play().catch(function(e) { console.log('Journey audio blocked:', e); });
-            }
-          }
-            // Check if in Journey section
-            let parent = btn.parentElement;
-            let inJourney = false;
-            for (let i = 0; i < 5; i++) {
-              if (!parent) break;
-              if (parent.textContent.toLowerCase().includes('self-hypnosis journey') ||
-                  parent.textContent.toLowerCase().includes('your journey')) {
-                inJourney = true;
-                break;
-              }
-              parent = parent.parentElement;
-            }
-            
-            if (inJourney) {
-              if (journeyAudio.paused) {
-                journeyAudio.play().catch(function(e) { console.log('Journey audio blocked:', e); });
-              }
-            }
-          }
-          
-          // Journey Section - Complete (stop music and reset to step 1)
-          else if (text.includes('complete') || text.includes('finish')) {
-            // Stop music
-            if (!journeyAudio.paused) {
-              journeyAudio.pause();
-              journeyAudio.currentTime = 0;
-            }
-            if (!safePlaceAudio.paused) {
-              safePlaceAudio.pause();
-              safePlaceAudio.currentTime = 0;
-            }
-            
-            // Reset to step 1
-            setTimeout(function() {
-              // Find step indicator
-              const stepBadges = document.querySelectorAll('.step-badge, [class*="step"], [class*="Step"]');
-              for (let badge of stepBadges) {
-                if (badge.textContent.toLowerCase().includes('step')) {
-                  badge.textContent = 'Step 1 of 6';
-                  console.log('Reset to step 1');
-                  break;
-                }
-              }
-              
-              // Find and click step 1 button if exists
-              const stepButtons = document.querySelectorAll('button');
-              for (let btn of stepButtons) {
-                if (btn.textContent.includes('1') || btn.getAttribute('data-step') === '1') {
-                  btn.click();
-                  break;
-                }
-              }
-            }, 100);
           }
         });
         
-        // Hide Safe Place gradient overlay
-        setTimeout(function() {
-          const overlay = document.querySelector('[code-path="src/App.tsx:339:7"]');
-          if (overlay) {
-            let parent = overlay.parentElement;
-            for (let i = 0; i < 3; i++) {
-              if (!parent) break;
-              if (parent.textContent.toLowerCase().includes('safe place')) {
-                overlay.style.opacity = '0';
-                console.log('Hidden Safe Place gradient');
-                break;
-              }
-              parent = parent.parentElement;
-            }
-          }
-        }, 2000);
-        
-        console.log('Dual audio control loaded');
+        console.log('Audio control loaded');
       })();
     </script>
   </body>
