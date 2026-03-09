@@ -39,8 +39,35 @@
       (function() {
         const safePlaceAudio = document.getElementById('safePlaceMusic');
         const journeyAudio = document.getElementById('journeyMusic');
+        const anchorAudio = document.getElementById('anchorMusic');
         
-        // Helper to find and click step 1
+        // Set up hover for "Tap to Anchor" button
+        function setupAnchorHover() {
+          const buttons = document.querySelectorAll('button');
+          for (let btn of buttons) {
+            const text = btn.textContent.toLowerCase();
+            if (text.includes('tap to anchor')) {
+              console.log('Found Tap to Anchor button, adding hover');
+              
+              btn.addEventListener('mouseenter', function() {
+                if (anchorAudio.paused) {
+                  anchorAudio.play().catch(function(e) { console.log('Anchor audio blocked:', e); });
+                }
+              });
+              
+              btn.addEventListener('mouseleave', function() {
+                if (!anchorAudio.paused) {
+                  anchorAudio.pause();
+                  anchorAudio.currentTime = 0;
+                }
+              });
+            }
+          }
+        }
+        
+        // Try to set up hover after page loads
+        setTimeout(setupAnchorHover, 2000);
+        setTimeout(setupAnchorHover, 4000);
         function clickStep1() {
           console.log('Looking for step 1 button...');
           
