@@ -54,11 +54,34 @@
             }
           }
           
-          // Journey Section - Begin Your Journey (hero button)
+          // Journey Section - Begin Your Journey (hero button) - also resets to step 1
           else if (text.includes('begin your journey')) {
             if (journeyAudio.paused) {
               journeyAudio.play().catch(function(e) { console.log('Journey audio blocked:', e); });
             }
+            
+            // Reset journey to step 1
+            setTimeout(function() {
+              const stepIndicators = document.querySelectorAll('.step-badge, [class*="step"], [class*="Step"]');
+              for (let indicator of stepIndicators) {
+                if (indicator.textContent.toLowerCase().includes('step')) {
+                  indicator.textContent = 'Step 1 of 6';
+                  console.log('Journey reset to step 1');
+                  break;
+                }
+              }
+              
+              // Try to find and click step 1 button
+              const allButtons = document.querySelectorAll('button');
+              for (let btn of allButtons) {
+                if (btn.textContent === '1' || 
+                    btn.getAttribute('data-step') === '1' ||
+                    btn.className.includes('step-1')) {
+                  btn.click();
+                  break;
+                }
+              }
+            }, 100);
           }
           
           // Journey Section - Next Step
