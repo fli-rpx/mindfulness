@@ -42,6 +42,13 @@
             }
           }
           
+          // Hero Section - Begin Your Journey
+          else if (text.includes('begin your journey')) {
+            if (journeyAudio.paused) {
+              journeyAudio.play().catch(function(e) { console.log('Journey audio blocked:', e); });
+            }
+          }
+          
           // Journey Section - Next Step (always plays)
           else if (text.includes('next step') || text.includes('next')) {
             if (journeyAudio.paused) {
