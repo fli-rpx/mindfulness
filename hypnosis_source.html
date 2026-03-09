@@ -74,18 +74,39 @@
             }
           }
           
-          // Journey Section - Complete (stop music)
+          // Journey Section - Complete (stop music and reset to step 1)
           else if (text.includes('complete') || text.includes('finish')) {
+            // Stop music
             if (!journeyAudio.paused) {
               journeyAudio.pause();
               journeyAudio.currentTime = 0;
-              console.log('Journey music stopped');
             }
-            // Also stop Safe Place music if playing
             if (!safePlaceAudio.paused) {
               safePlaceAudio.pause();
               safePlaceAudio.currentTime = 0;
             }
+            
+            // Reset to step 1
+            setTimeout(function() {
+              // Find step indicator
+              const stepBadges = document.querySelectorAll('.step-badge, [class*="step"], [class*="Step"]');
+              for (let badge of stepBadges) {
+                if (badge.textContent.toLowerCase().includes('step')) {
+                  badge.textContent = 'Step 1 of 6';
+                  console.log('Reset to step 1');
+                  break;
+                }
+              }
+              
+              // Find and click step 1 button if exists
+              const stepButtons = document.querySelectorAll('button');
+              for (let btn of stepButtons) {
+                if (btn.textContent.includes('1') || btn.getAttribute('data-step') === '1') {
+                  btn.click();
+                  break;
+                }
+              }
+            }, 100);
           }
         });
         
