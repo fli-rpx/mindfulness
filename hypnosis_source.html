@@ -26,9 +26,15 @@
       <source src="sanctuary-of-light.mp3" type="audio/mpeg"/>
     </audio>
     
+    <!-- Audio for Journey Section -->
+    <audio id="journeyMusic" loop>
+      <source src="sanctuary-of-stillness.mp3" type="audio/mpeg"/>
+    </audio>
+    
     <script>
       (function() {
-        const audio = document.getElementById('safePlaceMusic');
+        const safePlaceAudio = document.getElementById('safePlaceMusic');
+        const journeyAudio = document.getElementById('journeyMusic');
         
         document.addEventListener('click', function(e) {
           const btn = e.target.closest('button');
@@ -36,19 +42,67 @@
           
           const text = btn.textContent.toLowerCase();
           
+          // Safe Place buttons
           if (text.includes('begin visualization')) {
-            if (audio.paused) {
-              audio.play().catch(function(e) { console.log('Audio blocked:', e); });
+            if (safePlaceAudio.paused) {
+              safePlaceAudio.play().catch(function(e) { console.log('Audio blocked:', e); });
             }
           } else if (text.includes('end visualization')) {
-            if (!audio.paused) {
-              audio.pause();
-              audio.currentTime = 0;
+            if (!safePlaceAudio.paused) {
+              safePlaceAudio.pause();
+              safePlaceAudio.currentTime = 0;
+            }
+          }
+          
+          // Journey Section - Begin Your Journey (hero button)
+          else if (text.includes('begin your journey')) {
+            if (journeyAudio.paused) {
+              journeyAudio.play().catch(function(e) { console.log('Journey audio blocked:', e); });
+            }
+          }
+          
+          // Journey Section - Next Step
+          else if (text.includes('next step') || text.includes('next')) {
+            // Check if in Journey section
+            let parent = btn.parentElement;
+            let inJourney = false;
+            for (let i = 0; i < 5; i++) {
+              if (!parent) break;
+              if (parent.textContent.toLowerCase().includes('self-hypnosis journey') ||
+                  parent.textContent.toLowerCase().includes('your journey') ||
+                  parent.textContent.toLowerCase().includes('step')) {
+                inJourney = true;
+                break;
+              }
+              parent = parent.parentElement;
+            }
+            
+            if (inJourney && journeyAudio.paused) {
+              journeyAudio.play().catch(function(e) { console.log('Journey audio blocked:', e); });
+            }
+          }
+          
+          // Journey Section - Previous (only if not playing)
+          else if (text.includes('previous') || text.includes('back')) {
+            if (journeyAudio.paused) {
+              journeyAudio.play().catch(function(e) { console.log('Journey audio blocked:', e); });
+            }
+          }
+          
+          // Journey Section - Complete
+          else if (text.includes('complete') || text.includes('finish')) {
+            if (!journeyAudio.paused) {
+              journeyAudio.pause();
+              journeyAudio.currentTime = 0;
+            }
+            if (!safePlaceAudio.paused) {
+              safePlaceAudio.pause();
+              safePlaceAudio.currentTime = 0;
             }
           }
         });
         
-        console.log('Audio control loaded');
+        console.log('Dual audio control loaded');
       })();
     </script>
   </body>
