@@ -1,0 +1,200 @@
+<!DOCTYPE html><html lang="ru"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Эмоциональный Баланс - Самогипноз</title>
+    
+    <!-- CSS to hide gradient overlays -->
+    <style>
+      .absolute.inset-0[class*="bg-gradient"],
+      .absolute.inset-0[class*="gradient-to"],
+      div.absolute[class*="from-"],
+      div.absolute[class*="to-"] {
+        display: none !important;
+      }
+    </style>
+    
+    <script type="module" crossorigin="" src="hypnosis_source.js"></script>
+    <link rel="stylesheet" crossorigin="" href="hypnosis_source.css"/>
+    <base href="./">
+  </head>
+  <body>
+    <div id="root"></div>
+  
+    <!-- Audio for Safe Place Technique -->
+    <audio id="safePlaceMusic" loop>
+      <source src="sanctuary-of-light.mp3" type="audio/mpeg"/>
+    </audio>
+    
+    <!-- Audio for Journey Section -->
+    <audio id="journeyMusic" loop>
+      <source src="sanctuary-of-stillness.mp3" type="audio/mpeg"/>
+    </audio>
+    
+    <!-- Audio for Practice Your Anchor (hover) -->
+    <audio id="anchorMusic" loop>
+      <source src="celestial-drift.mp3" type="audio/mpeg"/>
+    </audio>
+    
+    <script>
+      (function() {
+        const safePlaceAudio = document.getElementById('safePlaceMusic');
+        const journeyAudio = document.getElementById('journeyMusic');
+        const anchorAudio = document.getElementById('anchorMusic');
+        
+        // Set up hover for "коснитесь якоря" (Tap to Anchor) button
+        function setupAnchorHover() {
+          const buttons = document.querySelectorAll('button');
+          for (let btn of buttons) {
+            const text = btn.textContent.toLowerCase();
+            // Russian: "коснитесь якоря" or similar variations
+            if (text.includes('коснитесь') || text.includes('якоря') || text.includes('tap to anchor')) {
+              console.log('Found Tap to Anchor button, adding hover');
+              
+              btn.addEventListener('mouseenter', function() {
+                if (anchorAudio.paused) {
+                  anchorAudio.play().catch(function(e) { console.log('Anchor audio blocked:', e); });
+                }
+              });
+              
+              btn.addEventListener('mouseleave', function() {
+                if (!anchorAudio.paused) {
+                  anchorAudio.pause();
+                  anchorAudio.currentTime = 0;
+                }
+              });
+            }
+          }
+        }
+        
+        // Try to set up hover after page loads
+        setTimeout(setupAnchorHover, 2000);
+        setTimeout(setupAnchorHover, 4000);
+        
+        function clickStep1() {
+          console.log('Looking for step 1 button...');
+          
+          const allButtons = document.querySelectorAll('button');
+          console.log('Found', allButtons.length, 'buttons');
+          
+          for (let btn of allButtons) {
+            const text = btn.textContent.trim();
+            const ariaLabel = btn.getAttribute('aria-label') || '';
+            
+            if (text === '1' || 
+                ariaLabel.includes('Step 1') || 
+                ariaLabel.includes('step 1') ||
+                ariaLabel.includes('Шаг 1')) {
+              
+              console.log('Found step 1 button, clicking:', btn);
+              
+              const clickEvent = new MouseEvent('click', {
+                bubbles: true,
+                cancelable: true,
+                view: window
+              });
+              btn.dispatchEvent(clickEvent);
+              btn.click();
+              
+              return true;
+            }
+          }
+          
+          const allElements = document.querySelectorAll('*');
+          for (let el of allElements) {
+            if (el.children.length === 0 && el.textContent.trim() === '1') {
+              const clickableParent = el.closest('button, [role="button"], .clickable');
+              if (clickableParent) {
+                console.log('Found clickable parent with "1"');
+                clickableParent.click();
+                return true;
+              }
+            }
+          }
+          
+          return false;
+        }
+        
+        document.addEventListener('click', function(e) {
+          const btn = e.target.closest('button');
+          if (!btn) return;
+          
+          const text = btn.textContent.toLowerCase();
+          
+          // Safe Place buttons - Russian translations
+          // "начать визуализацию" = begin visualization
+          // "завершить визуализацию" = end visualization
+          if (text.includes('начать визуализацию') || text.includes('begin visualization')) {
+            if (safePlaceAudio.paused) {
+              safePlaceAudio.play().catch(function(e) { console.log('Safe Place audio blocked:', e); });
+            }
+          } else if (text.includes('завершить визуализацию') || text.includes('end visualization') || text.includes('остановить')) {
+            if (!safePlaceAudio.paused) {
+              safePlaceAudio.pause();
+              safePlaceAudio.currentTime = 0;
+            }
+          }
+          
+          // Journey Section - Begin Your Journey
+          // "начать путешествие" = begin your journey
+          else if (text.includes('начать путешествие') || text.includes('begin your journey')) {
+            if (journeyAudio.paused) {
+              journeyAudio.play().catch(function(e) { console.log('Journey audio blocked:', e); });
+            }
+            
+            setTimeout(clickStep1, 300);
+            setTimeout(clickStep1, 600);
+            setTimeout(clickStep1, 1000);
+            setTimeout(clickStep1, 1500);
+          }
+          
+          // Journey Section - Next Step
+          // "следующий шаг" = next step
+          else if (text.includes('следующий шаг') || text.includes('next step') || text.includes('далее')) {
+            let parent = btn.parentElement;
+            let inJourney = false;
+            for (let i = 0; i < 5; i++) {
+              if (!parent) break;
+              const parentText = parent.textContent.toLowerCase();
+              if (parentText.includes('путешествие самогипноза') ||
+                  parentText.includes('self-hypnosis journey') ||
+                  parentText.includes('ваше путешествие') ||
+                  parentText.includes('your journey') ||
+                  parentText.includes('шаг')) {
+                inJourney = true;
+                break;
+              }
+              parent = parent.parentElement;
+            }
+            
+            if (inJourney && journeyAudio.paused) {
+              journeyAudio.play().catch(function(e) { console.log('Journey audio blocked:', e); });
+            }
+          }
+          
+          // Journey Section - Previous
+          // "предыдущий" = previous
+          else if (text.includes('предыдущий') || text.includes('previous') || text.includes('назад')) {
+            if (journeyAudio.paused) {
+              journeyAudio.play().catch(function(e) { console.log('Journey audio blocked:', e); });
+            }
+          }
+          
+          // Journey Section - Complete
+          // "завершить" = complete/finish
+          else if (text.includes('завершить') || text.includes('complete') || text.includes('finish') || text.includes('готово')) {
+            if (!journeyAudio.paused) {
+              journeyAudio.pause();
+              journeyAudio.currentTime = 0;
+            }
+            if (!safePlaceAudio.paused) {
+              safePlaceAudio.pause();
+              safePlaceAudio.currentTime = 0;
+            }
+          }
+        });
+        
+        console.log('Russian audio control loaded');
+      })();
+    </script>
+  </body>
+</html>
