@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expectation Cooling - Mind-Cooling Framework</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #fafaf9;
+            --surface: #ffffff;
+            --text: #1c1917;
+            --muted: #78716c;
+            --border: #e7e5e4;
+            --accent: #0d9488;
+            --accent-dark: #0f766e;
+            --heat-1: #0d9488;
+            --heat-2: #f59e0b;
+            --heat-3: #dc2626;
+            --cool-1: #e0f2fe;
+            --cool-2: #bae6fd;
+            --cool-3: #7dd3fc;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; }
+        
+        /* Header */
+        .header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #0c4a6e 0%, #075985 50%, #0369a1 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            animation: drift 20s linear infinite;
+        }
+        
+        @keyframes drift {
+            from { transform: translateX(0); }
+            to { transform: translateX(-60px); }
+        }
+        
+        .header-content { position: relative; z-index: 1; max-width: 800px; }
+        
+        .header-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        /* Sections */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+        
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--muted);
+            margin-bottom: 3rem;
+        }
+        
+        /* Heat Meter */
+        .heat-meter {
+            background: var(--surface);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        
+        .heat-meter h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .meter-container {
+            height: 40px;
+            background: linear-gradient(90deg, var(--heat-1) 0%, var(--heat-2) 50%, var(--heat-3) 100%);
+            border-radius: 20px;
+            position: relative;
+            cursor: pointer;
+            margin-bottom: 1rem;
+        }
+        
+        .meter-marker {
+            position: absolute;
+            top: -10px;
+            width: 4px;
+            height: 60px;
+            background: white;
+            border: 2px solid var(--text);
+            border-radius: 2px;
+            transform: translateX(-50%);
+            transition: left 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .meter-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            color: var(--muted);
+        }
+        
+        .heat-status {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .heat-status.cool {
+            background: #ecfdf5;
+            color: #065f46;
+        }
+        
+        .heat-status.warm {
+            background: #fffbeb;
+            color: #92400e;
+        }
+        
+        .heat-status.hot {
+            background: #fef2f2;
+            color: #991b1b;
+        }
+        
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .card {
+            background: var(--surface);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid var(--border);
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+        }
+        
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+        }
+        
+        .card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .card p {
+            font-size: 0.9375rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+        
+        /* Quote */
+        .quote-block {
+            background: linear-gradient(135deg, #1e3a5f 0%, #0c4a6e 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 1rem;
+            margin: 3rem 0;
+            position: relative;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .quote-block::before {
+            content: '"';
+            font-size: 6rem;
+            position: absolute;
+            top: 0.5rem;
+            left: 1.5rem;
+            opacity: 0.3;
+            font-family: serif;
+        }
+        
+        .quote-block cite {
+            display: block;
+            margin-top: 1.5rem;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            opacity: 0.8;
+            font-style: normal;
+        }
+        
+        /* Breathing Exercise */
+        .breathing-section {
+            background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 1.5rem;
+            padding: 3rem 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+        
+        .breathing-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
+            margin: 2rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.125rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 40px rgba(13,148,136,0.3);
+        }
+        
+        .breathing-circle:hover {
+            transform: scale(1.05);
+        }
+        
+        .breathing-circle.inhale {
+            animation: inhale 4s ease-in-out forwards;
+        }
+        
+        .breathing-circle.hold {
+            animation: hold 7s ease-in-out forwards;
+        }
+        
+        .breathing-circle.exhale {
+            animation: exhale 8s ease-in-out forwards;
+        }
+        
+        @keyframes inhale {
+            from { transform: scale(1); }
+            to { transform: scale(1.3); }
+        }
+        
+        @keyframes hold {
+            from, to { transform: scale(1.3); }
+        }
+        
+        @keyframes exhale {
+            from { transform: scale(1.3); }
+            to { transform: scale(1); }
+        }
+        
+        .breathing-text {
+            font-size: 1.25rem;
+            color: var(--accent-dark);
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+        
+        /* Interactive Checklist */
+        .checklist {
+            background: var(--surface);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        
+        .checklist h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-bottom: 0.5rem;
+        }
+        
+        .checklist-item:hover {
+            background: #f8fafc;
+        }
+        
+        .checklist-item input {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            accent-color: var(--accent);
+        }
+        
+        .checklist-item.checked {
+            opacity: 0.6;
+        }
+        
+        .checklist-item.checked .item-text {
+            text-decoration: line-through;
+        }
+        
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            border-radius: 2rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .tab:hover {
+            background: #f8fafc;
+        }
+        
+        .tab.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Comparison */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .comparison-card {
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+        }
+        
+        .comparison-card.hope {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border: 2px solid #10b981;
+        }
+        
+        .comparison-card.demand {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border: 2px solid #ef4444;
+        }
+        
+        .comparison-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .comparison-card.hope h4 { color: #065f46; }
+        .comparison-card.demand h4 { color: #991b1b; }
+        
+        .comparison-card ul {
+            list-style: none;
+            text-align: left;
+        }
+        
+        .comparison-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .comparison-card li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .comparison-card.hope li::before { color: #10b981; }
+        .comparison-card.demand li::before { color: #ef4444; }
+        
+        /* Footer CTA */
+        .footer-cta {
+            background: linear-gradient(135deg, #0c4a6e 0%, #075985 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        
+        .footer-cta h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-cta p {
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5rem; }
+            .comparison { grid-template-columns: 1fr; }
+            .section { padding: 3rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="top">
+        <div class="header-content">
+            <div class="header-icon">❄️</div>
+            <h1>The Heat of Expectation</h1>
+            <p>A mind-cooling framework for mental clarity—where expectations are not enemies to be managed, but energies to be understood and redirected.</p>
+        </div>
+        <div class="scroll-hint" onclick="document.getElementById('assessment').scrollIntoView({behavior:'smooth'})">
+            <i class="fas fa-chevron-down" style="font-size: 2rem; opacity: 0.7;"></i>
+        </div>
+    </header>
+
+    <!-- Heat Assessment -->
+    <section class="section" id="assessment">
+        <h2 class="section-title">Mental Heat Check</h2>
+        <p class="section-subtitle">Where are you right now? Click on the meter to assess your current mental temperature.</p>
+        
+        <div class="heat-meter">
+            <h3><i class="fas fa-thermometer-half"></i> Current Mental State</h3>
+            <div class="meter-container" id="heatMeter" onclick="updateHeat(event)">
+                <div class="meter-marker" id="heatMarker" style="left: 50%;"></div>
+            </div>
+            <div class="meter-labels">
+                <span>🧊 Cool & Clear</span>
+                <span>⚠️ Warming</span>
+                <span>🔥 Overheated</span>
+            </div>
+            <div class="heat-status warm" id="heatStatus">
+                Click on the meter above to assess your current mental state
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Insights -->
+    <section class="section">
+        <h2 class="section-title">Three Essential Insights</h2>
+        
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-icon">⚡</div>
+                <h3>Dynamic Energy Systems</h3>
+                <p>Expectations behave like self-amplifying mechanisms. When fulfilled, they intensify. When missed, they generate cognitive deconstruction and "brain over-heating."</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">🌡️</div>
+                <h3>Physiological Manifestation</h3>
+                <p>Mental heat corresponds to measurable hyperarousal—elevated catecholamines, sympathetic activation, and pro-inflammatory markers including IL-6 and TNF-α.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">❄️</div>
+                <h3>Cooling Through Practice</h3>
+                <p>Awe, mindfulness, and breathwork reduce DMN activity and inflammatory markers. The mind can be cooled through sustained, repeated practice.</p>
+            </div>
+        </div>
+
+        <div class="quote-block">
+            Expectations are desires with a lot of energy. They grow bigger when met and melt when missed, causing brain over-heating or inflammation.
+            <cite>— Core observation</cite>
+        </div>
+    </section>
+
+    <!-- Breathing Exercise -->
+    <section class="section">
+        <h2 class="section-title">Cooling Practice: 4-7-8 Breathing</h2>
+        <p class="section-subtitle">Just as the body can be cooled, the mind can be cooled. Click the circle to begin.</p>
+        
+        <div class="breathing-section">
+            <div class="breathing-circle" id="breathCircle" onclick="toggleBreathing()">
+                <span id="breathText">Start</span>
+            </div>
+            <div class="breathing-text" id="breathInstruction">Click to begin the cooling breath</div>
+            
+            <div style="margin-top: 2rem; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; font-weight: 600; color: var(--accent);">4s</div>
+                    <div style="font-size: 0.875rem; color: var(--muted);">Inhale</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; font-weight: 600; color: var(--accent);">7s</div>
+                    <div style="font-size: 0.875rem; color: var(--muted);">Hold</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; font-weight: 600; color: var(--accent);">8s</div>
+                    <div style="font-size: 0.875rem; color: var(--muted);">Exhale</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hope vs Demand -->
+    <section class="section">
+        <h2 class="section-title">Hope vs. Demand</h2>
+        <p class="section-subtitle">Understanding the difference between holding preferences and demanding outcomes.</p>
+        
+        <div class="comparison">
+            <div class="comparison-card hope">
+                <h4>💚 Hope</h4>
+                <ul>
+                    <li>Preferred but recognized as uncertain</li>
+                    <li>Held with appropriate looseness</li>
+                    <li>Enables flexible response</li>
+                    <li>Space for surprise remains</li>
+                </ul>
+            </div>
+            
+            <div class="comparison-card demand">
+                <h4>🔴 Demand</h4>
+                <ul>
+                    <li>Treated as necessary</li>
+                    <li>Generates violation distress</li>
+                    <li>Produces rigid behavior</li>
+                    <li>Creates persistent frustration</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practical Tools -->
+    <section class="section">
+        <h2 class="section-title">Cooling Techniques</h2>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('awe')">🌟 Awe</button>
+            <button class="tab" onclick="showTab('reframe')">🔄 Reframe</button>
+            <button class="tab" onclick="showTab('communicate')">💬 Communicate</button>
+        </div>
+        
+        <div id="awe" class="tab-content active">
+            <div class="card">
+                <h3>The Awe Antidote</h3>
+                <p>Awe experiences are associated with reduced IL-6 levels and cortisol modulation through self-diminishment—shifting attention from self-relevant concerns to something larger than self.</p>
+                <div style="margin-top: 1.5rem; padding: 1.5rem; background: #f0f9ff; border-radius: 0.5rem;">
+                    <strong>Quick Practice:</strong> Look up at the sky. Notice the vastness. Feel yourself as a small part of something immense. Stay with this feeling for 30 seconds.
+                </div>
+            </div>
+        </div>
+        
+        <div id="reframe" class="tab-content">
+            <div class="card">
+                <h3>Cognitive Reframing</h3>
+                <p>Shift from rigid, outcome-focused thinking to flexible, process-oriented cognition. This reduces the psychological impact of expectation violations while maintaining appropriate engagement.</p>
+                
+                <div style="margin-top: 1.5rem;">
+                    <div style="padding: 1rem; background: #fef2f2; border-radius: 0.5rem; margin-bottom: 1rem;">
+                        <strong>Rigid:</strong> "This must happen exactly as I expect."
+                    </div>
+                    <div style="padding: 1rem; background: #ecfdf5; border-radius: 0.5rem;">
+                        <strong>Flexible:</strong> "I hope for this, but I'm open to what emerges."
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="communicate" class="tab-content">
+            <div class="card">
+                <h3>Explicit Need Expression</h3>
+                <p>Use the framework: <strong>"I feel... when... because... I need..."</strong></p>
+                
+                <p>Explicit communication of needs produces better relationship outcomes than implicit strategies, reducing accusation while increasing clarity.</p>
+                
+                <div style="margin-top: 1.5rem; padding: 1.5rem; background: #f0f9ff; border-radius: 0.5rem;">
+                    <em>Example: "I feel anxious when plans change suddenly because I value reliability. I need advance notice when possible."</em>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Daily Practice Checklist -->
+    <section class="section">
+        <h2 class="section-title">Daily Cooling Practice</h2>
+        
+        <div class="checklist">
+            <h3>🧊 Today's Cooling Checklist</h3>
+            
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <input type="checkbox">
+                <div class="item-text">Notice one expectation before it activates</div>
+            </div>
+            
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <input type="checkbox">
+                <div class="item-text">Practice 3 cycles of 4-7-8 breathing</div>
+            </div>
+            
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <input type="checkbox">
+                <div class="item-text">Experience awe (look at the sky, art, or nature)</div>
+            </div>
+            
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <input type="checkbox">
+                <div class="item-text">Reframe one demand into a hope</div>
+            </div>
+            
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <input type="checkbox">
+                <div class="item-text">Express one need explicitly using the framework</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-cta">
+        <h2>What Remains When the Heat Subsides</h2>
+        <p>Expectations are not enemies to be managed, but energies to be understood and redirected toward authentic engagement. By cooling the mind, you do not vanish—you are liberated into awareness that was always present.</p>
+    </footer>
+
+    <script>
+        // Heat Meter
+        function updateHeat(event) {
+            const meter = document.getElementById('heatMeter');
+            const marker = document.getElementById('heatMarker');
+            const status = document.getElementById('heatStatus');
+            
+            const rect = meter.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+            
+            marker.style.left = percentage + '%';
+            
+            if (percentage < 33) {
+                status.className = 'heat-status cool';
+                status.innerHTML = '🧊 <strong>Cool & Clear</strong> — You\'re in a balanced state. Maintain this through regular practice.';
+            } else if (percentage < 66) {
+                status.className = 'heat-status warm';
+                status.innerHTML = '⚠️ <strong>Warming</strong> — Some mental heat detected. Try the breathing exercise below.';
+            } else {
+                status.className = 'heat-status hot';
+                status.innerHTML = '🔥 <strong>Overheated</strong> — Take a break. Practice cooling techniques. Step away from the source of stress.';
+            }
+        }
+        
+        // Breathing Exercise
+        let breathingActive = false;
+        let breathingInterval;
+        
+        function toggleBreathing() {
+            const circle = document.getElementById('breathCircle');
+            const text = document.getElementById('breathText');
+            const instruction = document.getElementById('breathInstruction');
+            
+            if (breathingActive) {
+                breathingActive = false;
+                clearInterval(breathingInterval);
+                circle.className = 'breathing-circle';
+                text.textContent = 'Start';
+                instruction.textContent = 'Click to begin the cooling breath';
+                return;
+            }
+            
+            breathingActive = true;
+            text.textContent = 'Stop';
+            
+            let phase = 0; // 0: inhale, 1: hold, 2: exhale
+            
+            function runBreathCycle() {
+                if (!breathingActive) return;
+                
+                if (phase === 0) {
+                    circle.className = 'breathing-circle inhale';
+                    instruction.textContent = 'Inhale slowly... (4s)';
+                    phase = 1;
+                    setTimeout(runBreathCycle, 4000);
+                } else if (phase === 1) {
+                    circle.className = 'breathing-circle hold';
+                    instruction.textContent = 'Hold... (7s)';
+                    phase = 2;
+                    setTimeout(runBreathCycle, 7000);
+                } else {
+                    circle.className = 'breathing-circle exhale';
+                    instruction.textContent = 'Exhale completely... (8s)';
+                    phase = 0;
+                    setTimeout(runBreathCycle, 8000);
+                }
+            }
+            
+            runBreathCycle();
+        }
+        
+        // Tabs
+        function showTab(tabId) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+        
+        // Checklist
+        function toggleCheck(item) {
+            const checkbox = item.querySelector('input');
+            checkbox.checked = !checkbox.checked;
+            item.classList.toggle('checked', checkbox.checked);
+        }
+    </script>
+</body>
+</html>

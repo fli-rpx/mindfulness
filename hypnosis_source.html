@@ -20,26 +20,35 @@
   <body>
     <div id="root"></div>
   
-    <!-- Audio for Safe Place Technique -->
-    <audio id="safePlaceMusic" loop>
-      <source src="sanctuary-of-light.mp3" type="audio/mpeg"/>
-    </audio>
-    
-    <!-- Audio for Journey Section -->
-    <audio id="journeyMusic" loop>
-      <source src="sanctuary-of-stillness.mp3" type="audio/mpeg"/>
-    </audio>
-    
-    <!-- Audio for Practice Your Anchor (hover) -->
-    <audio id="anchorMusic" loop>
-      <source src="celestial-drift.mp3" type="audio/mpeg"/>
-    </audio>
+    <!-- Audio for Safe Place Technique (src loaded via JS after delay) -->
+    <audio id="safePlaceMusic" loop data-src="sanctuary-of-light.mp3"></audio>
+
+    <!-- Audio for Journey Section (src loaded via JS after delay) -->
+    <audio id="journeyMusic" loop data-src="sanctuary-of-stillness.mp3"></audio>
+
+    <!-- Audio for Practice Your Anchor (hover) (src loaded via JS after delay) -->
+    <audio id="anchorMusic" loop data-src="celestial-drift.mp3"></audio>
     
     <script>
       (function() {
         const safePlaceAudio = document.getElementById('safePlaceMusic');
         const journeyAudio = document.getElementById('journeyMusic');
         const anchorAudio = document.getElementById('anchorMusic');
+        
+        // Delay audio loading by 3 seconds to improve initial page load
+        setTimeout(function() {
+          console.log('Loading audio sources after 3s delay...');
+          
+          if (safePlaceAudio && safePlaceAudio.dataset.src) {
+            safePlaceAudio.src = safePlaceAudio.dataset.src;
+          }
+          if (journeyAudio && journeyAudio.dataset.src) {
+            journeyAudio.src = journeyAudio.dataset.src;
+          }
+          if (anchorAudio && anchorAudio.dataset.src) {
+            anchorAudio.src = anchorAudio.dataset.src;
+          }
+        }, 3000);
         
         // Set up hover for "Tap to Anchor" button
         function setupAnchorHover() {
