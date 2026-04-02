@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="copyright" content="© 2026 Mindfulness Therapy. All rights reserved.">
+    <title>Connection - Mindfulness Therapy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #fafaf9;
+            --surface: #ffffff;
+            --text: #1c1917;
+            --muted: #78716c;
+            --border: #e7e5e4;
+            --accent: #0d9488;
+            --accent-dark: #0f766e;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(30, 58, 138, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 0.25rem; align-items: center; }
+        .nav-link {
+            padding: 0.5rem 1rem;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .nav-link:hover { color: white; background: rgba(255,255,255,0.1); }
+        .nav-link.active { color: var(--accent); background: rgba(13,148,136,0.2); }
+        
+        /* Tools Dropdown Styles */
+        .tools-dropdown-container { position: relative; display: inline-block; }
+        .tools-dropdown-btn { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.25rem; 
+            padding: 0.5rem 1rem; 
+            border: none; 
+            background: transparent; 
+            color: rgba(255,255,255,0.8); 
+            font-size: 0.875rem; 
+            font-weight: 500; 
+            cursor: pointer; 
+            border-radius: 9999px; 
+            font-family: inherit; 
+            transition: all 0.2s;
+        }
+        .tools-dropdown-btn:hover { background: rgba(255, 255, 255, 0.1); color: white; }
+        .tools-dropdown-btn.active { background: rgba(13,148,136,0.2); color: var(--accent); }
+        .tools-dropdown-menu { 
+            display: none; 
+            position: fixed; 
+            top: auto; 
+            left: auto; 
+            margin-top: 0.5rem; 
+            background: var(--surface); 
+            border: 1px solid var(--border); 
+            border-radius: 0.75rem; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15); 
+            min-width: 220px; 
+            padding: 0.5rem; 
+            z-index: 9999;
+        }
+        .tools-dropdown-menu.open { display: block; }
+        .tools-dropdown-menu a { 
+            display: block; 
+            padding: 0.75rem 1rem; 
+            color: var(--text); 
+            text-decoration: none; 
+            font-size: 0.875rem; 
+            border-radius: 0.5rem; 
+            transition: all 0.2s; 
+            white-space: nowrap; 
+        }
+        .tools-dropdown-menu a:hover { background: rgba(13,148,136,0.1); color: var(--accent); }
+        .tools-dropdown-menu a.active { color: var(--accent); font-weight: 600; }
+        
+        /* Hero */
+        .hero {
+            padding: 100px 2rem 40px;
+            background: 
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(102, 126, 234, 0.3), transparent),
+                linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+        }
+        .hero-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 100px;
+            color: rgba(255,255,255,0.9);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
+            color: white;
+        }
+        .hero-subtitle {
+            font-size: 1.125rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            border: none;
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        .btn-primary:hover { background: var(--accent-dark); }
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .btn-secondary:hover { background: rgba(255,255,255,0.2); }
+        
+        /* Main Content */
+        .content-main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        /* Connection Section Styles */
+        .connection-section {
+            background: white;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        
+        .connection-section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            width: 100%;
+            font-family: inherit;
+            font-size: 1rem;
+            text-align: left;
+        }
+        
+        .connection-section-header:hover { opacity: 0.95; }
+        .connection-section-header.active { border-bottom: 1px solid rgba(255,255,255,0.2); }
+        
+        .connection-icon {
+            font-size: 1.25rem;
+            width: 2.25rem;
+            height: 2.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.2);
+            border-radius: 0.5rem;
+        }
+        
+        .connection-section-header h3 {
+            flex: 1;
+            margin: 0;
+            font-size: 1.1rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .connection-toggle {
+            transition: transform 0.3s;
+            font-size: 0.875rem;
+        }
+        
+        .connection-section-header.active .connection-toggle {
+            transform: rotate(180deg);
+        }
+        
+        .connection-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        
+        .connection-section-header.active + .connection-content {
+            max-height: 5000px;
+        }
+        
+        .connection-inner {
+            padding: 1.5rem;
+        }
+        
+        .connection-inner h4 {
+            color: var(--text);
+            margin: 1.5rem 0 0.75rem 0;
+            font-size: 1.1rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+        }
+        
+        .connection-inner h4:first-child { margin-top: 0; }
+        
+        .connection-inner p {
+            color: var(--muted);
+            line-height: 1.7;
+            margin: 0 0 1rem 0;
+        }
+        
+        .connection-inner ul {
+            margin: 0.5rem 0 1rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .connection-inner li {
+            margin-bottom: 0.5rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+        
+        /* Cards */
+        .philosophy-card {
+            background: #f8fafc;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            border-left: 4px solid #667eea;
+        }
+        
+        .philosophy-card h5 {
+            margin: 0 0 0.5rem 0;
+            color: var(--text);
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        
+        .philosophy-card p {
+            margin: 0 0 0.5rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .philosophy-card blockquote {
+            margin: 0.75rem 0 0 0;
+            padding-left: 1rem;
+            border-left: 3px solid #cbd5e1;
+            color: var(--muted);
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            margin: 1.25rem 0;
+        }
+        
+        .highlight-box h5 {
+            margin: 0 0 0.5rem 0;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        
+        .highlight-box p {
+            margin: 0;
+            color: rgba(255,255,255,0.95);
+            font-size: 0.9rem;
+        }
+        
+        /* Table */
+        .science-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+        }
+        
+        .science-table th,
+        .science-table td {
+            padding: 0.625rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .science-table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        .science-table tr:hover { background: #f8fafc; }
+        
+        /* Practice Cards */
+        .practice-card {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            margin: 1rem 0;
+        }
+        
+        .practice-card h5 {
+            margin: 0 0 0.5rem 0;
+            color: #166534;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        
+        .practice-card p {
+            margin: 0 0 0.5rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .practice-card ol, .practice-card ul {
+            margin: 0.5rem 0 0 0;
+            padding-left: 1.25rem;
+            font-size: 0.9rem;
+        }
+        
+        .practice-card li {
+            margin-bottom: 0.4rem;
+        }
+        
+        /* Stats */
+        .stats-highlight {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.25rem 0;
+        }
+        
+        .stat-highlight-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            text-align: center;
+        }
+        
+        .stat-highlight-card .value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            display: block;
+        }
+        
+        .stat-highlight-card .label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-top: 0.25rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .cta-section h3 {
+            margin: 0 0 0.75rem 0;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .cta-section p {
+            margin: 0 0 1.25rem 0;
+            opacity: 0.9;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #1c1917;
+            color: #a8a29e;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        .footer p { margin: 0.5rem 0; font-size: 0.875rem; }
+        .footer-links a {
+            color: #a8a29e;
+            text-decoration: none;
+            margin: 0 0.5rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--accent); }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .content-main { padding: 2rem 1rem; }
+            .hero { padding: 80px 1rem 30px; }
+            .connection-inner { padding: 1rem; }
+            .stats-highlight { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">🧘 Mindfulness Therapy</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="cycle.html" class="nav-link">Cycle</a>
+                <a href="assessment.html" class="nav-link">AI Chat</a>
+                
+                <div class="tools-dropdown-container">
+                    <button class="tools-dropdown-btn" onclick="toggleToolsDropdown(this)">
+                        Tools <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="tools-dropdown-menu">
+                        <a href="emotion-explorer.html">🎨 Emotion Explorer</a>
+                        <a href="emotion-balance.html">⚡ Emotion Balance</a>
+                        <a href="emotion-meditation.html">🌬️ Emotion Meditation</a>
+                        <a href="expectation-cooling.html">❄️ Expectation Cooling</a>
+                        <a href="hypnosis.html">🌀 Hypnosis</a>
+                        <a href="neuro.html">🧠 Neuro·Contemplative</a>
+                        <a href="salad-compass.html">🥗 Salad Compass</a>
+                        <a href="salad-check.html">🥬 Full Salad Check</a>
+                        <a href="interventions.html">🧰 Interventions</a>
+                    </div>
+                </div>
+                
+                <a href="journal.html" class="nav-link">Journal</a>
+                <a href="progress.html" class="nav-link">Progress</a>
+                <a href="learn.html" class="nav-link">Learn</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-eyebrow">A Multidimensional Exploration</div>
+            <h1>🤝 Human Connection</h1>
+            <p class="hero-subtitle">Exploring the fundamental fabric of human existence through philosophical wisdom, scientific understanding, and practical guidance for cultivating deeper relationships.</p>
+            <div class="hero-actions">
+                <button class="btn btn-primary" onclick="openSection('executive')">
+                    <i class="fas fa-play-circle"></i> Start Reading
+                </button>
+                <button class="btn btn-secondary" onclick="openSection('practical')">
+                    <i class="fas fa-hand-holding-heart"></i> Practice
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="content-main">
+        
+        <!-- Section 0: Executive Summary -->
+        <div class="connection-section" id="executive">
+            <button class="connection-section-header active" onclick="toggleConnectionSection(this)">
+                <span class="connection-icon">📋</span>
+                <h3>Executive Summary</h3>
+                <i class="fas fa-chevron-down connection-toggle"></i>
+            </button>
+            <div class="connection-content">
+                <div class="connection-inner">
+                    <h4>Connection is the fundamental fabric of human existence.</h4>
+                    <p>Philosophically understood as interdependence and mutual co-creation, scientifically grounded in neurobiological systems evolved for social bonding, and practically cultivated through presence, vulnerability, and intentional practice.</p>
+                    
+                    <div class="stats-highlight">
+                        <div class="stat-highlight-card">
+                            <span class="value">50%</span>
+                            <span class="label">Increased Survival</span>
+                        </div>
+                        <div class="stat-highlight-card">
+                            <span class="value">~150</span>
+                            <span class="label">Dunbar's Number</span>
+                        </div>
+                        <div class="stat-highlight-card">
+                            <span class="value">94%</span>
+                            <span class="label">Emotion Detection</span>
+                        </div>
+                    </div>
+                    
+                    <p>Strong social connections are associated with approximately <strong>50% increased likelihood of survival</strong>—comparable to smoking cessation. The science is clear: humans are fundamentally social creatures, and our wellbeing depends on the quality of our relationships.</p>
+                    
+                    <div class="highlight-box">
+                        <h5><i class="fas fa-lightbulb"></i> The Core Insight</h5>
+                        <p>Connection is not a luxury—it's a biological necessity. Our brains, nervous systems, and even immune functions are shaped by our social bonds.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: Philosophical Understanding -->
+        <div class="connection-section" id="philosophy">
+            <button class="connection-section-header" onclick="toggleConnectionSection(this)">
+                <span class="connection-icon">📚</span>
+                <h3>Philosophical Understanding</h3>
+                <i class="fas fa-chevron-down connection-toggle"></i>
+            </button>
+            <div class="connection-content">
+                <div class="connection-inner">
+                    <h4>Eastern and Western frameworks on interconnectedness.</h4>
+                    
+                    <h4>Eastern Philosophies</h4>
+                    
+                    <div class="philosophy-card">
+                        <h5>🪷 Buddhist Interbeing</h5>
+                        <p>Thich Nhat Hanh's concept of interbeing: all phenomena arise in mutual dependence. Nothing exists in isolation—every being, object, and moment is connected to every other through an intricate web of causation and interdependence.</p>
+                        <blockquote>"If you are a poet, you will see clearly that there is a cloud floating in this sheet of paper. Without a cloud, there will be no rain; without rain, the trees cannot grow; and without trees, we cannot make paper."</blockquote>
+                    </div>
+                    
+                    <div class="philosophy-card">
+                        <h5>🕉️ Hindu Non-Duality</h5>
+                        <p><em>Tat Tvam Asi</em> ("That Thou Art")—the recognition that the individual self (Atman) is not separate from the universal consciousness (Brahman). This understanding dissolves the illusion of separateness that underlies loneliness and disconnection.</p>
+                    </div>
+                    
+                    <div class="philosophy-card">
+                        <h5>☯️ Taoist Wu Wei</h5>
+                        <p>Authentic connection emerges from attunement to natural unfolding, not strategic manipulation. Wu Wei (effortless action) suggests that the best relationships flow naturally when we stop forcing outcomes and align with the natural rhythm of things.</p>
+                    </div>
+                    
+                    <h4>Western Frameworks</h4>
+                    
+                    <div class="philosophy-card">
+                        <h5>🤝 I and Thou</h5>
+                        <p>Martin Buber's <em>I and Thou</em> (1923) distinguishes two modes of relating: I-It (objectifying, instrumental) and I-Thou (mutual presence, genuine meeting). In the I-Thou relation, the "between" (Zwischen) becomes a living presence.</p>
+                        <blockquote>"I do not experience the man to whom I say Thou. But I take my stand in relation to him, in the sanctity of the primary word."<br>— Martin Buber</blockquote>
+                    </div>
+                    
+                    <div class="philosophy-card">
+                        <h5>❤️️ Existential Authenticity</h5>
+                        <p>Heidegger and Sartre explored how authentic connection requires facing the anxiety of existence together. True relating happens when we drop our masks and meet each other in our shared vulnerability as finite, meaning-seeking beings.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Scientific Explanation -->
+        <div class="connection-section" id="science">
+            <button class="connection-section-header" onclick="toggleConnectionSection(this)">
+                <span class="connection-icon">🧠</span>
+                <h3>Scientific Explanation</h3>
+                <i class="fas fa-chevron-down connection-toggle"></i>
+            </button>
+            <div class="connection-content">
+                <div class="connection-inner">
+                    <h4>Neurobiological mechanisms, psychological processes, and health outcomes.</h4>
+                    
+                    <h4>The Social Brain</h4>
+                    <p>Extensive neural circuitry is dedicated to social cognition—mentalizing (thinking about others' thoughts), biological motion processing, and emotional evaluation. Our brains evolved primarily to navigate complex social landscapes.</p>
+                    
+                    <table class="science-table">
+                        <thead>
+                            <tr>
+                                <th>Brain Structure</th>
+                                <th>Function</th>
+                                <th>Connection Relevance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Medial Prefrontal Cortex</strong></td>
+                                <td>Mentalizing: attributing mental states</td>
+                                <td>Understanding intentions, beliefs, desires</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Temporoparietal Junction</strong></td>
+                                <td>Distinguishing self/other perspectives</td>
+                                <td>Self-other boundary processing</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mirror Neuron Systems</strong></td>
+                                <td>Action observation-execution matching</td>
+                                <td>Empathy and social learning</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Amygdala</strong></td>
+                                <td>Rapid social-emotional evaluation</td>
+                                <td>Approach/avoidance decisions</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Vagus Nerve</strong></td>
+                                <td>Parasympathetic regulation</td>
+                                <td>Social engagement system</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h4>Neurochemical Foundations</h4>
+                    <p>Social connection operates through specific biochemical pathways:</p>
+                    
+                    <div class="philosophy-card">
+                        <h5>🧪 Oxytocin</h5>
+                        <p>Often called the "bonding hormone," oxytocin is released during positive social contact, promoting trust, empathy, and attachment. It reduces amygdala activation and buffers stress responses.</p>
+                    </div>
+                    
+                    <div class="philosophy-card">
+                        <h5>🧪 Dopamine</h5>
+                        <p>The reward neurotransmitter reinforces social behaviors. Social approval and connection activate the same reward pathways as food, water, and other survival necessities.</p>
+                    </div>
+                    
+                    <div class="philosophy-card">
+                        <h5>🧪 Endorphins</h5>
+                        <p>Natural opioids released during social touch, laughter, and shared experiences. They create the warm, pleasant feelings associated with belonging.</p>
+                    </div>
+                    
+                    <h4>Polyvagal Theory</h4>
+                    <p>Dr. Stephen Porges' Polyvagal Theory describes three neural circuits governing our response to social cues:</p>
+                    
+                    <ul>
+                        <li><strong>Ventral Vagal (Social Engagement):</strong> Active when we feel safe—supports connection, facial expressivity, vocal prosody</li>
+                        <li><strong>Sympathetic (Fight/Flight):</strong> Mobilization response when connection feels threatened</li>
+                        <li><strong>Dorsal Vagal (Shutdown):</strong> Immobilization when connection feels impossible</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <h5><i class="fas fa-brain"></i> Why This Matters</h5>
+                        <p>Your nervous system is constantly scanning for cues of safety or danger in social interactions. Understanding this helps explain why connection can feel effortless sometimes and terrifying at others.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Practical Guidance -->
+        <div class="connection-section" id="practical">
+            <button class="connection-section-header" onclick="toggleConnectionSection(this)">
+                <span class="connection-icon">🤲</span>
+                <h3>Practical Guidance</h3>
+                <i class="fas fa-chevron-down connection-toggle"></i>
+            </button>
+            <div class="connection-content">
+                <div class="connection-inner">
+                    <h4>Cultivating deeper connections through presence, communication, and skill.</h4>
+                    
+                    <h4>Foundational Practices</h4>
+                    
+                    <div class="practice-card">
+                        <h5>👂 Deep Listening</h5>
+                        <p>Giving full, non-judgmental attention is the foundation of genuine connection. Research indicates individuals spend 30–40% of conversation time planning their response rather than attending.</p>
+                        <ol>
+                            <li><strong>Suspend internal commentary:</strong> Notice and release running mental responses</li>
+                            <li><strong>Refrain from immediate problem-solving:</strong> Resist the urge to fix unless requested</li>
+                            <li><strong>Attend to multiple channels:</strong> Content, tone, body language, silence</li>
+                            <li><strong>Embodied presence:</strong> Ground yourself through breath awareness</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="practice-card">
+                        <h5>💝 Vulnerable Sharing</h5>
+                        <p>Connection deepens when we reveal our authentic selves. Brené Brown's research shows vulnerability is not weakness—it's the birthplace of belonging and love.</p>
+                        <ul>
+                            <li>Share feelings before opinions</li>
+                            <li>Admit uncertainty and mistakes</li>
+                            <li>Express needs and boundaries</li>
+                            <li>Allow yourself to be seen fully</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="practice-card">
+                        <h5>🙏 Gratitude Expression</h5>
+                        <p>Regularly expressing appreciation strengthens bonds. Specific, heartfelt gratitude activates reward centers in both giver and receiver.</p>
+                        <p><strong>Practice:</strong> Each day, tell one person something specific you appreciate about them.</p>
+                    </div>
+                    
+                    <h4>Advanced Practices</h4>
+                    
+                    <div class="practice-card">
+                        <h5>🧘 Loving-Kindness Meditation (Metta)</h5>
+                        <p>A structured practice for cultivating unconditional positive regard:</p>
+                        <ol>
+                            <li>Begin with yourself: "May I be happy, may I be peaceful"</li>
+                            <li>Extend to a loved one</li>
+                            <li>Extend to a neutral person</li>
+                            <li>Extend to a difficult person</li>
+                            <li>Extend to all beings everywhere</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="practice-card">
+                        <h5>🪞 Reflective Listening</h5>
+                        <p>Mirror back what you hear before responding:</p>
+                        <ul>
+                            <li>"What I'm hearing is..."</li>
+                            <li>"It sounds like you feel..."</li>
+                            <li>"Let me make sure I understand..."</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="practice-card">
+                        <h5>⚡ Repair Attempts</h5>
+                        <p>John Gottman's research shows successful relationships aren't conflict-free—they're skilled at repair. When disconnection happens:</p>
+                        <ol>
+                            <li>Notice the rupture</li>
+                            <li>Take responsibility for your part</li>
+                            <li>Reach out with humility</li>
+                            <li>Listen to the other's experience</li>
+                            <li>Make amends if needed</li>
+                        </ol>
+                    </div>
+                    
+                    <h4>Building Connection Habits</h4>
+                    
+                    <div class="highlight-box">
+                        <h5><i class="fas fa-seedling"></i> Small Steps, Deep Impact</h5>
+                        <p>Connection is built in micro-moments. A genuine smile, a thoughtful question, a moment of presence—these small acts compound into profound bonds over time.</p>
+                    </div>
+                    
+                    <p><strong>Daily Connection Practices:</strong></p>
+                    
+                    <ul>
+                        <li>📱 Put away devices during conversations</li>
+                        <li>👁️ Make eye contact and smile at strangers</li>
+                        <li>🤗 Offer appropriate physical touch to loved ones</li>
+                        <li>📝 Send a thoughtful message to someone you care about</li>
+                        <li>🎁 Perform small acts of service</li>
+                        <li>⏰ Schedule regular quality time with important people</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h3>🌐 Connection Starts Within</h3>
+            <p>The quality of your connections with others mirrors the quality of your connection with yourself. Begin with self-compassion, extend to others, and watch your world transform.</p>
+            <a href="emotion-balance.html" class="btn btn-primary" style="background: white; color: #764ba2;">
+                <i class="fas fa-balance-scale"></i> Check Your Emotional Balance
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Mindfulness Therapy. All rights reserved.</p>
+        <p class="footer-links">
+            <a href="index.html">Home</a> |
+            <a href="learn.html">Learn</a> |
+            <a href="hypnosis.html">Hypnosis</a>
+        </p>
+    </footer>
+
+    <script>
+        // Toggle dropdown
+        function toggleToolsDropdown(btn) {
+            const menu = btn.nextElementSibling;
+            menu.classList.toggle('open');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.tools-dropdown-container')) {
+                document.querySelectorAll('.tools-dropdown-menu').forEach(menu => {
+                    menu.classList.remove('open');
+                });
+            }
+        });
+
+        // Toggle connection sections
+        function toggleConnectionSection(header) {
+            header.classList.toggle('active');
+        }
+
+        // Open specific section
+        function openSection(id) {
+            const section = document.getElementById(id);
+            const header = section.querySelector('.connection-section-header');
+            header.classList.add('active');
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Open first section by default
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstHeader = document.querySelector('.connection-section-header');
+            if (firstHeader) {
+                firstHeader.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
