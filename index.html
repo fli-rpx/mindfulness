@@ -9,14 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Ensure dropdown works - override any external styles */
-        .tools-dropdown-menu {
-            display: none !important;
-        }
-        .tools-dropdown-menu.open {
-            display: block !important;
-        }
-        
         :root {
             --bg: #fafaf9;
             --surface: #ffffff;
@@ -73,7 +65,7 @@
         .nav-link:hover { color: white;  background: rgba(255,255,255,0.1); }
         .nav-link.active { color: var(--accent); background: rgba(13,148,136,0.2); }
 
-        /* Tools Dropdown */
+        /* Tools Dropdown - using external styles.css for menu */
         .tools-dropdown-container { position: relative; display: inline-block; }
         .tools-dropdown-btn {
             display: flex;
@@ -91,32 +83,6 @@
             transition: all 0.2s;
         }
         .tools-dropdown-btn:hover { background: rgba(255,255,255,0.1); color: white; }
-        .tools-dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            margin-top: 0.5rem;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            min-width: 220px;
-            padding: 0.5rem;
-            z-index: 9999;
-        }
-        .tools-dropdown-menu.open { display: block; }
-        .tools-dropdown-menu a {
-            display: block;
-            padding: 0.75rem 1rem;
-            color: var(--text);
-            text-decoration: none;
-            font-size: 0.875rem;
-            border-radius: 0.5rem;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-        .tools-dropdown-menu a:hover { background: rgba(13,148,136,0.1); color: var(--accent); }
 
         /* Hero */
         .hero {
