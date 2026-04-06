@@ -18,6 +18,25 @@
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     
+    /* NEW: 2025 Color Palette - Soft & Natural */
+    --color-sage: #9CAF88;
+    --color-sage-light: #B8C9A9;
+    --color-sage-dark: #7A8F6A;
+    --color-beige: #F5F1E8;
+    --color-beige-warm: #EDE8DC;
+    --color-powder-blue: #B8D4E3;
+    --color-powder-blue-light: #D4E5F0;
+    --color-text-primary: #3D4A3D;
+    --color-text-secondary: #6B7B6B;
+    --color-text-muted: #9AA99A;
+    --color-surface: #FFFFFF;
+    --color-border-new: #E8E8E4;
+    --color-accent-warm: #C4A77D;
+    --gradient-calm: linear-gradient(135deg, #9CAF88 0%, #B8D4E3 100%);
+    --gradient-warm: linear-gradient(135deg, #F5F1E8 0%, #EDE8DC 100%);
+    --shadow-soft: 0 4px 16px rgba(156, 175, 136, 0.12);
+    --shadow-soft-lg: 0 8px 32px rgba(156, 175, 136, 0.16);
+    
     /* Performance: Optimize transitions for better performance */
     --transition-fast: all 0.15s ease-out;
     --transition-smooth: transform 0.2s ease-out, opacity 0.2s ease-out;
@@ -2764,4 +2783,299 @@ a:focus-visible, button:focus-visible {
     white-space: nowrap; 
 }
 .tools-dropdown-menu a:hover { background: rgba(13,148,136,0.1); color: var(--accent, #14b8a6); }
+
+/* ============================================
+   QUICK WINS IMPLEMENTATION - April 2026
+   Calm Button + 4-4-4 Breathing + Legal Pages
+   ============================================ */
+
+/* Calm Button */
+.calm-button {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--gradient-calm);
+  border: none;
+  box-shadow: 0 4px 20px rgba(156, 175, 136, 0.35);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 9999;
+}
+
+.calm-button:hover {
+  transform: scale(1.1) translateY(-4px);
+  box-shadow: 0 8px 30px rgba(156, 175, 136, 0.5);
+}
+
+.calm-button:active {
+  transform: scale(0.95);
+}
+
+.calm-button svg {
+  width: 26px;
+  height: 26px;
+  color: white;
+  stroke-width: 2;
+}
+
+.calm-button span {
+  font-size: 10px;
+  color: white;
+  margin-top: 3px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+@keyframes calmPulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(156, 175, 136, 0.35); }
+  50% { box-shadow: 0 4px 30px rgba(156, 175, 136, 0.6), 0 0 0 8px rgba(156, 175, 136, 0.1); }
+}
+
+.calm-button.pulse {
+  animation: calmPulse 3s infinite ease-in-out;
+}
+
+/* 4-4-4 Breathing Circle */
+.breathing-section {
+  padding: 80px 24px;
+  background: var(--gradient-warm);
+  margin: 40px 0;
+  border-radius: 24px;
+}
+
+.breathing-container {
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.breathing-container h2 {
+  color: var(--color-sage-dark);
+  font-size: 2rem;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.breathing-container .subtitle {
+  color: var(--color-text-secondary);
+  margin-bottom: 48px;
+  font-size: 1.1rem;
+}
+
+.breathing-circle {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: 0 auto 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle-outer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--gradient-calm);
+  opacity: 0.25;
+  transform: scale(1);
+  transition: transform 4s ease-in-out, opacity 4s ease-in-out;
+}
+
+.circle-inner {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-soft-lg);
+  z-index: 2;
+}
+
+#breath-text {
+  font-size: 1.5rem;
+  color: var(--color-sage-dark);
+  font-weight: 700;
+}
+
+.breathing-circle.inhale .circle-outer {
+  transform: scale(1.6);
+  opacity: 0.5;
+}
+
+.breathing-circle.hold .circle-outer {
+  transform: scale(1.6);
+  opacity: 0.5;
+}
+
+.breathing-circle.exhale .circle-outer {
+  transform: scale(1);
+  opacity: 0.25;
+}
+
+.breathing-guide {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.phase {
+  padding: 10px 20px;
+  border-radius: 9999px;
+  background: white;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.4s ease;
+  box-shadow: var(--shadow-soft);
+}
+
+.phase.active {
+  background: var(--color-sage);
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Legal Pages */
+.legal-page {
+  max-width: 800px;
+  margin: 100px auto 80px;
+  padding: 0 24px;
+  color: var(--color-text-primary);
+  line-height: 1.8;
+}
+
+.legal-page h1 {
+  color: var(--color-sage-dark);
+  font-size: 2.5rem;
+  margin-bottom: 48px;
+  font-weight: 700;
+}
+
+.disclaimer-section {
+  margin-bottom: 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--color-border-new);
+}
+
+.disclaimer-section:last-of-type {
+  border-bottom: none;
+}
+
+.disclaimer-section h2 {
+  color: var(--color-sage-dark);
+  font-size: 1.35rem;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.disclaimer-section p {
+  margin-bottom: 16px;
+}
+
+.disclaimer-section ul {
+  background: var(--color-beige);
+  padding: 24px 24px 24px 48px;
+  border-radius: 12px;
+  margin-top: 20px;
+  border-left: 4px solid var(--color-sage);
+}
+
+.disclaimer-section li {
+  margin-bottom: 12px;
+}
+
+.emergency-box {
+  background: #FFF5F5;
+  border: 1px solid #FED7D7;
+  border-radius: 12px;
+  padding: 24px;
+  margin: 24px 0;
+}
+
+.emergency-box h3 {
+  color: #C53030;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+}
+
+.legal-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 48px;
+  color: var(--color-sage);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.legal-back-link:hover {
+  color: var(--color-sage-dark);
+  text-decoration: underline;
+}
+
+/* Footer with legal links */
+.footer-legal {
+  margin-top: 20px;
+  font-size: 0.875rem;
+}
+
+.footer-legal a {
+  color: var(--color-sage);
+  text-decoration: none;
+}
+
+.footer-legal a:hover {
+  text-decoration: underline;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .calm-button.pulse {
+    animation: none;
+  }
+  .circle-outer {
+    transition: none;
+  }
+}
+
+/* Mobile responsive for new components */
+@media (max-width: 768px) {
+  .calm-button {
+    width: 64px;
+    height: 64px;
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .breathing-circle {
+    width: 180px;
+    height: 180px;
+  }
+  
+  .circle-inner {
+    width: 120px;
+    height: 120px;
+  }
+  
+  #breath-text {
+    font-size: 1.25rem;
+  }
+  
+  .legal-page {
+    margin-top: 80px;
+  }
+}
 

@@ -7,6 +7,7 @@
     <title>Mindfulness Therapy - Emotional Wellness Platform</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
         :root {
             --bg: #fafaf9;
@@ -381,6 +382,28 @@
         </div>
     </section>
 
+    <section class="breathing-section">
+        <div class="breathing-container">
+            <h2>Take a Moment to Breathe</h2>
+            <p class="subtitle">Follow the circle: Inhale → Hold → Exhale</p>
+            
+            <div class="breathing-circle" id="breathing-circle">
+                <div class="circle-outer"></div>
+                <div class="circle-inner">
+                    <span id="breath-text">Ready?</span>
+                </div>
+            </div>
+            
+            <button id="start-breathing" class="btn btn-primary">Start Breathing</button>
+            
+            <div class="breathing-guide">
+                <span class="phase" data-phase="inhale">Inhale</span>
+                <span class="phase" data-phase="hold">Hold</span>
+                <span class="phase" data-phase="exhale">Exhale</span>
+            </div>
+        </div>
+    </section>
+
     <section class="cta">
         <h2>Begin Your Journey</h2>
         <p>Self-awareness is the foundation of emotional wellness.</p>
@@ -389,8 +412,23 @@
 
     <footer>
         <p>&copy; 2026 Mindfulness Therapy. All rights reserved.</p>
+        <p class="footer-legal">
+            <a href="disclaimer.html">Medical Disclaimer</a> | 
+            <a href="privacy.html">Privacy Policy</a>
+        </p>
     </footer>
 
+    <!-- Calm Button -->
+    <button id="calm-button" class="calm-button pulse" aria-label="Reset to calm state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2"/>
+        </svg>
+        <span>Calm</span>
+    </button>
+
+    <script src="app.js"></script>
+    <script src="quick-wins.js"></script>
     <script>
         function toggleToolsDropdown(btn) {
             const menu = btn.nextElementSibling;

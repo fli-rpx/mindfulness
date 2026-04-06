@@ -773,4 +773,195 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Universal initializations for all pages
     app.setupToolsDropdown();
+    
+    // Quick Wins: Initialize Calm Button and Breathing Guide
+    app.initCalmButton();
+    app.initBreathingGuide();
 });
+
+// ============================================
+// QUICK WINS: Calm Button & Breathing Guide
+// ============================================
+
+// Calm Button Functionality
+app.initCalmButton = function() {
+    const calmBtn = document.getElementById('calm-button');
+    if (!calmBtn) return;
+    
+    calmBtn.addEventListener('click', function() {
+        // Visual feedback
+        calmBtn.classList.add('active');
+        setTimeout(() => calmBtn.classList.remove('active'), 300);
+        
+        // 1. Close all modals and overlays
+        document.querySelectorAll('.modal, .overlay, .popup, [role="dialog"]').forEach(el => {
+            el.style.display = 'none';
+            el.classList.remove('active', 'open', 'show');
+            el.setAttribute('aria-hidden', 'true');
+        });
+        
+        // 2. Close dropdowns
+        document.querySelectorAll('.tools-dropdown-menu').forEach(el => {
+            el.classList.remove('open');
+        });
+        
+        // 3. Scroll to top smoothly
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        // 4. Clear form inputs
+        document.querySelectorAll('input:not([type="hidden"]), textarea, select').forEach(input => {
+            if (input.type !== 'submit' && input.type !== 'button') {
+                input.value = '';
+                input.checked = false;
+            }
+        });
+        
+        // 5. Stop any playing media
+        document.querySelectorAll('audio, video').forEach(media => {
+            media.pause();
+            media.currentTime = 0;
+        });
+        
+        // 6. Play gentle chime
+        app.playCalmChime();
+        
+        // 7. Reset breathing if running
+        if (app.breathingGuide && app.breathingGuide.isRunning) {
+            app.stopBreathing();
+        }
+        
+        console.log('🧘 Calm activated');
+    });
+    
+    // Pulse after 30 seconds of inactivity
+    app.startInactivityTimer(calmBtn);
+};
+
+app.playCalmChime = function() {
+    try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        
+        const ctx = new AudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        
+        osc.frequency.setValueAtTime(528, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(264, ctx.currentTime + 2);
+        
+        gain.gain.setValueAtTime(0.1, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 2);
+        
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 2);
+    } catch (e) {
+        // Silent fail
+    }
+};
+
+app.startInactivityTimer = function(button) {
+    let inactivityTimeout;
+    
+    const resetTimer = () => {
+        button.classList.remove('pulse');
+        clearTimeout(inactivityTimeout);
+        inactivityTimeout = setTimeout(() => {
+            button.classList.add('pulse');
+        }, 30000);
+    };
+    
+    ['click', 'scroll', 'keypress', 'touchstart'].forEach(event => {
+        document.addEventListener(event, resetTimer, { once: true });
+    });
+    
+    resetTimer();
+};
+
+// 4-4-4 Breathing Guide
+app.initBreathingGuide = function() {
+    const circle = document.getElementById('breathing-circle');
+    const button = document.getElementById('start-breathing');
+    
+    if (!circle || !button) return;
+    
+    app.breathingGuide = {
+        isRunning: false,
+        cycleCount: 0,
+        maxCycles: 5
+    };
+    
+    button.addEventListener('click', function() {
+        if (app.breathingGuide.isRunning) {
+            app.stopBreathing();
+            button.textContent = 'Start Breathing';
+        } else {
+            app.startBreathing();
+            button.textContent = 'Stop';
+        }
+    });
+};
+
+app.startBreathing = function() {
+    const circle = document.getElementById('breathing-circle');
+    const text = document.getElementById('breath-text');
+    const phases = document.querySelectorAll('.phase');
+    
+    if (!circle) return;
+    
+    app.breathingGuide.isRunning = true;
+    app.breathingGuide.cycleCount = 0;
+    
+    app.breathingLoop(circle, text, phases);
+};
+
+app.stopBreathing = function() {
+    app.breathingGuide.isRunning = false;
+    const circle = document.getElementById('breathing-circle');
+    const text = document.getElementById('breath-text');
+    const button = document.getElementById('start-breathing');
+    const phases = document.querySelectorAll('.phase');
+    
+    if (circle) circle.className = 'breathing-circle';
+    if (text) text.textContent = 'Ready?';
+    if (button) button.textContent = 'Start Breathing';
+    phases.forEach(p => p.classList.remove('active'));
+};
+
+app.breathingLoop = async function(circle, text, phases) {
+    while (app.breathingGuide.isRunning && app.breathingGuide.cycleCount < app.breathingGuide.maxCycles) {
+        app.breathingGuide.cycleCount++;
+        
+        // Inhale (4 seconds)
+        await app.setBreathingPhase('inhale', 'Breathe In', 4000, circle, text, phases);
+        if (!app.breathingGuide.isRunning) break;
+        
+        // Hold (4 seconds)
+        await app.setBreathingPhase('hold', 'Hold', 4000, circle, text, phases);
+        if (!app.breathingGuide.isRunning) break;
+        
+        // Exhale (4 seconds)
+        await app.setBreathingPhase('exhale', 'Breathe Out', 4000, circle, text, phases);
+        if (!app.breathingGuide.isRunning) break;
+    }
+    
+    if (app.breathingGuide.isRunning) {
+        app.stopBreathing();
+        if (text) text.textContent = 'Well Done!';
+    }
+};
+
+app.setBreathingPhase = function(phase, displayText, duration, circle, text, phases) {
+    return new Promise(resolve => {
+        circle.className = `breathing-circle ${phase}`;
+        if (text) text.textContent = displayText;
+        
+        phases.forEach(p => p.classList.remove('active'));
+        const activePhase = document.querySelector(`.phase[data-phase="${phase}"]`);
+        if (activePhase) activePhase.classList.add('active');
+        
+        setTimeout(resolve, duration);
+    });
+};
