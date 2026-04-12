@@ -3,104 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NEURO·CONTEMPLATIVE - Mindfulness Therapy">
     <meta name="copyright" content="© 2026 Mindfulness Therapy. All rights reserved.">
     <title>NEURO·CONTEMPLATIVE - Mindfulness Therapy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
-
-        /* Navigation */
-        .nav {
+                /* Iframe wrapper — updated nav height 68px */
+        body { overflow: hidden; }
+        .iframe-container {
             position: fixed;
-            top: 0; left: 0; right: 0;
-            background: rgba(30, 58, 138, 0.95);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            z-index: 1000;
-            height: 70px;
+            top: 68px;
+            left: 0; right: 0; bottom: 0;
         }
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 70px;
+        .iframe-container iframe {
+            width: 100%; height: 100%; border: none;
         }
-        .nav-logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: white;
-            text-decoration: none;
-        }
-        .nav-links { display: flex; gap: 0.25rem; align-items: center; }
-        .nav-link {
-            padding: 0.5rem 1rem;
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            font-size: 0.875rem;
-            font-weight: 500;
-            border-radius: 6px;
-            transition: all 0.2s;
-        }
-        .nav-link:hover { color: white; background: rgba(255,255,255,0.1); }
-        .nav-link.active { color: #0d9488; background: rgba(13,148,136,0.2); }
-
-        /* Tools Dropdown */
-        .tools-dropdown-container { position: relative; display: inline-block; }
-        .tools-dropdown-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            padding: 0.5rem 1rem;
-            border: none;
-            background: transparent;
-            color: rgba(255,255,255,0.8);
-            font-size: 0.875rem;
-            font-weight: 500;
-            cursor: pointer;
-            border-radius: 6px;
-            font-family: inherit;
-            transition: all 0.2s;
-        }
-        .tools-dropdown-btn:hover { background: rgba(255,255,255,0.1); color: white; }
-        .tools-dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            margin-top: 0.5rem;
-            background: white;
-            border: 1px solid #e7e5e4;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            min-width: 220px;
-            padding: 0.5rem;
-            z-index: 1001;
-        }
-        .tools-dropdown-menu.open { display: block; }
-        .tools-dropdown-menu a {
-            display: block;
-            padding: 0.75rem 1rem;
-            color: #1c1917;
-            text-decoration: none;
-            font-size: 0.875rem;
-            border-radius: 0.5rem;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-        .tools-dropdown-menu a:hover { background: rgba(13,148,136,0.1); color: #0d9488; }
-        .tools-dropdown-menu a.active { color: #0d9488; font-weight: 600; }
 
         /* Iframe Container */
         .iframe-container {
@@ -112,53 +33,75 @@
             width: 100%;
             height: calc(100vh - 70px);
         }
-        
-        .iframe-container iframe {
+.iframe-container iframe {
             width: 100%;
             height: 100%;
             border: none;
         }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-        }
     </style>
+    
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <!-- Navigation -->
-    <nav class="nav">
+        <nav class="nav" aria-label="Main navigation">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">🧘 Mindfulness Therapy</a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="cycle.html" class="nav-link">Cycle</a>
-                <a href="assessment.html" class="nav-link">AI Chat</a>
-
+            <a href="index.html" class="nav-logo" aria-label="Mindfulness Therapy – Home">
+                <i class="fas fa-leaf" aria-hidden="true"></i> Mindfulness Therapy
+            </a>
+            <div class="nav-links" id="nav-links">
+                                <a href="index.html" class="nav-link">Home</a>
+                                <a href="cycle.html" class="nav-link">Cycle</a>
+                                <a href="assessment.html" class="nav-link">AI Chat</a>
                 <div class="tools-dropdown-container">
-                    <button class="tools-dropdown-btn" onclick="toggleToolsDropdown(this)">
-                        Tools <i class="fas fa-chevron-down"></i>
+                    <button class="tools-dropdown-btn"
+                            onclick="toggleToolsDropdown(this)"
+                            aria-haspopup="true" aria-expanded="false" aria-controls="toolsMenu">
+                        Tools <i class="fas fa-chevron-down" aria-hidden="true"></i>
                     </button>
-                                        <div class="tools-dropdown-menu" id="toolsMenu">
-                        <a href="emotion-explorer.html">🎨 Emotion Explorer</a>
-                        <a href="emotion-balance.html">⚡ Emotion Balance</a>
-                        <a href="emotion-meditation.html">🌬️ Emotion Meditation</a>
-                        <a href="expectation-cooling.html">❄️ Expectation Cooling</a>
-                        <a href="hypnosis.html">🌀 Hypnosis</a>
-                        <a href="neuro.html" class="active">🧠 Neuro·Contemplative</a>
-                        <a href="salad-compass.html">🥗 Salad Compass</a>
-                        <a href="salad-check.html">🥬 Full Salad Check</a>
-                        <a href="interventions.html">🧰 Interventions</a>
-                        <a href="connection.html">🤝 Connection</a>
+                    <div class="tools-dropdown-menu" id="toolsMenu" role="menu">
+                        <a href="emotion-explorer.html" role="menuitem">🎨 Emotion Explorer</a>
+                        <a href="emotion-balance.html" role="menuitem">⚡ Emotion Balance</a>
+                        <a href="emotion-meditation.html" role="menuitem">🌬️ Emotion Meditation</a>
+                        <a href="expectation-cooling.html" role="menuitem">❄️ Expectation Cooling</a>
+                        <a href="hypnosis.html" role="menuitem">🌀 Hypnosis</a>
+                        <a href="neuro.html" role="menuitem">🧠 Neuro·Contemplative</a>
+                        <a href="salad-compass.html" role="menuitem">🥗 Salad Compass</a>
+                        <a href="salad-check.html" role="menuitem">🥬 Full Salad Check</a>
+                        <a href="interventions.html" role="menuitem">🧰 Interventions</a>
+                        <a href="connection.html" role="menuitem">🤝 Connection</a>
                     </div>
                 </div>
-
-                <a href="journal.html" class="nav-link">Journal</a>
-                <a href="progress.html" class="nav-link">Progress</a>
-                <a href="learn.html" class="nav-link">Learn</a>
+                                <a href="journal.html" class="nav-link">Journal</a>
+                                <a href="progress.html" class="nav-link">Progress</a>
+                                <a href="learn.html" class="nav-link">Learn</a>
+                                <a href="connection.html" class="nav-link">Connection</a>
             </div>
+            <!-- Language Switcher -->
+            <div class="lang-switcher">
+                <button class="lang-btn" id="lang-btn"
+                        onclick="toggleLangMenu(this)"
+                        aria-haspopup="true" aria-expanded="false"
+                        aria-label="Switch language">
+                    <i class="fas fa-globe" aria-hidden="true"></i>
+                    <span class="lang-current">EN</span>
+                    <i class="fas fa-chevron-down lang-arrow" aria-hidden="true"></i>
+                </button>
+                <div class="lang-menu" id="langMenu" role="menu">
+                    <a href="#" id="lang-link-en" role="menuitem" hreflang="en">🇬🇧 English</a>
+                    <a href="#" id="lang-link-zh" role="menuitem" hreflang="zh-CN">🇨🇳 中文</a>
+                    <a href="#" id="lang-link-ru" role="menuitem" hreflang="ru">🇷🇺 Русский</a>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn"
+                    aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-links">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
         </div>
     </nav>
 
+
+    <main id="main-content">
     <!-- Iframe with Neuro Contemplative app -->
     <div class="iframe-container">
         <iframe src="neuro_source.html" 
@@ -167,20 +110,51 @@
                 loading="lazy">
         </iframe>
     </div>
-
     <script>
         function toggleToolsDropdown(btn) {
-            const menu = btn.nextElementSibling;
-            menu.classList.toggle('open');
+            var menu = btn.nextElementSibling;
+            var open = menu.classList.toggle('open');
+            btn.setAttribute('aria-expanded', open);
+            if (open) {
+                var r = btn.getBoundingClientRect();
+                menu.style.top  = (r.bottom + window.scrollY + 6) + 'px';
+                menu.style.left = r.left + 'px';
+            }
         }
-
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.tools-dropdown-container')) {
-                document.querySelectorAll('.tools-dropdown-menu').forEach(menu => {
-                    menu.classList.remove('open');
-                });
+                document.querySelectorAll('.tools-dropdown-menu').forEach(function(m){ m.classList.remove('open'); });
+                document.querySelectorAll('.tools-dropdown-btn').forEach(function(b){ b.setAttribute('aria-expanded','false'); });
             }
         });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.tools-dropdown-menu').forEach(function(m){ m.classList.remove('open'); });
+            }
+        });
+        (function() {
+            var btn = document.getElementById('mobile-menu-btn');
+            var links = document.getElementById('nav-links');
+            if (!btn || !links) return;
+            btn.addEventListener('click', function() {
+                var open = links.classList.toggle('mobile-open');
+                btn.setAttribute('aria-expanded', open);
+                btn.querySelector('i').className = open ? 'fas fa-times' : 'fas fa-bars';
+            });
+            links.querySelectorAll('a').forEach(function(a) {
+                a.addEventListener('click', function() {
+                    links.classList.remove('mobile-open');
+                    btn.setAttribute('aria-expanded', 'false');
+                    btn.querySelector('i').className = 'fas fa-bars';
+                });
+            });
+        }());
     </script>
+    </main>
+
+
+
+    
+    <script src="lang-switcher.js"></script>
 </body>
 </html>

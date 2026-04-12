@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>期望冷却 - 心灵冷却框架</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #fafaf9;
+            --surface: #ffffff;
+            --text: #1c1917;
+            --muted: #78716c;
+            --border: #e7e5e4;
+            --accent: #0d9488;
+            --accent-dark: #0f766e;
+            --heat-1: #0d9488;
+            --heat-2: #f59e0b;
+            --heat-3: #dc2626;
+            --cool-1: #e0f2fe;
+            --cool-2: #bae6fd;
+            --cool-3: #7dd3fc;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; }
+        
+        /* Header */
+        .header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #0c4a6e 0%, #075985 50%, #0369a1 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            animation: drift 20s linear infinite;
+        }
+        
+        @keyframes drift {
+            from { transform: translateX(0); }
+            to { transform: translateX(-60px); }
+        }
+        
+        .header-content { position: relative; z-index: 1; max-width: 800px; }
+        
+        .header-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        /* Sections */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+        
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--muted);
+            margin-bottom: 3rem;
+        }
+        
+        /* Heat Meter */
+        .heat-meter {
+            background: var(--surface);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        
+        .heat-meter h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .meter-container {
+            height: 40px;
+            background: linear-gradient(90deg, var(--heat-1) 0%, var(--heat-2) 50%, var(--heat-3) 100%);
+            border-radius: 20px;
+            position: relative;
+            cursor: pointer;
+            margin-bottom: 1rem;
+        }
+        
+        .meter-marker {
+            position: absolute;
+            top: -10px;
+            width: 4px;
+            height: 60px;
+            background: white;
+            border: 2px solid var(--text);
+            border-radius: 2px;
+            transform: translateX(-50%);
+            transition: left 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .meter-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            color: var(--muted);
+        }
+        
+        .heat-status {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .heat-status.cool {
+            background: #ecfdf5;
+            color: #065f46;
+        }
+        
+        .heat-status.warm {
+            background: #fffbeb;
+            color: #92400e;
+        }
+        
+        .heat-status.hot {
+            background: #fef2f2;
+            color: #991b1b;
+        }
+        
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .card {
+            background: var(--surface);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid var(--border);
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+        }
+        
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+        }
+        
+        .card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .card p {
+            font-size: 0.9375rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+        
+        /* Quote */
+        .quote-block {
+            background: linear-gradient(135deg, #1e3a5f 0%, #0c4a6e 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 1rem;
+            margin: 3rem 0;
+            position: relative;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .quote-block::before {
+            content: '"';
+            font-size: 6rem;
+            position: absolute;
+            top: 0.5rem;
+            left: 1.5rem;
+            opacity: 0.3;
+            font-family: serif;
+        }
+        
+        .quote-block cite {
+            display: block;
+            margin-top: 1.5rem;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            opacity: 0.8;
+            font-style: normal;
+        }
+        
+        /* Breathing Exercise */
+        .breathing-section {
+            background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 1.5rem;
+            padding: 3rem 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+        
+        .breathing-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
+            margin: 2rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.125rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 40px rgba(13,148,136,0.3);
+        }
+        
+        .breathing-circle:hover {
+            transform: scale(1.05);
+        }
+        
+        .breathing-circle.inhale {
+            animation: inhale 4s ease-in-out forwards;
+        }
+        
+        .breathing-circle.hold {
+            animation: hold 7s ease-in-out forwards;
+        }
+        
+        .breathing-circle.exhale {
+            animation: exhale 8s ease-in-out forwards;
+        }
+        
+        @keyframes inhale {
+            from { transform: scale(1); }
+            to { transform: scale(1.3); }
+        }
+        
+        @keyframes hold {
+            from, to { transform: scale(1.3); }
+        }
+        
+        @keyframes exhale {
+            from { transform: scale(1.3); }
+            to { transform: scale(1); }
+        }
+        
+        .breathing-text {
+            font-size: 1.25rem;
+            color: var(--accent-dark);
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+        
+        /* Interactive Checklist */
+        .checklist {
+            background: var(--surface);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        
+        .checklist h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-bottom: 0.5rem;
+        }
+        
+        .checklist-item:hover {
+            background: #f8fafc;
+        }
+        
+        .checklist-item input {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            accent-color: var(--accent);
+        }
+        
+        .checklist-item.checked {
+            opacity: 0.6;
+        }
+        
+        .checklist-item.checked .item-text {
+            text-decoration: line-through;
+        }
+        
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            border-radius: 2rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .tab:hover {
+            background: #f8fafc;
+        }
+        
+        .tab.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Comparison */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .comparison-card {
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+        }
+        
+        .comparison-card.hope {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border: 2px solid #10b981;
+        }
+        
+        .comparison-card.demand {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border: 2px solid #ef4444;
+        }
+        
+        .comparison-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .comparison-card.hope h4 { color: #065f46; }
+        .comparison-card.demand h4 { color: #991b1b; }
+        
+        .comparison-card ul {
+            list-style: none;
+            text-align: left;
+        }
+        
+        .comparison-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .comparison-card li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .comparison-card.hope li::before { color: #10b981; }
+        .comparison-card.demand li::before { color: #ef4444; }
+        
+        /* Footer CTA */
+        .footer-cta {
+            background: linear-gradient(135deg, #0c4a6e 0%, #075985 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        
+        .footer-cta h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-cta p {
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5rem; }
+            .comparison { grid-template-columns: 1fr; }
+            .section { padding: 3rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="top">
+        <div class="header-content">
+            <div class="header-icon">❄️</div>
+            <h1>期望的热度</h1>
+            <p>一个促进心灵清晰的冷却框架——期望不是需要管理的敌人，而是需要理解并重新引导的能量。</p>
+        </div>
+        <div class="scroll-hint" onclick="document.getElementById('assessment').scrollIntoView({behavior:'smooth'})">
+            <i class="fas fa-chevron-down" style="font-size: 2rem; opacity: 0.7;"></i>
+        </div>
+    </header>
+
+    <!-- Heat Assessment -->
+    <section class="section" id="assessment">
+        <h2 class="section-title">心理热度检测</h2>
+        <p class="section-subtitle">你现在处于哪种状态？点击仪表评估当前的心理温度。</p>
+        
+        <div class="heat-meter">
+            <h3><i class="fas fa-thermometer-half"></i> 当前心理状态</h3>
+            <div class="meter-container" id="heatMeter" onclick="updateHeat(event)">
+                <div class="meter-marker" id="heatMarker" style="left: 50%;"></div>
+            </div>
+            <div class="meter-labels">
+                <span>🧊 清凉平静</span>
+                <span>⚠️ 升温中</span>
+                <span>🔥 过热</span>
+            </div>
+            <div class="heat-status warm" id="heatStatus">
+                点击上方仪表评估当前心理状态
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Insights -->
+    <section class="section">
+        <h2 class="section-title">三个核心洞见</h2>
+        
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-icon">⚡</div>
+                <h3>动态能量系统</h3>
+                <p>期望就像自我放大的机制。当得到满足时，它们会增强；当落空时，它们会引发认知解构和"大脑过热"。</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">🌡️</div>
+                <h3>生理表现</h3>
+                <p>心理热度对应于可测量的过度唤醒——儿茶酚胺升高、交感神经激活，以及包括IL-6和TNF-α在内的促炎标志物。</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">❄️</div>
+                <h3>通过练习冷却</h3>
+                <p>敬畏感、正念和呼吸练习可减少默认模式网络（DMN）活动和炎症标志物。通过持续、反复的练习，心灵可以得到冷却。</p>
+            </div>
+        </div>
+
+        <div class="quote-block">
+            Expectations are desires with a lot of energy. They grow bigger when met and melt when missed, causing brain over-heating or inflammation.
+            <cite>— 核心观察</cite>
+        </div>
+    </section>
+
+    <!-- Breathing Exercise -->
+    <section class="section">
+        <h2 class="section-title">冷却练习：4-7-8呼吸法</h2>
+        <p class="section-subtitle">正如身体可以冷却，心灵也可以冷却。点击圆圈开始。</p>
+        
+        <div class="breathing-section">
+            <div class="breathing-circle" id="breathCircle" onclick="toggleBreathing()">
+                <span id="breathText">开始</span>
+            </div>
+            <div class="breathing-text" id="breathInstruction">点击开始冷却呼吸</div>
+            
+            <div style="margin-top: 2rem; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; font-weight: 600; color: var(--accent);">4s</div>
+                    <div style="font-size: 0.875rem; color: var(--muted);">吸气</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; font-weight: 600; color: var(--accent);">7s</div>
+                    <div style="font-size: 0.875rem; color: var(--muted);">Hold</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; font-weight: 600; color: var(--accent);">8s</div>
+                    <div style="font-size: 0.875rem; color: var(--muted);">呼气</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hope vs Demand -->
+    <section class="section">
+        <h2 class="section-title">希望 vs. 要求</h2>
+        <p class="section-subtitle">理解持有偏好与要求结果之间的区别。</p>
+        
+        <div class="comparison">
+            <div class="comparison-card hope">
+                <h4>💚 希望</h4>
+                <ul>
+                    <li>偏好但承认其不确定性</li>
+                    <li>以适当的宽松态度保持</li>
+                    <li>促进灵活回应</li>
+                    <li>留有惊喜的空间</li>
+                </ul>
+            </div>
+            
+            <div class="comparison-card demand">
+                <h4>🔴 要求</h4>
+                <ul>
+                    <li>被视为必要条件</li>
+                    <li>产生违背的痛苦</li>
+                    <li>产生僵化行为</li>
+                    <li>造成持续挫折感</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practical Tools -->
+    <section class="section">
+        <h2 class="section-title">冷却技巧</h2>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('awe')">🌟 Awe</button>
+            <button class="tab" onclick="showTab('reframe')">🔄 重构思维</button>
+            <button class="tab" onclick="showTab('communicate')">💬 表达沟通</button>
+        </div>
+        
+        <div id="awe" class="tab-content active">
+            <div class="card">
+                <h3>敬畏感的解药</h3>
+                <p>敬畏体验与IL-6水平降低和通过自我缩小而实现的皮质醇调节有关——将注意力从自我相关的关切转移到比自我更大的事物上。</p>
+                <div style="margin-top: 1.5rem; padding: 1.5rem; background: #f0f9ff; border-radius: 0.5rem;">
+                    <strong>快速练习：</strong> Look up at the sky. Notice the vastness. Feel yourself as a small part of something immense. Stay with this feeling for 30 seconds.
+                </div>
+            </div>
+        </div>
+        
+        <div id="reframe" class="tab-content">
+            <div class="card">
+                <h3>认知重构</h3>
+                <p>从僵化的、以结果为导向的思维转变为灵活的、以过程为导向的认知。这可以减少期望落空的心理影响，同时保持适当的参与感。</p>
+                
+                <div style="margin-top: 1.5rem;">
+                    <div style="padding: 1rem; background: #fef2f2; border-radius: 0.5rem; margin-bottom: 1rem;">
+                        <strong>僵化：</strong>"这必须完全按照我的期望发生。"
+                    </div>
+                    <div style="padding: 1rem; background: #ecfdf5; border-radius: 0.5rem;">
+                        <strong>灵活：</strong>"我希望这样，但我接受任何可能出现的结果。"
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="communicate" class="tab-content">
+            <div class="card">
+                <h3>明确表达需求</h3>
+                <p>使用框架：<strong>"我感到...当...因为...我需要..."</strong></p>
+                
+                <p>明确表达需求比隐性策略产生更好的关系结果，减少指责同时增加清晰度。</p>
+                
+                <div style="margin-top: 1.5rem; padding: 1.5rem; background: #f0f9ff; border-radius: 0.5rem;">
+                    <em>示例："当计划突然改变时，我感到焦虑，因为我重视可靠性。如果可能，我需要提前通知。"</em>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Daily Practice Checklist -->
+    <section class="section">
+        <h2 class="section-title">每日冷却练习</h2>
+        
+        <div class="checklist">
+            <h3>🧊 今日冷却清单</h3>
+            
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <input type="checkbox">
+                <div class="item-text">在期望激活之前注意到它</div>
+            </div>
+            
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <input type="checkbox">
+                <div class="item-text">练习3个循环的4-7-8呼吸法</div>
+            </div>
+            
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <input type="checkbox">
+                <div class="item-text">体验敬畏感（仰望天空、欣赏艺术或大自然）</div>
+            </div>
+            
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <input type="checkbox">
+                <div class="item-text">将一个"要求"转化为"希望"</div>
+            </div>
+            
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <input type="checkbox">
+                <div class="item-text">用框架明确表达一个需求</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-cta">
+        <h2>热度消退后留下什么</h2>
+        <p>期望不是需要管理的敌人，而是需要理解并重新引导至真实参与的能量。通过冷却心灵，你不会消失——你被解放进入那早已存在的觉知之中。</p>
+    </footer>
+
+    <script>
+        // Heat Meter
+        function updateHeat(event) {
+            const meter = document.getElementById('heatMeter');
+            const marker = document.getElementById('heatMarker');
+            const status = document.getElementById('heatStatus');
+            
+            const rect = meter.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+            
+            marker.style.left = percentage + '%';
+            
+            if (percentage < 33) {
+                status.className = 'heat-status cool';
+                status.innerHTML = '🧊 <strong>清凉平静</strong> — 你处于平衡状态。通过定期练习保持这种状态。';
+            } else if (percentage < 66) {
+                status.className = 'heat-status warm';
+                status.innerHTML = '⚠️ <strong>升温中</strong> — 检测到一些心理热度。试试下面的呼吸练习。';
+            } else {
+                status.className = 'heat-status hot';
+                status.innerHTML = '🔥 <strong>过热</strong> — 休息一下。练习冷却技巧。暂时远离压力源。';
+            }
+        }
+        
+        // Breathing Exercise
+        let breathingActive = false;
+        let breathingInterval;
+        
+        function toggleBreathing() {
+            const circle = document.getElementById('breathCircle');
+            const text = document.getElementById('breathText');
+            const instruction = document.getElementById('breathInstruction');
+            
+            if (breathingActive) {
+                breathingActive = false;
+                clearInterval(breathingInterval);
+                circle.className = 'breathing-circle';
+                text.textContent = '开始';
+                instruction.textContent = '点击开始冷却呼吸';
+                return;
+            }
+            
+            breathingActive = true;
+            text.textContent = '停止';
+            
+            let phase = 0; // 0: inhale, 1: hold, 2: exhale
+            
+            function runBreathCycle() {
+                if (!breathingActive) return;
+                
+                if (phase === 0) {
+                    circle.className = 'breathing-circle inhale';
+                    instruction.textContent = '缓慢吸气... (4秒)';
+                    phase = 1;
+                    setTimeout(runBreathCycle, 4000);
+                } else if (phase === 1) {
+                    circle.className = 'breathing-circle hold';
+                    instruction.textContent = '屏住呼吸... (7秒)';
+                    phase = 2;
+                    setTimeout(runBreathCycle, 7000);
+                } else {
+                    circle.className = 'breathing-circle exhale';
+                    instruction.textContent = '完全呼气... (8秒)';
+                    phase = 0;
+                    setTimeout(runBreathCycle, 8000);
+                }
+            }
+            
+            runBreathCycle();
+        }
+        
+        // Tabs
+        function showTab(tabId) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+        
+        // Checklist
+        function toggleCheck(item) {
+            const checkbox = item.querySelector('input');
+            checkbox.checked = !checkbox.checked;
+            item.classList.toggle('checked', checkbox.checked);
+        }
+    </script>
+</body>
+</html>

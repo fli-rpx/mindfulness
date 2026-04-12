@@ -3,155 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="正念疗法 - 情绪健康平台">
     <meta name="copyright" content="© 2026 正念疗法。保留所有权利。">
     <title>正念疗法 - 情绪健康平台</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
-        :root {
-            --bg: #fafaf9;
-            --surface: #ffffff;
-            --text: #1c1917;
-            --muted: #78716c;
-            --border: #e7e5e4;
-            --accent: #0d9488;
-            --accent-dark: #0f766e;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-        }
-        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; }
-
-        /* Navigation */
-        .nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            background: rgba(30, 58, 138, 0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            z-index: 100;
-        }
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 70px;
-        }
-        .nav-logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: white;
-            text-decoration: none;
-        }
-        .nav-links { display: flex; gap: 0.25rem; }
-        .nav-link {
-            padding: 0.5rem 1rem;
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            font-size: 0.875rem;
-            font-weight: 500;
-            border-radius: 6px;
-            transition: all 0.2s;
-        }
-        .nav-link:hover { color: white;  background: rgba(255,255,255,0.1); }
-        .nav-link.active { color: var(--accent); background: rgba(13,148,136,0.2); }
-
         /* 工具 Dropdown */
         .tools-dropdown-container { position: relative; display: inline-block; }
-        .tools-dropdown-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            padding: 0.5rem 1rem;
-            border: none;
-            background: transparent;
-            color: rgba(255,255,255,0.8);
-            font-size: 0.875rem;
-            font-weight: 500;
-            cursor: pointer;
-            border-radius: 6px;
-            font-family: inherit;
-            transition: all 0.2s;
-        }
-        .tools-dropdown-btn:hover { background: rgba(255,255,255,0.1); color: white; }
-        .tools-dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            margin-top: 0.5rem;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            min-width: 220px;
-            padding: 0.5rem;
-            z-index: 9999;
-        }
-        .tools-dropdown-menu.open { display: block; }
-        .tools-dropdown-menu a {
-            display: block;
-            padding: 0.75rem 1rem;
-            color: var(--text);
-            text-decoration: none;
-            font-size: 0.875rem;
-            border-radius: 0.5rem;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-        .tools-dropdown-menu a:hover { background: rgba(13,148,136,0.1); color: var(--accent); }
-
-        /* Hero */
-        .hero {
-            padding: 80px 2rem 20px;
-            background:
-                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.2), transparent),
-                linear-gradient(180deg, #1e3a8a 0%, #1e40af 50%, var(--bg) 100%);
-            color: white;
-        }
-        .hero h1 { color: white;  }
-        .hero-subtitle { color: rgba(255,255,255,0.95); }
-        .hero-container {
-            max-width: 720px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .hero-eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(13,148,136,0.1);
-            border: 1px solid rgba(13,148,136,0.2);
-            border-radius: 100px;
-            color: var(--accent);
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 1.5rem;
-        }
-        .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            line-height: 1.1;
-            margin-bottom: 1.25rem;
-        }
-        .hero-subtitle {
-            font-size: 1.125rem;
-            color: var(--muted);
-            max-width: 520px;
-            margin: 0 auto 2rem;
-        }
-        .hero-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
-        .btn {
+.btn {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
@@ -164,33 +27,16 @@
             border: none;
             cursor: pointer;
         }
-        .btn-primary { background: var(--accent); color: white;  }
-        .btn-primary:hover { background: var(--accent-dark); transform: translateY(-1px); }
-        .btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
-        .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
-
-        /* Features */
+/* Features */
         .features { padding: 80px 2rem; background: var(--surface); }
-        .section-header { max-width: 560px; margin: 0 auto 3rem; text-align: center; }
-        .section-label {
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--accent);
-            margin-bottom: 0.75rem;
-        }
-        .section-header h2 { font-size: 2rem; margin-bottom: 0.75rem; }
-        .section-header p { color: var(--muted); }
-
-        .features-grid {
+.features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
             max-width: 1100px;
             margin: 0 auto;
         }
-        .feature-card {
+.feature-card {
             padding: 1.75rem;
             background: var(--bg);
             border-radius: 12px;
@@ -199,12 +45,12 @@
             text-decoration: none;
             color: inherit;
         }
-        .feature-card:hover {
+.feature-card:hover {
             border-color: var(--accent);
             transform: translateY(-2px);
             box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
         }
-        .feature-icon {
+.feature-icon {
             width: 44px;
             height: 44px;
             background: var(--accent);
@@ -216,12 +62,11 @@
             font-size: 1.125rem;
             margin-bottom: 1rem;
         }
-        .feature-card h3 { font-size: 1.125rem; margin-bottom: 0.375rem; }
-        .feature-card p { font-size: 0.875rem; color: var(--muted); }
-
-        /* Stats */
+.feature-card h3 { font-size: 1.125rem; margin-bottom: 0.375rem; }
+.feature-card p { font-size: 0.875rem; color: var(--muted); }
+/* Stats */
         .stats { padding: 60px 2rem; background: var(--text); color: white;  }
-        .stats-grid {
+.stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 2rem;
@@ -229,60 +74,78 @@
             margin: 0 auto;
             text-align: center;
         }
-        .stat-value { font-size: 2.5rem; font-weight: 600; color: var(--accent); }
-        .stat-label { font-size: 0.875rem; color: rgba(255,255,255,0.6); }
-
-        /* CTA */
+.stat-value { font-size: 2.5rem; font-weight: 600; color: var(--accent); }
+.stat-label { font-size: 0.875rem; color: rgba(255,255,255,0.6); }
+/* CTA */
         .cta { padding: 100px 2rem; text-align: center; }
-        .cta h2 { font-size: 2rem; margin-bottom: 0.75rem; }
-        .cta p { color: var(--muted); margin-bottom: 1.5rem; }
-
-        /* Footer */
+.cta h2 { font-size: 2rem; margin-bottom: 0.75rem; }
+.cta p { color: var(--muted); margin-bottom: 1.5rem; }
+/* Footer */
         footer { padding: 2rem; text-align: center; border-top: 1px solid var(--border); }
-        footer p { font-size: 0.875rem; color: var(--muted); }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hero { padding: 120px 1.5rem 60px; }
-        }
+footer p { font-size: 0.875rem; color: var(--muted); }
     </style>
+    
 </head>
 <body>
-    <nav class="nav">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+        <nav class="nav" aria-label="Main navigation">
         <div class="nav-container">
-            <a href="index-zh.html" class="nav-logo">🧘 正念疗法</a>
-            <div class="nav-links">
-                <a href="index-zh.html" class="nav-link active">首页</a>
-                <a href="cycle-zh.html" class="nav-link">周期</a>
-                <a href="assessment-zh.html" class="nav-link">AI对话</a>
-
-                <!-- 工具 Dropdown -->
+            <a href="index-zh.html" class="nav-logo" aria-label="正念疗法 – Home">
+                <i class="fas fa-leaf" aria-hidden="true"></i> 正念疗法
+            </a>
+            <div class="nav-links" id="nav-links">
+                                <a href="index-zh.html" class="nav-link active">首页</a>
+                                <a href="cycle-zh.html" class="nav-link">周期</a>
+                                <a href="assessment-zh.html" class="nav-link">AI对话</a>
                 <div class="tools-dropdown-container">
-                    <button class="tools-dropdown-btn" onclick="toggleToolsDropdown(this)">
-                        工具 <i class="fas fa-chevron-down"></i>
+                    <button class="tools-dropdown-btn"
+                            onclick="toggleToolsDropdown(this)"
+                            aria-haspopup="true" aria-expanded="false" aria-controls="toolsMenu">
+                        工具 <i class="fas fa-chevron-down" aria-hidden="true"></i>
                     </button>
-                                        <div class="tools-dropdown-menu" id="toolsMenu">
-                        <a href="emotion-explorer.html">🎨 Emotion Explorer</a>
-                        <a href="emotion-balance.html">⚡ Emotion Balance</a>
-                        <a href="emotion-meditation.html">🌬️ Emotion Meditation</a>
-                        <a href="expectation-cooling.html">❄️ Expectation Cooling</a>
-                        <a href="hypnosis.html">🌀 Hypnosis</a>
-                        <a href="neuro.html">🧠 Neuro·Contemplative</a>
-                        <a href="salad-compass.html">🥗 Salad Compass</a>
-                        <a href="salad-check.html">🥬 Full Salad Check</a>
-                        <a href="interventions.html">🧰 Interventions</a>
-                        <a href="connection.html">🤝 Connection</a>
+                                        <div class="tools-dropdown-menu" id="toolsMenu" role="menu">
+                        <a href="emotion-explorer-zh.html" role="menuitem">🎨 情绪探索</a>
+                        <a href="emotion-balance-zh.html" role="menuitem">⚡ 情绪平衡</a>
+                        <a href="emotion-meditation-zh.html" role="menuitem">🌬️ 情绪冥想</a>
+                        <a href="expectation-cooling-zh.html" role="menuitem">❄️ 期望冷却</a>
+                        <a href="hypnosis-zh.html" role="menuitem">🌀 催眠</a>
+                        <a href="neuro-zh.html" role="menuitem">🧠 神经·冥想</a>
+                        <a href="salad-compass-zh.html" role="menuitem">🥗 沙拉指南针</a>
+                        <a href="salad-check-zh.html" role="menuitem">🥬 完整沙拉检查</a>
+                        <a href="interventions-zh.html" role="menuitem">🧰 干预措施</a>
+                        <a href="connection-zh.html" role="menuitem">🤝 联结</a>
                     </div>
                 </div>
-
-                <a href="journal-zh.html" class="nav-link">日记</a>
-                <a href="progress-zh.html" class="nav-link">进度</a>
-                <a href="learn-zh.html" class="nav-link">学习</a>
-                <a href="index-zh.html" class="nav-link">英语</a>
+                                <a href="journal-zh.html" class="nav-link">日记</a>
+                                <a href="progress-zh.html" class="nav-link">进度</a>
+                                <a href="learn-zh.html" class="nav-link">学习</a>
+                                <a href="connection-zh.html" class="nav-link">联结</a>
             </div>
+            <!-- Language Switcher -->
+            <div class="lang-switcher">
+                <button class="lang-btn" id="lang-btn"
+                        onclick="toggleLangMenu(this)"
+                        aria-haspopup="true" aria-expanded="false"
+                        aria-label="Switch language">
+                    <i class="fas fa-globe" aria-hidden="true"></i>
+                    <span class="lang-current">EN</span>
+                    <i class="fas fa-chevron-down lang-arrow" aria-hidden="true"></i>
+                </button>
+                <div class="lang-menu" id="langMenu" role="menu">
+                    <a href="#" id="lang-link-en" role="menuitem" hreflang="en">🇬🇧 English</a>
+                    <a href="#" id="lang-link-zh" role="menuitem" hreflang="zh-CN">🇨🇳 中文</a>
+                    <a href="#" id="lang-link-ru" role="menuitem" hreflang="ru">🇷🇺 Русский</a>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn"
+                    aria-label="打开导航菜单" aria-expanded="false" aria-controls="nav-links">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
         </div>
     </nav>
 
+
+    <main id="main-content">
     <section class="hero">
         <div class="hero-container">
             <div class="hero-eyebrow">
@@ -316,8 +179,7 @@
                 <p>通过互动界面可视化你的情绪景观。</p>
             </a>
 
-            <a href="emotion-balance-zh.html"
-                        <a href="emotion-meditation.html">🌬️ Emotion Meditation</a> class="feature-card">
+            <a href="emotion-balance-zh.html" class="feature-card">
                 <div class="feature-icon"><i class="fas fa-balance-scale"></i></div>
                 <h3>平衡评估</h3>
                 <p>快速检查并获得个性化平衡建议。</p>
@@ -375,24 +237,55 @@
         <p>自我意识是情绪健康的基础。</p>
         <a href="assessment-zh.html" class="btn btn-primary">开始免费评估</a>
     </section>
+    </main>
+
 
     <footer>
         <p>&copy; 2026 正念疗法。保留所有权利。</p>
     </footer>
-
     <script>
         function toggleToolsDropdown(btn) {
-            const menu = btn.nextElementSibling;
-            menu.classList.toggle('open');
+            var menu = btn.nextElementSibling;
+            var open = menu.classList.toggle('open');
+            btn.setAttribute('aria-expanded', open);
+            if (open) {
+                var r = btn.getBoundingClientRect();
+                menu.style.top  = (r.bottom + window.scrollY + 6) + 'px';
+                menu.style.left = r.left + 'px';
+            }
         }
-
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.tools-dropdown-container')) {
-                document.querySelectorAll('.tools-dropdown-menu').forEach(menu => {
-                    menu.classList.remove('open');
-                });
+                document.querySelectorAll('.tools-dropdown-menu').forEach(function(m){ m.classList.remove('open'); });
+                document.querySelectorAll('.tools-dropdown-btn').forEach(function(b){ b.setAttribute('aria-expanded','false'); });
             }
         });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.tools-dropdown-menu').forEach(function(m){ m.classList.remove('open'); });
+            }
+        });
+        (function() {
+            var btn = document.getElementById('mobile-menu-btn');
+            var links = document.getElementById('nav-links');
+            if (!btn || !links) return;
+            btn.addEventListener('click', function() {
+                var open = links.classList.toggle('mobile-open');
+                btn.setAttribute('aria-expanded', open);
+                btn.querySelector('i').className = open ? 'fas fa-times' : 'fas fa-bars';
+            });
+            links.querySelectorAll('a').forEach(function(a) {
+                a.addEventListener('click', function() {
+                    links.classList.remove('mobile-open');
+                    btn.setAttribute('aria-expanded', 'false');
+                    btn.querySelector('i').className = 'fas fa-bars';
+                });
+            });
+        }());
     </script>
+
+
+    
+    <script src="lang-switcher.js"></script>
 </body>
 </html>

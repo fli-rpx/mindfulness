@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Связь - Осознанность">
+    <meta name="copyright" content="© 2026 Осознанность. All rights reserved.">
+    <title>Связь - Осознанность</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            border: none;
+        }
+
+        .content-main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .connection-section {
+            background: white;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .connection-section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            width: 100%;
+            font-family: inherit;
+            font-size: 1rem;
+            text-align: left;
+        }
+
+        .connection-section-header:hover { opacity: 0.95; }
+        .connection-section-header.active { border-bottom: 1px solid rgba(255,255,255,0.2); }
+
+        .connection-icon {
+            font-size: 1.25rem;
+            width: 2.25rem;
+            height: 2.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.2);
+            border-radius: 0.5rem;
+        }
+
+        .connection-section-header h3 {
+            flex: 1;
+            margin: 0;
+            font-size: 1.1rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            color: white;
+        }
+
+        .connection-toggle {
+            transition: transform 0.3s;
+            font-size: 0.875rem;
+        }
+
+        .connection-section-header.active .connection-toggle {
+            transform: rotate(180deg);
+        }
+
+        .connection-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .connection-section-header.active + .connection-content {
+            max-height: 5000px;
+        }
+
+        .connection-inner {
+            padding: 1.5rem;
+        }
+
+        .connection-inner h4 {
+            color: var(--text);
+            margin: 1.5rem 0 0.75rem 0;
+            font-size: 1.1rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+        }
+
+        .connection-inner h4:first-child { margin-top: 0; }
+
+        .connection-inner p {
+            color: var(--muted);
+            line-height: 1.7;
+            margin: 0 0 1rem 0;
+        }
+
+        .connection-inner ul {
+            margin: 0.5rem 0 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .connection-inner li {
+            margin-bottom: 0.5rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .philosophy-card {
+            background: #f8fafc;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .philosophy-card h5 {
+            margin: 0 0 0.5rem 0;
+            color: var(--text);
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .philosophy-card p { margin: 0 0 0.5rem 0; font-size: 0.9rem; }
+
+        .philosophy-card blockquote {
+            margin: 0.75rem 0 0 0;
+            padding-left: 1rem;
+            border-left: 3px solid #cbd5e1;
+            color: var(--muted);
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            margin: 1.25rem 0;
+        }
+
+        .highlight-box h5 { margin: 0 0 0.5rem 0; font-size: 0.95rem; font-weight: 600; }
+        .highlight-box p { margin: 0; color: rgba(255,255,255,0.95); font-size: 0.9rem; }
+
+        .science-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+        }
+
+        .science-table th,
+        .science-table td {
+            padding: 0.625rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .science-table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .science-table tr:hover { background: #f8fafc; }
+
+        .practice-card {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            margin: 1rem 0;
+        }
+
+        .practice-card h5 {
+            margin: 0 0 0.5rem 0;
+            color: #166534;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .practice-card p { margin: 0 0 0.5rem 0; font-size: 0.9rem; }
+
+        .practice-card ol, .practice-card ul {
+            margin: 0.5rem 0 0 0;
+            padding-left: 1.25rem;
+            font-size: 0.9rem;
+        }
+
+        .practice-card li { margin-bottom: 0.4rem; }
+
+        .stats-highlight {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.25rem 0;
+        }
+
+        .stat-highlight-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            text-align: center;
+        }
+
+        .stat-highlight-card .value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-highlight-card .label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-top: 0.25rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .cta-section h3 { margin: 0 0 0.75rem 0; font-size: 1.5rem; color: white; }
+        .cta-section p { margin: 0 0 1.25rem 0; opacity: 0.9; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+        .footer {
+            background: #1c1917;
+            color: #a8a29e;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer p { margin: 0.5rem 0; font-size: 0.875rem; }
+
+        .footer-links a {
+            color: #a8a29e;
+            text-decoration: none;
+            margin: 0 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: var(--accent); }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Перейти к основному содержанию</a>
+
+    <!-- Навигация -->
+    <nav class="nav" aria-label="Основная навигация">
+        <div class="nav-container">
+            <a href="index-ru.html" class="nav-logo" aria-label="Осознанность – Главная">
+                <i class="fas fa-leaf" aria-hidden="true"></i> Осознанность
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="index-ru.html" class="nav-link">Главная</a>
+                <a href="cycle-ru.html" class="nav-link">Цикл</a>
+                <a href="assessment-ru.html" class="nav-link">AI Чат</a>
+                <div class="tools-dropdown-container">
+                    <button class="tools-dropdown-btn"
+                            onclick="toggleToolsDropdown(this)"
+                            aria-haspopup="true" aria-expanded="false" aria-controls="toolsMenu">
+                        Инструменты <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                    </button>
+                                        <div class="tools-dropdown-menu" id="toolsMenu" role="menu">
+                        <a href="emotion-explorer-ru.html" role="menuitem">🎨 Исследователь эмоций</a>
+                        <a href="emotion-balance-ru.html" role="menuitem">⚡ Баланс эмоций</a>
+                        <a href="emotion-meditation-ru.html" role="menuitem">🌬️ Эмоциональная медитация</a>
+                        <a href="expectation-cooling-ru.html" role="menuitem">❄️ Охлаждение ожиданий</a>
+                        <a href="hypnosis-ru.html" role="menuitem">🌀 Гипноз</a>
+                        <a href="neuro-ru.html" role="menuitem">🧠 Нейро·Созерцание</a>
+                        <a href="salad-compass-ru.html" role="menuitem">🥗 Компас тарелки</a>
+                        <a href="salad-check-ru.html" role="menuitem">🥬 Полная проверка</a>
+                        <a href="interventions-ru.html" role="menuitem">🧰 Интервенции</a>
+                        <a href="connection-ru.html" role="menuitem">🤝 Связь</a>
+                    </div>
+                </div>
+                <a href="journal-ru.html" class="nav-link">Журнал</a>
+                <a href="progress-ru.html" class="nav-link">Прогресс</a>
+                <a href="learn-ru.html" class="nav-link">Учиться</a>
+                <a href="connection-ru.html" class="nav-link active">Связь</a>
+            </div>
+            <!-- Language Switcher -->
+            <div class="lang-switcher">
+                <button class="lang-btn" id="lang-btn"
+                        onclick="toggleLangMenu(this)"
+                        aria-haspopup="true" aria-expanded="false"
+                        aria-label="Switch language">
+                    <i class="fas fa-globe" aria-hidden="true"></i>
+                    <span class="lang-current">EN</span>
+                    <i class="fas fa-chevron-down lang-arrow" aria-hidden="true"></i>
+                </button>
+                <div class="lang-menu" id="langMenu" role="menu">
+                    <a href="#" id="lang-link-en" role="menuitem" hreflang="en">🇬🇧 English</a>
+                    <a href="#" id="lang-link-zh" role="menuitem" hreflang="zh-CN">🇨🇳 中文</a>
+                    <a href="#" id="lang-link-ru" role="menuitem" hreflang="ru">🇷🇺 Русский</a>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn"
+                    aria-label="Открыть меню" aria-expanded="false" aria-controls="nav-links">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <!-- Герой-секция -->
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-eyebrow">Многомерное исследование</div>
+                <h1>🤝 Человеческая связь</h1>
+                <p class="hero-subtitle">Исследование фундаментальной ткани человеческого существования через философскую мудрость, научное понимание и практическое руководство по развитию более глубоких отношений.</p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary" onclick="openSection('executive')">
+                        <i class="fas fa-play-circle"></i> Начать читать
+                    </button>
+                    <button class="btn btn-secondary" onclick="openSection('practical')">
+                        <i class="fas fa-hand-holding-heart"></i> Практика
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Основное содержание -->
+        <div class="content-main">
+
+            <!-- Раздел 0: Краткое резюме -->
+            <div class="connection-section" id="executive">
+                <button class="connection-section-header active" onclick="toggleConnectionSection(this)">
+                    <span class="connection-icon">📋</span>
+                    <h3>Краткое резюме</h3>
+                    <i class="fas fa-chevron-down connection-toggle"></i>
+                </button>
+                <div class="connection-content">
+                    <div class="connection-inner">
+                        <h4>Связь — это фундаментальная ткань человеческого существования.</h4>
+                        <p>Философски понимаемая как взаимозависимость и совместное сотворение, научно укоренённая в нейробиологических системах, эволюционировавших для социальных связей, и практически культивируемая через присутствие, уязвимость и осознанную практику.</p>
+
+                        <div class="stats-highlight">
+                            <div class="stat-highlight-card">
+                                <span class="value">50%</span>
+                                <span class="label">Повышение выживаемости</span>
+                            </div>
+                            <div class="stat-highlight-card">
+                                <span class="value">~150</span>
+                                <span class="label">Число Данбара</span>
+                            </div>
+                            <div class="stat-highlight-card">
+                                <span class="value">94%</span>
+                                <span class="label">Распознавание эмоций</span>
+                            </div>
+                        </div>
+
+                        <p>Крепкие социальные связи ассоциируются примерно с <strong>50%-ным повышением вероятности выживания</strong> — сопоставимо с отказом от курения. Наука чётко указывает: люди — фундаментально социальные существа, и наше благополучие зависит от качества наших отношений.</p>
+
+                        <div class="highlight-box">
+                            <h5><i class="fas fa-lightbulb"></i> Ключевое открытие</h5>
+                            <p>Связь — не роскошь, а биологическая необходимость. Наш мозг, нервная система и даже иммунные функции формируются нашими социальными связями.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Раздел 1: Философское понимание -->
+            <div class="connection-section" id="philosophy">
+                <button class="connection-section-header" onclick="toggleConnectionSection(this)">
+                    <span class="connection-icon">📚</span>
+                    <h3>Философское понимание</h3>
+                    <i class="fas fa-chevron-down connection-toggle"></i>
+                </button>
+                <div class="connection-content">
+                    <div class="connection-inner">
+                        <h4>Восточные и западные философские концепции взаимосвязанности.</h4>
+
+                        <h4>Восточные философии</h4>
+
+                        <div class="philosophy-card">
+                            <h5>🪷 Буддийская концепция «взаимобытия»</h5>
+                            <p>Концепция Тит Нат Хана о «взаимобытии»: все явления возникают во взаимной зависимости. Ничто не существует в изоляции — каждое существо, каждый объект и каждый момент связан со всеми остальными через сложную сеть причинности и взаимозависимости.</p>
+                            <blockquote>«Если вы поэт, вы ясно увидите, что в этом листе бумаги плывёт облако. Без облака не будет дождя; без дождя деревья не смогут расти; без деревьев мы не сможем делать бумагу.»</blockquote>
+                        </div>
+
+                        <div class="philosophy-card">
+                            <h5>🕉️ Индуистская недвойственность</h5>
+                            <p><em>Тат твам аси</em> («То есть ты») — признание того, что индивидуальное «я» (Атман) не отделено от универсального сознания (Брахман). Это понимание растворяет иллюзию отделённости, лежащую в основе одиночества и разобщённости.</p>
+                        </div>
+
+                        <div class="philosophy-card">
+                            <h5>☯️ Даосский принцип у-вэй</h5>
+                            <p>Подлинная связь возникает из настроенности на естественное развёртывание, а не из стратегических манипуляций. У-вэй (недеяние) предполагает, что лучшие отношения текут естественно, когда мы перестаём форсировать результаты и согласуемся с природным ритмом вещей.</p>
+                        </div>
+
+                        <h4>Западные философские концепции</h4>
+
+                        <div class="philosophy-card">
+                            <h5>🤝 Я и Ты</h5>
+                            <p>«Я и Ты» Мартина Бубера (1923) разграничивает два способа отношения: «Я–Оно» (объективирующее, инструментальное) и «Я–Ты» (взаимное присутствие, подлинная встреча). В отношении «Я–Ты» «между» (Zwischen) становится живым присутствием.</p>
+                            <blockquote>«Я не воспринимаю человека, которому говорю Ты. Но я стою с ним в отношении, в святости первичного слова.»<br>— Мартин Бубер</blockquote>
+                        </div>
+
+                        <div class="philosophy-card">
+                            <h5>❤️ Экзистенциальная подлинность</h5>
+                            <p>Хайдеггер и Сартр исследовали, как подлинная связь требует совместного столкновения с тревогой существования. Истинное взаимодействие происходит, когда мы снимаем маски и встречаемся в нашей общей уязвимости как конечные, ищущие смысл существа.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Раздел 2: Научное объяснение -->
+            <div class="connection-section" id="science">
+                <button class="connection-section-header" onclick="toggleConnectionSection(this)">
+                    <span class="connection-icon">🧠</span>
+                    <h3>Научное объяснение</h3>
+                    <i class="fas fa-chevron-down connection-toggle"></i>
+                </button>
+                <div class="connection-content">
+                    <div class="connection-inner">
+                        <h4>Нейробиологические механизмы, психологические процессы и последствия для здоровья.</h4>
+
+                        <h4>Социальный мозг</h4>
+                        <p>Обширные нейронные цепи посвящены социальному познанию — ментализации (размышлению о мыслях других), обработке биологического движения и эмоциональной оценке. Наш мозг эволюционировал прежде всего для навигации в сложных социальных условиях.</p>
+
+                        <table class="science-table">
+                            <thead>
+                                <tr>
+                                    <th>Структура мозга</th>
+                                    <th>Функция</th>
+                                    <th>Роль в связи</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Медиальная префронтальная кора</strong></td>
+                                    <td>Ментализация: приписывание психических состояний</td>
+                                    <td>Понимание намерений, убеждений, желаний</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Теменно-височный узел</strong></td>
+                                    <td>Разграничение перспектив «я» и «другого»</td>
+                                    <td>Обработка границы «я–другой»</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Система зеркальных нейронов</strong></td>
+                                    <td>Сопоставление наблюдения и выполнения действий</td>
+                                    <td>Эмпатия и социальное обучение</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Миндалина</strong></td>
+                                    <td>Быстрая социально-эмоциональная оценка</td>
+                                    <td>Решения о приближении/избегании</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Блуждающий нерв</strong></td>
+                                    <td>Парасимпатическая регуляция</td>
+                                    <td>Система социального взаимодействия</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4>Нейрохимические основы</h4>
+                        <p>Социальная связь работает через специфические биохимические пути:</p>
+
+                        <div class="philosophy-card">
+                            <h5>🧪 Окситоцин</h5>
+                            <p>Часто называемый «гормоном привязанности», окситоцин выделяется при позитивном социальном контакте, способствуя доверию, эмпатии и привязанности. Он снижает активацию миндалины и буферизует стрессовые реакции.</p>
+                        </div>
+
+                        <div class="philosophy-card">
+                            <h5>🧪 Дофамин</h5>
+                            <p>Нейромедиатор вознаграждения, укрепляющий социальное поведение. Социальное одобрение и связь активируют те же пути вознаграждения, что и еда, вода и другие жизненно необходимые ресурсы.</p>
+                        </div>
+
+                        <div class="philosophy-card">
+                            <h5>🧪 Эндорфины</h5>
+                            <p>Природные опиоиды, выделяемые при социальном прикосновении, смехе и совместных переживаниях. Они создают тёплые, приятные ощущения, связанные с чувством принадлежности.</p>
+                        </div>
+
+                        <h4>Поливагальная теория</h4>
+                        <p>Поливагальная теория доктора Стивена Порджеса описывает три нейронные цепи, управляющие нашей реакцией на социальные сигналы:</p>
+
+                        <ul>
+                            <li><strong>Вентральный вагус (социальное взаимодействие):</strong> Активен, когда мы чувствуем себя в безопасности — поддерживает связь, мимику, вокальную просодию</li>
+                            <li><strong>Симпатическая нервная система (бой/бегство):</strong> Мобилизационная реакция, когда связь оказывается под угрозой</li>
+                            <li><strong>Дорзальный вагус (отключение):</strong> Иммобилизация, когда связь кажется невозможной</li>
+                        </ul>
+
+                        <div class="highlight-box">
+                            <h5><i class="fas fa-brain"></i> Почему это важно</h5>
+                            <p>Ваша нервная система постоянно сканирует сигналы безопасности или опасности в социальных взаимодействиях. Понимание этого помогает объяснить, почему связь иногда ощущается effortless, а иногда — пугающей.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Раздел 3: Практическое руководство -->
+            <div class="connection-section" id="practical">
+                <button class="connection-section-header" onclick="toggleConnectionSection(this)">
+                    <span class="connection-icon">🤲</span>
+                    <h3>Практическое руководство</h3>
+                    <i class="fas fa-chevron-down connection-toggle"></i>
+                </button>
+                <div class="connection-content">
+                    <div class="connection-inner">
+                        <h4>Развивайте более глубокие связи через присутствие, общение и навыки.</h4>
+
+                        <h4>Базовые практики</h4>
+
+                        <div class="practice-card">
+                            <h5>👂 Глубокое слушание</h5>
+                            <p>Полное, безоценочное внимание — основа подлинной связи. Исследования показывают, что люди тратят 30–40% времени разговора на планирование своего ответа, а не на внимание к собеседнику.</p>
+                            <ol>
+                                <li><strong>Остановите внутренний комментарий:</strong> Замечайте и отпускайте непрерывные мысленные реакции</li>
+                                <li><strong>Не торопитесь решать проблемы:</strong> Сопротивляйтесь желанию исправить что-то, пока вас об этом не попросят</li>
+                                <li><strong>Слушайте на нескольких уровнях:</strong> Содержание, тон, язык тела, молчание</li>
+                                <li><strong>Воплощённое присутствие:</strong> Заземлите себя через осознанность дыхания</li>
+                            </ol>
+                        </div>
+
+                        <div class="practice-card">
+                            <h5>💝 Уязвимое раскрытие</h5>
+                            <p>Связь углубляется, когда мы раскрываем своё подлинное «я». Исследования Брене Браун показывают: уязвимость — не слабость, а колыбель принадлежности и любви.</p>
+                            <ul>
+                                <li>Делитесь чувствами раньше, чем мнениями</li>
+                                <li>Признавайте неопределённость и ошибки</li>
+                                <li>Выражайте потребности и границы</li>
+                                <li>Позвольте себе быть увиденным полностью</li>
+                            </ul>
+                        </div>
+
+                        <div class="practice-card">
+                            <h5>🙏 Выражение благодарности</h5>
+                            <p>Регулярное выражение признательности укрепляет связи. Конкретная, искренняя благодарность активирует центры вознаграждения в мозге как дающего, так и получающего.</p>
+                            <p><strong>Практика:</strong> Каждый день говорите одному человеку что-то конкретное, что вы цените в нём.</p>
+                        </div>
+
+                        <h4>Продвинутые практики</h4>
+
+                        <div class="practice-card">
+                            <h5><i class="fas fa-leaf" aria-hidden="true"></i> Медитация любящей доброты (Метта)</h5>
+                            <p>Структурированная практика для культивирования безусловного положительного отношения:</p>
+                            <ol>
+                                <li>Начните с себя: «Пусть я буду счастлив, пусть я буду в покое»</li>
+                                <li>Распространите на близкого человека</li>
+                                <li>Распространите на нейтрального человека</li>
+                                <li>Распространите на трудного человека</li>
+                                <li>Распространите на всех живых существ повсюду</li>
+                            </ol>
+                        </div>
+
+                        <div class="practice-card">
+                            <h5>🪞 Рефлексивное слушание</h5>
+                            <p>Отражайте услышанное, прежде чем отвечать:</p>
+                            <ul>
+                                <li>«То, что я слышу, это…»</li>
+                                <li>«Звучит так, будто ты чувствуешь…»</li>
+                                <li>«Позвольте убедиться, что я правильно понял…»</li>
+                            </ul>
+                        </div>
+
+                        <div class="practice-card">
+                            <h5>⚡ Попытки восстановления</h5>
+                            <p>Исследования Джона Готтмана показывают: успешные отношения не свободны от конфликтов — они умело восстанавливаются. Когда происходит разрыв связи:</p>
+                            <ol>
+                                <li>Заметьте разрыв</li>
+                                <li>Возьмите на себя ответственность за свою часть</li>
+                                <li>Протяните руку с смирением</li>
+                                <li>Выслушайте опыт другого</li>
+                                <li>При необходимости загладьте обиду</li>
+                            </ol>
+                        </div>
+
+                        <h4>Формирование привычек связи</h4>
+
+                        <div class="highlight-box">
+                            <h5><i class="fas fa-seedling"></i> Маленькие шаги — глубокое воздействие</h5>
+                            <p>Связь строится в микромоментах. Искренняя улыбка, вдумчивый вопрос, момент присутствия — эти маленькие действия со временем складываются в глубокие узы.</p>
+                        </div>
+
+                        <p><strong>Ежедневные практики связи:</strong></p>
+                        <ul>
+                            <li>📱 Убирайте устройства во время разговоров</li>
+                            <li>👁️ Смотрите в глаза и улыбайтесь незнакомым людям</li>
+                            <li>🤗 Предлагайте уместные физические прикосновения близким</li>
+                            <li>📝 Отправляйте вдумчивое сообщение тому, о ком заботитесь</li>
+                            <li>🎁 Совершайте небольшие акты служения</li>
+                            <li>⏰ Планируйте регулярное качественное время с важными людьми</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Призыв к действию -->
+            <div class="cta-section">
+                <h3>🌐 Связь начинается внутри</h3>
+                <p>Качество ваших связей с другими отражает качество вашей связи с собой. Начните с самосострадания, распространите на других — и наблюдайте, как преображается ваш мир.</p>
+                <a href="emotion-balance.html" class="btn btn-primary" style="background: white; color: #764ba2;">
+                    <i class="fas fa-balance-scale"></i> Проверить эмоциональный баланс
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Осознанность. Все права защищены.</p>
+        <p class="footer-links">
+            <a href="index-ru.html">Главная</a> |
+            <a href="learn-ru.html">Учиться</a> |
+            <a href="hypnosis.html">Гипноз</a>
+        </p>
+    </footer>
+
+    <script>
+        function toggleConnectionSection(header) {
+            header.classList.toggle('active');
+        }
+
+        function openSection(id) {
+            var section = document.getElementById(id);
+            if (!section) return;
+            var header = section.querySelector('.connection-section-header');
+            if (header) header.classList.add('active');
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function toggleToolsDropdown(btn) {
+            var menu = btn.nextElementSibling;
+            var open = menu.classList.toggle('open');
+            btn.setAttribute('aria-expanded', open);
+            if (open) {
+                var r = btn.getBoundingClientRect();
+                menu.style.top  = (r.bottom + window.scrollY + 6) + 'px';
+                menu.style.left = r.left + 'px';
+            }
+        }
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.tools-dropdown-container')) {
+                document.querySelectorAll('.tools-dropdown-menu').forEach(function(m){ m.classList.remove('open'); });
+                document.querySelectorAll('.tools-dropdown-btn').forEach(function(b){ b.setAttribute('aria-expanded','false'); });
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.tools-dropdown-menu').forEach(function(m){ m.classList.remove('open'); });
+            }
+        });
+
+        (function() {
+            var btn = document.getElementById('mobile-menu-btn');
+            var links = document.getElementById('nav-links');
+            if (!btn || !links) return;
+            btn.addEventListener('click', function() {
+                var open = links.classList.toggle('mobile-open');
+                btn.setAttribute('aria-expanded', open);
+                btn.querySelector('i').className = open ? 'fas fa-times' : 'fas fa-bars';
+            });
+            links.querySelectorAll('a').forEach(function(a) {
+                a.addEventListener('click', function() {
+                    links.classList.remove('mobile-open');
+                    btn.setAttribute('aria-expanded', 'false');
+                    btn.querySelector('i').className = 'fas fa-bars';
+                });
+            });
+        }());
+    </script>
+
+    <script src="lang-switcher.js"></script>
+</body>
+</html>

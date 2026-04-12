@@ -3,168 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="沙拉指南针 - 正念疗法">
     <meta name="copyright" content="© 2026 正念疗法. 保留所有权利.">
     <title>沙拉指南针 - 正念疗法</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
         /* 工具 Dropdown Styles */
         .tools-dropdown-container {
             position: relative;
             display: inline-block;
         }
-
-        .tools-dropdown-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            padding: 0.5rem 1rem;
-            border: none;
-            background: transparent;
-            color: #64748b;
-            font-size: 0.875rem;
-            font-weight: 500;
-            cursor: pointer;
-            border-radius: 9999px;
-            font-family: inherit;
-        }
-
-        .tools-dropdown-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #1e293b;
-        }
-
-        .tools-dropdown-btn.active {
-            background: #14b8a6;
-            color: #1e293b;
-        }
-
-        .tools-dropdown-menu {
-            display: none;
-            position: fixed;
-            top: auto;
-            left: auto;
-            margin-top: 0.5rem;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            min-width: 220px;
-            padding: 0.5rem;
-            z-index: 9999;
-        }
-
-        .tools-dropdown-menu.open {
-            display: block;
-        }
-
-        .tools-dropdown-menu a {
-            display: block;
-            padding: 0.75rem 1rem;
-            color: #1e293b;
-            text-decoration: none;
-            font-size: 0.875rem;
-            border-radius: 0.5rem;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-
-        .tools-dropdown-menu a:hover {
-            background: rgba(20, 184, 166, 0.1);
-            color: #14b8a6;
-        }
-
-        .compass-container {
+.compass-container {
             max-width: 900px;
             margin: 0 auto;
             padding: 40px 20px;
         }
-        
-        .compass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+.compass-card {
+            background: var(--color-surface);
+            
             border-radius: 20px;
             padding: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-lg);
         }
-        
-        .compass-header {
+.compass-header {
             text-align: center;
             margin-bottom: 40px;
         }
-        
-        .compass-header h1 {
+.compass-header h1 {
             font-size: 2.5rem;
-            background: linear-gradient(90deg, #50c8b8, #4a90d9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--color-primary);
             margin-bottom: 10px;
         }
-        
-        .compass-header .subtitle {
-            color: #b0b0b8;
+.compass-header .subtitle {
+            color: var(--color-text-muted);
             font-size: 1.1rem;
         }
-        
-        .how-to-use {
-            background: rgba(80, 200, 184, 0.1);
-            border: 1px solid rgba(80, 200, 184, 0.2);
+.how-to-use {
+            background: var(--green-50);
+            border: 1px solid var(--color-border-strong);
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 40px;
         }
-        
-        .how-to-use h2 {
-            color: #50c8b8;
+.how-to-use h2 {
+            color: var(--color-primary);
             margin-bottom: 20px;
             font-size: 1.3rem;
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
-        .how-to-use ol {
+.how-to-use ol {
             padding-left: 25px;
-            color: #d0d0d8;
+            color: var(--color-text);
             line-height: 1.8;
         }
-        
-        .how-to-use li {
+.how-to-use li {
             margin-bottom: 8px;
         }
-        
-        .compass-table {
+.compass-table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 40px;
         }
-        
-        .compass-table th {
-            background: rgba(255, 255, 255, 0.1);
+.compass-table th {
+            background: var(--stone-200);
             padding: 15px 12px;
             text-align: left;
-            color: #50c8b8;
+            color: var(--color-primary);
             font-weight: 600;
             font-size: 0.9rem;
-            border-bottom: 2px solid rgba(80, 200, 184, 0.3);
+            border-bottom: 2px solid var(--color-primary);
         }
-        
-        .compass-table td {
+.compass-table td {
             padding: 20px 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid var(--color-border);
             vertical-align: top;
-            color: #d0d0d8;
+            color: var(--color-text);
             line-height: 1.6;
         }
-        
-        .compass-table tr:hover {
-            background: rgba(255, 255, 255, 0.03);
+.compass-table tr:hover {
+            background: var(--stone-50);
         }
-        
-        .state-badge {
+.state-badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -173,76 +99,64 @@
             font-weight: 600;
             font-size: 0.95rem;
         }
-        
-        .state-power {
+.state-power {
             background: rgba(255, 215, 0, 0.15);
             color: #ffd700;
             border: 1px solid rgba(255, 215, 0, 0.3);
         }
-        
-        .state-possession {
+.state-possession {
             background: rgba(255, 107, 53, 0.15);
             color: #ff6b35;
             border: 1px solid rgba(255, 107, 53, 0.3);
         }
-        
-        .state-loss {
+.state-loss {
             background: rgba(100, 100, 100, 0.2);
             color: #a0a0a0;
             border: 1px solid rgba(100, 100, 100, 0.4);
         }
-        
-        .state-emptiness {
+.state-emptiness {
             background: rgba(150, 150, 150, 0.1);
             color: #c0c0c0;
             border: 1px solid rgba(150, 150, 150, 0.3);
         }
-        
-        .state-crave {
+.state-crave {
             background: rgba(220, 20, 60, 0.15);
             color: #dc143c;
             border: 1px solid rgba(220, 20, 60, 0.3);
         }
-        
-        .self-check {
+.self-check {
             font-style: italic;
-            color: #888;
+            color: var(--color-text-muted);
         }
-        
-        .missing-veg {
-            color: #50c8b8;
+.missing-veg {
+            color: var(--color-primary);
             font-weight: 500;
         }
-        
-        .action-cell {
+.action-cell {
             background: rgba(80, 200, 184, 0.05);
             border-left: 3px solid #50c8b8;
             padding-left: 15px;
         }
-        
-        .color-key {
-            background: rgba(255, 255, 255, 0.03);
+.color-key {
+            background: var(--stone-50);
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 30px;
         }
-        
-        .color-key h3 {
-            color: #4a90d9;
+.color-key h3 {
+            color: var(--sky-500);
             margin-bottom: 20px;
             font-size: 1.2rem;
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
-        .color-grid {
+.color-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 15px;
         }
-        
-        .color-item {
+.color-item {
             display: flex;
             align-items: center;
             gap: 12px;
@@ -250,68 +164,59 @@
             background: rgba(0, 0, 0, 0.2);
             border-radius: 10px;
         }
-        
-        .color-dot {
+.color-dot {
             width: 24px;
             height: 24px;
             border-radius: 50%;
             flex-shrink: 0;
         }
-        
-        .color-power { background: #ffd700; box-shadow: 0 0 10px rgba(255, 215, 0, 0.4); }
-        .color-possession { background: #ff6b35; box-shadow: 0 0 10px rgba(255, 107, 53, 0.4); }
-        .color-loss { background: #646464; box-shadow: 0 0 10px rgba(100, 100, 100, 0.4); }
-        .color-emptiness { background: #b0c4de; box-shadow: 0 0 10px rgba(176, 196, 222, 0.4); }
-        .color-crave { background: #dc143c; box-shadow: 0 0 10px rgba(220, 20, 60, 0.4); }
-        
-        .why-works {
+.color-power { background: #ffd700; box-shadow: 0 0 10px rgba(255, 215, 0, 0.4); }
+.color-possession { background: #ff6b35; box-shadow: 0 0 10px rgba(255, 107, 53, 0.4); }
+.color-loss { background: #646464; box-shadow: 0 0 10px rgba(100, 100, 100, 0.4); }
+.color-emptiness { background: #b0c4de; box-shadow: 0 0 10px rgba(176, 196, 222, 0.4); }
+.color-crave { background: #dc143c; box-shadow: 0 0 10px rgba(220, 20, 60, 0.4); }
+.why-works {
             background: rgba(74, 144, 217, 0.1);
             border: 1px solid rgba(74, 144, 217, 0.2);
             border-radius: 15px;
             padding: 25px;
         }
-        
-        .why-works h3 {
-            color: #4a90d9;
+.why-works h3 {
+            color: var(--sky-500);
             margin-bottom: 15px;
             font-size: 1.2rem;
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
-        .why-works ul {
+.why-works ul {
             list-style: none;
             padding: 0;
         }
-        
-        .why-works li {
+.why-works li {
             padding: 10px 0;
             padding-left: 30px;
             position: relative;
-            color: #d0d0d8;
+            color: var(--color-text);
             line-height: 1.6;
         }
-        
-        .why-works li::before {
+.why-works li::before {
             content: '✓';
             position: absolute;
             left: 0;
-            color: #4a90d9;
+            color: var(--sky-500);
             font-weight: bold;
         }
-        
-        .quick-access {
+.quick-access {
             margin-top: 30px;
             text-align: center;
         }
-        
-        .quick-access-btn {
+.quick-access-btn {
             display: inline-flex;
             align-items: center;
             gap: 10px;
             padding: 16px 32px;
-            background: linear-gradient(135deg, #50c8b8, #4a90d9);
+            background: linear-gradient(135deg, var(--green-500), var(--green-700));
             color: #1e293b;
             border: none;
             border-radius: 12px;
@@ -322,85 +227,99 @@
             box-shadow: 0 10px 30px rgba(80, 200, 184, 0.3);
             text-decoration: none;
         }
-        
-        .quick-access-btn:hover {
+.quick-access-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 15px 40px rgba(80, 200, 184, 0.4);
         }
-        
-        @media (max-width: 768px) {
-            .compass-table {
-                font-size: 0.85rem;
-            }
-            
-            .compass-table th,
-            .compass-table td {
-                padding: 12px 8px;
-            }
-            
-            .compass-header h1 {
-                font-size: 1.8rem;
-            }
-        }
-        
-        .back-link {
+.back-link {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            color: #888;
+            color: var(--color-text-muted);
             text-decoration: none;
             margin-bottom: 20px;
             transition: color 0.2s;
         }
-        
-        .back-link:hover {
-            color: #50c8b8;
+.back-link:hover {
+            color: var(--color-primary);
         }
     </style>
+    
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <div id="app">
 
 
         <!-- Main Content -->
         <div class="content-main">
             <!-- Navigation Bar -->
-            <nav class="nav-bar" style="background: rgba(30, 58, 138, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.1);">
-                <div class="nav-brand" onclick="window.location.href='index.html'" style="cursor: pointer; color: #1e293b; ">🧘 正念疗法</div>
-                <button class="mobile-menu-btn" onclick="toggleMobileMenu()" style="color: #1e293b; ">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="nav-links" id="navLinks">
-                    <button class="nav-btn" onclick="window.location.href='index-zh.html'" style="color: rgba(255,255,255,0.8);">中文</button>
-                    <button class="nav-btn" onclick="window.location.href='index.html'" style="color: rgba(255,255,255,0.8);">首页</button>
-                    <button class="nav-btn" onclick="window.location.href='cycle.html'" style="color: rgba(255,255,255,0.8);">周期</button>
-                    <button class="nav-btn" onclick="window.location.href='assessment.html'" style="color: rgba(255,255,255,0.8);">AI对话</button>
-
-                    <!-- 工具 Dropdown -->
-                    <div class="tools-dropdown-container" id="toolsContainer">
-                        <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();" style="color: rgba(255,255,255,0.8);">
-                            工具 <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
-                        </button>
-                                            <div class="tools-dropdown-menu" id="toolsMenu">
-                        <a href="emotion-explorer.html">🎨 Emotion Explorer</a>
-                        <a href="emotion-balance.html">⚡ Emotion Balance</a>
-                        <a href="emotion-meditation.html">🌬️ Emotion Meditation</a>
-                        <a href="expectation-cooling.html">❄️ Expectation Cooling</a>
-                        <a href="hypnosis.html">🌀 Hypnosis</a>
-                        <a href="neuro.html">🧠 Neuro·Contemplative</a>
-                        <a href="salad-compass.html" class="active">🥗 Salad Compass</a>
-                        <a href="salad-check.html">🥬 Full Salad Check</a>
-                        <a href="interventions.html">🧰 Interventions</a>
-                        <a href="connection.html">🤝 Connection</a>
+                <nav class="nav" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="index-zh.html" class="nav-logo" aria-label="正念疗法 – Home">
+                <i class="fas fa-leaf" aria-hidden="true"></i> 正念疗法
+            </a>
+            <div class="nav-links" id="nav-links">
+                                <a href="index-zh.html" class="nav-link">首页</a>
+                                <a href="cycle-zh.html" class="nav-link">周期</a>
+                                <a href="assessment-zh.html" class="nav-link">AI对话</a>
+                <div class="tools-dropdown-container">
+                    <button class="tools-dropdown-btn"
+                            onclick="toggleToolsDropdown(this)"
+                            aria-haspopup="true" aria-expanded="false" aria-controls="toolsMenu">
+                        工具 <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                    </button>
+                                        <div class="tools-dropdown-menu" id="toolsMenu" role="menu">
+                        <a href="emotion-explorer-zh.html" role="menuitem">🎨 情绪探索</a>
+                        <a href="emotion-balance-zh.html" role="menuitem">⚡ 情绪平衡</a>
+                        <a href="emotion-meditation-zh.html" role="menuitem">🌬️ 情绪冥想</a>
+                        <a href="expectation-cooling-zh.html" role="menuitem">❄️ 期望冷却</a>
+                        <a href="hypnosis-zh.html" role="menuitem">🌀 催眠</a>
+                        <a href="neuro-zh.html" role="menuitem">🧠 神经·冥想</a>
+                        <a href="salad-compass-zh.html" role="menuitem">🥗 沙拉指南针</a>
+                        <a href="salad-check-zh.html" role="menuitem">🥬 完整沙拉检查</a>
+                        <a href="interventions-zh.html" role="menuitem">🧰 干预措施</a>
+                        <a href="connection-zh.html" role="menuitem">🤝 联结</a>
                     </div>
-                    </div>
-
-                    <button class="nav-btn" onclick="window.location.href='journal.html'" style="color: rgba(255,255,255,0.8);">日记</button>
-                    <button class="nav-btn" onclick="window.location.href='progress.html'" style="color: rgba(255,255,255,0.8);">进度</button>
-                    <button class="nav-btn" onclick="window.location.href='learn.html'" style="color: rgba(255,255,255,0.8);">学习</button>
                 </div>
-            </nav>
+                                <a href="journal-zh.html" class="nav-link">日记</a>
+                                <a href="progress-zh.html" class="nav-link">进度</a>
+                                <a href="learn-zh.html" class="nav-link">学习</a>
+                                <a href="connection-zh.html" class="nav-link">联结</a>
+            </div>
+            <!-- Language Switcher -->
+            <div class="lang-switcher">
+                <button class="lang-btn" id="lang-btn"
+                        onclick="toggleLangMenu(this)"
+                        aria-haspopup="true" aria-expanded="false"
+                        aria-label="Switch language">
+                    <i class="fas fa-globe" aria-hidden="true"></i>
+                    <span class="lang-current">EN</span>
+                    <i class="fas fa-chevron-down lang-arrow" aria-hidden="true"></i>
+                </button>
+                <div class="lang-menu" id="langMenu" role="menu">
+                    <a href="#" id="lang-link-en" role="menuitem" hreflang="en">🇬🇧 English</a>
+                    <a href="#" id="lang-link-zh" role="menuitem" hreflang="zh-CN">🇨🇳 中文</a>
+                    <a href="#" id="lang-link-ru" role="menuitem" hreflang="ru">🇷🇺 Русский</a>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn"
+                    aria-label="打开导航菜单" aria-expanded="false" aria-controls="nav-links">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
+    </nav>
 
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-eyebrow">🥗 情绪导航</div>
+            <h1>🥗 沙拉盘指南针</h1>
+            <p class="hero-subtitle">你的个人情绪导航工具。当你感到失衡时，这个指南针帮助你快速识别状态，找到恢复平衡的正确行动。</p>
+        </div>
+    </section>
+
+    <main id="main-content">
             <!-- 沙拉罗盘 Content -->
             <div class="compass-container">
                 <a href="index-zh.html" class="back-link">
@@ -408,19 +327,19 @@
                 
                 <div class="compass-card">
                     <div class="compass-header">
-                        <h1>🥗 Salad Plate Compass</h1>
+                        <h1>🥗 沙拉盘指南针</h1>
                         <p class="subtitle">您的个人情绪导航工具</p>
                     </div>
                     
                     <!-- How to Use -->
                     <div class="how-to-use">
-                        <h2><i class="fas fa-compass"></i> How to Use This</h2>
+                        <h2><i class="fas fa-compass"></i> 如何使用</h2>
                         <ol>
-                            <li><strong>Print it, save it, or keep it on your phone.</strong> Make it immediately accessible.</li>
-                            <li>When you feel off-balance, quickly scan the "How It Feels" column and find the closest match.</li>
-                            <li>Ask yourself the <em>Quick Self-Check</em> question to confirm.</li>
-                            <li>Look at the <em>One Action</em> and do it—it takes less than 5 minutes.</li>
-                            <li>After the action, notice: <em>Is the plate more balanced now?</em></li>
+                            <li><strong>打印它、保存它，或存在手机上。</strong>让它随时可用。</li>
+                            <li>当你感到失衡时，快速浏览"感受如何"一栏，找到最接近的描述。</li>
+                            <li>用<em>快速自查</em>问题来确认。</li>
+                            <li>查看<em>一个行动</em>并执行——不超过5分钟。</li>
+                            <li>行动后，注意：<em>现在的盘子更平衡了吗？</em></li>
                         </ol>
                     </div>
                     
@@ -428,111 +347,111 @@
                     <table class="compass-table">
                         <thead>
                             <tr>
-                                <th>Your State</th>
-                                <th>How It Feels</th>
-                                <th>Quick Self-Check</th>
-                                <th>The Missing Vegetable</th>
-                                <th>One Action to Balance</th>
+                                <th>你的状态</th>
+                                <th>感受如何</th>
+                                <th>快速自查</th>
+                                <th>缺失的蔬菜</th>
+                                <th>一个平衡行动</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>
                                     <span class="state-badge state-power">
-                                        <i class="fas fa-bolt"></i> Power
+                                        <i class="fas fa-bolt"></i> 力量
                                     </span>
                                 </td>
-                                <td>Excited, happy, optimistic</td>
-                                <td class="self-check">"Am I riding high?"</td>
-                                <td class="missing-veg">Connection</td>
-                                <td class="action-cell">Share your excitement with someone you trust—without needing anything back.</td>
+                                <td>兴奋、快乐、乐观</td>
+                                <td class="self-check">"我是否正处于高峰？"</td>
+                                <td class="missing-veg">联结</td>
+                                <td class="action-cell">把你的兴奋分享给信任的人——无需任何回报。</td>
                             </tr>
                             <tr>
                                 <td>
                                     <span class="state-badge state-possession">
-                                        <i class="fas fa-hand-holding"></i> Possession
+                                        <i class="fas fa-hand-holding"></i> 占有
                                     </span>
                                 </td>
-                                <td>Satisfied, full, occupied</td>
-                                <td class="self-check">"Am I holding onto something too tightly?"</td>
-                                <td class="missing-veg">Release</td>
-                                <td class="action-cell">Let go of one small thing—a plan, an opinion, a need to control. Notice how it feels.</td>
+                                <td>满足、充实、有事可做</td>
+                                <td class="self-check">"我是否抓得太紧了？"</td>
+                                <td class="missing-veg">放手</td>
+                                <td class="action-cell">放下一件小事——一个计划、一个观点或一种控制欲。感受一下它的感觉。</td>
                             </tr>
                             <tr>
                                 <td>
                                     <span class="state-badge state-loss">
-                                        <i class="fas fa-heart-broken"></i> Loss
+                                        <i class="fas fa-heart-broken"></i> 失落
                                     </span>
                                 </td>
-                                <td>Disappointed, frustrated, powerless</td>
-                                <td class="self-check">"Did something slip away?"</td>
-                                <td class="missing-veg">Grieve</td>
-                                <td class="action-cell">Sit for 3 minutes and just name what you lost. No fixing. Just naming.</td>
+                                <td>失望、沮丧、无力感</td>
+                                <td class="self-check">"有什么从我手中溜走了吗？"</td>
+                                <td class="missing-veg">哀悼</td>
+                                <td class="action-cell">静坐3分钟，只是说出你失去了什么。不需要修复，只是命名。</td>
                             </tr>
                             <tr>
                                 <td>
                                     <span class="state-badge state-emptiness">
-                                        <i class="fas fa-circle"></i> Emptiness
+                                        <i class="fas fa-circle"></i> 空虚
                                     </span>
                                 </td>
-                                <td>Unrestful, slightly panicked, mindless</td>
-                                <td class="self-check">"Is there a hollow feeling?"</td>
-                                <td class="missing-veg">Ground</td>
-                                <td class="action-cell"><strong>5-4-3-2-1 grounding:</strong> 5 things you see, 4 you touch, 3 you hear, 2 you smell, 1 you taste.</td>
+                                <td>躁动、轻微恐慌、思维空白</td>
+                                <td class="self-check">"内心是否有一种空洞感？"</td>
+                                <td class="missing-veg">扎根</td>
+                                <td class="action-cell"><strong>5-4-3-2-1 扎根法：</strong>说出5件你看到的、4件你触碰的、3件你听到的、2件你闻到的、1件你品尝的。</td>
                             </tr>
                             <tr>
                                 <td>
                                     <span class="state-badge state-crave">
-                                        <i class="fas fa-fire"></i> Crave
+                                        <i class="fas fa-fire"></i> 渴望
                                     </span>
                                 </td>
-                                <td>Like eating something—urgent, hungry</td>
-                                <td class="self-check">"What am I hungry for right now?"</td>
-                                <td class="missing-veg">Pause</td>
-                                <td class="action-cell">Wait 10 minutes before acting. Notice the urge in your body. Don't feed it—just watch it.</td>
+                                <td>像在渴望某样东西——迫切、饥渴</td>
+                                <td class="self-check">"我现在渴望什么？"</td>
+                                <td class="missing-veg">暂停</td>
+                                <td class="action-cell">行动前等待10分钟。感受身体里的冲动。不要顺从它——只是观察它。</td>
                             </tr>
                         </tbody>
                     </table>
                     
                     <!-- Color Key -->
                     <div class="color-key">
-                        <h3><i class="fas fa-palette"></i> Color Quick Reference</h3>
-                        <p style="color: #888; margin-bottom: 20px;">Assign colors to make recognition even faster. When you feel "a lot of red"—you know you need the pause.</p>
+                        <h3><i class="fas fa-palette"></i> 颜色快速参考</h3>
+                        <p style="color: #888; margin-bottom: 20px;">为情绪分配颜色，让识别速度更快。当你感觉"满眼都是红色"时——你就知道该暂停了。</p>
                         
                         <div class="color-grid">
                             <div class="color-item">
                                 <div class="color-dot color-power"></div>
                                 <div>
-                                    <strong style="color: #ffd700;">Power</strong>
-                                    <div style="font-size: 0.85rem; color: #888;">Gold / Yellow</div>
+                                    <strong style="color: #ffd700;">力量</strong>
+                                    <div style="font-size: 0.85rem; color: #888;">金色 / 黄色</div>
                                 </div>
                             </div>
                             <div class="color-item">
                                 <div class="color-dot color-possession"></div>
                                 <div>
-                                    <strong style="color: #ff6b35;">Possession</strong>
-                                    <div style="font-size: 0.85rem; color: #888;">Deep Orange</div>
+                                    <strong style="color: #ff6b35;">占有</strong>
+                                    <div style="font-size: 0.85rem; color: #888;">深橙色</div>
                                 </div>
                             </div>
                             <div class="color-item">
                                 <div class="color-dot color-loss"></div>
                                 <div>
-                                    <strong style="color: #a0a0a0;">Loss</strong>
-                                    <div style="font-size: 0.85rem; color: #888;">Dark Gray</div>
+                                    <strong style="color: #a0a0a0;">失落</strong>
+                                    <div style="font-size: 0.85rem; color: #888;">深灰色</div>
                                 </div>
                             </div>
                             <div class="color-item">
                                 <div class="color-dot color-emptiness"></div>
                                 <div>
-                                    <strong style="color: #c0c0c0;">Emptiness</strong>
-                                    <div style="font-size: 0.85rem; color: #888;">Light Gray / Pale Blue</div>
+                                    <strong style="color: #c0c0c0;">空虚</strong>
+                                    <div style="font-size: 0.85rem; color: #888;">浅灰 / 淡蓝</div>
                                 </div>
                             </div>
                             <div class="color-item">
                                 <div class="color-dot color-crave"></div>
                                 <div>
-                                    <strong style="color: #dc143c;">Crave</strong>
-                                    <div style="font-size: 0.85rem; color: #888;">Deep Red</div>
+                                    <strong style="color: #dc143c;">渴望</strong>
+                                    <div style="font-size: 0.85rem; color: #888;">深红色</div>
                                 </div>
                             </div>
                         </div>
@@ -540,12 +459,12 @@
                     
                     <!-- Why This Works -->
                     <div class="why-works">
-                        <h3><i class="fas fa-lightbulb"></i> Why This Works</h3>
+                        <h3><i class="fas fa-lightbulb"></i> 为什么有效</h3>
                         <ul>
-                            <li>It uses <strong>your words</strong>, not clinical terms.</li>
-                            <li>It's <strong>fast</strong>—one glance, one action.</li>
-                            <li>It's built on <strong>your own salad plate metaphor</strong> (spicy emotions, missing vegetables, balancing actions).</li>
-                            <li>It gives you <strong>agency</strong>—you're not just reacting; you're choosing a different vegetable.</li>
+                            <li>它使用<strong>你自己的语言</strong>，而非专业术语。</li>
+                            <li>它<strong>快速高效</strong>——一眼识别，一步行动。</li>
+                            <li>它基于<strong>你的情绪沙拉盘比喻</strong>（辛辣情绪、缺失的蔬菜、平衡行动）。</li>
+                            <li>它赋予你<strong>主动权</strong>——你不只是在被动反应，而是在主动选择不同的"蔬菜"。</li>
                         </ul>
                     </div>
                     
@@ -561,18 +480,15 @@
     </div>
 
     <!-- Footer -->
+    </main>
+
     <footer class="footer">
         <div class="footer-content">
             <p>&copy; 2026 正念疗法。保留所有权利。</p>
             <p class="footer-links">
                 <a href="index-zh.html">首页</a> |
-                
-                    <a href="emotion-explorer-zh.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🎨 情绪探索器</a> |
-                
-                    <a href="emotion-balance-zh.html"
-                        <a href="emotion-meditation.html">🌬️ Emotion Meditation</a> style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">⚡ 情绪平衡</a> |
-                
-                    <a href="salad-compass-zh.html" style="display: block; padding: 0.75rem 1rem; color: #1e293b; text-decoration: none; border-radius: 0.5rem; white-space: nowrap;">🥗 沙拉罗盘</a>
+                <a href="learn-zh.html">学习</a> |
+                <a href="disclaimer-zh.html">免责声明</a>
             </p>
         </div>
     </footer>
@@ -625,5 +541,47 @@
             }
         });
     </script>
+    <script>
+        function toggleToolsDropdown(btn) {
+            var menu = btn.nextElementSibling;
+            var open = menu.classList.toggle('open');
+            btn.setAttribute('aria-expanded', open);
+            if (open) {
+                var r = btn.getBoundingClientRect();
+                menu.style.top  = (r.bottom + window.scrollY + 6) + 'px';
+                menu.style.left = r.left + 'px';
+            }
+        }
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.tools-dropdown-container')) {
+                document.querySelectorAll('.tools-dropdown-menu').forEach(function(m){ m.classList.remove('open'); });
+                document.querySelectorAll('.tools-dropdown-btn').forEach(function(b){ b.setAttribute('aria-expanded','false'); });
+            }
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.tools-dropdown-menu').forEach(function(m){ m.classList.remove('open'); });
+            }
+        });
+        (function() {
+            var btn = document.getElementById('mobile-menu-btn');
+            var links = document.getElementById('nav-links');
+            if (!btn || !links) return;
+            btn.addEventListener('click', function() {
+                var open = links.classList.toggle('mobile-open');
+                btn.setAttribute('aria-expanded', open);
+                btn.querySelector('i').className = open ? 'fas fa-times' : 'fas fa-bars';
+            });
+            links.querySelectorAll('a').forEach(function(a) {
+                a.addEventListener('click', function() {
+                    links.classList.remove('mobile-open');
+                    btn.setAttribute('aria-expanded', 'false');
+                    btn.querySelector('i').className = 'fas fa-bars';
+                });
+            });
+        }());
+    </script>
+
+    <script src="lang-switcher.js"></script>
 </body>
 </html>

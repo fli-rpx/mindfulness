@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="联结 - 正念疗法">
+    <meta name="copyright" content="© 2026 正念疗法. All rights reserved.">
+    <title>联结 - 正念疗法</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            border: none;
+        }
+
+        .content-main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .connection-section {
+            background: white;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .connection-section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            width: 100%;
+            font-family: inherit;
+            font-size: 1rem;
+            text-align: left;
+        }
+
+        .connection-section-header:hover { opacity: 0.95; }
+        .connection-section-header.active { border-bottom: 1px solid rgba(255,255,255,0.2); }
+
+        .connection-icon {
+            font-size: 1.25rem;
+            width: 2.25rem;
+            height: 2.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.2);
+            border-radius: 0.5rem;
+        }
+
+        .connection-section-header h3 {
+            flex: 1;
+            margin: 0;
+            font-size: 1.1rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            color: white;
+        }
+
+        .connection-toggle {
+            transition: transform 0.3s;
+            font-size: 0.875rem;
+        }
+
+        .connection-section-header.active .connection-toggle {
+            transform: rotate(180deg);
+        }
+
+        .connection-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .connection-section-header.active + .connection-content {
+            max-height: 5000px;
+        }
+
+        .connection-inner {
+            padding: 1.5rem;
+        }
+
+        .connection-inner h4 {
+            color: var(--text);
+            margin: 1.5rem 0 0.75rem 0;
+            font-size: 1.1rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+        }
+
+        .connection-inner h4:first-child { margin-top: 0; }
+
+        .connection-inner p {
+            color: var(--muted);
+            line-height: 1.7;
+            margin: 0 0 1rem 0;
+        }
+
+        .connection-inner ul {
+            margin: 0.5rem 0 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .connection-inner li {
+            margin-bottom: 0.5rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .philosophy-card {
+            background: #f8fafc;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .philosophy-card h5 {
+            margin: 0 0 0.5rem 0;
+            color: var(--text);
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .philosophy-card p { margin: 0 0 0.5rem 0; font-size: 0.9rem; }
+
+        .philosophy-card blockquote {
+            margin: 0.75rem 0 0 0;
+            padding-left: 1rem;
+            border-left: 3px solid #cbd5e1;
+            color: var(--muted);
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            margin: 1.25rem 0;
+        }
+
+        .highlight-box h5 { margin: 0 0 0.5rem 0; font-size: 0.95rem; font-weight: 600; }
+        .highlight-box p { margin: 0; color: rgba(255,255,255,0.95); font-size: 0.9rem; }
+
+        .science-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+        }
+
+        .science-table th,
+        .science-table td {
+            padding: 0.625rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .science-table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .science-table tr:hover { background: #f8fafc; }
+
+        .practice-card {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            margin: 1rem 0;
+        }
+
+        .practice-card h5 {
+            margin: 0 0 0.5rem 0;
+            color: #166534;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .practice-card p { margin: 0 0 0.5rem 0; font-size: 0.9rem; }
+
+        .practice-card ol, .practice-card ul {
+            margin: 0.5rem 0 0 0;
+            padding-left: 1.25rem;
+            font-size: 0.9rem;
+        }
+
+        .practice-card li { margin-bottom: 0.4rem; }
+
+        .stats-highlight {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.25rem 0;
+        }
+
+        .stat-highlight-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            text-align: center;
+        }
+
+        .stat-highlight-card .value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-highlight-card .label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-top: 0.25rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .cta-section h3 { margin: 0 0 0.75rem 0; font-size: 1.5rem; color: white; }
+        .cta-section p { margin: 0 0 1.25rem 0; opacity: 0.9; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+        .footer {
+            background: #1c1917;
+            color: #a8a29e;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer p { margin: 0.5rem 0; font-size: 0.875rem; }
+
+        .footer-links a {
+            color: #a8a29e;
+            text-decoration: none;
+            margin: 0 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: var(--accent); }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">跳转到主要内容</a>
+
+    <!-- 导航 -->
+    <nav class="nav" aria-label="主导航">
+        <div class="nav-container">
+            <a href="index-zh.html" class="nav-logo" aria-label="正念疗法 – 首页">
+                <i class="fas fa-leaf" aria-hidden="true"></i> 正念疗法
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="index-zh.html" class="nav-link">首页</a>
+                <a href="cycle-zh.html" class="nav-link">周期</a>
+                <a href="assessment-zh.html" class="nav-link">AI对话</a>
+                <div class="tools-dropdown-container">
+                    <button class="tools-dropdown-btn"
+                            onclick="toggleToolsDropdown(this)"
+                            aria-haspopup="true" aria-expanded="false" aria-controls="toolsMenu">
+                        工具 <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                    </button>
+                                        <div class="tools-dropdown-menu" id="toolsMenu" role="menu">
+                        <a href="emotion-explorer-zh.html" role="menuitem">🎨 情绪探索</a>
+                        <a href="emotion-balance-zh.html" role="menuitem">⚡ 情绪平衡</a>
+                        <a href="emotion-meditation-zh.html" role="menuitem">🌬️ 情绪冥想</a>
+                        <a href="expectation-cooling-zh.html" role="menuitem">❄️ 期望冷却</a>
+                        <a href="hypnosis-zh.html" role="menuitem">🌀 催眠</a>
+                        <a href="neuro-zh.html" role="menuitem">🧠 神经·冥想</a>
+                        <a href="salad-compass-zh.html" role="menuitem">🥗 沙拉指南针</a>
+                        <a href="salad-check-zh.html" role="menuitem">🥬 完整沙拉检查</a>
+                        <a href="interventions-zh.html" role="menuitem">🧰 干预措施</a>
+                        <a href="connection-zh.html" role="menuitem">🤝 联结</a>
+                    </div>
+                </div>
+                <a href="journal-zh.html" class="nav-link">日记</a>
+                <a href="progress-zh.html" class="nav-link">进度</a>
+                <a href="learn-zh.html" class="nav-link">学习</a>
+                <a href="connection-zh.html" class="nav-link active">联结</a>
+            </div>
+            <!-- Language Switcher -->
+            <div class="lang-switcher">
+                <button class="lang-btn" id="lang-btn"
+                        onclick="toggleLangMenu(this)"
+                        aria-haspopup="true" aria-expanded="false"
+                        aria-label="Switch language">
+                    <i class="fas fa-globe" aria-hidden="true"></i>
+                    <span class="lang-current">EN</span>
+                    <i class="fas fa-chevron-down lang-arrow" aria-hidden="true"></i>
+                </button>
+                <div class="lang-menu" id="langMenu" role="menu">
+                    <a href="#" id="lang-link-en" role="menuitem" hreflang="en">🇬🇧 English</a>
+                    <a href="#" id="lang-link-zh" role="menuitem" hreflang="zh-CN">🇨🇳 中文</a>
+                    <a href="#" id="lang-link-ru" role="menuitem" hreflang="ru">🇷🇺 Русский</a>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn"
+                    aria-label="打开导航菜单" aria-expanded="false" aria-controls="nav-links">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <!-- 英雄区域 -->
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-eyebrow">多维度探索</div>
+                <h1>🤝 人类联结</h1>
+                <p class="hero-subtitle">通过哲学智慧、科学理解和实践指引，探索人类存在的根本纽带，培育更深刻的人际关系。</p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary" onclick="openSection('executive')">
+                        <i class="fas fa-play-circle"></i> 开始阅读
+                    </button>
+                    <button class="btn btn-secondary" onclick="openSection('practical')">
+                        <i class="fas fa-hand-holding-heart"></i> 实践练习
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 主要内容 -->
+        <div class="content-main">
+
+            <!-- 第0节：执行摘要 -->
+            <div class="connection-section" id="executive">
+                <button class="connection-section-header active" onclick="toggleConnectionSection(this)">
+                    <span class="connection-icon">📋</span>
+                    <h3>核心摘要</h3>
+                    <i class="fas fa-chevron-down connection-toggle"></i>
+                </button>
+                <div class="connection-content">
+                    <div class="connection-inner">
+                        <h4>联结是人类存在的根本纽带。</h4>
+                        <p>从哲学角度理解为相互依存与共同创造，从科学角度植根于为社会纽带而进化的神经生物学系统，并通过临在、脆弱性和有意识的实践加以培育。</p>
+
+                        <div class="stats-highlight">
+                            <div class="stat-highlight-card">
+                                <span class="value">50%</span>
+                                <span class="label">存活率提升</span>
+                            </div>
+                            <div class="stat-highlight-card">
+                                <span class="value">~150</span>
+                                <span class="label">邓巴数字</span>
+                            </div>
+                            <div class="stat-highlight-card">
+                                <span class="value">94%</span>
+                                <span class="label">情绪识别率</span>
+                            </div>
+                        </div>
+
+                        <p>强大的社会联结与大约<strong>50%的存活率提升</strong>相关——与戒烟的效果相当。科学证据清晰表明：人类从根本上是社会性生物，我们的幸福感依赖于人际关系的质量。</p>
+
+                        <div class="highlight-box">
+                            <h5><i class="fas fa-lightbulb"></i> 核心洞见</h5>
+                            <p>联结不是奢侈品——它是生物学上的必需品。我们的大脑、神经系统乃至免疫功能都受到社会纽带的塑造。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第1节：哲学理解 -->
+            <div class="connection-section" id="philosophy">
+                <button class="connection-section-header" onclick="toggleConnectionSection(this)">
+                    <span class="connection-icon">📚</span>
+                    <h3>哲学理解</h3>
+                    <i class="fas fa-chevron-down connection-toggle"></i>
+                </button>
+                <div class="connection-content">
+                    <div class="connection-inner">
+                        <h4>东西方哲学框架对相互联系的理解。</h4>
+
+                        <h4>东方哲学</h4>
+
+                        <div class="philosophy-card">
+                            <h5>🪷 佛教的"相即"</h5>
+                            <p>一行禅师的"相即"概念：一切现象在相互依存中生起。没有什么是孤立存在的——每个生命、每个事物、每个时刻都通过错综复杂的因果网络与其他一切相互联系。</p>
+                            <blockquote>"如果你是诗人，你会清楚地看到这张纸里漂浮着一朵云。没有云，就没有雨；没有雨，树木就无法生长；没有树木，我们就无法造纸。"</blockquote>
+                        </div>
+
+                        <div class="philosophy-card">
+                            <h5>🕉️ 印度教的不二论</h5>
+                            <p><em>梵我同一</em>（"那即是你"）——认识到个体的自我（阿特曼）与宇宙意识（梵）并非分离。这种理解消解了孤独与疏离背后的分离幻觉。</p>
+                        </div>
+
+                        <div class="philosophy-card">
+                            <h5>☯️ 道家的无为</h5>
+                            <p>真实的联结源自对自然展开的顺应，而非策略性的操控。无为（顺其自然）表明，当我们停止强求结果、顺应万物自然节律时，最好的关系便会自然流淌。</p>
+                        </div>
+
+                        <h4>西方哲学框架</h4>
+
+                        <div class="philosophy-card">
+                            <h5>🤝 我与你</h5>
+                            <p>马丁·布伯的《我与你》（1923年）区分了两种关联模式："我—它"（客体化、工具性）和"我—你"（相互临在、真实相遇）。在"我—你"关系中，"之间"（Zwischen）成为一种鲜活的临在。</p>
+                            <blockquote>"我并不体验我向其道'你'的那个人。但我在与他的关系中站立，处于原初之词的神圣之中。"<br>——马丁·布伯</blockquote>
+                        </div>
+
+                        <div class="philosophy-card">
+                            <h5>❤️ 存在主义的真实性</h5>
+                            <p>海德格尔和萨特探讨了真实的联结如何要求我们共同面对存在的焦虑。当我们放下面具、以有限而追寻意义的存在者的共同脆弱性相遇时，真实的关系才会发生。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第2节：科学解释 -->
+            <div class="connection-section" id="science">
+                <button class="connection-section-header" onclick="toggleConnectionSection(this)">
+                    <span class="connection-icon">🧠</span>
+                    <h3>科学解释</h3>
+                    <i class="fas fa-chevron-down connection-toggle"></i>
+                </button>
+                <div class="connection-content">
+                    <div class="connection-inner">
+                        <h4>神经生物学机制、心理过程与健康结果。</h4>
+
+                        <h4>社会性大脑</h4>
+                        <p>大量神经回路专门用于社会认知——心智化（思考他人的想法）、生物运动处理和情绪评估。我们的大脑主要是为了应对复杂的社会环境而进化的。</p>
+
+                        <table class="science-table">
+                            <thead>
+                                <tr>
+                                    <th>脑区结构</th>
+                                    <th>功能</th>
+                                    <th>联结相关性</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>内侧前额叶皮层</strong></td>
+                                    <td>心智化：归因心理状态</td>
+                                    <td>理解意图、信念、欲望</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>颞顶联合区</strong></td>
+                                    <td>区分自我/他人视角</td>
+                                    <td>自我-他人边界处理</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>镜像神经元系统</strong></td>
+                                    <td>动作观察-执行匹配</td>
+                                    <td>共情与社会学习</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>杏仁核</strong></td>
+                                    <td>快速社会-情绪评估</td>
+                                    <td>接近/回避决策</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>迷走神经</strong></td>
+                                    <td>副交感神经调节</td>
+                                    <td>社会参与系统</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4>神经化学基础</h4>
+                        <p>社会联结通过特定的生化通路运作：</p>
+
+                        <div class="philosophy-card">
+                            <h5>🧪 催产素</h5>
+                            <p>常被称为"纽带激素"，催产素在积极的社交接触中释放，促进信任、共情和依恋。它降低杏仁核的激活并缓冲压力反应。</p>
+                        </div>
+
+                        <div class="philosophy-card">
+                            <h5>🧪 多巴胺</h5>
+                            <p>奖励型神经递质，强化社会行为。社会认可和联结激活与食物、水和其他生存必需品相同的奖励通路。</p>
+                        </div>
+
+                        <div class="philosophy-card">
+                            <h5>🧪 内啡肽</h5>
+                            <p>在社交触碰、欢笑和共同体验中释放的天然阿片类物质。它们创造与归属感相关的温暖、愉悦感受。</p>
+                        </div>
+
+                        <h4>多迷走神经理论</h4>
+                        <p>斯蒂芬·波格斯博士的多迷走神经理论描述了三种控制我们对社会信号反应的神经回路：</p>
+
+                        <ul>
+                            <li><strong>腹侧迷走神经（社会参与）：</strong>当我们感到安全时激活——支持联结、面部表情、语音韵律</li>
+                            <li><strong>交感神经（战斗/逃跑）：</strong>当联结感到受威胁时的动员反应</li>
+                            <li><strong>背侧迷走神经（关闭）：</strong>当联结感到不可能时的不动反应</li>
+                        </ul>
+
+                        <div class="highlight-box">
+                            <h5><i class="fas fa-brain"></i> 为何重要</h5>
+                            <p>你的神经系统不断扫描社会互动中的安全或危险信号。理解这一点有助于解释为何联结有时感觉毫不费力，有时却令人恐惧。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第3节：实践指引 -->
+            <div class="connection-section" id="practical">
+                <button class="connection-section-header" onclick="toggleConnectionSection(this)">
+                    <span class="connection-icon">🤲</span>
+                    <h3>实践指引</h3>
+                    <i class="fas fa-chevron-down connection-toggle"></i>
+                </button>
+                <div class="connection-content">
+                    <div class="connection-inner">
+                        <h4>通过临在、沟通和技能培育更深刻的联结。</h4>
+
+                        <h4>基础实践</h4>
+
+                        <div class="practice-card">
+                            <h5>👂 深度倾听</h5>
+                            <p>给予全然、无评判的关注是真实联结的基础。研究表明，人们在对话中有30–40%的时间是在计划自己的回应，而非真正倾听。</p>
+                            <ol>
+                                <li><strong>暂停内心旁白：</strong>觉察并释放持续运转的心理反应</li>
+                                <li><strong>克制立即解决问题的冲动：</strong>除非被请求，否则不要急于给出解决方案</li>
+                                <li><strong>关注多个频道：</strong>内容、语调、肢体语言、沉默</li>
+                                <li><strong>身体临在：</strong>通过呼吸觉察让自己扎根当下</li>
+                            </ol>
+                        </div>
+
+                        <div class="practice-card">
+                            <h5>💝 脆弱性分享</h5>
+                            <p>当我们展露真实的自我时，联结便会加深。布雷尼·布朗的研究表明，脆弱性并非软弱——它是归属感和爱的诞生地。</p>
+                            <ul>
+                                <li>先分享感受，再表达观点</li>
+                                <li>承认不确定性和错误</li>
+                                <li>表达需求和边界</li>
+                                <li>允许自己被完整地看见</li>
+                            </ul>
+                        </div>
+
+                        <div class="practice-card">
+                            <h5>🙏 感恩表达</h5>
+                            <p>定期表达感谢可以强化纽带。具体而真诚的感恩会激活给予者和接受者大脑中的奖励中枢。</p>
+                            <p><strong>实践：</strong>每天告诉一个人你欣赏他们的某件具体事情。</p>
+                        </div>
+
+                        <h4>进阶实践</h4>
+
+                        <div class="practice-card">
+                            <h5><i class="fas fa-leaf" aria-hidden="true"></i> 慈心冥想（慈悲观）</h5>
+                            <p>一种培育无条件积极关怀的结构化练习：</p>
+                            <ol>
+                                <li>从自己开始："愿我快乐，愿我平静"</li>
+                                <li>延伸至亲爱的人</li>
+                                <li>延伸至中性的人</li>
+                                <li>延伸至令你困难的人</li>
+                                <li>延伸至所有众生</li>
+                            </ol>
+                        </div>
+
+                        <div class="practice-card">
+                            <h5>🪞 反射性倾听</h5>
+                            <p>在回应之前先镜像回对方所说的内容：</p>
+                            <ul>
+                                <li>"我听到的是……"</li>
+                                <li>"听起来你感到……"</li>
+                                <li>"让我确认我理解了……"</li>
+                            </ul>
+                        </div>
+
+                        <div class="practice-card">
+                            <h5>⚡ 修复尝试</h5>
+                            <p>约翰·戈特曼的研究表明，成功的关系并非没有冲突——而是擅长修复。当断联发生时：</p>
+                            <ol>
+                                <li>觉察断裂</li>
+                                <li>为自己的部分承担责任</li>
+                                <li>以谦逊的姿态主动伸出援手</li>
+                                <li>倾听对方的体验</li>
+                                <li>如有需要，做出弥补</li>
+                            </ol>
+                        </div>
+
+                        <h4>建立联结习惯</h4>
+
+                        <div class="highlight-box">
+                            <h5><i class="fas fa-seedling"></i> 小步骤，深影响</h5>
+                            <p>联结在微小时刻中建立。一个真诚的微笑、一个体贴的问题、一刻的临在——这些小小的举动随时间积累成深刻的纽带。</p>
+                        </div>
+
+                        <p><strong>日常联结练习：</strong></p>
+                        <ul>
+                            <li>📱 对话时放下手机</li>
+                            <li>👁️ 与陌生人对视并微笑</li>
+                            <li>🤗 给予亲人适当的肢体触碰</li>
+                            <li>📝 向你关心的人发送一条体贴的信息</li>
+                            <li>🎁 进行小小的服务行为</li>
+                            <li>⏰ 与重要的人定期安排高质量相处时间</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 号召行动区域 -->
+            <div class="cta-section">
+                <h3>🌐 联结从内心开始</h3>
+                <p>你与他人联结的质量，映照着你与自己内心联结的质量。从自我关怀开始，向外延伸至他人，见证你的世界由此转化。</p>
+                <a href="emotion-balance.html" class="btn btn-primary" style="background: white; color: #764ba2;">
+                    <i class="fas fa-balance-scale"></i> 检查你的情绪平衡
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 正念疗法. 保留所有权利。</p>
+        <p class="footer-links">
+            <a href="index-zh.html">首页</a> |
+            <a href="learn-zh.html">学习</a> |
+            <a href="hypnosis.html">催眠</a>
+        </p>
+    </footer>
+
+    <script>
+        function toggleConnectionSection(header) {
+            header.classList.toggle('active');
+        }
+
+        function openSection(id) {
+            var section = document.getElementById(id);
+            if (!section) return;
+            var header = section.querySelector('.connection-section-header');
+            if (header) header.classList.add('active');
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function toggleToolsDropdown(btn) {
+            var menu = btn.nextElementSibling;
+            var open = menu.classList.toggle('open');
+            btn.setAttribute('aria-expanded', open);
+            if (open) {
+                var r = btn.getBoundingClientRect();
+                menu.style.top  = (r.bottom + window.scrollY + 6) + 'px';
+                menu.style.left = r.left + 'px';
+            }
+        }
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.tools-dropdown-container')) {
+                document.querySelectorAll('.tools-dropdown-menu').forEach(function(m){ m.classList.remove('open'); });
+                document.querySelectorAll('.tools-dropdown-btn').forEach(function(b){ b.setAttribute('aria-expanded','false'); });
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.tools-dropdown-menu').forEach(function(m){ m.classList.remove('open'); });
+            }
+        });
+
+        (function() {
+            var btn = document.getElementById('mobile-menu-btn');
+            var links = document.getElementById('nav-links');
+            if (!btn || !links) return;
+            btn.addEventListener('click', function() {
+                var open = links.classList.toggle('mobile-open');
+                btn.setAttribute('aria-expanded', open);
+                btn.querySelector('i').className = open ? 'fas fa-times' : 'fas fa-bars';
+            });
+            links.querySelectorAll('a').forEach(function(a) {
+                a.addEventListener('click', function() {
+                    links.classList.remove('mobile-open');
+                    btn.setAttribute('aria-expanded', 'false');
+                    btn.querySelector('i').className = 'fas fa-bars';
+                });
+            });
+        }());
+    </script>
+
+    <script src="lang-switcher.js"></script>
+</body>
+</html>

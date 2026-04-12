@@ -1,0 +1,20 @@
+/*
+ * REDESIGN.CSS — SUPERSEDED
+ * ─────────────────────────────────────────────────────────────
+ * This file was an experimental draft that has been superseded
+ * by the new biophilic design system in styles.css (April 2026).
+ *
+ * DO NOT link this file to any HTML page. The authoritative
+ * stylesheet is styles.css which contains:
+ *
+ *   • Complete biophilic token system (forest greens, stone
+ *     neutrals, sky blues, earth warmth)
+ *   • WCAG 2.1 AA verified contrast ratios throughout
+ *   • Unified nav, hero, card, form, and animation styles
+ *   • Responsive breakpoints (480 / 768 / 1024 / 1280 px)
+ *   • Accessibility: skip link, focus rings, ARIA patterns
+ *   • All component styles for every page in the app
+ *
+ * This file is kept for historical reference only.
+ * ─────────────────────────────────────────────────────────────
+ */

@@ -3,193 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="日记 - 正念疗法">
     <meta name="copyright" content="© 2026 正念疗法. All rights reserved.">
     <title>日记 - 正念疗法</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
-        :root {
-            --bg: #fafaf9;
-            --surface: #ffffff;
-            --text: #1c1917;
-            --muted: #78716c;
-            --border: #e7e5e4;
-            --accent: #0d9488;
-            --accent-dark: #0f766e;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-        }
-        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; }
-        
-        /* Navigation */
-        .nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            background: rgba(30, 58, 138, 0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            z-index: 100;
-        }
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 70px;
-        }
-        .nav-logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: white; 
-            text-decoration: none;
-        }
-        .nav-links { display: flex; gap: 0.25rem; }
-        .nav-link {
-            padding: 0.5rem 1rem;
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            font-size: 0.875rem;
-            font-weight: 500;
-            border-radius: 6px;
-            transition: all 0.2s;
-        }
-        .nav-link:hover { color: white;  background: rgba(255,255,255,0.1); }
-        .nav-link.active { color: var(--accent); background: rgba(13,148,136,0.2); }
-        
-        /* Hero */
-        .hero {
-            padding: 80px 2rem 20px;
-            background: 
-                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.2), transparent),
-                linear-gradient(180deg, #1e3a8a 0%, #1e40af 50%, var(--bg) 100%);
-            color: white; 
-        }
-        .hero h1 { color: white;  }
-        .hero-subtitle { color: rgba(255,255,255,0.7); }
-        .hero-container {
-            max-width: 720px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .hero-eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(13,148,136,0.1);
-            border: 1px solid rgba(13,148,136,0.2);
-            border-radius: 100px;
-            color: var(--accent);
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 1.5rem;
-        }
-        .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            line-height: 1.1;
-            margin-bottom: 1.25rem;
-        }
-        .hero-subtitle {
-            font-size: 1.125rem;
-            opacity: 0.8;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
         /* Main Content */
         .content-main {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem 2rem;
         }
-        .journal-content {
+.journal-content {
             max-width: 800px;
             margin: 0 auto;
         }
-        
-        /* 工具 Dropdown Styles */
+/* 工具 Dropdown Styles */
         .tools-dropdown-container { position: relative; display: inline-block; }
-        .tools-dropdown-btn { 
-            display: flex; 
-            align-items: center; 
-            gap: 0.25rem; 
-            padding: 0.5rem 1rem; 
-            border: none; 
-            background: transparent; 
-            color: rgba(255,255,255,0.8); 
-            font-size: 0.875rem; 
-            font-weight: 500; 
-            cursor: pointer; 
-            border-radius: 9999px; 
-            font-family: inherit; 
-            transition: all 0.2s;
-        }
-        .tools-dropdown-btn:hover { background: rgba(255, 255, 255, 0.1); color: white;  }
-        .tools-dropdown-btn.active { background: rgba(13,148,136,0.2); color: var(--accent); }
-        .tools-dropdown-menu { 
-            display: none; 
-            position: fixed; 
-            top: auto; 
-            left: auto; 
-            margin-top: 0.5rem; 
-            background: var(--surface); 
-            border: 1px solid var(--border); 
-            border-radius: 0.75rem; 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15); 
-            min-width: 220px; 
-            padding: 0.5rem; 
-            z-index: 9999; 
-        }
-        .tools-dropdown-menu.open { display: block; }
-        .tools-dropdown-menu a { 
-            display: block; 
-            padding: 0.75rem 1rem; 
-            color: var(--text); 
-            text-decoration: none; 
-            font-size: 0.875rem; 
-            border-radius: 0.5rem; 
-            transition: all 0.2s; 
-            white-space: nowrap; 
-        }
-        .tools-dropdown-menu a:hover { background: rgba(13,148,136,0.1); color: var(--accent); }
-
-        /* 日记 Styles */
+/* 日记 Styles */
         .journal-section { display: flex; flex-direction: column; gap: 2rem; }
-        
-        .mood-tracker-card {
+.mood-tracker-card {
             background: var(--surface);
             border-radius: 20px;
             padding: 30px;
             border: 1px solid var(--border);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
         }
-        
-        .mood-tracker-card h3 {
+.mood-tracker-card h3 {
             color: var(--text);
             margin-bottom: 1.5rem;
             text-align: center;
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.5rem;
         }
-        
-        .mood-scale {
+.mood-scale {
             display: flex;
             justify-content: center;
             gap: 1rem;
             flex-wrap: wrap;
         }
-        
-        .mood-btn {
+.mood-btn {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -200,50 +57,42 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        
-        .mood-btn:hover {
+.mood-btn:hover {
             border-color: var(--accent);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-        
-        .mood-btn.selected {
+.mood-btn.selected {
             border-color: var(--accent);
             background: rgba(13, 148, 136, 0.1);
         }
-        
-        .mood-emoji {
+.mood-emoji {
             font-size: 2rem;
             margin-bottom: 0.5rem;
         }
-        
-        .mood-label {
+.mood-label {
             font-size: 0.875rem;
             color: var(--muted);
         }
-        
-        .quick-entry-card {
+.quick-entry-card {
             background: var(--surface);
             border-radius: 20px;
             padding: 30px;
             border: 1px solid var(--border);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
         }
-        
-        .quick-entry-card h3 {
+.quick-entry-card h3 {
             color: var(--text);
             margin-bottom: 0.5rem;
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.5rem;
         }
-        
-        .prompt {
+.prompt {
             color: var(--accent);
             font-style: italic;
             margin-bottom: 1rem;
         }
-        
-        textarea {
+textarea {
             width: 100%;
             padding: 1rem;
             border: 1px solid var(--border);
@@ -255,52 +104,18 @@
             min-height: 150px;
             font-family: inherit;
         }
-        
-        textarea::placeholder {
+textarea::placeholder {
             color: var(--muted);
         }
-        
-        .entry-actions {
+.entry-actions {
             display: flex;
             gap: 1rem;
             margin-top: 1rem;
         }
-        
-        .btn-primary {
-            background: var(--accent);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .btn-primary:hover {
-            background: var(--accent-dark);
-            transform: translateY(-1px);
-        }
-        
-        .btn-secondary {
-            background: var(--surface);
-            color: var(--muted);
-            padding: 0.75rem 1.5rem;
-            border: 1px solid var(--border);
-            border-radius: 0.5rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .btn-secondary:hover {
-            background: var(--bg);
-            color: var(--text);
-        }
-        
-        #journalEntries {
+#journalEntries {
             margin-top: 2rem;
         }
-        
-        .journal-entry {
+.journal-entry {
             background: var(--surface);
             border-radius: 12px;
             padding: 1.5rem;
@@ -308,66 +123,79 @@
             border: 1px solid var(--border);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
-        
-        .entry-date {
+.entry-date {
             color: var(--accent);
             font-size: 0.875rem;
             margin-bottom: 0.5rem;
             font-weight: 500;
         }
-        
-        .entry-mood {
+.entry-mood {
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
         }
-        
-        .entry-text {
+.entry-text {
             color: var(--text);
             line-height: 1.6;
         }
-
-        @media (max-width: 768px) {
-            .journal-content { padding: 1rem; }
-            .mood-scale { gap: 0.5rem; }
-            .mood-btn { padding: 0.75rem; }
-            .hero { padding: 140px 1rem 80px; }
-            .content-main { padding: 2rem 1rem; }
-        }
     </style>
+    
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <!-- Navigation -->
-    <nav class="nav">
+        <nav class="nav" aria-label="Main navigation">
         <div class="nav-container">
-            <a href="index-zh.html" class="nav-logo">🧘 正念疗法</a>
-            <div class="nav-links">
-                <a href="index-zh.html" class="nav-link">首页</a>
-                <a href="cycle-zh.html" class="nav-link">周期</a>
-                <a href="assessment-zh.html" class="nav-link">AI对话</a>
-                
-                <!-- 工具 Dropdown -->
-                <div class="tools-dropdown-container" id="toolsContainer">
-                    <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
-                        工具 <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
+            <a href="index-zh.html" class="nav-logo" aria-label="正念疗法 – Home">
+                <i class="fas fa-leaf" aria-hidden="true"></i> 正念疗法
+            </a>
+            <div class="nav-links" id="nav-links">
+                                <a href="index-zh.html" class="nav-link">首页</a>
+                                <a href="cycle-zh.html" class="nav-link">周期</a>
+                                <a href="assessment-zh.html" class="nav-link">AI对话</a>
+                <div class="tools-dropdown-container">
+                    <button class="tools-dropdown-btn"
+                            onclick="toggleToolsDropdown(this)"
+                            aria-haspopup="true" aria-expanded="false" aria-controls="toolsMenu">
+                        工具 <i class="fas fa-chevron-down" aria-hidden="true"></i>
                     </button>
-                                        <div class="tools-dropdown-menu" id="toolsMenu">
-                        <a href="emotion-explorer.html">🎨 Emotion Explorer</a>
-                        <a href="emotion-balance.html">⚡ Emotion Balance</a>
-                        <a href="emotion-meditation.html">🌬️ Emotion Meditation</a>
-                        <a href="expectation-cooling.html">❄️ Expectation Cooling</a>
-                        <a href="hypnosis.html">🌀 Hypnosis</a>
-                        <a href="neuro.html">🧠 Neuro·Contemplative</a>
-                        <a href="salad-compass.html">🥗 Salad Compass</a>
-                        <a href="salad-check.html">🥬 Full Salad Check</a>
-                        <a href="interventions.html">🧰 Interventions</a>
-                        <a href="connection.html">🤝 Connection</a>
+                                        <div class="tools-dropdown-menu" id="toolsMenu" role="menu">
+                        <a href="emotion-explorer-zh.html" role="menuitem">🎨 情绪探索</a>
+                        <a href="emotion-balance-zh.html" role="menuitem">⚡ 情绪平衡</a>
+                        <a href="emotion-meditation-zh.html" role="menuitem">🌬️ 情绪冥想</a>
+                        <a href="expectation-cooling-zh.html" role="menuitem">❄️ 期望冷却</a>
+                        <a href="hypnosis-zh.html" role="menuitem">🌀 催眠</a>
+                        <a href="neuro-zh.html" role="menuitem">🧠 神经·冥想</a>
+                        <a href="salad-compass-zh.html" role="menuitem">🥗 沙拉指南针</a>
+                        <a href="salad-check-zh.html" role="menuitem">🥬 完整沙拉检查</a>
+                        <a href="interventions-zh.html" role="menuitem">🧰 干预措施</a>
+                        <a href="connection-zh.html" role="menuitem">🤝 联结</a>
                     </div>
                 </div>
-                
-                <a href="journal-zh.html" class="nav-link active">日记</a>
-                <a href="progress-zh.html" class="nav-link">进度</a>
-                <a href="learn-zh.html" class="nav-link">学习</a>
+                                <a href="journal-zh.html" class="nav-link active">日记</a>
+                                <a href="progress-zh.html" class="nav-link">进度</a>
+                                <a href="learn-zh.html" class="nav-link">学习</a>
+                                <a href="connection-zh.html" class="nav-link">联结</a>
             </div>
+            <!-- Language Switcher -->
+            <div class="lang-switcher">
+                <button class="lang-btn" id="lang-btn"
+                        onclick="toggleLangMenu(this)"
+                        aria-haspopup="true" aria-expanded="false"
+                        aria-label="Switch language">
+                    <i class="fas fa-globe" aria-hidden="true"></i>
+                    <span class="lang-current">EN</span>
+                    <i class="fas fa-chevron-down lang-arrow" aria-hidden="true"></i>
+                </button>
+                <div class="lang-menu" id="langMenu" role="menu">
+                    <a href="#" id="lang-link-en" role="menuitem" hreflang="en">🇬🇧 English</a>
+                    <a href="#" id="lang-link-zh" role="menuitem" hreflang="zh-CN">🇨🇳 中文</a>
+                    <a href="#" id="lang-link-ru" role="menuitem" hreflang="ru">🇷🇺 Русский</a>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn"
+                    aria-label="打开导航菜单" aria-expanded="false" aria-controls="nav-links">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
         </div>
     </nav>
 
@@ -375,8 +203,8 @@
     <section class="hero">
         <div class="hero-container">
             <div class="hero-eyebrow">📔 日记</div>
-            <h1>Track Your Journey</h1>
-            <p class="hero-subtitle">Record your moods, reflect on your experiences, and build self-awareness through daily journaling</p>
+            <h1>记录你的旅程</h1>
+            <p class="hero-subtitle">记录你的情绪，反思你的体验，通过每日日记培养自我觉察</p>
         </div>
     </section>
 
@@ -385,37 +213,37 @@
         <div class="journal-content">
             <div class="journal-section">
                 <div class="mood-tracker-card">
-                    <h3>How are you feeling?</h3>
+                    <h3>你今天感觉如何？</h3>
                     <div class="mood-scale">
                         <button class="mood-btn" data-mood="1" onclick="logMood(1)">
                             <span class="mood-emoji">😢</span>
-                            <span class="mood-label">Sad</span>
+                            <span class="mood-label">悲伤</span>
                         </button>
                         <button class="mood-btn" data-mood="2" onclick="logMood(2)">
                             <span class="mood-emoji">��</span>
-                            <span class="mood-label">Down</span>
+                            <span class="mood-label">低落</span>
                         </button>
                         <button class="mood-btn" data-mood="3" onclick="logMood(3)">
                             <span class="mood-emoji">😐</span>
-                            <span class="mood-label">Okay</span>
+                            <span class="mood-label">还好</span>
                         </button>
                         <button class="mood-btn" data-mood="4" onclick="logMood(4)">
                             <span class="mood-emoji">🙂</span>
-                            <span class="mood-label">Good</span>
+                            <span class="mood-label">良好</span>
                         </button>
                         <button class="mood-btn" data-mood="5" onclick="logMood(5)">
                             <span class="mood-emoji">😊</span>
-                            <span class="mood-label">Great</span>
+                            <span class="mood-label">很好</span>
                         </button>
                     </div>
                 </div>
 
                 <div class="quick-entry-card">
-                    <h3>Quick Entry</h3>
+                    <h3>快速记录</h3>
                     <p class="prompt" id="journalPrompt">What are you grateful for today?</p>
                     <textarea id="journalText" placeholder="Write your thoughts..."></textarea>
                     <div class="entry-actions">
-                        <button class="btn-secondary" onclick="newJournalPrompt()">New Prompt</button>
+                        <button class="btn-secondary" onclick="newJournalPrompt()">新提示</button>
                         <button class="btn-primary" onclick="saveJournalEntry()">保存 Entry</button>
                     </div>
                 </div>
@@ -426,112 +254,7 @@
     </main>
 
     <script src="app.js"></script>
-    <script>
-        // 工具 dropdown functions
-        function toggleToolsMenu() {
-            var menu = document.getElementById('toolsMenu');
-            var btn = document.getElementById('toolsBtn');
-            if (!menu || !btn) return;
-            
-            if (menu.classList.contains('open')) {
-                menu.classList.remove('open');
-                btn.classList.remove('active');
-                btn.setAttribute('aria-expanded', 'false');
-            } else {
-                var btnRect = btn.getBoundingClientRect();
-                menu.style.top = (btnRect.bottom + 8) + 'px';
-                menu.style.left = btnRect.left + 'px';
-                menu.classList.add('open');
-                btn.classList.add('active');
-                btn.setAttribute('aria-expanded', 'true');
-            }
-        }
-        
-        function closeToolsDropdown() {
-            var menu = document.getElementById('toolsMenu');
-            var btn = document.getElementById('toolsBtn');
-            if (menu) {
-                menu.classList.remove('open');
-            }
-            if (btn) {
-                btn.classList.remove('active');
-                btn.setAttribute('aria-expanded', 'false');
-            }
-        }
-        
-        document.addEventListener('click', function(e) {
-            var btn = document.getElementById('toolsBtn');
-            var menu = document.getElementById('toolsMenu');
-            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
-                closeToolsDropdown();
-            }
-        });
-
-        // 日记 functions
-        const prompts = [
-            "What are you grateful for today?",
-            "What emotion was strongest for you today?",
-            "What challenged you today?",
-            "What made you smile today?",
-            "What would you tell your future self?",
-            "What are you looking forward to?",
-            "What did you learn about yourself today?"
-        ];
-
-        function logMood(mood) {
-            // Remove selected class from all buttons
-            document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('selected'));
-            // Add selected class to clicked button
-            document.querySelector(`[data-mood="${mood}"]`).classList.add('selected');
-            
-            // 保存 to localStorage
-            const today = new Date().toISOString().split('T')[0];
-            localStorage.setItem(`mood_${today}`, mood);
-            
-            alert(`Mood logged: ${mood}/5`);
-        }
-
-        function newJournalPrompt() {
-            const randomPrompt = prompts[Math.floor(Math.random() * prompts.length)];
-            document.getElementById('journalPrompt').textContent = randomPrompt;
-        }
-
-        function saveJournalEntry() {
-            const text = document.getElementById('journalText').value;
-            const prompt = document.getElementById('journalPrompt').textContent;
-            
-            if (!text.trim()) {
-                alert('请 write something before saving.');
-                return;
-            }
-
-            const entry = {
-                date: new Date().toISOString(),
-                prompt: prompt,
-                text: text,
-                mood: localStorage.getItem(`mood_${new Date().toISOString().split('T')[0]}`) || 'Not recorded'
-            };
-
-            // Get existing entries
-            let entries = JSON.parse(localStorage.getItem('journalEntries') || '[]');
-            entries.unshift(entry);
-            localStorage.setItem('journalEntries', JSON.stringify(entries));
-
-            // Clear textarea
-            document.getElementById('journalText').value = '';
-            
-            // Display entries
-            displayEntries();
-            
-            alert('Entry saved!');
-        }
-
-        function displayEntries() {
-            const entries = JSON.parse(localStorage.getItem('journalEntries') || '[]');
-            const container = document.getElementById('journalEntries');
-            
-            if (entries.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: var(--muted);">No entries yet. 开始 writing! ✍️</p>';
+    <p style="text-align: center; color: var(--muted);">暂无记录. 开始 writing! ✍️</p>';
                 return;
             }
 
@@ -554,5 +277,47 @@
         // Load entries on page load
         displayEntries();
     </script>
+    <script>
+        function toggleToolsDropdown(btn) {
+            var menu = btn.nextElementSibling;
+            var open = menu.classList.toggle('open');
+            btn.setAttribute('aria-expanded', open);
+            if (open) {
+                var r = btn.getBoundingClientRect();
+                menu.style.top  = (r.bottom + window.scrollY + 6) + 'px';
+                menu.style.left = r.left + 'px';
+            }
+        }
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.tools-dropdown-container')) {
+                document.querySelectorAll('.tools-dropdown-menu').forEach(function(m){ m.classList.remove('open'); });
+                document.querySelectorAll('.tools-dropdown-btn').forEach(function(b){ b.setAttribute('aria-expanded','false'); });
+            }
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.tools-dropdown-menu').forEach(function(m){ m.classList.remove('open'); });
+            }
+        });
+        (function() {
+            var btn = document.getElementById('mobile-menu-btn');
+            var links = document.getElementById('nav-links');
+            if (!btn || !links) return;
+            btn.addEventListener('click', function() {
+                var open = links.classList.toggle('mobile-open');
+                btn.setAttribute('aria-expanded', open);
+                btn.querySelector('i').className = open ? 'fas fa-times' : 'fas fa-bars';
+            });
+            links.querySelectorAll('a').forEach(function(a) {
+                a.addEventListener('click', function() {
+                    links.classList.remove('mobile-open');
+                    btn.setAttribute('aria-expanded', 'false');
+                    btn.querySelector('i').className = 'fas fa-bars';
+                });
+            });
+        }());
+    </script>
+
+    <script src="lang-switcher.js"></script>
 </body>
 </html>

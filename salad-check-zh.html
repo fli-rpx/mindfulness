@@ -3,106 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="完整沙拉检查 - 正念疗法">
     <meta name="copyright" content="© 2026 正念疗法. All rights reserved.">
     <title>完整沙拉检查 - 正念疗法</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
-        :root {
-            --bg: #fafaf9;
-            --surface: #ffffff;
-            --text: #1c1917;
-            --muted: #78716c;
-            --border: #e7e5e4;
-            --accent: #0d9488;
-            --accent-dark: #0f766e;
-        }
-
-        .tools-dropdown-container {
-            position: relative;
-            display: inline-block;
-        }
-
-        .tools-dropdown-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            padding: 0.5rem 1rem;
-            border: none;
-            background: transparent;
-            color: rgba(255,255,255,0.8);
-            font-size: 0.875rem;
-            font-weight: 500;
-            cursor: pointer;
-            border-radius: 9999px;
-            font-family: inherit;
-        }
-
-        .tools-dropdown-btn:hover {
-            background: #f1f5f1;
-            color: white;
-        }
-
-        .tools-dropdown-btn.active {
-            background: linear-gradient(135deg, #50c8b8, #4a90d9);
-            color: white;
-        }
-
-        .tools-dropdown-menu {
-            display: none;
-            position: fixed;
-            top: auto;
-            left: auto;
-            margin-top: 0.5rem;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            min-width: 220px;
-            padding: 0.5rem;
-            z-index: 9999;
-        }
-
-        .tools-dropdown-menu.open {
-            display: block;
-        }
-
-        .tools-dropdown-menu a {
-            display: block;
-            padding: 0.75rem 1rem;
-            color: #000000;
-            text-decoration: none;
-            font-size: 0.875rem;
-            border-radius: 0.5rem;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-
-        .tools-dropdown-menu a:hover {
-            background: rgba(13,148,136,0.1);
-            color: #0d9488;
-        }
-
         /* Salad Check specific styles */
         .salad-check-content {
             max-width: 800px;
             margin: 0 auto;
-            padding: 120px 20px 40px 20px;
+            padding: 2rem 1.5rem 3rem;
         }
-
-        .salad-check-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+.salad-check-card {
+            background: var(--color-surface);
+            
             border-radius: 20px;
             padding: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-lg);
         }
-
-        .compass-link-card {
-            background: rgba(80, 200, 184, 0.1);
-            border: 1px solid rgba(80, 200, 184, 0.2);
+.compass-link-card {
+            background: var(--green-50);
+            border: 1px solid var(--color-border-strong);
             border-radius: 12px;
             padding: 20px;
             margin-bottom: 30px;
@@ -112,99 +38,84 @@
             flex-wrap: wrap;
             gap: 15px;
         }
-
-        .compass-link-card .compass-text {
+.compass-link-card .compass-text {
             font-weight: 600;
-            color: #50c8b8;
+            color: var(--color-primary);
             margin-bottom: 5px;
         }
-
-        .compass-link-card .compass-subtext {
-            color: #000000;
+.compass-link-card .compass-subtext {
+            color: var(--color-text);
             font-size: 0.95rem;
         }
-
-        .progress-section {
+.progress-section {
             margin-bottom: 30px;
         }
-
-        .progress-bar {
+.progress-bar {
             height: 8px;
-            background: rgba(255,255,255,0.1);
+            background: var(--stone-200);
             border-radius: 4px;
             overflow: hidden;
             margin-bottom: 10px;
         }
-
-        .progress-fill {
+.progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #50c8b8, #4a90d9);
+            background: linear-gradient(90deg, var(--green-500), var(--green-700));
             border-radius: 4px;
             transition: width 0.3s ease;
         }
-
-        .progress-text {
-            color: rgba(255,255,255,0.8);
+.progress-text {
+            color: var(--color-text-muted);
             font-size: 0.875rem;
         }
-
-        .question-card {
-            background: rgba(255,255,255,0.05);
+.question-card {
+            background: var(--color-surface);
             border-radius: 16px;
             padding: 24px;
             margin-bottom: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid var(--color-border);
         }
-
-        .question-card h4 {
-            color: #f8fafc;
+.question-card h4 {
+            color: var(--color-text);
             margin: 0 0 16px 0;
             font-size: 1.1rem;
         }
-
-        .question-options {
+.question-options {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-
-        .option-btn {
+.option-btn {
             padding: 12px 16px;
-            border: 2px solid rgba(255,255,255,0.1);
+            border: 2px solid var(--color-border);
             border-radius: 10px;
-            background: rgba(255,255,255,0.05);
-            color: #cbd5e1;
+            background: var(--color-surface);
+            color: var(--color-text);
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.2s;
             text-align: left;
         }
-
-        .option-btn:hover {
-            border-color: #50c8b8;
-            background: rgba(80, 200, 184, 0.1);
+.option-btn:hover {
+            border-color: var(--color-primary);
+            background: var(--green-50);
         }
-
-        .option-btn.selected {
-            border-color: #50c8b8;
-            background: rgba(80, 200, 184, 0.2);
-            color: #f8fafc;
+.option-btn.selected {
+            border-color: var(--color-primary);
+            background: var(--green-100);
+            color: var(--color-text);
         }
-
-        .results-plate {
-            background: rgba(255,255,255,0.05);
+.results-plate {
+            background: var(--color-surface);
             border-radius: 20px;
             padding: 30px;
             margin-bottom: 30px;
             text-align: center;
         }
-
-        .results-plate h3 {
-            color: #f8fafc;
+.results-plate h3 {
+            color: var(--color-text);
             margin-bottom: 24px;
         }
-
-        .plate-visual {
+.plate-visual {
             width: 250px;
             height: 250px;
             margin: 0 auto 30px;
@@ -213,8 +124,7 @@
             position: relative;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
-
-        .plate-section {
+.plate-section {
             position: absolute;
             display: flex;
             flex-direction: column;
@@ -223,98 +133,82 @@
             font-size: 0.875rem;
             font-weight: 600;
         }
-
-        .plate-spicy {
+.plate-spicy {
             top: 10%;
             left: 50%;
             transform: translateX(-50%);
             color: #ef4444;
         }
-
-        .plate-greasy {
+.plate-greasy {
             bottom: 15%;
             left: 20%;
             color: #f59e0b;
         }
-
-        .plate-vegetable {
+.plate-vegetable {
             bottom: 15%;
             right: 20%;
             color: #22c55e;
         }
-
-        .plate-emoji {
+.plate-emoji {
             font-size: 2rem;
             margin-bottom: 4px;
         }
-
-        .results-breakdown {
+.results-breakdown {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 16px;
             margin-top: 20px;
         }
-
-        .breakdown-item {
+.breakdown-item {
             padding: 16px;
             border-radius: 12px;
         }
-
-        .breakdown-item.spicy {
+.breakdown-item.spicy {
             background: rgba(239, 68, 68, 0.1);
         }
-
-        .breakdown-item.greasy {
+.breakdown-item.greasy {
             background: rgba(245, 158, 11, 0.1);
         }
-
-        .breakdown-item.vegetable {
+.breakdown-item.vegetable {
             background: rgba(34, 197, 94, 0.1);
         }
-
-        .breakdown-score {
+.breakdown-score {
             font-size: 2rem;
             font-weight: 700;
             margin-bottom: 4px;
         }
-
-        .breakdown-item.spicy .breakdown-score { color: #ef4444; }
-        .breakdown-item.greasy .breakdown-score { color: #f59e0b; }
-        .breakdown-item.vegetable .breakdown-score { color: #22c55e; }
-
-        .breakdown-label {
+.breakdown-item.spicy .breakdown-score { color: #ef4444; }
+.breakdown-item.greasy .breakdown-score { color: #f59e0b; }
+.breakdown-item.vegetable .breakdown-score { color: #22c55e; }
+.breakdown-label {
             font-size: 0.875rem;
-            color: rgba(255,255,255,0.8);
+            color: var(--color-text-muted);
         }
-
-        .protocol-section {
-            background: rgba(255,255,255,0.05);
+.protocol-section {
+            background: var(--color-surface);
             border-radius: 20px;
             padding: 30px;
             margin-bottom: 30px;
         }
-
-        .protocol-section h3 {
-            color: #f8fafc;
+.protocol-section h3 {
+            color: var(--color-text);
             margin-bottom: 24px;
             text-align: center;
         }
-
-        .protocol-step {
+.protocol-step {
             display: flex;
             gap: 16px;
             padding: 16px;
-            background: rgba(255,255,255,0.05);
+            background: var(--color-surface);
             border-radius: 12px;
             margin-bottom: 12px;
             border-left: 4px solid #50c8b8;
         }
-
-        .step-number {
+.step-number {
             width: 32px;
             height: 32px;
-            background: linear-gradient(135deg, #50c8b8, #4a90d9);
-            color: #000000;
+            background: linear-gradient(135deg, var(--green-500), var(--green-700));
+            color: var(--color-text);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -322,213 +216,25 @@
             font-weight: 600;
             flex-shrink: 0;
         }
-
-        .step-content h4 {
-            color: #f8fafc;
+.step-content h4 {
+            color: var(--color-text);
             margin: 0 0 4px 0;
             font-size: 1rem;
         }
-
-        .step-content p {
-            color: rgba(255,255,255,0.8);
+.step-content p {
+            color: var(--color-text-muted);
             margin: 0;
             font-size: 0.875rem;
         }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #50c8b8, #4a90d9);
-            color: #000000;
-            padding: 14px 28px;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: transform 0.2s;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.8);
-            padding: 12px 20px;
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.2);
-        }
-
-        .hidden {
+.hidden {
             display: none !important;
         }
+/* CSS Variables */
 
-        @media (max-width: 768px) {
-            .results-breakdown {
-                grid-template-columns: 1fr;
-            }
+        
 
-            .compass-link-card {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
 
-        /* CSS Variables */
 
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            line-height: 1.6;
-        }
-
-        .hero {
-            text-align: center;
-            padding: 80px 20px 0px;
-            background:
-                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.2), transparent),
-                linear-gradient(180deg, #1e3a8a 0%, #1e40af 50%, var(--bg) 100%);
-            color: white;
-            max-width: none;
-            margin: 0;
-        }
-
-        .hero h1 {
-            color: white;
-        }
-
-        .hero-subtitle {
-            color: rgba(255,255,255,0.9);
-        }
-
-        .hero-eyebrow {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
-            color: var(--accent);
-            margin-bottom: 1rem;
-            font-style: italic;
-        }
-
-        .hero h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3.5rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-subtitle {
-            font-size: 1.2rem;
-            color: rgba(255,255,255,0.8);
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(30, 58, 138, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .nav-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.75rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .nav-brand {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: white;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .nav-btn {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 0.5rem;
-            background: transparent;
-            color: rgba(255,255,255,0.8);
-            font-size: 0.875rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        .nav-btn:hover {
-            background: rgba(255,255,255,0.1);
-            color: white;
-        }
-
-        .nav-btn.active {
-            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-            color: white;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.25rem;
-            color: rgba(255,255,255,0.8);
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-
-        @media (max-width: 1024px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 60px;
-                left: 0;
-                right: 0;
-                background: var(--surface);
-                flex-direction: column;
-                padding: 1rem;
-                box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-                gap: 0.5rem;
-            }
-
-            .nav-links.show {
-                display: flex;
-            }
 
             .nav-btn {
                 width: 100%;
@@ -540,86 +246,100 @@
             }
         }
 
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
+        .check-content, .check-card {
+                color: #000000 !important;
             }
-
-            .hero {
-                padding: 80px 20px 40px;
+.check-content h1, .check-content h2, .check-content h3, .check-content p {
+                color: #000000 !important;
             }
-        }
+#saladQuestions, #saladQuestions div, #saladQuestions p, #saladQuestions span, #saladQuestions label, #saladQuestions h4, #saladQuestions button, #saladQuestions .question-card, #saladQuestions .option-btn {
+                color: #000000 !important;
+            }
     </style>
+    
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <!-- Navigation -->
-    <nav class="nav">
+        <nav class="nav" aria-label="Main navigation">
         <div class="nav-container">
-            <a href="index-zh.html" class="nav-brand">🧘 正念疗法</a>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="nav-links" id="navLinks">
-                <a href="index-zh.html" class="nav-btn">中文</a>
-                <a href="index-zh.html" class="nav-btn">首页</a>
-                <a href="cycle-zh.html" class="nav-btn">周期</a>
-                <a href="assessment-zh.html" class="nav-btn">AI对话</a>
-
-                <!-- 工具 Dropdown -->
-                <div class="tools-dropdown-container" id="toolsContainer">
-                    <button class="tools-dropdown-btn" id="toolsBtn" type="button" onclick="toggleToolsMenu();">
-                        工具 <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
+            <a href="index-zh.html" class="nav-logo" aria-label="正念疗法 – Home">
+                <i class="fas fa-leaf" aria-hidden="true"></i> 正念疗法
+            </a>
+            <div class="nav-links" id="nav-links">
+                                <a href="index-zh.html" class="nav-link">首页</a>
+                                <a href="cycle-zh.html" class="nav-link">周期</a>
+                                <a href="assessment-zh.html" class="nav-link">AI对话</a>
+                <div class="tools-dropdown-container">
+                    <button class="tools-dropdown-btn"
+                            onclick="toggleToolsDropdown(this)"
+                            aria-haspopup="true" aria-expanded="false" aria-controls="toolsMenu">
+                        工具 <i class="fas fa-chevron-down" aria-hidden="true"></i>
                     </button>
-                                        <div class="tools-dropdown-menu" id="toolsMenu">
-                        <a href="emotion-explorer.html">🎨 Emotion Explorer</a>
-                        <a href="emotion-balance.html">⚡ Emotion Balance</a>
-                        <a href="emotion-meditation.html">🌬️ Emotion Meditation</a>
-                        <a href="expectation-cooling.html">❄️ Expectation Cooling</a>
-                        <a href="hypnosis.html">🌀 Hypnosis</a>
-                        <a href="neuro.html">🧠 Neuro·Contemplative</a>
-                        <a href="salad-compass.html">🥗 Salad Compass</a>
-                        <a href="salad-check.html" class="active">🥬 Full Salad Check</a>
-                        <a href="interventions.html">🧰 Interventions</a>
-                        <a href="connection.html">🤝 Connection</a>
+                                        <div class="tools-dropdown-menu" id="toolsMenu" role="menu">
+                        <a href="emotion-explorer-zh.html" role="menuitem">🎨 情绪探索</a>
+                        <a href="emotion-balance-zh.html" role="menuitem">⚡ 情绪平衡</a>
+                        <a href="emotion-meditation-zh.html" role="menuitem">🌬️ 情绪冥想</a>
+                        <a href="expectation-cooling-zh.html" role="menuitem">❄️ 期望冷却</a>
+                        <a href="hypnosis-zh.html" role="menuitem">🌀 催眠</a>
+                        <a href="neuro-zh.html" role="menuitem">🧠 神经·冥想</a>
+                        <a href="salad-compass-zh.html" role="menuitem">🥗 沙拉指南针</a>
+                        <a href="salad-check-zh.html" role="menuitem">🥬 完整沙拉检查</a>
+                        <a href="interventions-zh.html" role="menuitem">🧰 干预措施</a>
+                        <a href="connection-zh.html" role="menuitem">🤝 联结</a>
                     </div>
                 </div>
-
-                <a href="journal-zh.html" class="nav-btn">日记</a>
-                <a href="progress-zh.html" class="nav-btn">进度</a>
-                <a href="learn-zh.html" class="nav-btn">学习</a>
+                                <a href="journal-zh.html" class="nav-link">日记</a>
+                                <a href="progress-zh.html" class="nav-link">进度</a>
+                                <a href="learn-zh.html" class="nav-link">学习</a>
+                                <a href="connection-zh.html" class="nav-link">联结</a>
             </div>
+            <!-- Language Switcher -->
+            <div class="lang-switcher">
+                <button class="lang-btn" id="lang-btn"
+                        onclick="toggleLangMenu(this)"
+                        aria-haspopup="true" aria-expanded="false"
+                        aria-label="Switch language">
+                    <i class="fas fa-globe" aria-hidden="true"></i>
+                    <span class="lang-current">EN</span>
+                    <i class="fas fa-chevron-down lang-arrow" aria-hidden="true"></i>
+                </button>
+                <div class="lang-menu" id="langMenu" role="menu">
+                    <a href="#" id="lang-link-en" role="menuitem" hreflang="en">🇬🇧 English</a>
+                    <a href="#" id="lang-link-zh" role="menuitem" hreflang="zh-CN">🇨🇳 中文</a>
+                    <a href="#" id="lang-link-ru" role="menuitem" hreflang="ru">🇷🇺 Русский</a>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn"
+                    aria-label="打开导航菜单" aria-expanded="false" aria-controls="nav-links">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
         </div>
     </nav>
 
+
+    <main id="main-content">
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-eyebrow">🥬 Emotional Balance Assessment</div>
+        <div class="hero-container">
+            <div class="hero-eyebrow">🥬 情绪平衡评估</div>
         <h1>完整沙拉检查</h1>
-        <p class="hero-subtitle">Identify your 🔥 Spicy (overwhelming), 🧈 Greasy (compulsive), and 🥬 Vegetable (nourishing) elements to understand your emotional state and find the right balance.</p>
+        <p class="hero-subtitle">识别你的 🔥 辛辣（压倒性）、🧈 油腻（强迫性）和 🥬 蔬菜（滋养性）元素，理解你的情绪状态，找到正确的平衡。</p>
+        </div>
     </section>
 
     <!-- Main Content -->
-        <style>
-            .check-content, .check-card {
-                color: #000000 !important;
-            }
-            .check-content h1, .check-content h2, .check-content h3, .check-content p {
-                color: #000000 !important;
-            }
-            #saladQuestions, #saladQuestions div, #saladQuestions p, #saladQuestions span, #saladQuestions label, #saladQuestions h4, #saladQuestions button, #saladQuestions .question-card, #saladQuestions .option-btn {
-                color: #000000 !important;
-            }
-        </style>
+        
     <div class="salad-check-content">
         <div class="salad-check-card">
             <!-- Quick Access to 沙拉罗盘 -->
             <div class="compass-link-card">
                 <div>
-                    <div class="compass-text"><i class="fas fa-compass"></i> Need a quick check-in?</div>
-                    <div class="compass-subtext">Use the Salad Plate Compass for instant emotional navigation.</div>
+                    <div class="compass-text"><i class="fas fa-compass"></i> 需要快速了解自己的状态？</div>
+                    <div class="compass-subtext">使用沙拉盘指南针快速导航你的情绪状态。</div>
                 </div>
                 <button class="btn-secondary" onclick="window.location.href='salad-compass.html'" style="white-space: nowrap;">
-                    <i class="fas fa-compass"></i> 打开 Compass
+                    <i class="fas fa-compass"></i> 打开指南针
                 </button>
             </div>
 
@@ -636,7 +356,7 @@
 
             <div id="saladResults" class="hidden">
                 <div class="results-plate">
-                    <h3>Your Emotional Salad</h3>
+                    <h3>你的情绪沙拉</h3>
                     <div class="plate-visual">
                         <div class="plate-section plate-spicy">
                             <div class="plate-emoji">🔥</div>
@@ -654,28 +374,28 @@
                     <div class="results-breakdown">
                         <div class="breakdown-item spicy">
                             <div class="breakdown-score" id="spicyScoreResult">0%</div>
-                            <div class="breakdown-label">Spicy (Overwhelming)</div>
+                            <div class="breakdown-label">辛辣（压倒性）</div>
                         </div>
                         <div class="breakdown-item greasy">
                             <div class="breakdown-score" id="greasyScoreResult">0%</div>
-                            <div class="breakdown-label">Greasy (Compulsive)</div>
+                            <div class="breakdown-label">油腻（强迫性）</div>
                         </div>
                         <div class="breakdown-item vegetable">
                             <div class="breakdown-score" id="vegetableScoreResult">0%</div>
-                            <div class="breakdown-label">Vegetable (Nourishing)</div>
+                            <div class="breakdown-label">蔬菜（滋养性）</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="protocol-section">
-                    <h3><i class="fas fa-clipboard-list"></i> Your Personalized Protocol</h3>
+                    <h3><i class="fas fa-clipboard-list"></i> 你的个性化方案</h3>
                     <div id="protocolSteps">
                         <!-- Protocol steps will be generated here -->
                     </div>
                 </div>
 
                 <button class="btn-primary" onclick="restartSaladCheck()">
-                    <i class="fas fa-redo"></i> Take Check Again
+                    <i class="fas fa-redo"></i> 重新测试
                 </button>
             </div>
         </div>
@@ -711,48 +431,48 @@
         // Salad Check Logic (preserved from original)
         const saladQuestions = [
             {
-                question: "How often do you feel overwhelmed by your emotions?",
+                question: "你多久会被自己的情绪压倒一次？",
                 options: [
-                    { text: "Rarely - I can usually manage my emotions", scores: { spicy: 1, greasy: 0, vegetable: 3 } },
-                    { text: "Sometimes - I get overwhelmed but recover", scores: { spicy: 2, greasy: 1, vegetable: 2 } },
-                    { text: "Often - I frequently feel overwhelmed", scores: { spicy: 3, greasy: 2, vegetable: 1 } },
-                    { text: "Constantly - I feel overwhelmed most of the time", scores: { spicy: 4, greasy: 3, vegetable: 0 } }
+                    { text: "很少——我通常能管理好自己的情绪", scores: { spicy: 1, greasy: 0, vegetable: 3 } },
+                    { text: "有时——我会被压倒但能恢复", scores: { spicy: 2, greasy: 1, vegetable: 2 } },
+                    { text: "经常——我频繁感到被压倒", scores: { spicy: 3, greasy: 2, vegetable: 1 } },
+                    { text: "持续——大多数时候我都感到被压倒", scores: { spicy: 4, greasy: 3, vegetable: 0 } }
                 ]
             },
             {
-                question: "When you're stressed, what do you typically do?",
+                question: "当你感到压力时，你通常会怎么做？",
                 options: [
-                    { text: "Take deep breaths and ground myself", scores: { spicy: 0, greasy: 0, vegetable: 4 } },
-                    { text: "Talk to someone about it", scores: { spicy: 1, greasy: 0, vegetable: 3 } },
-                    { text: "Try to distract myself with activities", scores: { spicy: 2, greasy: 2, vegetable: 1 } },
-                    { text: "Engage in compulsive behaviors (eating, shopping, etc.)", scores: { spicy: 3, greasy: 4, vegetable: 0 } }
+                    { text: "深呼吸，让自己踏实下来", scores: { spicy: 0, greasy: 0, vegetable: 4 } },
+                    { text: "找人倾诉", scores: { spicy: 1, greasy: 0, vegetable: 3 } },
+                    { text: "尝试用活动分散注意力", scores: { spicy: 2, greasy: 2, vegetable: 1 } },
+                    { text: "陷入强迫性行为（暴食、购物等）", scores: { spicy: 3, greasy: 4, vegetable: 0 } }
                 ]
             },
             {
-                question: "How would you describe your emotional intensity?",
+                question: "你如何描述自己的情绪强度？",
                 options: [
-                    { text: "Calm and steady most of the time", scores: { spicy: 0, greasy: 0, vegetable: 4 } },
-                    { text: "Moderate ups and downs", scores: { spicy: 2, greasy: 1, vegetable: 2 } },
-                    { text: "Intense emotions that come and go", scores: { spicy: 3, greasy: 2, vegetable: 1 } },
-                    { text: "Extremely intense emotions that feel uncontrollable", scores: { spicy: 4, greasy: 3, vegetable: 0 } }
+                    { text: "大多数时候平静稳定", scores: { spicy: 0, greasy: 0, vegetable: 4 } },
+                    { text: "有些起伏，但适中", scores: { spicy: 2, greasy: 1, vegetable: 2 } },
+                    { text: "强烈的情绪时来时去", scores: { spicy: 3, greasy: 2, vegetable: 1 } },
+                    { text: "极度强烈的情绪，感觉无法控制", scores: { spicy: 4, greasy: 3, vegetable: 0 } }
                 ]
             },
             {
-                question: "What's your relationship with comfort activities?",
+                question: "你与舒缓活动的关系如何？",
                 options: [
-                    { text: "I enjoy them in moderation", scores: { spicy: 0, greasy: 1, vegetable: 3 } },
-                    { text: "I use them occasionally when needed", scores: { spicy: 1, greasy: 2, vegetable: 2 } },
-                    { text: "I rely on them frequently", scores: { spicy: 2, greasy: 3, vegetable: 1 } },
-                    { text: "I feel dependent on them to cope", scores: { spicy: 3, greasy: 4, vegetable: 0 } }
+                    { text: "我适度享受它们", scores: { spicy: 0, greasy: 1, vegetable: 3 } },
+                    { text: "我偶尔在需要时使用", scores: { spicy: 1, greasy: 2, vegetable: 2 } },
+                    { text: "我经常依赖它们", scores: { spicy: 2, greasy: 3, vegetable: 1 } },
+                    { text: "我依赖它们来应对生活", scores: { spicy: 3, greasy: 4, vegetable: 0 } }
                 ]
             },
             {
-                question: "How do you handle difficult conversations?",
+                question: "你如何处理困难的对话？",
                 options: [
-                    { text: "I approach them calmly and directly", scores: { spicy: 0, greasy: 0, vegetable: 4 } },
-                    { text: "I prepare myself mentally first", scores: { spicy: 1, greasy: 1, vegetable: 3 } },
-                    { text: "I avoid them or get very anxious", scores: { spicy: 3, greasy: 2, vegetable: 1 } },
-                    { text: "I become overwhelmed or shut down", scores: { spicy: 4, greasy: 3, vegetable: 0 } }
+                    { text: "我平静、直接地面对", scores: { spicy: 0, greasy: 0, vegetable: 4 } },
+                    { text: "我先进行心理准备", scores: { spicy: 1, greasy: 1, vegetable: 3 } },
+                    { text: "我会回避或变得非常焦虑", scores: { spicy: 3, greasy: 2, vegetable: 1 } },
+                    { text: "我会被压倒或完全关闭自我", scores: { spicy: 4, greasy: 3, vegetable: 0 } }
                 ]
             }
         ];
@@ -820,7 +540,7 @@
         function updateProgress() {
             const progress = ((currentQuestion + 1) / saladQuestions.length) * 100;
             document.getElementById('saladProgress').style.width = `${progress}%`;
-            document.getElementById('saladProgressText').textContent = `Question ${currentQuestion + 1} of ${saladQuestions.length}`;
+            document.getElementById('saladProgressText').textContent = `第 ${currentQuestion + 1} 题，共 ${saladQuestions.length} 题`;
         }
 
         function showResults() {
@@ -852,22 +572,22 @@
 
             if (spicy > 40) {
                 steps.push({
-                    title: "Cool the Heat",
-                    description: "Practice 5-4-3-2-1 grounding technique when emotions feel overwhelming"
+                    title: "冷却热度",
+                    description: "当情绪感到压倒性时，练习5-4-3-2-1 落地技术"
                 });
             }
 
             if (greasy > 40) {
                 steps.push({
-                    title: "Clean the Grease",
-                    description: "Replace one compulsive behavior with a mindful activity today"
+                    title: "清除油腻",
+                    description: "今天用一项正念活动替代一个强迫性行为"
                 });
             }
 
             if (vegetable < 30) {
                 steps.push({
-                    title: "Add More Vegetables",
-                    description: "Schedule one nourishing activity that brings genuine joy"
+                    title: "增加更多蔬菜",
+                    description: "安排一项能带来真正快乐的滋养活动"
                 });
             }
 
@@ -875,16 +595,16 @@
             if (steps.length === 0) {
                 steps = [
                     {
-                        title: "Daily Check-in",
-                        description: "Use the 沙拉罗盘 daily to monitor your emotional balance"
+                        title: "每日检查",
+                        description: "每天使用沙拉指南针监测你的情绪平衡"
                     },
                     {
-                        title: "Mindful Moments",
-                        description: "Take 3 conscious breaths before each meal"
+                        title: "正念时刻",
+                        description: "每餐前进行3次有意识的呼吸"
                     },
                     {
-                        title: "Evening Reflection",
-                        description: "日记 about your emotional states for 5 minutes"
+                        title: "晚间反思",
+                        description: "每晚用5分钟写日记，记录你的情绪状态"
                     }
                 ];
             }
@@ -909,5 +629,49 @@
             startSaladCheck();
         });
     </script>
+    <script>
+        function toggleToolsDropdown(btn) {
+            var menu = btn.nextElementSibling;
+            var open = menu.classList.toggle('open');
+            btn.setAttribute('aria-expanded', open);
+            if (open) {
+                var r = btn.getBoundingClientRect();
+                menu.style.top  = (r.bottom + window.scrollY + 6) + 'px';
+                menu.style.left = r.left + 'px';
+            }
+        }
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.tools-dropdown-container')) {
+                document.querySelectorAll('.tools-dropdown-menu').forEach(function(m){ m.classList.remove('open'); });
+                document.querySelectorAll('.tools-dropdown-btn').forEach(function(b){ b.setAttribute('aria-expanded','false'); });
+            }
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.tools-dropdown-menu').forEach(function(m){ m.classList.remove('open'); });
+            }
+        });
+        (function() {
+            var btn = document.getElementById('mobile-menu-btn');
+            var links = document.getElementById('nav-links');
+            if (!btn || !links) return;
+            btn.addEventListener('click', function() {
+                var open = links.classList.toggle('mobile-open');
+                btn.setAttribute('aria-expanded', open);
+                btn.querySelector('i').className = open ? 'fas fa-times' : 'fas fa-bars';
+            });
+            links.querySelectorAll('a').forEach(function(a) {
+                a.addEventListener('click', function() {
+                    links.classList.remove('mobile-open');
+                    btn.setAttribute('aria-expanded', 'false');
+                    btn.querySelector('i').className = 'fas fa-bars';
+                });
+            });
+        }());
+    </script>
+    </main>
+
+
+    <script src="lang-switcher.js"></script>
 </body>
 </html>

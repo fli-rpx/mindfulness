@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation — Mindfulness Therapy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { margin: 0; overflow: hidden; }
+        .nav { position: relative; }
+    </style>
+</head>
+<body>
+    <nav class="nav" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo" target="_top" aria-label="Mindfulness Therapy – Home">
+                <i class="fas fa-leaf" aria-hidden="true"></i> Mindfulness Therapy
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html"      class="nav-link" target="_top">Home</a>
+                <a href="cycle.html"      class="nav-link" target="_top">Cycle</a>
+                <a href="assessment.html" class="nav-link" target="_top">AI Chat</a>
+                <div class="tools-dropdown-container">
+                    <button class="tools-dropdown-btn" onclick="toggleToolsDropdown(this)"
+                            aria-haspopup="true" aria-expanded="false" aria-controls="toolsMenu">
+                        Tools <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                    </button>
+                    <div class="tools-dropdown-menu" id="toolsMenu" role="menu">
+                        <a href="emotion-explorer.html"    target="_top" role="menuitem"><i class="fas fa-palette"      aria-hidden="true"></i> Emotion Explorer</a>
+                        <a href="emotion-balance.html"     target="_top" role="menuitem"><i class="fas fa-balance-scale" aria-hidden="true"></i> Emotion Balance</a>
+                        <a href="emotion-meditation.html"  target="_top" role="menuitem"><i class="fas fa-wind"          aria-hidden="true"></i> Emotion Meditation</a>
+                        <a href="expectation-cooling.html" target="_top" role="menuitem"><i class="fas fa-snowflake"     aria-hidden="true"></i> Expectation Cooling</a>
+                        <a href="hypnosis.html"            target="_top" role="menuitem"><i class="fas fa-moon"          aria-hidden="true"></i> Hypnosis</a>
+                        <a href="neuro.html"               target="_top" role="menuitem"><i class="fas fa-brain"         aria-hidden="true"></i> Neuro·Contemplative</a>
+                        <a href="salad-compass.html"       target="_top" role="menuitem"><i class="fas fa-compass"       aria-hidden="true"></i> Salad Compass</a>
+                        <a href="salad-check.html"         target="_top" role="menuitem"><i class="fas fa-check-circle"  aria-hidden="true"></i> Full Salad Check</a>
+                        <a href="interventions.html"       target="_top" role="menuitem"><i class="fas fa-heart-pulse"   aria-hidden="true"></i> Interventions</a>
+                        <a href="connection.html"          target="_top" role="menuitem"><i class="fas fa-handshake"     aria-hidden="true"></i> Connection</a>
+                    </div>
+                </div>
+                <a href="journal.html"    class="nav-link" target="_top">Journal</a>
+                <a href="progress.html"   class="nav-link" target="_top">Progress</a>
+                <a href="learn.html"      class="nav-link" target="_top">Learn</a>
+                <a href="connection.html" class="nav-link" target="_top">Connection</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn"
+                    aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-links">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
+    </nav>
+
+    <script>
+        function toggleToolsDropdown(btn) {
+            var menu = btn.nextElementSibling;
+            var open = menu.classList.toggle('open');
+            btn.setAttribute('aria-expanded', open);
+            if (open) {
+                var r = btn.getBoundingClientRect();
+                menu.style.top  = (r.bottom + 6) + 'px';
+                menu.style.left = r.left + 'px';
+            }
+        }
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.tools-dropdown-container')) {
+                document.querySelectorAll('.tools-dropdown-menu').forEach(function(m){ m.classList.remove('open'); });
+                document.querySelectorAll('.tools-dropdown-btn').forEach(function(b){ b.setAttribute('aria-expanded','false'); });
+            }
+        });
+
+        (function() {
+            var btn = document.getElementById('mobile-menu-btn');
+            var links = document.getElementById('nav-links');
+            if (!btn || !links) return;
+            btn.addEventListener('click', function() {
+                var open = links.classList.toggle('mobile-open');
+                btn.setAttribute('aria-expanded', open);
+                btn.querySelector('i').className = open ? 'fas fa-times' : 'fas fa-bars';
+            });
+        }());
+    </script>
+</body>
+</html>

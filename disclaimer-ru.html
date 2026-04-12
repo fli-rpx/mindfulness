@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Медицинский отказ от ответственности платформы осознанности">
+    <meta name="copyright" content="© 2026 Осознанность. All rights reserved.">
+    <title>Медицинский отказ от ответственности - Осознанность</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Перейти к основному содержанию</a>
+
+    <nav class="nav" aria-label="Основная навигация">
+        <div class="nav-container">
+            <a href="index-ru.html" class="nav-logo" aria-label="Осознанность – Главная">
+                <i class="fas fa-leaf" aria-hidden="true"></i> Осознанность
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="index-ru.html" class="nav-link">Главная</a>
+                <a href="cycle-ru.html" class="nav-link">Цикл</a>
+                <a href="assessment-ru.html" class="nav-link">AI Чат</a>
+                <div class="tools-dropdown-container">
+                    <button class="tools-dropdown-btn" onclick="toggleToolsDropdown(this)"
+                            aria-haspopup="true" aria-expanded="false" aria-controls="toolsMenu">
+                        Инструменты <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                    </button>
+                                        <div class="tools-dropdown-menu" id="toolsMenu" role="menu">
+                        <a href="emotion-explorer-ru.html" role="menuitem">🎨 Исследователь эмоций</a>
+                        <a href="emotion-balance-ru.html" role="menuitem">⚡ Баланс эмоций</a>
+                        <a href="emotion-meditation-ru.html" role="menuitem">🌬️ Эмоциональная медитация</a>
+                        <a href="expectation-cooling-ru.html" role="menuitem">❄️ Охлаждение ожиданий</a>
+                        <a href="hypnosis-ru.html" role="menuitem">🌀 Гипноз</a>
+                        <a href="neuro-ru.html" role="menuitem">🧠 Нейро·Созерцание</a>
+                        <a href="salad-compass-ru.html" role="menuitem">🥗 Компас тарелки</a>
+                        <a href="salad-check-ru.html" role="menuitem">🥬 Полная проверка</a>
+                        <a href="interventions-ru.html" role="menuitem">🧰 Интервенции</a>
+                        <a href="connection-ru.html" role="menuitem">🤝 Связь</a>
+                    </div>
+                </div>
+                <a href="journal-ru.html" class="nav-link">Журнал</a>
+                <a href="progress-ru.html" class="nav-link">Прогресс</a>
+                <a href="learn-ru.html" class="nav-link">Учиться</a>
+                <a href="connection-ru.html" class="nav-link">Связь</a>
+            </div>
+            <!-- Language Switcher -->
+            <div class="lang-switcher">
+                <button class="lang-btn" id="lang-btn"
+                        onclick="toggleLangMenu(this)"
+                        aria-haspopup="true" aria-expanded="false"
+                        aria-label="Switch language">
+                    <i class="fas fa-globe" aria-hidden="true"></i>
+                    <span class="lang-current">EN</span>
+                    <i class="fas fa-chevron-down lang-arrow" aria-hidden="true"></i>
+                </button>
+                <div class="lang-menu" id="langMenu" role="menu">
+                    <a href="#" id="lang-link-en" role="menuitem" hreflang="en">🇬🇧 English</a>
+                    <a href="#" id="lang-link-zh" role="menuitem" hreflang="zh-CN">🇨🇳 中文</a>
+                    <a href="#" id="lang-link-ru" role="menuitem" hreflang="ru">🇷🇺 Русский</a>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn"
+                    aria-label="Открыть меню" aria-expanded="false" aria-controls="nav-links">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main id="main-content" class="legal-page">
+        <h1>Медицинский отказ от ответственности</h1>
+
+        <section class="disclaimer-section">
+            <h2>Не является медицинским советом</h2>
+            <p>Контент, представленный на данном веб-сайте, включая, но не ограничиваясь, текстом, графикой, изображениями, управляемыми медитациями, дыхательными упражнениями и другими материалами, предназначен <strong>исключительно для информационных и образовательных целей</strong>. Он не предназначен для замены профессиональной медицинской консультации, диагностики или лечения.</p>
+            <p>Информация на этой платформе представляет собой общие оздоровительные практики и не должна рассматриваться как конкретный медицинский совет для вашей ситуации.</p>
+        </section>
+
+        <section class="disclaimer-section">
+            <h2>Всегда обращайтесь за профессиональной консультацией</h2>
+            <p>Никогда не пренебрегайте профессиональными медицинскими советами и не откладывайте обращение к врачу из-за информации, прочитанной на этом сайте. Если вы думаете, что переживаете медицинскую экстренную ситуацию, немедленно свяжитесь с врачом или вызовите скорую помощь.</p>
+            <p>Использование любой информации, предоставленной на этом сайте, осуществляется исключительно на ваш страх и риск. Мы рекомендуем консультироваться с квалифицированными специалистами в области здравоохранения по любым вопросам о вашем психическом или физическом здоровье.</p>
+        </section>
+
+        <section class="disclaimer-section">
+            <h2>Поддержка психического здоровья</h2>
+            <p>Практики осознанности, техники медитации и оздоровительные упражнения, описанные на этом сайте, являются дополнительными инструментами для поддержания здоровья. Они <strong>не являются лечением клинических расстройств психического здоровья</strong>, таких как депрессия, тревожные расстройства, ПТСР, биполярное расстройство или другие психиатрические диагнозы.</p>
+            <p>Хотя осознанность доказала свою пользу (как указано в наших научных ссылках), она не должна заменять профессиональное лечение психического здоровья там, где оно необходимо.</p>
+
+            <div class="emergency-box">
+                <h3><i class="fas fa-exclamation-triangle"></i> Если вы испытываете мысли о самоповреждении или суициде:</h3>
+                <ul>
+                    <li><strong>Экстренные службы:</strong> Звоните 112 (Россия) или по местному номеру экстренной помощи</li>
+                    <li><strong>Телефон доверия (Россия):</strong> 8-800-2000-122 (бесплатно, круглосуточно)</li>
+                    <li><strong>Кризисная психологическая помощь:</strong> 8-800-100-49-94</li>
+                    <li><strong>Международная ассоциация по предотвращению суицида:</strong> <a href="https://www.iasp.info/resources/Crisis_Centres/" target="_blank" rel="noopener">Найти кризисные центры по всему миру</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="disclaimer-section">
+            <h2>Отсутствие гарантии результатов</h2>
+            <p>Индивидуальные результаты от практики осознанности могут значительно варьироваться. Преимущества, указанные на этом сайте, основаны на общих исследованиях и средних показателях по популяции, и могут не отражать ваш личный опыт.</p>
+            <p>На результаты влияют такие факторы, как индивидуальная физиология, регулярность практики, состояние здоровья и личные обстоятельства. Мы не даём никаких гарантий в отношении конкретных результатов.</p>
+        </section>
+
+        <section class="disclaimer-section">
+            <h2>Научно обоснованные утверждения</h2>
+            <p>Когда мы цитируем исследования о пользе осознанности (например, снижение стресса, улучшение концентрации или изменение уровня кортизола), эти ссылки относятся к рецензируемым исследованиям из научной литературы. Однако:</p>
+            <ul>
+                <li>Результаты исследований представляют групповые средние, а не индивидуальные результаты</li>
+                <li>Условия исследования могут отличаться от самостоятельной практики</li>
+                <li>Новые исследования могут обновлять или опровергать предыдущие данные</li>
+                <li>Мы стараемся поддерживать актуальность цитат, но не можем гарантировать их обновление в режиме реального времени</li>
+            </ul>
+        </section>
+
+        <section class="disclaimer-section">
+            <h2>Конфиденциальность и данные</h2>
+            <p>Любые инструменты самооценки или функции ведения дневника на этой платформе хранят данные локально на вашем устройстве, если явно не указано иное. Мы не имеем доступа к вашим личным размышлениям или ответам на оценочные вопросы. Для получения дополнительной информации ознакомьтесь с нашей Политикой конфиденциальности.</p>
+        </section>
+
+        <section class="disclaimer-section">
+            <h2>Последнее обновление</h2>
+            <p>Настоящий отказ от ответственности был последний раз обновлён <strong>7 апреля 2026 года</strong>. Мы оставляем за собой право обновлять или изменять настоящий отказ от ответственности в любое время. Пожалуйста, периодически просматривайте эту страницу для ознакомления с любыми изменениями.</p>
+        </section>
+
+        <a href="index-ru.html" class="legal-back-link">
+            <i class="fas fa-arrow-left"></i> Вернуться на главную
+        </a>
+    </main>
+
+    <footer style="padding: 40px 24px; background: var(--bg); border-top: 1px solid var(--border); text-align: center;">
+        <p style="color: var(--text-light); font-size: 0.875rem;">
+            © 2026 Осознанность. Все права защищены.
+            <span class="footer-legal">
+                <a href="disclaimer-ru.html">Медицинский отказ</a> |
+                <a href="#">Политика конфиденциальности</a>
+            </span>
+        </p>
+    </footer>
+
+    <script>
+        function toggleToolsDropdown(btn) {
+            var menu = btn.nextElementSibling;
+            var open = menu.classList.toggle('open');
+            btn.setAttribute('aria-expanded', open);
+            if (open) {
+                var r = btn.getBoundingClientRect();
+                menu.style.top  = (r.bottom + window.scrollY + 6) + 'px';
+                menu.style.left = r.left + 'px';
+            }
+        }
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.tools-dropdown-container')) {
+                document.querySelectorAll('.tools-dropdown-menu').forEach(function(m){ m.classList.remove('open'); });
+                document.querySelectorAll('.tools-dropdown-btn').forEach(function(b){ b.setAttribute('aria-expanded','false'); });
+            }
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.tools-dropdown-menu').forEach(function(m){ m.classList.remove('open'); });
+            }
+        });
+        (function() {
+            var btn = document.getElementById('mobile-menu-btn');
+            var links = document.getElementById('nav-links');
+            if (!btn || !links) return;
+            btn.addEventListener('click', function() {
+                var open = links.classList.toggle('mobile-open');
+                btn.setAttribute('aria-expanded', open);
+                btn.querySelector('i').className = open ? 'fas fa-times' : 'fas fa-bars';
+            });
+            links.querySelectorAll('a').forEach(function(a) {
+                a.addEventListener('click', function() {
+                    links.classList.remove('mobile-open');
+                    btn.setAttribute('aria-expanded', 'false');
+                    btn.querySelector('i').className = 'fas fa-bars';
+                });
+            });
+        }());
+    </script>
+    <script src="lang-switcher.js"></script>
+</body>
+</html>
