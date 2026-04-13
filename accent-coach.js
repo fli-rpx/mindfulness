@@ -222,6 +222,7 @@
     var manualTranscriptInput = document.getElementById("manual-transcript-input");
     var analyzeManualBtn = document.getElementById("analyze-manual-btn");
     var compatNote = document.getElementById("compat-note");
+    var compatPanel = document.getElementById("compat-panel");
 
     function init() {
         logDebug("init() start");
@@ -387,6 +388,9 @@
             } else if (!hasMic || !hasSpeech) {
                 compatNote.textContent = T.compatModeActive;
             }
+        }
+        if (compatPanel && (isX5 || !hasMic || !hasSpeech)) {
+            compatPanel.open = true;
         }
         engineNote.textContent = parts.length ? parts.join(" ") : T.engineGood;
     }

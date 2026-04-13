@@ -74,8 +74,8 @@
                     <button class="btn btn-primary" id="analyze-btn"><i class="fas fa-wave-square"></i> Анализ произношения</button>
                 </div>
 
-                <div class="feedback-box">
-                    <strong>Режим совместимости (UC/старые браузеры)</strong>
+                <details class="feedback-box" id="compat-panel">
+                    <summary><strong>Режим совместимости (UC/старые браузеры) — нажмите, чтобы открыть</strong></summary>
                     <div class="btn-row">
                         <label class="btn btn-secondary" for="upload-audio-input" style="cursor:pointer;">
                             <i class="fas fa-upload"></i> Загрузить аудиофайл
@@ -89,7 +89,7 @@
                         </button>
                     </div>
                     <p class="small-note" id="compat-note">Используйте этот режим, если запись или распознавание речи недоступны.</p>
-                </div>
+                </details>
 
                 <div class="canvas-grid">
                     <div class="canvas-wrap"><h4 id="wave-title">Волновая форма</h4><canvas id="wave-canvas" width="460" height="140"></canvas></div>

@@ -74,8 +74,8 @@
                     <button class="btn btn-primary" id="analyze-btn"><i class="fas fa-wave-square"></i> 分析发音</button>
                 </div>
 
-                <div class="feedback-box">
-                    <strong>兼容模式（UC/旧版浏览器）</strong>
+                <details class="feedback-box" id="compat-panel">
+                    <summary><strong>兼容模式（UC/旧版浏览器）— 点击展开</strong></summary>
                     <div class="btn-row">
                         <label class="btn btn-secondary" for="upload-audio-input" style="cursor:pointer;">
                             <i class="fas fa-upload"></i> 上传音频文件
@@ -89,7 +89,7 @@
                         </button>
                     </div>
                     <p class="small-note" id="compat-note">如果浏览器不支持录音或语音识别，请使用该模式。</p>
-                </div>
+                </details>
 
                 <div class="canvas-grid">
                     <div class="canvas-wrap"><h4 id="wave-title">波形图</h4><canvas id="wave-canvas" width="460" height="140"></canvas></div>
