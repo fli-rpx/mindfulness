@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Тренажер английского произношения: запись, анализ, фонемная обратная связь, визуализация волны и высоты.">
+    <title>Accent Coach v2 - Тренажер английского произношения</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="accent-coach.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Перейти к основному содержанию</a>
+
+    <nav class="nav" aria-label="Главная навигация">
+        <div class="nav-container">
+            <a href="index-ru.html" class="nav-logo" aria-label="Осознанность - Главная">
+                <i class="fas fa-leaf" aria-hidden="true"></i> Осознанность
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="index-ru.html" class="nav-link">Главная</a>
+                <a href="learn-ru.html" class="nav-link">Учиться</a>
+                <a href="accent-coach-ru.html" class="nav-link active">Accent Coach</a>
+            </div>
+            <div class="lang-switcher">
+                <button class="lang-btn" id="lang-btn" onclick="toggleLangMenu(this)" aria-haspopup="true" aria-expanded="false" aria-label="Сменить язык">
+                    <i class="fas fa-globe" aria-hidden="true"></i>
+                    <span class="lang-current">RU</span>
+                    <i class="fas fa-chevron-down lang-arrow" aria-hidden="true"></i>
+                </button>
+                <div class="lang-menu" id="langMenu" role="menu">
+                    <a href="#" id="lang-link-en" role="menuitem" hreflang="en">🇬🇧 English</a>
+                    <a href="#" id="lang-link-zh" role="menuitem" hreflang="zh-CN">🇨🇳 中文</a>
+                    <a href="#" id="lang-link-ru" role="menuitem" hreflang="ru">🇷🇺 Русский</a>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav-links">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-eyebrow"><i class="fas fa-microphone-lines"></i> Тренировка произношения v2</div>
+                <h1>English Accent Coach</h1>
+                <p class="hero-subtitle">Дриллы, IPA-обратная связь, визуализация волны и высоты, ежедневный план и стрик.</p>
+            </div>
+        </section>
+
+        <div class="coach-content">
+            <section class="coach-card" aria-labelledby="drill-title">
+                <h2 id="drill-title">1) Выберите фразу для дрилла</h2>
+                <p class="coach-subtitle">Повторите одну фразу 3 раза, затем переходите к следующей.</p>
+                <div class="drill-grid" id="drill-grid"></div>
+            </section>
+
+            <section class="coach-card" aria-labelledby="practice-title">
+                <h2 id="practice-title">2) Слушайте, записывайте, анализируйте</h2>
+                <div class="practice-target" id="target-sentence"></div>
+                <div class="focus-chip-row" id="focus-chips"></div>
+                <div class="ipa-line"><strong>Целевой IPA:</strong> <span id="ipa-target">--</span></div>
+                <div class="phoneme-grid" id="phoneme-grid"></div>
+
+                <div class="btn-row">
+                    <button class="btn btn-secondary" id="play-reference-btn"><i class="fas fa-volume-high"></i> Эталонное произношение</button>
+                    <button class="btn btn-primary" id="start-record-btn"><i class="fas fa-circle"></i> Начать запись</button>
+                    <button class="btn btn-secondary" id="stop-record-btn" disabled><i class="fas fa-stop"></i> Стоп</button>
+                    <button class="btn btn-secondary" id="play-recording-btn" disabled><i class="fas fa-play"></i> Моя запись</button>
+                    <button class="btn btn-primary" id="analyze-btn"><i class="fas fa-wave-square"></i> Анализ произношения</button>
+                </div>
+
+                <div class="canvas-grid">
+                    <div class="canvas-wrap"><h4 id="wave-title">Волновая форма</h4><canvas id="wave-canvas" width="460" height="140"></canvas></div>
+                    <div class="canvas-wrap"><h4 id="pitch-title">Контур высоты (F0)</h4><canvas id="pitch-canvas" width="460" height="140"></canvas></div>
+                </div>
+
+                <div class="score-grid">
+                    <div class="score-box"><div class="score-label" id="label-match">Совпадение транскрипта</div><div class="score-value" id="score-match">--</div></div>
+                    <div class="score-box"><div class="score-label" id="label-pace">Темп (слов/сек)</div><div class="score-value" id="score-pace">--</div></div>
+                    <div class="score-box"><div class="score-label" id="label-grade">Оценка четкости</div><div class="score-value" id="score-grade">--</div></div>
+                    <div class="score-box"><div class="score-label" id="label-phoneme">Фонемный фокус</div><div class="score-value" id="score-phoneme">--</div></div>
+                </div>
+
+                <div class="feedback-box"><strong id="transcript-title">Последний транскрипт:</strong><div id="transcript-output">Пока нет попыток.</div></div>
+                <div class="feedback-box"><strong id="tips-title">Рекомендации:</strong><ul id="tip-list"><li>Выберите одну фразу и повторяйте ее до плавного произношения.</li></ul></div>
+                <p class="small-note" id="engine-note"></p>
+            </section>
+
+            <section class="coach-card" aria-labelledby="pairs-title">
+                <h2 id="pairs-title">3) Минимальные пары</h2>
+                <p class="coach-subtitle" id="pair-subtitle">Тренируйте контрасты ship/sheep, rice/lice, think/sink.</p>
+                <div class="btn-row"><button class="btn btn-primary" id="play-pair-btn"><i class="fas fa-headphones"></i> Минимальные пары</button></div>
+                <div class="pair-word-row">
+                    <button class="pair-option" id="pair-option-a"></button>
+                    <button class="pair-option" id="pair-option-b"></button>
+                </div>
+                <p class="small-note" id="pair-result">Нажмите «Минимальные пары», чтобы начать.</p>
+            </section>
+
+            <section class="coach-card" aria-labelledby="progress-title">
+                <h2 id="progress-title">4) Прогресс и план на день</h2>
+                <div class="score-grid">
+                    <div class="score-box"><div class="score-label" id="label-sessions">Сессии</div><div class="score-value" id="session-count">0</div></div>
+                    <div class="score-box"><div class="score-label" id="label-drills">Пройдено фраз</div><div class="score-value" id="drill-count">0</div></div>
+                    <div class="score-box"><div class="score-label" id="label-pair-acc">Точность минимальных пар</div><div class="score-value" id="pair-accuracy">0%</div></div>
+                    <div class="score-box"><div class="score-label" id="label-streak">Текущий стрик</div><div class="score-value" id="streak-count">0 дней</div></div>
+                </div>
+                <p class="small-note"><strong id="plan-date-label">План на сегодня:</strong> <span id="plan-date"></span></p>
+                <div class="lesson-list" id="lesson-list"></div>
+            </section>
+        </div>
+    </main>
+
+    <script src="accent-coach.js"></script>
+    <script src="lang-switcher.js"></script>
+    <script>
+        (function () {
+            var btn = document.getElementById('mobile-menu-btn');
+            var links = document.getElementById('nav-links');
+            if (!btn || !links) return;
+            btn.addEventListener('click', function () {
+                var open = links.classList.toggle('mobile-open');
+                btn.setAttribute('aria-expanded', open);
+                btn.querySelector('i').className = open ? 'fas fa-times' : 'fas fa-bars';
+            });
+        }());
+    </script>
+</body>
+</html>

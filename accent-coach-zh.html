@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="英语发音训练：句子跟读、录音分析、音素反馈、波形和音高可视化。">
+    <title>口音教练 v2 - 英语发音训练</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="accent-coach.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">跳转到主要内容</a>
+
+    <nav class="nav" aria-label="主导航">
+        <div class="nav-container">
+            <a href="index-zh.html" class="nav-logo" aria-label="正念疗法 - 首页">
+                <i class="fas fa-leaf" aria-hidden="true"></i> 正念疗法
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="index-zh.html" class="nav-link">首页</a>
+                <a href="learn-zh.html" class="nav-link">学习</a>
+                <a href="accent-coach-zh.html" class="nav-link active">口音教练</a>
+            </div>
+            <div class="lang-switcher">
+                <button class="lang-btn" id="lang-btn" onclick="toggleLangMenu(this)" aria-haspopup="true" aria-expanded="false" aria-label="切换语言">
+                    <i class="fas fa-globe" aria-hidden="true"></i>
+                    <span class="lang-current">中文</span>
+                    <i class="fas fa-chevron-down lang-arrow" aria-hidden="true"></i>
+                </button>
+                <div class="lang-menu" id="langMenu" role="menu">
+                    <a href="#" id="lang-link-en" role="menuitem" hreflang="en">🇬🇧 English</a>
+                    <a href="#" id="lang-link-zh" role="menuitem" hreflang="zh-CN">🇨🇳 中文</a>
+                    <a href="#" id="lang-link-ru" role="menuitem" hreflang="ru">🇷🇺 Русский</a>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="打开导航菜单" aria-expanded="false" aria-controls="nav-links">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-eyebrow"><i class="fas fa-microphone-lines"></i> 发音训练 v2</div>
+                <h1>英语口音教练</h1>
+                <p class="hero-subtitle">跟读训练、录音回放、音素级反馈、波形与音高可视化、每日练习计划。</p>
+            </div>
+        </section>
+
+        <div class="coach-content">
+            <section class="coach-card" aria-labelledby="drill-title">
+                <h2 id="drill-title">1) 选择朗读训练句</h2>
+                <p class="coach-subtitle">建议同一句连续练习3遍，再切换到下一句。</p>
+                <div class="drill-grid" id="drill-grid"></div>
+            </section>
+
+            <section class="coach-card" aria-labelledby="practice-title">
+                <h2 id="practice-title">2) 收听、录音、分析</h2>
+                <div class="practice-target" id="target-sentence"></div>
+                <div class="focus-chip-row" id="focus-chips"></div>
+                <div class="ipa-line"><strong>目标 IPA：</strong> <span id="ipa-target">--</span></div>
+                <div class="phoneme-grid" id="phoneme-grid"></div>
+
+                <div class="btn-row">
+                    <button class="btn btn-secondary" id="play-reference-btn"><i class="fas fa-volume-high"></i> 播放标准音</button>
+                    <button class="btn btn-primary" id="start-record-btn"><i class="fas fa-circle"></i> 开始录音</button>
+                    <button class="btn btn-secondary" id="stop-record-btn" disabled><i class="fas fa-stop"></i> 停止</button>
+                    <button class="btn btn-secondary" id="play-recording-btn" disabled><i class="fas fa-play"></i> 播放我的录音</button>
+                    <button class="btn btn-primary" id="analyze-btn"><i class="fas fa-wave-square"></i> 分析发音</button>
+                </div>
+
+                <div class="canvas-grid">
+                    <div class="canvas-wrap"><h4 id="wave-title">波形图</h4><canvas id="wave-canvas" width="460" height="140"></canvas></div>
+                    <div class="canvas-wrap"><h4 id="pitch-title">音高轮廓 (F0)</h4><canvas id="pitch-canvas" width="460" height="140"></canvas></div>
+                </div>
+
+                <div class="score-grid">
+                    <div class="score-box"><div class="score-label" id="label-match">转写匹配度</div><div class="score-value" id="score-match">--</div></div>
+                    <div class="score-box"><div class="score-label" id="label-pace">语速 (词/秒)</div><div class="score-value" id="score-pace">--</div></div>
+                    <div class="score-box"><div class="score-label" id="label-grade">清晰度等级</div><div class="score-value" id="score-grade">--</div></div>
+                    <div class="score-box"><div class="score-label" id="label-phoneme">音素聚焦得分</div><div class="score-value" id="score-phoneme">--</div></div>
+                </div>
+
+                <div class="feedback-box"><strong id="transcript-title">最近一次转写：</strong><div id="transcript-output">尚未开始练习。</div></div>
+                <div class="feedback-box"><strong id="tips-title">建议：</strong><ul id="tip-list"><li>先固定一个句子，连续重复到流畅为止。</li></ul></div>
+                <p class="small-note" id="engine-note"></p>
+            </section>
+
+            <section class="coach-card" aria-labelledby="pairs-title">
+                <h2 id="pairs-title">3) 最小对立训练</h2>
+                <p class="coach-subtitle" id="pair-subtitle">训练易混音，如 ship/sheep、rice/lice、think/sink。</p>
+                <div class="btn-row"><button class="btn btn-primary" id="play-pair-btn"><i class="fas fa-headphones"></i> 播放最小对立挑战</button></div>
+                <div class="pair-word-row">
+                    <button class="pair-option" id="pair-option-a"></button>
+                    <button class="pair-option" id="pair-option-b"></button>
+                </div>
+                <p class="small-note" id="pair-result">点击“播放最小对立挑战”开始。</p>
+            </section>
+
+            <section class="coach-card" aria-labelledby="progress-title">
+                <h2 id="progress-title">4) 每日进度与计划</h2>
+                <div class="score-grid">
+                    <div class="score-box"><div class="score-label" id="label-sessions">练习次数</div><div class="score-value" id="session-count">0</div></div>
+                    <div class="score-box"><div class="score-label" id="label-drills">已完成句子</div><div class="score-value" id="drill-count">0</div></div>
+                    <div class="score-box"><div class="score-label" id="label-pair-acc">最小对立正确率</div><div class="score-value" id="pair-accuracy">0%</div></div>
+                    <div class="score-box"><div class="score-label" id="label-streak">连续练习</div><div class="score-value" id="streak-count">0 天</div></div>
+                </div>
+                <p class="small-note"><strong id="plan-date-label">今日计划：</strong> <span id="plan-date"></span></p>
+                <div class="lesson-list" id="lesson-list"></div>
+            </section>
+        </div>
+    </main>
+
+    <script src="accent-coach.js"></script>
+    <script src="lang-switcher.js"></script>
+    <script>
+        (function () {
+            var btn = document.getElementById('mobile-menu-btn');
+            var links = document.getElementById('nav-links');
+            if (!btn || !links) return;
+            btn.addEventListener('click', function () {
+                var open = links.classList.toggle('mobile-open');
+                btn.setAttribute('aria-expanded', open);
+                btn.querySelector('i').className = open ? 'fas fa-times' : 'fas fa-bars';
+            });
+        }());
+    </script>
+</body>
+</html>

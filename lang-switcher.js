@@ -41,6 +41,37 @@
                 link.setAttribute('aria-current', 'true');
             }
         });
+
+        ensureAccentCoachInToolsMenus(currentLang);
+    }
+
+    function ensureAccentCoachInToolsMenus(lang) {
+        var itemByLang = {
+            en: { href: 'accent-coach.html', label: '🎤 Accent Coach' },
+            zh: { href: 'accent-coach-zh.html', label: '🎤 英语口音教练' },
+            ru: { href: 'accent-coach-ru.html', label: '🎤 Тренер произношения' }
+        };
+        var item = itemByLang[lang] || itemByLang.en;
+
+        document.querySelectorAll('.tools-dropdown-menu').forEach(function (toolsMenu) {
+            // Skip if already present (either old or localized href).
+            var exists = toolsMenu.querySelector('a[href="accent-coach.html"], a[href="accent-coach-zh.html"], a[href="accent-coach-ru.html"]');
+            if (exists) return;
+
+            var anchor = document.createElement('a');
+            anchor.setAttribute('role', 'menuitem');
+            anchor.href = item.href;
+            anchor.textContent = item.label;
+
+            // Insert near other tool items; prefer before "Connection" if present.
+            var connectionLink =
+                toolsMenu.querySelector('a[href="connection.html"], a[href="connection-zh.html"], a[href="connection-ru.html"]');
+            if (connectionLink) {
+                toolsMenu.insertBefore(anchor, connectionLink);
+            } else {
+                toolsMenu.appendChild(anchor);
+            }
+        });
     }
 
     if (document.readyState === 'loading') {

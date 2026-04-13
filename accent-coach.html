@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Practice English pronunciation with guided drills, recording, phoneme-level feedback, and visual speech analytics.">
+    <title>Accent Coach v2 - English Pronunciation Trainer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="accent-coach.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <nav class="nav" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo" aria-label="Mindfulness Therapy – Home">
+                <i class="fas fa-leaf" aria-hidden="true"></i> Mindfulness Therapy
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="learn.html" class="nav-link">Learn</a>
+                <a href="accent-coach.html" class="nav-link active">Accent Coach</a>
+            </div>
+            <div class="lang-switcher">
+                <button class="lang-btn" id="lang-btn"
+                        onclick="toggleLangMenu(this)"
+                        aria-haspopup="true" aria-expanded="false"
+                        aria-label="Switch language">
+                    <i class="fas fa-globe" aria-hidden="true"></i>
+                    <span class="lang-current">EN</span>
+                    <i class="fas fa-chevron-down lang-arrow" aria-hidden="true"></i>
+                </button>
+                <div class="lang-menu" id="langMenu" role="menu">
+                    <a href="#" id="lang-link-en" role="menuitem" hreflang="en">🇬🇧 English</a>
+                    <a href="#" id="lang-link-zh" role="menuitem" hreflang="zh-CN">🇨🇳 中文</a>
+                    <a href="#" id="lang-link-ru" role="menuitem" hreflang="ru">🇷🇺 Русский</a>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn"
+                    aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-links">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-eyebrow"><i class="fas fa-microphone-lines"></i> Pronunciation Training v2</div>
+                <h1>English Accent Coach</h1>
+                <p class="hero-subtitle">
+                    Practice drills, get IPA-targeted feedback, visualize waveform and pitch, and follow a daily lesson plan with streak tracking.
+                </p>
+            </div>
+        </section>
+
+        <div class="coach-content">
+            <section class="coach-card" aria-labelledby="drill-title">
+                <h2 id="drill-title">1) Choose a speaking drill</h2>
+                <p class="coach-subtitle">Pick one sentence and repeat it 3 times before switching drills.</p>
+                <div class="drill-grid" id="drill-grid"></div>
+            </section>
+
+            <section class="coach-card" aria-labelledby="practice-title">
+                <h2 id="practice-title">2) Listen, record, and analyze</h2>
+                <div class="practice-target" id="target-sentence"></div>
+                <div class="focus-chip-row" id="focus-chips"></div>
+
+                <div class="ipa-line"><strong>Target IPA:</strong> <span id="ipa-target">--</span></div>
+                <div class="phoneme-grid" id="phoneme-grid"></div>
+
+                <div class="btn-row">
+                    <button class="btn btn-secondary" id="play-reference-btn"><i class="fas fa-volume-high"></i> Play Native Reference</button>
+                    <button class="btn btn-primary" id="start-record-btn"><i class="fas fa-circle"></i> Start Recording</button>
+                    <button class="btn btn-secondary" id="stop-record-btn" disabled><i class="fas fa-stop"></i> Stop</button>
+                    <button class="btn btn-secondary" id="play-recording-btn" disabled><i class="fas fa-play"></i> Play My Recording</button>
+                    <button class="btn btn-primary" id="analyze-btn"><i class="fas fa-wave-square"></i> Analyze My Pronunciation</button>
+                </div>
+
+                <div class="canvas-grid">
+                    <div class="canvas-wrap">
+                        <h4 id="wave-title">Waveform</h4>
+                        <canvas id="wave-canvas" width="460" height="140"></canvas>
+                    </div>
+                    <div class="canvas-wrap">
+                        <h4 id="pitch-title">Pitch contour (F0)</h4>
+                        <canvas id="pitch-canvas" width="460" height="140"></canvas>
+                    </div>
+                </div>
+
+                <div class="score-grid">
+                    <div class="score-box"><div class="score-label" id="label-match">Transcript Match</div><div class="score-value" id="score-match">--</div></div>
+                    <div class="score-box"><div class="score-label" id="label-pace">Pacing (words/sec)</div><div class="score-value" id="score-pace">--</div></div>
+                    <div class="score-box"><div class="score-label" id="label-grade">Clarity Grade</div><div class="score-value" id="score-grade">--</div></div>
+                    <div class="score-box"><div class="score-label" id="label-phoneme">Phoneme Focus Score</div><div class="score-value" id="score-phoneme">--</div></div>
+                </div>
+
+                <div class="feedback-box">
+                    <strong id="transcript-title">Last transcript:</strong>
+                    <div id="transcript-output">No attempt yet.</div>
+                </div>
+                <div class="feedback-box">
+                    <strong id="tips-title">Actionable tips:</strong>
+                    <ul id="tip-list"><li>Start with one drill and repeat until you can say it smoothly.</li></ul>
+                </div>
+                <p class="small-note" id="engine-note"></p>
+            </section>
+
+            <section class="coach-card" aria-labelledby="pairs-title">
+                <h2 id="pairs-title">3) Minimal pairs challenge</h2>
+                <p class="coach-subtitle" id="pair-subtitle">Train difficult contrasts like ship/sheep, rice/lice, and think/sink.</p>
+                <div class="btn-row">
+                    <button class="btn btn-primary" id="play-pair-btn"><i class="fas fa-headphones"></i> Play Pair Challenge</button>
+                </div>
+                <div class="pair-word-row">
+                    <button class="pair-option" id="pair-option-a"></button>
+                    <button class="pair-option" id="pair-option-b"></button>
+                </div>
+                <p class="small-note" id="pair-result">Press "Play Pair Challenge" to start.</p>
+            </section>
+
+            <section class="coach-card" aria-labelledby="progress-title">
+                <h2 id="progress-title">4) Daily progress and lesson plan</h2>
+                <div class="score-grid">
+                    <div class="score-box"><div class="score-label" id="label-sessions">Practice Sessions</div><div class="score-value" id="session-count">0</div></div>
+                    <div class="score-box"><div class="score-label" id="label-drills">Drills Completed</div><div class="score-value" id="drill-count">0</div></div>
+                    <div class="score-box"><div class="score-label" id="label-pair-acc">Minimal Pair Accuracy</div><div class="score-value" id="pair-accuracy">0%</div></div>
+                    <div class="score-box"><div class="score-label" id="label-streak">Current Streak</div><div class="score-value" id="streak-count">0 days</div></div>
+                </div>
+                <p class="small-note"><strong id="plan-date-label">Today's plan:</strong> <span id="plan-date"></span></p>
+                <div class="lesson-list" id="lesson-list"></div>
+            </section>
+        </div>
+    </main>
+
+    <script src="accent-coach.js"></script>
+    <script src="lang-switcher.js"></script>
+    <script>
+        (function () {
+            var btn = document.getElementById('mobile-menu-btn');
+            var links = document.getElementById('nav-links');
+            if (!btn || !links) return;
+            btn.addEventListener('click', function () {
+                var open = links.classList.toggle('mobile-open');
+                btn.setAttribute('aria-expanded', open);
+                btn.querySelector('i').className = open ? 'fas fa-times' : 'fas fa-bars';
+            });
+            links.querySelectorAll('a').forEach(function (a) {
+                a.addEventListener('click', function () {
+                    links.classList.remove('mobile-open');
+                    btn.setAttribute('aria-expanded', 'false');
+                    btn.querySelector('i').className = 'fas fa-bars';
+                });
+            });
+        }());
+    </script>
+</body>
+</html>
