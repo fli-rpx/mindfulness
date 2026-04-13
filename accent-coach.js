@@ -154,6 +154,7 @@
 
     var currentDrillIndex = 0;
     var mediaRecorder = null;
+    var mediaRecorderMimeType = "";
     var recordingMode = "";
     var activeStream = null;
     var fallbackAudioCtx = null;
@@ -162,6 +163,7 @@
     var fallbackChunks = [];
     var audioChunks = [];
     var recordedAudioUrl = null;
+    var recordedAudioBlob = null;
     var recordingStartMs = 0;
     var lastRecordingDurationSec = 0;
     var lastAudioBuffer = null;
@@ -334,8 +336,13 @@
                 if (window.MediaRecorder) {
                     recordingMode = "mediarecorder";
                     try {
-                        mediaRecorder = new MediaRecorder(stream);
+                        var recorderOptions = getRecorderOptions();
+                        mediaRecorder = recorderOptions
+                            ? new MediaRecorder(stream, recorderOptions)
+                            : new MediaRecorder(stream);
+                        mediaRecorderMimeType = mediaRecorder.mimeType || (recorderOptions && recorderOptions.mimeType) || "";
                         logDebug("MediaRecorder created");
+                        logDebug("MediaRecorder mimeType=" + (mediaRecorderMimeType || "unknown"));
                     } catch (err) {
                         // Some Chrome profiles/extensions can break MediaRecorder init.
                         logDebug("MediaRecorder init failed; switching to fallback: " + (err && err.name ? err.name : "unknown"));
@@ -349,7 +356,9 @@
                     };
 
                     mediaRecorder.onstop = function () {
-                        var blob = new Blob(audioChunks, { type: "audio/webm" });
+                        var blobType = mediaRecorderMimeType || "audio/webm";
+                        var blob = new Blob(audioChunks, { type: blobType });
+                        logDebug("onstop blob type=" + blobType + ", chunks=" + audioChunks.length);
                         finalizeRecording(blob);
                     };
 
@@ -388,8 +397,40 @@
     }
 
     function playRecording() {
-        if (!recordedAudioUrl) return;
-        (new Audio(recordedAudioUrl)).play();
+        if (!recordedAudioUrl) {
+            logDebug("playRecording: no recording URL");
+            return;
+        }
+
+        var audio = playRecording._audio;
+        if (!audio) {
+            audio = new Audio();
+            playRecording._audio = audio;
+        }
+
+        audio.pause();
+        audio.src = recordedAudioUrl;
+        audio.load();
+
+        var canPlay = "";
+        if (recordedAudioBlob && recordedAudioBlob.type && audio.canPlayType) {
+            canPlay = audio.canPlayType(recordedAudioBlob.type);
+        }
+        logDebug("playRecording: blobType=" + (recordedAudioBlob ? recordedAudioBlob.type : "unknown") + ", canPlayType=" + (canPlay || "no"));
+
+        var playPromise = audio.play();
+        if (playPromise && typeof playPromise.then === "function") {
+            playPromise.then(function () {
+                logDebug("playRecording: playback started");
+            }).catch(function (err) {
+                logDebug("playRecording error: " + (err && err.name ? err.name : "unknown") + " - " + (err && err.message ? err.message : ""));
+                transcriptOutput.textContent = (locale === "zh")
+                    ? "录音已生成，但浏览器无法播放该音频格式。请再录一次或切换浏览器。"
+                    : (locale === "ru")
+                        ? "Запись создана, но браузер не может воспроизвести этот формат. Попробуйте записать снова."
+                        : "Recording exists, but this audio format could not be played. Try recording again.";
+            });
+        }
     }
 
     function decodeAndDrawAudio(blob) {
@@ -410,6 +451,7 @@
         logDebug("finalizeRecording() blob size=" + (blob ? blob.size : 0));
         lastRecordingDurationSec = Math.max(1, Math.round((Date.now() - recordingStartMs) / 1000));
         if (recordedAudioUrl) URL.revokeObjectURL(recordedAudioUrl);
+        recordedAudioBlob = blob;
         recordedAudioUrl = URL.createObjectURL(blob);
         playBtn.disabled = false;
         decodeAndDrawAudio(blob);
@@ -504,6 +546,22 @@
         for (var i = 0; i < str.length; i++) {
             view.setUint8(offset + i, str.charCodeAt(i));
         }
+    }
+
+    function getRecorderOptions() {
+        if (!window.MediaRecorder || typeof window.MediaRecorder.isTypeSupported !== "function") return null;
+        var preferredTypes = [
+            "audio/webm;codecs=opus",
+            "audio/webm",
+            "audio/mp4",
+            "audio/ogg;codecs=opus"
+        ];
+        for (var i = 0; i < preferredTypes.length; i++) {
+            if (window.MediaRecorder.isTypeSupported(preferredTypes[i])) {
+                return { mimeType: preferredTypes[i] };
+            }
+        }
+        return null;
     }
 
     function drawWaveform(audioBuffer, canvas) {
