@@ -89,6 +89,15 @@
                 <div class="feedback-box"><strong id="transcript-title">Последний транскрипт:</strong><div id="transcript-output">Пока нет попыток.</div></div>
                 <div class="feedback-box"><strong id="tips-title">Рекомендации:</strong><ul id="tip-list"><li>Выберите одну фразу и повторяйте ее до плавного произношения.</li></ul></div>
                 <p class="small-note" id="engine-note"></p>
+                <details class="feedback-box" style="margin-top:0.75rem;">
+                    <summary><strong>Журнал отладки (нажмите, чтобы раскрыть)</strong></summary>
+                    <div class="btn-row" style="margin-top:0.6rem;">
+                        <button class="btn btn-secondary" id="clear-debug-btn" type="button">
+                            <i class="fas fa-broom"></i> Очистить журнал
+                        </button>
+                    </div>
+                    <pre id="debug-log" style="margin-top:0.6rem; white-space:pre-wrap; max-height:180px; overflow:auto; background:#fff; border:1px solid var(--color-border); border-radius:8px; padding:0.6rem;">(ожидание событий...)</pre>
+                </details>
             </section>
 
             <section class="coach-card" aria-labelledby="pairs-title">

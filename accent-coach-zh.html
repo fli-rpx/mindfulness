@@ -89,6 +89,15 @@
                 <div class="feedback-box"><strong id="transcript-title">最近一次转写：</strong><div id="transcript-output">尚未开始练习。</div></div>
                 <div class="feedback-box"><strong id="tips-title">建议：</strong><ul id="tip-list"><li>先固定一个句子，连续重复到流畅为止。</li></ul></div>
                 <p class="small-note" id="engine-note"></p>
+                <details class="feedback-box" style="margin-top:0.75rem;">
+                    <summary><strong>调试日志（点击展开）</strong></summary>
+                    <div class="btn-row" style="margin-top:0.6rem;">
+                        <button class="btn btn-secondary" id="clear-debug-btn" type="button">
+                            <i class="fas fa-broom"></i> 清空日志
+                        </button>
+                    </div>
+                    <pre id="debug-log" style="margin-top:0.6rem; white-space:pre-wrap; max-height:180px; overflow:auto; background:#fff; border:1px solid var(--color-border); border-radius:8px; padding:0.6rem;">（等待事件...）</pre>
+                </details>
             </section>
 
             <section class="coach-card" aria-labelledby="pairs-title">

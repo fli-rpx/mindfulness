@@ -21,7 +21,12 @@
             pairWrong: "Not quite. Correct answer:",
             engineGood: "Best results: use headphones and speak in a quiet room.",
             engineNoRecord: "Recording is not supported in this browser.",
+            engineInsecure: "Microphone requires a secure context (HTTPS or localhost).",
             engineNoSpeech: "Speech recognition is not supported here (try Chrome).",
+            engineStarting: "Requesting microphone access...",
+            micNotFound: "No microphone device found.",
+            micBusy: "Microphone is busy in another app/tab.",
+            micSecurity: "Microphone blocked by browser security settings.",
             streakDays: "days",
             planToday: "Today's plan",
             lessonDone: "Done",
@@ -43,7 +48,12 @@
             pairWrong: "不完全正确。正确答案：",
             engineGood: "建议使用耳机，并在安静环境中练习。",
             engineNoRecord: "当前浏览器不支持录音。",
+            engineInsecure: "麦克风需要安全上下文（HTTPS 或 localhost）。",
             engineNoSpeech: "当前浏览器不支持语音识别（建议使用 Chrome）。",
+            engineStarting: "正在请求麦克风权限...",
+            micNotFound: "未检测到麦克风设备。",
+            micBusy: "麦克风正被其他应用或标签页占用。",
+            micSecurity: "浏览器安全策略阻止了麦克风访问。",
             streakDays: "天",
             planToday: "今日计划",
             lessonDone: "已完成",
@@ -65,7 +75,12 @@
             pairWrong: "Не совсем. Правильный ответ:",
             engineGood: "Лучше всего: наушники и тихая обстановка.",
             engineNoRecord: "Запись не поддерживается в этом браузере.",
+            engineInsecure: "Для микрофона нужен безопасный контекст (HTTPS или localhost).",
             engineNoSpeech: "Распознавание речи не поддерживается (попробуйте Chrome).",
+            engineStarting: "Запрашивается доступ к микрофону...",
+            micNotFound: "Микрофон не найден.",
+            micBusy: "Микрофон занят в другом приложении/вкладке.",
+            micSecurity: "Доступ к микрофону заблокирован настройками безопасности браузера.",
             streakDays: "дней",
             planToday: "План на сегодня",
             lessonDone: "Выполнено",
@@ -139,6 +154,12 @@
 
     var currentDrillIndex = 0;
     var mediaRecorder = null;
+    var recordingMode = "";
+    var activeStream = null;
+    var fallbackAudioCtx = null;
+    var fallbackSource = null;
+    var fallbackProcessor = null;
+    var fallbackChunks = [];
     var audioChunks = [];
     var recordedAudioUrl = null;
     var recordingStartMs = 0;
@@ -162,6 +183,8 @@
     var engineNote = document.getElementById("engine-note");
     var lessonList = document.getElementById("lesson-list");
     var planDate = document.getElementById("plan-date");
+    var debugLogEl = document.getElementById("debug-log");
+    var clearDebugBtn = document.getElementById("clear-debug-btn");
 
     var waveCanvas = document.getElementById("wave-canvas");
     var pitchCanvas = document.getElementById("pitch-canvas");
@@ -178,6 +201,7 @@
     var pairResult = document.getElementById("pair-result");
 
     function init() {
+        logDebug("init() start");
         localizeDynamicLabels();
         renderDrills();
         selectDrill(0);
@@ -188,6 +212,7 @@
         transcriptOutput.textContent = T.noAttempt;
         pairResult.textContent = T.pairStart;
         tipList.innerHTML = "<li>" + T.tipStart + "</li>";
+        logDebug("init() complete");
     }
 
     function localizeDynamicLabels() {
@@ -200,16 +225,38 @@
     }
 
     function wireEvents() {
+        if (clearDebugBtn) {
+            clearDebugBtn.addEventListener("click", function () {
+                if (debugLogEl) debugLogEl.textContent = "(cleared)";
+            });
+        }
         playReferenceBtn.addEventListener("click", function () {
+            logDebug("play-reference clicked");
             speakText(drills[currentDrillIndex].sentence, "en-US", 0.95);
         });
-        startBtn.addEventListener("click", startRecording);
-        stopBtn.addEventListener("click", stopRecording);
-        playBtn.addEventListener("click", playRecording);
-        analyzeBtn.addEventListener("click", analyzePronunciation);
-        playPairBtn.addEventListener("click", newPairChallenge);
+        startBtn.addEventListener("click", function () {
+            logDebug("start-record clicked");
+            startRecording();
+        });
+        stopBtn.addEventListener("click", function () {
+            logDebug("stop-record clicked");
+            stopRecording();
+        });
+        playBtn.addEventListener("click", function () {
+            logDebug("play-recording clicked");
+            playRecording();
+        });
+        analyzeBtn.addEventListener("click", function () {
+            logDebug("analyze clicked");
+            analyzePronunciation();
+        });
+        playPairBtn.addEventListener("click", function () {
+            logDebug("play-pair clicked");
+            newPairChallenge();
+        });
         pairOptionA.addEventListener("click", function () { answerPair(pairOptionA.textContent); });
         pairOptionB.addEventListener("click", function () { answerPair(pairOptionB.textContent); });
+        logDebug("event listeners attached");
     }
 
     function renderDrills() {
@@ -246,47 +293,95 @@
     }
 
     function renderEngineAvailability() {
-        var hasMedia = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
+        var hasMic = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+        var hasMediaRecorder = !!window.MediaRecorder;
         var hasSpeech = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+        logDebug("engine check: secure=" + window.isSecureContext + ", hasMicAPI=" + hasMic + ", hasMediaRecorder=" + hasMediaRecorder + ", hasSpeech=" + hasSpeech);
         var parts = [];
-        if (!hasMedia) { parts.push(T.engineNoRecord); startBtn.disabled = true; }
+        if (!window.isSecureContext) {
+            parts.push(T.engineInsecure);
+        }
+        if (!hasMic) {
+            parts.push(T.engineNoRecord);
+            startBtn.disabled = true;
+        } else if (!hasMediaRecorder) {
+            // Keep recording available using Web Audio fallback.
+            parts.push((locale === "zh")
+                ? "当前浏览器不支持 MediaRecorder，已启用兼容录音模式。"
+                : (locale === "ru")
+                    ? "MediaRecorder недоступен, используется совместимый режим записи."
+                    : "MediaRecorder unavailable; using compatibility recording mode.");
+        }
         if (!hasSpeech) { parts.push(T.engineNoSpeech); analyzeBtn.disabled = true; }
         engineNote.textContent = parts.length ? parts.join(" ") : T.engineGood;
     }
 
     function startRecording() {
-        if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder)) return;
+        logDebug("startRecording() called");
+        if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) return;
+        transcriptOutput.textContent = T.engineStarting;
+        logDebug("requesting getUserMedia...");
         navigator.mediaDevices.getUserMedia({ audio: true })
             .then(function (stream) {
+                logDebug("getUserMedia granted");
+                activeStream = stream;
                 audioChunks = [];
-                mediaRecorder = new MediaRecorder(stream);
                 recordingStartMs = Date.now();
-
-                mediaRecorder.ondataavailable = function (event) {
-                    if (event.data && event.data.size > 0) audioChunks.push(event.data);
-                };
-
-                mediaRecorder.onstop = function () {
-                    lastRecordingDurationSec = Math.max(1, Math.round((Date.now() - recordingStartMs) / 1000));
-                    var blob = new Blob(audioChunks, { type: "audio/webm" });
-                    if (recordedAudioUrl) URL.revokeObjectURL(recordedAudioUrl);
-                    recordedAudioUrl = URL.createObjectURL(blob);
-                    playBtn.disabled = false;
-                    decodeAndDrawAudio(blob);
-                    stream.getTracks().forEach(function (track) { track.stop(); });
-                };
-
-                mediaRecorder.start();
                 startBtn.disabled = true;
                 stopBtn.disabled = false;
                 transcriptOutput.textContent = T.recording;
+
+                if (window.MediaRecorder) {
+                    recordingMode = "mediarecorder";
+                    try {
+                        mediaRecorder = new MediaRecorder(stream);
+                        logDebug("MediaRecorder created");
+                    } catch (err) {
+                        // Some Chrome profiles/extensions can break MediaRecorder init.
+                        logDebug("MediaRecorder init failed; switching to fallback: " + (err && err.name ? err.name : "unknown"));
+                        recordingMode = "fallback";
+                        startFallbackRecorder(stream);
+                        return;
+                    }
+
+                    mediaRecorder.ondataavailable = function (event) {
+                        if (event.data && event.data.size > 0) audioChunks.push(event.data);
+                    };
+
+                    mediaRecorder.onstop = function () {
+                        var blob = new Blob(audioChunks, { type: "audio/webm" });
+                        finalizeRecording(blob);
+                    };
+
+                    mediaRecorder.start();
+                    logDebug("MediaRecorder started");
+                } else {
+                    recordingMode = "fallback";
+                    logDebug("MediaRecorder unavailable; using fallback");
+                    startFallbackRecorder(stream);
+                }
             })
-            .catch(function () { transcriptOutput.textContent = T.micDenied; });
+            .catch(function (err) {
+                var msg = T.micDenied;
+                if (err && err.name === "NotFoundError") msg = T.micNotFound;
+                else if (err && (err.name === "NotReadableError" || err.name === "TrackStartError")) msg = T.micBusy;
+                else if (err && (err.name === "SecurityError" || err.name === "NotSupportedError")) msg = T.micSecurity;
+                transcriptOutput.textContent = msg;
+                logDebug("getUserMedia error: " + (err && err.name ? err.name : "unknown") + " - " + (err && err.message ? err.message : ""));
+                if (window.console && console.error) console.error("startRecording error:", err);
+            });
     }
 
     function stopRecording() {
-        if (mediaRecorder && mediaRecorder.state === "recording") {
+        logDebug("stopRecording() mode=" + recordingMode);
+        if (recordingMode === "mediarecorder" && mediaRecorder && mediaRecorder.state === "recording") {
             mediaRecorder.stop();
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+            return;
+        }
+        if (recordingMode === "fallback") {
+            stopFallbackRecorder();
             startBtn.disabled = false;
             stopBtn.disabled = true;
         }
@@ -309,6 +404,106 @@
                 drawPitchContour(audioBuffer, pitchCanvas);
             })
             .catch(function () {});
+    }
+
+    function finalizeRecording(blob) {
+        logDebug("finalizeRecording() blob size=" + (blob ? blob.size : 0));
+        lastRecordingDurationSec = Math.max(1, Math.round((Date.now() - recordingStartMs) / 1000));
+        if (recordedAudioUrl) URL.revokeObjectURL(recordedAudioUrl);
+        recordedAudioUrl = URL.createObjectURL(blob);
+        playBtn.disabled = false;
+        decodeAndDrawAudio(blob);
+
+        if (activeStream) {
+            activeStream.getTracks().forEach(function (track) { track.stop(); });
+            activeStream = null;
+        }
+        logDebug("recording finalized; play enabled");
+    }
+
+    function startFallbackRecorder(stream) {
+        logDebug("startFallbackRecorder()");
+        fallbackChunks = [];
+        var AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) {
+            transcriptOutput.textContent = (locale === "zh")
+                ? "当前浏览器不支持音频上下文，无法录音。"
+                : (locale === "ru")
+                    ? "В этом браузере нет AudioContext, запись недоступна."
+                    : "AudioContext is unavailable; cannot record.";
+            return;
+        }
+
+        fallbackAudioCtx = new AudioCtx();
+        fallbackSource = fallbackAudioCtx.createMediaStreamSource(stream);
+        // ScriptProcessor is deprecated but still widely available as a compatibility fallback.
+        fallbackProcessor = fallbackAudioCtx.createScriptProcessor(4096, 1, 1);
+        fallbackProcessor.onaudioprocess = function (event) {
+            var input = event.inputBuffer.getChannelData(0);
+            fallbackChunks.push(new Float32Array(input));
+        };
+        fallbackSource.connect(fallbackProcessor);
+        fallbackProcessor.connect(fallbackAudioCtx.destination);
+        logDebug("fallback recorder running");
+    }
+
+    function stopFallbackRecorder() {
+        logDebug("stopFallbackRecorder()");
+        if (!fallbackAudioCtx || !fallbackProcessor) return;
+
+        try { fallbackProcessor.disconnect(); } catch (e) {}
+        try { fallbackSource.disconnect(); } catch (e) {}
+        try { fallbackAudioCtx.close(); } catch (e) {}
+
+        var wavBlob = encodeWavFromFloat32(fallbackChunks, 44100);
+        fallbackChunks = [];
+        fallbackAudioCtx = null;
+        fallbackSource = null;
+        fallbackProcessor = null;
+
+        finalizeRecording(wavBlob);
+    }
+
+    function encodeWavFromFloat32(chunks, sampleRate) {
+        var length = 0;
+        chunks.forEach(function (c) { length += c.length; });
+        var buffer = new Float32Array(length);
+        var offset = 0;
+        chunks.forEach(function (c) {
+            buffer.set(c, offset);
+            offset += c.length;
+        });
+
+        var wavBuffer = new ArrayBuffer(44 + buffer.length * 2);
+        var view = new DataView(wavBuffer);
+
+        writeString(view, 0, "RIFF");
+        view.setUint32(4, 36 + buffer.length * 2, true);
+        writeString(view, 8, "WAVE");
+        writeString(view, 12, "fmt ");
+        view.setUint32(16, 16, true);
+        view.setUint16(20, 1, true); // PCM
+        view.setUint16(22, 1, true); // mono
+        view.setUint32(24, sampleRate, true);
+        view.setUint32(28, sampleRate * 2, true);
+        view.setUint16(32, 2, true);
+        view.setUint16(34, 16, true);
+        writeString(view, 36, "data");
+        view.setUint32(40, buffer.length * 2, true);
+
+        var idx = 44;
+        for (var i = 0; i < buffer.length; i++) {
+            var s = Math.max(-1, Math.min(1, buffer[i]));
+            view.setInt16(idx, s < 0 ? s * 0x8000 : s * 0x7fff, true);
+            idx += 2;
+        }
+        return new Blob([view], { type: "audio/wav" });
+    }
+
+    function writeString(view, offset, str) {
+        for (var i = 0; i < str.length; i++) {
+            view.setUint8(offset + i, str.charCodeAt(i));
+        }
     }
 
     function drawWaveform(audioBuffer, canvas) {
@@ -662,6 +857,18 @@
         var acc = progress.pairAttempts > 0 ? Math.round((progress.pairCorrect / progress.pairAttempts) * 100) : 0;
         pairEl.textContent = acc + "%";
         streakEl.textContent = progress.streakDays + " " + T.streakDays;
+    }
+
+    function logDebug(msg) {
+        if (!debugLogEl) return;
+        var stamp = new Date().toLocaleTimeString();
+        var line = "[" + stamp + "] " + msg;
+        if (!debugLogEl.textContent || debugLogEl.textContent === "(waiting for events...)" || debugLogEl.textContent === "（等待事件...）" || debugLogEl.textContent === "(ожидание событий...)" || debugLogEl.textContent === "(cleared)") {
+            debugLogEl.textContent = line;
+        } else {
+            debugLogEl.textContent += "\n" + line;
+        }
+        debugLogEl.scrollTop = debugLogEl.scrollHeight;
     }
 
     init();
