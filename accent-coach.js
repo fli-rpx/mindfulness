@@ -389,8 +389,9 @@
                 compatNote.textContent = T.compatModeActive;
             }
         }
-        if (compatPanel && (isX5 || !hasMic || !hasSpeech)) {
-            compatPanel.open = true;
+        // Keep compatibility panel collapsed by default; user opens it manually.
+        if (compatPanel) {
+            compatPanel.open = false;
         }
         engineNote.textContent = parts.length ? parts.join(" ") : T.engineGood;
     }
