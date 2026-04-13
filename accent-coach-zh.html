@@ -74,6 +74,23 @@
                     <button class="btn btn-primary" id="analyze-btn"><i class="fas fa-wave-square"></i> 分析发音</button>
                 </div>
 
+                <div class="feedback-box">
+                    <strong>兼容模式（UC/旧版浏览器）</strong>
+                    <div class="btn-row">
+                        <label class="btn btn-secondary" for="upload-audio-input" style="cursor:pointer;">
+                            <i class="fas fa-upload"></i> 上传音频文件
+                        </label>
+                        <input id="upload-audio-input" type="file" accept="audio/*" style="display:none;">
+                    </div>
+                    <textarea id="manual-transcript-input" rows="3" style="width:100%; margin-top:0.6rem; border:1px solid var(--color-border); border-radius:8px; padding:0.6rem;" placeholder="输入或粘贴你刚才说的话..."></textarea>
+                    <div class="btn-row" style="margin-top:0.5rem;">
+                        <button class="btn btn-secondary" id="analyze-manual-btn" type="button">
+                            <i class="fas fa-keyboard"></i> 分析输入转写
+                        </button>
+                    </div>
+                    <p class="small-note" id="compat-note">如果浏览器不支持录音或语音识别，请使用该模式。</p>
+                </div>
+
                 <div class="canvas-grid">
                     <div class="canvas-wrap"><h4 id="wave-title">波形图</h4><canvas id="wave-canvas" width="460" height="140"></canvas></div>
                     <div class="canvas-wrap"><h4 id="pitch-title">音高轮廓 (F0)</h4><canvas id="pitch-canvas" width="460" height="140"></canvas></div>

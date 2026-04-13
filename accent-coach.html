@@ -81,6 +81,23 @@
                     <button class="btn btn-primary" id="analyze-btn"><i class="fas fa-wave-square"></i> Analyze My Pronunciation</button>
                 </div>
 
+                <div class="feedback-box">
+                    <strong>Compatibility mode (UC/legacy browsers)</strong>
+                    <div class="btn-row">
+                        <label class="btn btn-secondary" for="upload-audio-input" style="cursor:pointer;">
+                            <i class="fas fa-upload"></i> Upload Audio File
+                        </label>
+                        <input id="upload-audio-input" type="file" accept="audio/*" style="display:none;">
+                    </div>
+                    <textarea id="manual-transcript-input" rows="3" style="width:100%; margin-top:0.6rem; border:1px solid var(--color-border); border-radius:8px; padding:0.6rem;" placeholder="Type or paste what you said..."></textarea>
+                    <div class="btn-row" style="margin-top:0.5rem;">
+                        <button class="btn btn-secondary" id="analyze-manual-btn" type="button">
+                            <i class="fas fa-keyboard"></i> Analyze Typed Transcript
+                        </button>
+                    </div>
+                    <p class="small-note" id="compat-note">Use this mode if recording or speech recognition is not supported in your browser.</p>
+                </div>
+
                 <div class="canvas-grid">
                     <div class="canvas-wrap">
                         <h4 id="wave-title">Waveform</h4>

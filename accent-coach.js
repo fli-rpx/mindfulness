@@ -27,6 +27,11 @@
             micNotFound: "No microphone device found.",
             micBusy: "Microphone is busy in another app/tab.",
             micSecurity: "Microphone blocked by browser security settings.",
+            speechFallbackPrompt: "Firefox does not support live speech recognition here.\nPlease type what you said, then press OK.",
+            speechFallbackEmpty: "No transcript provided. Type your spoken sentence to analyze.",
+            manualTranscriptEmpty: "Please type a transcript before manual analysis.",
+            uploadLoaded: "Audio file loaded. You can now play it and analyze your transcript.",
+            compatModeActive: "Compatibility mode active: upload audio + manual transcript analysis is available.",
             streakDays: "days",
             planToday: "Today's plan",
             lessonDone: "Done",
@@ -54,6 +59,12 @@
             micNotFound: "未检测到麦克风设备。",
             micBusy: "麦克风正被其他应用或标签页占用。",
             micSecurity: "浏览器安全策略阻止了麦克风访问。",
+            speechFallbackPrompt: "Firefox 当前不支持实时语音识别。\n请输入你刚才说的内容，然后点击确定。",
+            speechFallbackEmpty: "未输入转写内容。请输入你刚才朗读的句子以进行分析。",
+            manualTranscriptEmpty: "请先输入转写内容，再进行手动分析。",
+            uploadLoaded: "音频文件已加载。你可以播放并分析转写内容。",
+            compatModeActive: "兼容模式已启用：支持上传音频 + 手动转写分析。",
+            x5CompatMode: "检测到 QQ 浏览器 X5 内核。建议使用“上传音频 + 手动转写分析”模式以获得最稳定体验。",
             streakDays: "天",
             planToday: "今日计划",
             lessonDone: "已完成",
@@ -81,6 +92,12 @@
             micNotFound: "Микрофон не найден.",
             micBusy: "Микрофон занят в другом приложении/вкладке.",
             micSecurity: "Доступ к микрофону заблокирован настройками безопасности браузера.",
+            speechFallbackPrompt: "Firefox не поддерживает здесь распознавание речи в реальном времени.\nВведите, что вы произнесли, и нажмите OK.",
+            speechFallbackEmpty: "Транскрипт не введен. Введите произнесенную фразу для анализа.",
+            manualTranscriptEmpty: "Сначала введите транскрипт для ручного анализа.",
+            uploadLoaded: "Аудиофайл загружен. Теперь можно воспроизвести и проанализировать текст.",
+            compatModeActive: "Режим совместимости активен: доступна загрузка аудио и ручной анализ текста.",
+            x5CompatMode: "Обнаружен движок QQ Browser X5. Для стабильной работы рекомендуется режим «загрузка аудио + ручной анализ текста».",
             streakDays: "дней",
             planToday: "План на сегодня",
             lessonDone: "Выполнено",
@@ -201,6 +218,10 @@
     var pairOptionA = document.getElementById("pair-option-a");
     var pairOptionB = document.getElementById("pair-option-b");
     var pairResult = document.getElementById("pair-result");
+    var uploadAudioInput = document.getElementById("upload-audio-input");
+    var manualTranscriptInput = document.getElementById("manual-transcript-input");
+    var analyzeManualBtn = document.getElementById("analyze-manual-btn");
+    var compatNote = document.getElementById("compat-note");
 
     function init() {
         logDebug("init() start");
@@ -214,6 +235,12 @@
         transcriptOutput.textContent = T.noAttempt;
         pairResult.textContent = T.pairStart;
         tipList.innerHTML = "<li>" + T.tipStart + "</li>";
+        // Ensure Analyze stays interactive even on browsers without SpeechRecognition.
+        if (analyzeBtn) {
+            analyzeBtn.disabled = false;
+            analyzeBtn.removeAttribute("disabled");
+            analyzeBtn.style.pointerEvents = "auto";
+        }
         logDebug("init() complete");
     }
 
@@ -252,10 +279,46 @@
             logDebug("analyze clicked");
             analyzePronunciation();
         });
+
+        // Fallback delegated click binding in case direct binding is disrupted by cached scripts.
+        document.addEventListener("click", function (e) {
+            var btn = e.target && e.target.closest ? e.target.closest("#analyze-btn") : null;
+            if (!btn) return;
+            if (btn.dataset.boundFallbackClicked === "1") return;
+            btn.dataset.boundFallbackClicked = "1";
+            logDebug("analyze fallback click");
+            analyzePronunciation();
+            setTimeout(function () { btn.dataset.boundFallbackClicked = "0"; }, 0);
+        }, true);
+
         playPairBtn.addEventListener("click", function () {
             logDebug("play-pair clicked");
             newPairChallenge();
         });
+        if (uploadAudioInput) {
+            uploadAudioInput.addEventListener("change", function () {
+                if (!uploadAudioInput.files || !uploadAudioInput.files.length) return;
+                var file = uploadAudioInput.files[0];
+                if (recordedAudioUrl) URL.revokeObjectURL(recordedAudioUrl);
+                recordedAudioBlob = file;
+                recordedAudioUrl = URL.createObjectURL(file);
+                playBtn.disabled = false;
+                transcriptOutput.textContent = T.uploadLoaded;
+                logDebug("audio uploaded: " + file.name + ", type=" + (file.type || "unknown") + ", size=" + file.size);
+                decodeAndDrawAudio(file);
+            });
+        }
+        if (analyzeManualBtn) {
+            analyzeManualBtn.addEventListener("click", function () {
+                var typed = manualTranscriptInput ? manualTranscriptInput.value.trim() : "";
+                if (!typed) {
+                    transcriptOutput.textContent = T.manualTranscriptEmpty;
+                    return;
+                }
+                logDebug("manual analysis clicked");
+                processAnalysisResult(typed);
+            });
+        }
         pairOptionA.addEventListener("click", function () { answerPair(pairOptionA.textContent); });
         pairOptionB.addEventListener("click", function () { answerPair(pairOptionB.textContent); });
         logDebug("event listeners attached");
@@ -298,7 +361,9 @@
         var hasMic = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
         var hasMediaRecorder = !!window.MediaRecorder;
         var hasSpeech = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+        var isX5 = detectX5Kernel();
         logDebug("engine check: secure=" + window.isSecureContext + ", hasMicAPI=" + hasMic + ", hasMediaRecorder=" + hasMediaRecorder + ", hasSpeech=" + hasSpeech);
+        if (isX5) logDebug("browser detected: QQ X5 kernel");
         var parts = [];
         if (!window.isSecureContext) {
             parts.push(T.engineInsecure);
@@ -315,7 +380,21 @@
                     : "MediaRecorder unavailable; using compatibility recording mode.");
         }
         if (!hasSpeech) { parts.push(T.engineNoSpeech); analyzeBtn.disabled = true; }
+        if (!hasSpeech) { analyzeBtn.disabled = false; }
+        if (compatNote) {
+            if (isX5 && T.x5CompatMode) {
+                compatNote.textContent = T.x5CompatMode;
+            } else if (!hasMic || !hasSpeech) {
+                compatNote.textContent = T.compatModeActive;
+            }
+        }
         engineNote.textContent = parts.length ? parts.join(" ") : T.engineGood;
+    }
+
+    function detectX5Kernel() {
+        var ua = (navigator.userAgent || "").toLowerCase();
+        // QQ Browser on X5 commonly exposes tbs/x5 markers.
+        return ua.indexOf("mqqbrowser") !== -1 || ua.indexOf(" tbs/") !== -1 || ua.indexOf("x5/") !== -1;
     }
 
     function startRecording() {
@@ -631,7 +710,17 @@
 
     function analyzePronunciation() {
         var Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (!Recognition) return;
+        if (!Recognition) {
+            var typed = window.prompt(T.speechFallbackPrompt, "");
+            if (typed == null) return;
+            if (!typed.trim()) {
+                transcriptOutput.textContent = T.speechFallbackEmpty;
+                tipList.innerHTML = "<li>" + T.tipStart + "</li>";
+                return;
+            }
+            processAnalysisResult(typed);
+            return;
+        }
         var recognition = new Recognition();
         recognition.lang = "en-US";
         recognition.interimResults = false;
@@ -641,32 +730,7 @@
 
         recognition.onresult = function (event) {
             var transcript = (event.results[0] && event.results[0][0] && event.results[0][0].transcript) || "";
-            transcriptOutput.textContent = transcript || T.noTranscript;
-
-            var target = drills[currentDrillIndex].sentence;
-            var drill = drills[currentDrillIndex];
-            var matchScore = sentenceMatchScore(target, transcript);
-            var paceScore = estimatePacing(target, lastRecordingDurationSec);
-            var diag = phonemeDiagnostics(drill, transcript);
-            var phonemeScore = diag.score;
-            var grade = scoreToGrade((matchScore + paceScore + phonemeScore) / 3);
-
-            scoreMatch.textContent = matchScore + "%";
-            scorePace.textContent = estimateWordsPerSecond(target, lastRecordingDurationSec);
-            scoreGrade.textContent = grade;
-            scorePhoneme.textContent = phonemeScore + "%";
-            renderPhonemeCards(drill.phonemes, diag.map);
-
-            var tips = generateTips(drill, transcript, matchScore, lastRecordingDurationSec, diag.map);
-            tipList.innerHTML = tips.map(function (t) { return "<li>" + t + "</li>"; }).join("");
-
-            progress.sessions += 1;
-            progress.drillsDone[target] = 1;
-            updateStreak();
-            applyPhonemeMisses(diag.map);
-            saveProgress();
-            updateProgressUI();
-            renderDailyPlan();
+            processAnalysisResult(transcript);
         };
 
         recognition.onerror = function () {
@@ -674,6 +738,35 @@
             tipList.innerHTML = "<li>" + T.tipStart + "</li>";
         };
         recognition.start();
+    }
+
+    function processAnalysisResult(transcript) {
+        transcriptOutput.textContent = transcript || T.noTranscript;
+
+        var target = drills[currentDrillIndex].sentence;
+        var drill = drills[currentDrillIndex];
+        var matchScore = sentenceMatchScore(target, transcript);
+        var paceScore = estimatePacing(target, lastRecordingDurationSec);
+        var diag = phonemeDiagnostics(drill, transcript);
+        var phonemeScore = diag.score;
+        var grade = scoreToGrade((matchScore + paceScore + phonemeScore) / 3);
+
+        scoreMatch.textContent = matchScore + "%";
+        scorePace.textContent = estimateWordsPerSecond(target, lastRecordingDurationSec);
+        scoreGrade.textContent = grade;
+        scorePhoneme.textContent = phonemeScore + "%";
+        renderPhonemeCards(drill.phonemes, diag.map);
+
+        var tips = generateTips(drill, transcript, matchScore, lastRecordingDurationSec, diag.map);
+        tipList.innerHTML = tips.map(function (t) { return "<li>" + t + "</li>"; }).join("");
+
+        progress.sessions += 1;
+        progress.drillsDone[target] = 1;
+        updateStreak();
+        applyPhonemeMisses(diag.map);
+        saveProgress();
+        updateProgressUI();
+        renderDailyPlan();
     }
 
     function phonemeDiagnostics(drill, transcript) {
