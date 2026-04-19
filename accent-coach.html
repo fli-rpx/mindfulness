@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Practice English pronunciation with guided drills, recording, phoneme-level feedback, and visual speech analytics.">
+    <meta name="description" content="Read short English stories sentence by sentence, get live match scores, and improve pronunciation.">
     <meta name="theme-color" content="#0a2a8a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="AccentCoach">
-    <title>Accent Coach v2 - English Pronunciation Trainer</title>
+    <meta name="apple-mobile-web-app-title" content="ReadingTool">
+    <title>Reading Improver - Accent Coach</title>
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icons/icon-192.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="accent-coach.css">
@@ -29,25 +29,9 @@
             <div class="nav-links" id="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="learn.html" class="nav-link">Learn</a>
-                <a href="accent-coach.html" class="nav-link active">Accent Coach</a>
+                <a href="accent-coach.html" class="nav-link active">Reading Improver</a>
             </div>
-            <div class="lang-switcher">
-                <button class="lang-btn" id="lang-btn"
-                        onclick="toggleLangMenu(this)"
-                        aria-haspopup="true" aria-expanded="false"
-                        aria-label="Switch language">
-                    <i class="fas fa-globe" aria-hidden="true"></i>
-                    <span class="lang-current">EN</span>
-                    <i class="fas fa-chevron-down lang-arrow" aria-hidden="true"></i>
-                </button>
-                <div class="lang-menu" id="langMenu" role="menu">
-                    <a href="#" id="lang-link-en" role="menuitem" hreflang="en">🇬🇧 English</a>
-                    <a href="#" id="lang-link-zh" role="menuitem" hreflang="zh-CN">🇨🇳 中文</a>
-                    <a href="#" id="lang-link-ru" role="menuitem" hreflang="ru">🇷🇺 Русский</a>
-                </div>
-            </div>
-            <button class="mobile-menu-btn" id="mobile-menu-btn"
-                    aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-links">
+            <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-links">
                 <i class="fas fa-bars" aria-hidden="true"></i>
             </button>
         </div>
@@ -56,122 +40,139 @@
     <main id="main-content">
         <section class="hero">
             <div class="hero-container">
-                <div class="hero-eyebrow"><i class="fas fa-microphone-lines"></i> Pronunciation Training v2</div>
-                <h1>English Accent Coach</h1>
-                <p class="hero-subtitle">
-                    Practice drills, get IPA-targeted feedback, visualize waveform and pitch, and follow a daily lesson plan with streak tracking.
-                </p>
+                <div class="hero-eyebrow"><i class="fas fa-book-reader"></i> English Reading Tool</div>
+                <h1>Reading Improver</h1>
+                <p class="hero-subtitle">Generate or paste a story, read sentence by sentence, and pass each line with live matching feedback.</p>
             </div>
         </section>
 
-        <div class="coach-content">
-            <section class="coach-card" aria-labelledby="drill-title">
-                <h2 id="drill-title">1) Choose a speaking drill</h2>
-                <p class="coach-subtitle">Pick one sentence and repeat it 3 times before switching drills.</p>
-                <div class="drill-grid" id="drill-grid"></div>
+        <div class="tool-wrap">
+            <section class="tool-card" id="install-panel">
+                <h2>Install This App</h2>
+                <p class="inline-note" id="install-status-text">You can install this tool for one-tap access.</p>
+                <ol class="install-steps" id="install-steps">
+                    <li>Open this page in Safari.</li>
+                    <li>Tap Share.</li>
+                    <li>Tap Add to Home Screen (iPhone) or Add to Dock (Mac).</li>
+                </ol>
+                <div class="btn-row">
+                    <button class="btn btn-secondary" id="copy-install-url-btn">Copy install URL</button>
+                </div>
+                <p class="inline-note" id="copy-install-url-note"></p>
             </section>
 
-            <section class="coach-card" aria-labelledby="practice-title">
-                <h2 id="practice-title">2) Listen, record, and analyze</h2>
-                <div class="practice-target" id="target-sentence"></div>
-                <div class="focus-chip-row" id="focus-chips"></div>
+            <section class="tool-card" id="setup-panel">
+                <h2>Setup Story</h2>
 
-                <div class="ipa-line"><strong>Target IPA:</strong> <span id="ipa-target">--</span></div>
-                <div class="phoneme-grid" id="phoneme-grid"></div>
-
-                <div class="btn-row">
-                    <button class="btn btn-secondary" id="play-reference-btn"><i class="fas fa-volume-high"></i> Play Native Reference</button>
-                    <button class="btn btn-primary" id="start-record-btn"><i class="fas fa-circle"></i> Start Recording</button>
-                    <button class="btn btn-secondary" id="stop-record-btn" disabled><i class="fas fa-stop"></i> Stop</button>
-                    <button class="btn btn-secondary" id="play-recording-btn" disabled><i class="fas fa-play"></i> Play My Recording</button>
-                    <button class="btn btn-primary" id="analyze-btn"><i class="fas fa-wave-square"></i> Analyze My Pronunciation</button>
-                </div>
-
-                <details class="feedback-box" id="compat-panel">
-                    <summary><strong>Compatibility mode (UC/legacy browsers) — click to open</strong></summary>
-                    <div class="btn-row">
-                        <label class="btn btn-secondary" for="upload-audio-input" style="cursor:pointer;">
-                            <i class="fas fa-upload"></i> Upload Audio File
-                        </label>
-                        <input id="upload-audio-input" type="file" accept="audio/*" style="display:none;">
+                <details class="setup-group">
+                    <summary>AI Story Generator</summary>
+                    <div class="field-group">
+                        <label for="api-key-input">Gemini API key</label>
+                        <input id="api-key-input" type="password" placeholder="AIza..." autocomplete="off">
                     </div>
-                    <textarea id="manual-transcript-input" rows="3" style="width:100%; margin-top:0.6rem; border:1px solid var(--color-border); border-radius:8px; padding:0.6rem;" placeholder="Type or paste what you said..."></textarea>
-                    <div class="btn-row" style="margin-top:0.5rem;">
-                        <button class="btn btn-secondary" id="analyze-manual-btn" type="button">
-                            <i class="fas fa-keyboard"></i> Analyze Typed Transcript
-                        </button>
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label for="level-select">Level</label>
+                            <select id="level-select">
+                                <option value="A1">A1</option>
+                                <option value="A2" selected>A2</option>
+                                <option value="B1">B1</option>
+                                <option value="B2">B2</option>
+                            </select>
+                        </div>
+                        <div class="field-group">
+                            <label for="length-range">Length: <span id="length-label">140</span> words</label>
+                            <input id="length-range" type="range" min="90" max="260" value="140" step="10">
+                        </div>
                     </div>
-                    <p class="small-note" id="compat-note">Use this mode if recording or speech recognition is not supported in your browser.</p>
+                    <div class="field-group">
+                        <label for="topic-input">Topic</label>
+                        <input id="topic-input" type="text" value="daily life" placeholder="school, travel, work...">
+                    </div>
+                    <div class="field-group">
+                        <label for="target-words-input">Target words (optional, comma separated)</label>
+                        <input id="target-words-input" type="text" placeholder="library, focus, improve">
+                    </div>
+                    <button class="btn btn-primary" id="generate-story-btn">Generate Story</button>
+                    <p class="inline-note" id="generator-note"></p>
                 </details>
 
-                <div class="canvas-grid">
-                    <div class="canvas-wrap">
-                        <h4 id="wave-title">Waveform</h4>
-                        <canvas id="wave-canvas" width="460" height="140"></canvas>
+                <div class="field-group">
+                    <label for="sample-select">Sample story</label>
+                    <select id="sample-select">
+                        <option value="">None</option>
+                        <option value="morning">Morning Walk</option>
+                        <option value="library">Library Visit</option>
+                    </select>
+                </div>
+
+                <div class="field-group">
+                    <label for="story-input">Story text</label>
+                    <textarea id="story-input" rows="9" placeholder="Paste a short English story..."></textarea>
+                    <p class="inline-note"><span id="word-count">0</span> / 500 words</p>
+                </div>
+
+                <div class="field-row">
+                    <div class="field-group">
+                        <label for="threshold-range">Match threshold: <span id="threshold-label">70</span>%</label>
+                        <input id="threshold-range" type="range" min="50" max="95" value="70" step="1">
+                        <p class="inline-note">Short sentences use a lower effective pass bar.</p>
                     </div>
-                    <div class="canvas-wrap">
-                        <h4 id="pitch-title">Pitch contour (F0)</h4>
-                        <canvas id="pitch-canvas" width="460" height="140"></canvas>
+                    <div class="field-group toggle-group">
+                        <label><input id="auto-advance-toggle" type="checkbox" checked> Auto move to next sentence on pass</label>
+                        <label><input id="show-cues-toggle" type="checkbox" checked> Show pronunciation cues</label>
                     </div>
+                </div>
+
+                <button class="btn btn-primary" id="start-reading-btn">Start Reading</button>
+                <p class="status-text" id="setup-status">Paste or generate a short story to begin.</p>
+            </section>
+
+            <section class="tool-card hidden" id="practice-panel">
+                <h2 id="sentence-progress">Sentence 1 of 1</h2>
+
+                <div class="sentence-list" id="sentence-list"></div>
+
+                <div class="current-box">
+                    <p class="box-title">Current Sentence</p>
+                    <p class="inline-note" id="intonation-cue"></p>
+                    <p id="current-sentence-text"></p>
+                </div>
+
+                <div class="current-box">
+                    <p class="box-title">Transcript</p>
+                    <p id="transcript-text">Start speaking...</p>
+                </div>
+
+                <div class="btn-row">
+                    <button class="btn btn-primary" id="listen-toggle-btn">Start Listening</button>
+                    <button class="btn btn-secondary" id="hear-btn">Hear Sentence</button>
+                    <button class="btn btn-secondary" id="next-btn">Next Sentence</button>
+                    <button class="btn btn-secondary hidden" id="repeat-btn">Repeat Sentence</button>
                 </div>
 
                 <div class="score-grid">
-                    <div class="score-box"><div class="score-label" id="label-match">Transcript Match</div><div class="score-value" id="score-match">--</div></div>
-                    <div class="score-box"><div class="score-label" id="label-pace">Pacing (words/sec)</div><div class="score-value" id="score-pace">--</div></div>
-                    <div class="score-box"><div class="score-label" id="label-grade">Clarity Grade</div><div class="score-value" id="score-grade">--</div></div>
-                    <div class="score-box"><div class="score-label" id="label-phoneme">Phoneme Focus Score</div><div class="score-value" id="score-phoneme">--</div></div>
-                </div>
-
-                <div class="feedback-box">
-                    <strong id="transcript-title">Last transcript:</strong>
-                    <div id="transcript-output">No attempt yet.</div>
-                </div>
-                <div class="feedback-box">
-                    <strong id="tips-title">Actionable tips:</strong>
-                    <ul id="tip-list"><li>Start with one drill and repeat until you can say it smoothly.</li></ul>
-                </div>
-                <p class="small-note" id="engine-note"></p>
-
-                <details class="feedback-box" style="margin-top:0.75rem;">
-                    <summary><strong>Debug Log (click to expand)</strong></summary>
-                    <div class="btn-row" style="margin-top:0.6rem;">
-                        <button class="btn btn-secondary" id="clear-debug-btn" type="button">
-                            <i class="fas fa-broom"></i> Clear Debug Log
-                        </button>
+                    <div class="score-box">
+                        <div class="score-label">Live Score</div>
+                        <div class="score-value" id="live-score-value">--</div>
                     </div>
-                    <pre id="debug-log" style="margin-top:0.6rem; white-space:pre-wrap; max-height:180px; overflow:auto; background:#fff; border:1px solid var(--color-border); border-radius:8px; padding:0.6rem;">(waiting for events...)</pre>
-                </details>
-            </section>
+                    <div class="score-box">
+                        <div class="score-label">Last Match Score</div>
+                        <div class="score-value" id="last-score-value">--</div>
+                    </div>
+                    <div class="score-box">
+                        <div class="score-label">Effective Threshold</div>
+                        <div class="score-value" id="effective-threshold-value">--</div>
+                    </div>
+                </div>
 
-            <section class="coach-card" aria-labelledby="pairs-title">
-                <h2 id="pairs-title">3) Minimal pairs challenge</h2>
-                <p class="coach-subtitle" id="pair-subtitle">Train difficult contrasts like ship/sheep, rice/lice, and think/sink.</p>
-                <div class="btn-row">
-                    <button class="btn btn-primary" id="play-pair-btn"><i class="fas fa-headphones"></i> Play Pair Challenge</button>
-                </div>
-                <div class="pair-word-row">
-                    <button class="pair-option" id="pair-option-a"></button>
-                    <button class="pair-option" id="pair-option-b"></button>
-                </div>
-                <p class="small-note" id="pair-result">Press "Play Pair Challenge" to start.</p>
-            </section>
-
-            <section class="coach-card" aria-labelledby="progress-title">
-                <h2 id="progress-title">4) Daily progress and lesson plan</h2>
-                <div class="score-grid">
-                    <div class="score-box"><div class="score-label" id="label-sessions">Practice Sessions</div><div class="score-value" id="session-count">0</div></div>
-                    <div class="score-box"><div class="score-label" id="label-drills">Drills Completed</div><div class="score-value" id="drill-count">0</div></div>
-                    <div class="score-box"><div class="score-label" id="label-pair-acc">Minimal Pair Accuracy</div><div class="score-value" id="pair-accuracy">0%</div></div>
-                    <div class="score-box"><div class="score-label" id="label-streak">Current Streak</div><div class="score-value" id="streak-count">0 days</div></div>
-                </div>
-                <p class="small-note"><strong id="plan-date-label">Today's plan:</strong> <span id="plan-date"></span></p>
-                <div class="lesson-list" id="lesson-list"></div>
+                <p class="status-text" id="practice-status"></p>
+                <button class="btn btn-secondary" id="new-story-btn">Use New Story</button>
             </section>
         </div>
     </main>
 
     <script src="accent-coach.js"></script>
-    <script src="lang-switcher.js"></script>
     <script>
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", function () {
@@ -183,20 +184,13 @@
     </script>
     <script>
         (function () {
-            var btn = document.getElementById('mobile-menu-btn');
-            var links = document.getElementById('nav-links');
+            var btn = document.getElementById("mobile-menu-btn");
+            var links = document.getElementById("nav-links");
             if (!btn || !links) return;
-            btn.addEventListener('click', function () {
-                var open = links.classList.toggle('mobile-open');
-                btn.setAttribute('aria-expanded', open);
-                btn.querySelector('i').className = open ? 'fas fa-times' : 'fas fa-bars';
-            });
-            links.querySelectorAll('a').forEach(function (a) {
-                a.addEventListener('click', function () {
-                    links.classList.remove('mobile-open');
-                    btn.setAttribute('aria-expanded', 'false');
-                    btn.querySelector('i').className = 'fas fa-bars';
-                });
+            btn.addEventListener("click", function () {
+                var open = links.classList.toggle("mobile-open");
+                btn.setAttribute("aria-expanded", open);
+                btn.querySelector("i").className = open ? "fas fa-times" : "fas fa-bars";
             });
         }());
     </script>
