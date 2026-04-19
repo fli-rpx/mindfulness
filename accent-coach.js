@@ -19,6 +19,7 @@
         failedIndexes: {},
         started: false,
         isListening: false,
+        isStartingListening: false,
         shouldIgnoreError: false,
         autoAdvancedThisSentence: false
     };
@@ -47,6 +48,7 @@
         transcriptText: byId("transcript-text"),
         listenToggleBtn: byId("listen-toggle-btn"),
         hearBtn: byId("hear-btn"),
+        typedAttemptBtn: byId("typed-attempt-btn"),
         nextBtn: byId("next-btn"),
         repeatBtn: byId("repeat-btn"),
         liveScoreValue: byId("live-score-value"),
@@ -230,6 +232,7 @@
         refs.hearBtn.addEventListener("click", function () {
             speakSentence(currentSentence());
         });
+        refs.typedAttemptBtn.addEventListener("click", promptTypedAttempt);
         refs.nextBtn.addEventListener("click", function () {
             goToNextSentence(false);
         });
@@ -319,57 +322,98 @@
     function beginListening() {
         var Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (!Recognition) {
-            refs.practiceStatus.textContent = "Speech recognition is not supported in this browser.";
+            refs.practiceStatus.textContent = "Speech recognition is not supported in this browser. Use Type Attempt.";
+            return;
+        }
+        if (state.isStartingListening) {
             return;
         }
 
-        stopListening(true);
-        recognition = new Recognition();
-        recognition.lang = "en-US";
-        recognition.interimResults = true;
-        recognition.continuous = true;
-        state.shouldIgnoreError = false;
-        state.autoAdvancedThisSentence = false;
-        state.transcript = "";
-        state.liveScore = null;
-        refs.transcriptText.textContent = "Start speaking...";
-        refs.practiceStatus.textContent = "Listening... read the sentence aloud.";
+        if (!window.isSecureContext && location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
+            refs.practiceStatus.textContent = "Microphone needs HTTPS (or localhost).";
+            return;
+        }
+        state.isStartingListening = true;
+        updateListenButton();
+        refs.practiceStatus.textContent = "Requesting microphone permission...";
 
-        recognition.onstart = function () {
-            state.isListening = true;
-            updateListenButton();
-        };
-
-        recognition.onresult = function (event) {
-            var full = "";
-            for (var i = 0; i < event.results.length; i += 1) {
-                full += event.results[i][0].transcript + " ";
-            }
-            full = full.trim();
-            state.transcript = full;
-            refs.transcriptText.textContent = full || "Start speaking...";
-            evaluateLiveProgress(full);
-        };
-
-        recognition.onerror = function (event) {
-            if (state.shouldIgnoreError || event.error === "aborted" || event.error === "no-speech") {
+        ensureMicrophoneAccess().then(function (ok) {
+            if (!ok) {
+                state.isStartingListening = false;
+                updateListenButton();
+                refs.practiceStatus.textContent = "Microphone permission blocked. In Safari, allow Microphone and Speech Recognition, then try again.";
                 return;
             }
-            state.isListening = false;
-            updateListenButton();
-            refs.practiceStatus.textContent = "Speech recognition failed: " + event.error;
-        };
 
-        recognition.onend = function () {
-            state.isListening = false;
-            updateListenButton();
-        };
+            stopListening(true);
+            recognition = new Recognition();
+            recognition.lang = "en-US";
+            recognition.interimResults = true;
+            recognition.continuous = false;
+            state.shouldIgnoreError = false;
+            state.autoAdvancedThisSentence = false;
+            state.transcript = "";
+            state.liveScore = null;
+            refs.transcriptText.textContent = "Start speaking...";
+            refs.practiceStatus.textContent = "Listening... read the sentence aloud.";
+            var didStart = false;
 
-        try {
-            recognition.start();
-        } catch (_err) {
-            refs.practiceStatus.textContent = "Could not start listening. Tap Start Listening again.";
-        }
+            recognition.onstart = function () {
+                didStart = true;
+                state.isListening = true;
+                state.isStartingListening = false;
+                updateListenButton();
+            };
+
+            recognition.onresult = function (event) {
+                var full = "";
+                for (var i = 0; i < event.results.length; i += 1) {
+                    full += event.results[i][0].transcript + " ";
+                }
+                full = full.trim();
+                state.transcript = full;
+                refs.transcriptText.textContent = full || "Start speaking...";
+                evaluateLiveProgress(full);
+            };
+
+            recognition.onerror = function (event) {
+                if (state.shouldIgnoreError || event.error === "aborted" || event.error === "no-speech") {
+                    return;
+                }
+                state.isListening = false;
+                state.isStartingListening = false;
+                updateListenButton();
+                refs.practiceStatus.textContent = mapSpeechError(event.error);
+            };
+
+            recognition.onend = function () {
+                state.isListening = false;
+                state.isStartingListening = false;
+                updateListenButton();
+                if (!didStart) {
+                    refs.practiceStatus.textContent = "Could not start microphone. Check Safari permission and try again.";
+                }
+            };
+
+            try {
+                recognition.start();
+                setTimeout(function () {
+                    if (!didStart && !state.isListening) {
+                        state.isStartingListening = false;
+                        updateListenButton();
+                        refs.practiceStatus.textContent = "Start Listening did not start. Tap again or use Type Attempt.";
+                    }
+                }, 1200);
+            } catch (_err) {
+                state.isStartingListening = false;
+                updateListenButton();
+                refs.practiceStatus.textContent = "Could not start listening. Tap Start Listening again.";
+            }
+        }).catch(function () {
+            state.isStartingListening = false;
+            updateListenButton();
+            refs.practiceStatus.textContent = "Microphone check failed. Try again or use Type Attempt.";
+        });
     }
 
     function stopListening(suppressError) {
@@ -384,7 +428,53 @@
     }
 
     function updateListenButton() {
+        if (state.isStartingListening) {
+            refs.listenToggleBtn.textContent = "Starting...";
+            refs.listenToggleBtn.disabled = true;
+            return;
+        }
+        refs.listenToggleBtn.disabled = false;
         refs.listenToggleBtn.textContent = state.isListening ? "Stop Listening" : "Start Listening";
+    }
+
+    async function ensureMicrophoneAccess() {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            // Some browsers may still support speech recognition without mediaDevices.
+            return true;
+        }
+        try {
+            var stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            stream.getTracks().forEach(function (track) { track.stop(); });
+            return true;
+        } catch (_err) {
+            return false;
+        }
+    }
+
+    function mapSpeechError(code) {
+        if (code === "not-allowed" || code === "service-not-allowed") {
+            return "Microphone/Speech permission denied. Enable Safari permissions in Settings.";
+        }
+        if (code === "network") {
+            return "Speech service network error. Check internet and try again.";
+        }
+        if (code === "audio-capture") {
+            return "Microphone not available. Check device mic and permissions.";
+        }
+        return "Speech recognition failed: " + code;
+    }
+
+    function promptTypedAttempt() {
+        var typed = window.prompt("Type what you said for scoring:", state.transcript || "");
+        if (typed == null) return;
+        typed = typed.trim();
+        if (!typed) {
+            refs.practiceStatus.textContent = "No typed attempt provided.";
+            return;
+        }
+        state.transcript = typed;
+        refs.transcriptText.textContent = typed;
+        evaluateAttempt(typed);
     }
 
     function evaluateUsingCurrentTranscript() {
