@@ -18,34 +18,41 @@ struct ContentView: View {
                     Text("Home")
                 }
                 .tag(0)
+
+            EnglishReadingCoachView()
+                .tabItem {
+                    Image(systemName: "text.book.closed.fill")
+                    Text("English")
+                }
+                .tag(1)
             
             EmotionalSaladView(viewModel: viewModel)
                 .tabItem {
                     Image(systemName: "leaf.fill")
                     Text("Salad Check")
                 }
-                .tag(1)
+                .tag(2)
             
             ExercisesView(viewModel: viewModel)
                 .tabItem {
                     Image(systemName: "play.circle.fill")
                     Text("Practice")
                 }
-                .tag(2)
+                .tag(3)
             
             JournalView(viewModel: viewModel)
                 .tabItem {
                     Image(systemName: "book.fill")
                     Text("Journal")
                 }
-                .tag(3)
+                .tag(4)
             
             ProgressView(viewModel: viewModel)
                 .tabItem {
                     Image(systemName: "chart.bar.fill")
                     Text("Progress")
                 }
-                .tag(4)
+                .tag(5)
         }
         .accentColor(.teal)
     }
