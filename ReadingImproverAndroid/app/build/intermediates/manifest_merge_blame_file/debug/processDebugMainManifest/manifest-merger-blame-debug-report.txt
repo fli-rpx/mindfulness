@@ -1,0 +1,163 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.mindfulness.readingimprover"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+9        android:targetSdkVersion="35" />
+10
+11    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+11-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:4:5-71
+11-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:4:22-68
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:5:5-67
+12-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:5:22-64
+13
+14    <queries>
+14-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:7:5-13:15
+15        <intent>
+15-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:8:9-10:18
+16            <action android:name="android.intent.action.TTS_SERVICE" />
+16-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:9:13-72
+16-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:9:21-69
+17        </intent>
+18
+19        <package android:name="com.google.android.tts" />
+19-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:11:9-58
+19-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:11:18-55
+20        <package android:name="com.samsung.SMT" />
+20-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:12:9-51
+20-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:12:18-48
+21    </queries>
+22
+23    <permission
+23-->[androidx.core:core:1.15.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/16776d59d1741bb4bf93b7d4afa6586f/transformed/core-1.15.0/AndroidManifest.xml:22:5-24:47
+24        android:name="com.mindfulness.readingimprover.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+24-->[androidx.core:core:1.15.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/16776d59d1741bb4bf93b7d4afa6586f/transformed/core-1.15.0/AndroidManifest.xml:23:9-81
+25        android:protectionLevel="signature" />
+25-->[androidx.core:core:1.15.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/16776d59d1741bb4bf93b7d4afa6586f/transformed/core-1.15.0/AndroidManifest.xml:24:9-44
+26
+27    <uses-permission android:name="com.mindfulness.readingimprover.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+27-->[androidx.core:core:1.15.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/16776d59d1741bb4bf93b7d4afa6586f/transformed/core-1.15.0/AndroidManifest.xml:26:5-97
+27-->[androidx.core:core:1.15.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/16776d59d1741bb4bf93b7d4afa6586f/transformed/core-1.15.0/AndroidManifest.xml:26:22-94
+28
+29    <application
+29-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:15:5-31:19
+30        android:allowBackup="true"
+30-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:16:9-35
+31        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+31-->[androidx.core:core:1.15.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/16776d59d1741bb4bf93b7d4afa6586f/transformed/core-1.15.0/AndroidManifest.xml:28:18-86
+32        android:debuggable="true"
+33        android:extractNativeLibs="false"
+34        android:icon="@android:drawable/ic_dialog_info"
+34-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:17:9-56
+35        android:label="Reading Improver"
+35-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:18:9-41
+36        android:roundIcon="@android:drawable/ic_dialog_info"
+36-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:19:9-61
+37        android:supportsRtl="true"
+37-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:20:9-35
+38        android:testOnly="true"
+39        android:theme="@style/Theme.ReadingImprover" >
+39-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:21:9-53
+40        <activity
+40-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:22:9-30:20
+41            android:name="com.mindfulness.readingimprover.MainActivity"
+41-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:23:13-41
+42            android:exported="true" >
+42-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:24:13-36
+43            <intent-filter>
+43-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:25:13-29:29
+44                <action android:name="android.intent.action.MAIN" />
+44-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:26:17-69
+44-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:26:25-66
+45
+46                <category android:name="android.intent.category.LAUNCHER" />
+46-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:28:17-77
+46-->/Users/fudongli/mindfulness/ReadingImproverAndroid/app/src/main/AndroidManifest.xml:28:27-74
+47            </intent-filter>
+48        </activity>
+49        <activity
+49-->[androidx.compose.ui:ui-tooling-android:1.7.7] /Users/fudongli/.gradle/caches/9.0.0/transforms/6ec3a6909a4ea795a33f0c4d84f0a715/transformed/ui-tooling-release/AndroidManifest.xml:23:9-25:39
+50            android:name="androidx.compose.ui.tooling.PreviewActivity"
+50-->[androidx.compose.ui:ui-tooling-android:1.7.7] /Users/fudongli/.gradle/caches/9.0.0/transforms/6ec3a6909a4ea795a33f0c4d84f0a715/transformed/ui-tooling-release/AndroidManifest.xml:24:13-71
+51            android:exported="true" />
+51-->[androidx.compose.ui:ui-tooling-android:1.7.7] /Users/fudongli/.gradle/caches/9.0.0/transforms/6ec3a6909a4ea795a33f0c4d84f0a715/transformed/ui-tooling-release/AndroidManifest.xml:25:13-36
+52
+53        <provider
+53-->[androidx.emoji2:emoji2:1.3.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/b873ae30b54ca808b3250000357acb60/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+54            android:name="androidx.startup.InitializationProvider"
+54-->[androidx.emoji2:emoji2:1.3.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/b873ae30b54ca808b3250000357acb60/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
+55            android:authorities="com.mindfulness.readingimprover.androidx-startup"
+55-->[androidx.emoji2:emoji2:1.3.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/b873ae30b54ca808b3250000357acb60/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
+56            android:exported="false" >
+56-->[androidx.emoji2:emoji2:1.3.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/b873ae30b54ca808b3250000357acb60/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
+57            <meta-data
+57-->[androidx.emoji2:emoji2:1.3.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/b873ae30b54ca808b3250000357acb60/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+58                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+58-->[androidx.emoji2:emoji2:1.3.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/b873ae30b54ca808b3250000357acb60/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
+59                android:value="androidx.startup" />
+59-->[androidx.emoji2:emoji2:1.3.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/b873ae30b54ca808b3250000357acb60/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
+60            <meta-data
+60-->[androidx.lifecycle:lifecycle-process:2.8.7] /Users/fudongli/.gradle/caches/9.0.0/transforms/b81e877362bfe9173fdfb635a0ea5c32/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:29:13-31:52
+61                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+61-->[androidx.lifecycle:lifecycle-process:2.8.7] /Users/fudongli/.gradle/caches/9.0.0/transforms/b81e877362bfe9173fdfb635a0ea5c32/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:30:17-78
+62                android:value="androidx.startup" />
+62-->[androidx.lifecycle:lifecycle-process:2.8.7] /Users/fudongli/.gradle/caches/9.0.0/transforms/b81e877362bfe9173fdfb635a0ea5c32/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:31:17-49
+63            <meta-data
+63-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/3541df1580c5e49b8906daff7acdefa6/transformed/profileinstaller-1.4.0/AndroidManifest.xml:29:13-31:52
+64                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+64-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/3541df1580c5e49b8906daff7acdefa6/transformed/profileinstaller-1.4.0/AndroidManifest.xml:30:17-85
+65                android:value="androidx.startup" />
+65-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/3541df1580c5e49b8906daff7acdefa6/transformed/profileinstaller-1.4.0/AndroidManifest.xml:31:17-49
+66        </provider>
+67
+68        <activity
+68-->[androidx.compose.ui:ui-test-manifest:1.7.7] /Users/fudongli/.gradle/caches/9.0.0/transforms/14592b149579c3f5cb9ce9b450b0fd51/transformed/ui-test-manifest-1.7.7/AndroidManifest.xml:23:9-25:39
+69            android:name="androidx.activity.ComponentActivity"
+69-->[androidx.compose.ui:ui-test-manifest:1.7.7] /Users/fudongli/.gradle/caches/9.0.0/transforms/14592b149579c3f5cb9ce9b450b0fd51/transformed/ui-test-manifest-1.7.7/AndroidManifest.xml:24:13-63
+70            android:exported="true" />
+70-->[androidx.compose.ui:ui-test-manifest:1.7.7] /Users/fudongli/.gradle/caches/9.0.0/transforms/14592b149579c3f5cb9ce9b450b0fd51/transformed/ui-test-manifest-1.7.7/AndroidManifest.xml:25:13-36
+71
+72        <receiver
+72-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/3541df1580c5e49b8906daff7acdefa6/transformed/profileinstaller-1.4.0/AndroidManifest.xml:34:9-52:20
+73            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+73-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/3541df1580c5e49b8906daff7acdefa6/transformed/profileinstaller-1.4.0/AndroidManifest.xml:35:13-76
+74            android:directBootAware="false"
+74-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/3541df1580c5e49b8906daff7acdefa6/transformed/profileinstaller-1.4.0/AndroidManifest.xml:36:13-44
+75            android:enabled="true"
+75-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/3541df1580c5e49b8906daff7acdefa6/transformed/profileinstaller-1.4.0/AndroidManifest.xml:37:13-35
+76            android:exported="true"
+76-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/3541df1580c5e49b8906daff7acdefa6/transformed/profileinstaller-1.4.0/AndroidManifest.xml:38:13-36
+77            android:permission="android.permission.DUMP" >
+77-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/3541df1580c5e49b8906daff7acdefa6/transformed/profileinstaller-1.4.0/AndroidManifest.xml:39:13-57
+78            <intent-filter>
+78-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/3541df1580c5e49b8906daff7acdefa6/transformed/profileinstaller-1.4.0/AndroidManifest.xml:40:13-42:29
+79                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+79-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/3541df1580c5e49b8906daff7acdefa6/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:17-91
+79-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/3541df1580c5e49b8906daff7acdefa6/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:25-88
+80            </intent-filter>
+81            <intent-filter>
+81-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/3541df1580c5e49b8906daff7acdefa6/transformed/profileinstaller-1.4.0/AndroidManifest.xml:43:13-45:29
+82                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+82-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/3541df1580c5e49b8906daff7acdefa6/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:17-85
+82-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/3541df1580c5e49b8906daff7acdefa6/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:25-82
+83            </intent-filter>
+84            <intent-filter>
+84-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/3541df1580c5e49b8906daff7acdefa6/transformed/profileinstaller-1.4.0/AndroidManifest.xml:46:13-48:29
+85                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+85-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/3541df1580c5e49b8906daff7acdefa6/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:17-88
+85-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/3541df1580c5e49b8906daff7acdefa6/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:25-85
+86            </intent-filter>
+87            <intent-filter>
+87-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/3541df1580c5e49b8906daff7acdefa6/transformed/profileinstaller-1.4.0/AndroidManifest.xml:49:13-51:29
+88                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+88-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/3541df1580c5e49b8906daff7acdefa6/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:17-95
+88-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/fudongli/.gradle/caches/9.0.0/transforms/3541df1580c5e49b8906daff7acdefa6/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:25-92
+89            </intent-filter>
+90        </receiver>
+91    </application>
+92
+93</manifest>
